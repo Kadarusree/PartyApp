@@ -18,6 +18,7 @@ public class HomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        System.out.print("hello");
         return inflater.inflate(R.layout.home_fragment,null,false);
     }
 }
