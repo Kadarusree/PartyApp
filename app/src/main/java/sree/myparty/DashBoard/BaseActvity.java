@@ -1,5 +1,8 @@
 package sree.myparty.DashBoard;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,7 +18,7 @@ import android.view.MenuItem;
 
 import sree.myparty.R;
 
-public class BaseActvity extends AppCompatActivity
+public abstract class BaseActvity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
@@ -42,6 +45,8 @@ public class BaseActvity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        replaceFragement(new HomeFragment());
     }
 
     @Override
@@ -99,5 +104,12 @@ public class BaseActvity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void replaceFragement(Fragment fg){
+        FragmentManager mFragmentManager = getFragmentManager();
+        FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+        mFragmentTransaction.replace(R.id.content_frame, fg);
+        mFragmentTransaction.commit();
     }
 }
