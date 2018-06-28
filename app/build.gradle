@@ -1,0 +1,50 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 26
+    flavorDimensions "versionCode"
+    defaultConfig {
+        applicationId "sree.myparty"
+        minSdkVersion 16
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+        development {
+            minSdkVersion 16
+            applicationId 'sree.myparty.dev'
+            resValue "string", "app_name", "MyParty-Dev"
+            buildConfigField 'String', 'HOST', '"https://dev.ilp.org.in"'
+        }
+        production {
+            minSdkVersion 16
+            applicationId 'sree.myparty'
+            resValue "string", "app_name", "MyParty"
+            buildConfigField 'String', 'HOST', '"https://dev.ilp.org.in"'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:26.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    implementation 'com.google.firebase:firebase-auth:11.6.0'
+    testImplementation 'junit:junit:4.12'
+    implementation 'com.android.support:design:26.1.0'
+    implementation 'com.alimuzaffar.lib:pinentryedittext:1.0'
+    implementation 'me.philio:pinentryview:1.0.6'
+
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+}
+
+apply plugin: 'com.google.gms.google-services'
