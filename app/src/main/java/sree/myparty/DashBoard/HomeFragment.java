@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 
 import sree.myparty.R;
@@ -28,6 +29,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Dialog d = new Dialog(getActivity());
+                d.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 d.setContentView(R.layout.id_card);
                 d.show();
             }

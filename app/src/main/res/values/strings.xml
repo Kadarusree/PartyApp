@@ -28,4 +28,13 @@
 
     <string name="error_invalid_voter_id">Enter a valid voter id</string>
     <string name="error_invalid_mobile_number">Enter 10 digit mobile number</string>
+
+    <string name="db_option1">ID CARD</string>
+    <string name="db_option2">BECOME VOLUNTEER</string>
+    <string name="db_option3">CHATS</string>
+    <string name="db_option4">VIDEO\n CALLING</string>
+    <string name="db_option5">VOLUNTEER\n LOGIN</string>
+    <string name="db_option6">ADMIN\n LOGIN</string>
+
+    <string name="marque_text">This is a very long text to test the marquee text</string>
 </resources>

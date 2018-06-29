@@ -11,9 +11,22 @@ import android.view.Window;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import sree.myparty.apis.ApiClient;
+import sree.myparty.apis.ApiInterface;
+import sree.myparty.firebase.Data;
+import sree.myparty.firebase.FirebasePushModel;
+import sree.myparty.utils.Constants;
 
 public class RegistartionActivity extends AppCompatActivity {
 
@@ -37,6 +50,35 @@ public class RegistartionActivity extends AppCompatActivity {
         String fontPath = "fonts/oswald_regular.ttf";
         Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
         mLandigText.setTypeface(tf);
+
+        FirebaseInstanceId.getInstance().getToken();
+
+        ApiInterface apiService =
+                ApiClient.getFirebaseClient().create(ApiInterface.class);
+        FirebasePushModel mModel = new FirebasePushModel();
+
+        Data mData = new Data();
+        mData.setKey("Hello User");
+
+        ArrayList<String> keys = new ArrayList<>();
+        keys.add("f019FvmE0Oc:APA91bGIGz-Ws5paXtj9mF9WeU5YSmGFxD8Ltldk4YjB0_LC_RG782Y7c6zkTz-OffR1MEZnuud38nqJNCifryLUEvzLKrNq03hBSYTEEy_1RlblQPvC0Yws2q0TXIbQdDIaNco_8k-sZZEhljjxQ9bCUn6RN89uVQ");
+
+        mModel.setData(mData);
+        mModel.setRegistrationIds(keys);
+
+
+        Call<ResponseBody> call = apiService.sendNotification(Constants.FCM_SERVER_KEY,"application/json",mModel);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
     }
 
 
