@@ -50,6 +50,9 @@ public class RegistartionActivity extends AppCompatActivity {
         String fontPath = "fonts/oswald_regular.ttf";
         Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
         mLandigText.setTypeface(tf);
+        
+        
+        //Hello, this is a comment
 
         FirebaseInstanceId.getInstance().getToken();
 
