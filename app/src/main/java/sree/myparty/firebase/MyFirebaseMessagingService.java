@@ -29,6 +29,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         super.onMessageReceived(remoteMessage);
 
 
+        showNotification(getApplicationContext(),remoteMessage.getData().get("key"),new Intent());
+
+
 
 
 

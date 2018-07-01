@@ -61,7 +61,7 @@ public class RegistartionActivity extends AppCompatActivity {
         mData.setKey("Hello User");
 
         ArrayList<String> keys = new ArrayList<>();
-        keys.add("f019FvmE0Oc:APA91bGIGz-Ws5paXtj9mF9WeU5YSmGFxD8Ltldk4YjB0_LC_RG782Y7c6zkTz-OffR1MEZnuud38nqJNCifryLUEvzLKrNq03hBSYTEEy_1RlblQPvC0Yws2q0TXIbQdDIaNco_8k-sZZEhljjxQ9bCUn6RN89uVQ");
+        keys.add("cpJ6Mg85kRQ:APA91bGH5N2eGS3NvORXLAYAvvVAg2udHqifeSVXvh4bXjXmXXE4ysB3WKiIYkJe4r6RlzjHoJ8wJAFXnmAAkZdAPEyU1E91HP09IcgOrisGaDHlDR1J_xFYLRoV2O2q_BO1Mm7OuKxqPtcKlGEfwwZj4j7tV4e6ZQ");
 
         mModel.setData(mData);
         mModel.setRegistrationIds(keys);
@@ -71,6 +71,8 @@ public class RegistartionActivity extends AppCompatActivity {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                Response<ResponseBody> mresponse = response;
 
             }
 
