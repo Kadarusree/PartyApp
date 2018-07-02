@@ -2,10 +2,12 @@ package sree.myparty;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.support.annotation.BinderThread;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
@@ -13,11 +15,24 @@ import android.widget.TextView;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,6 +41,7 @@ import sree.myparty.apis.ApiClient;
 import sree.myparty.apis.ApiInterface;
 import sree.myparty.firebase.Data;
 import sree.myparty.firebase.FirebasePushModel;
+import sree.myparty.session.SessionManager;
 import sree.myparty.utils.Constants;
 
 public class RegistartionActivity extends AppCompatActivity {
@@ -39,7 +55,7 @@ public class RegistartionActivity extends AppCompatActivity {
 
     @BindView(R.id.edt_mobilenumber)
     EditText mMobileNumber;
-
+    JSONObject mObject;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,11 +67,17 @@ public class RegistartionActivity extends AppCompatActivity {
         Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
         mLandigText.setTypeface(tf);
 
+
+        SessionManager mSessionManager = new SessionManager(this);
+        String fb_key = mSessionManager.getFirebaseKey();
+
+        Constants.showToast(fb_key,this);
+
         FirebaseInstanceId.getInstance().getToken();
 
-        ApiInterface apiService =
+       /* ApiInterface apiService =
                 ApiClient.getFirebaseClient().create(ApiInterface.class);
-        FirebasePushModel mModel = new FirebasePushModel();
+        FirebasePushModel mModel = new FirebasePushModel();*/
 
         Data mData = new Data();
         mData.setKey("Hello User");
@@ -63,11 +85,26 @@ public class RegistartionActivity extends AppCompatActivity {
         ArrayList<String> keys = new ArrayList<>();
         keys.add("f019FvmE0Oc:APA91bGIGz-Ws5paXtj9mF9WeU5YSmGFxD8Ltldk4YjB0_LC_RG782Y7c6zkTz-OffR1MEZnuud38nqJNCifryLUEvzLKrNq03hBSYTEEy_1RlblQPvC0Yws2q0TXIbQdDIaNco_8k-sZZEhljjxQ9bCUn6RN89uVQ");
 
-        mModel.setData(mData);
-        mModel.setRegistrationIds(keys);
+     /*   mModel.setData(mData);
+        mModel.setRegistrationIds(keys);*/
 
 
-        Call<ResponseBody> call = apiService.sendNotification(Constants.FCM_SERVER_KEY,"application/json",mModel);
+         mObject = new JSONObject();
+        try {
+
+            mObject.put("data",new JSONObject().put("key","Hello User"));
+            mObject.put("registration_ids",new JSONArray(Arrays.asList(fb_key)));
+
+            System.out.print(mObject.toString());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        DeleteBulkFromBackEnd mEnd  = new DeleteBulkFromBackEnd(new OkHttpClient());
+        mEnd.execute();
+
+        /*Call<ResponseBody> call = apiService.sendNotification(mObject);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -78,7 +115,7 @@ public class RegistartionActivity extends AppCompatActivity {
             public void onFailure(Call<ResponseBody> call, Throwable t) {
 
             }
-        });
+        });*/
     }
 
 
@@ -115,6 +152,45 @@ public class RegistartionActivity extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(), OTP_Activity.class));
             overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         }
+
+
     }
 
+
+    class DeleteBulkFromBackEnd extends AsyncTask<Void, Void, String> {
+
+        final String API_URL = Constants.FIREBASE_PUSH_API;
+        final OkHttpClient mClient;
+
+        public DeleteBulkFromBackEnd(OkHttpClient client) {
+            mClient = client;
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            try {
+                MediaType JSON
+                        = MediaType.parse("application/json; charset=utf-8");
+                RequestBody mBody = RequestBody.create(JSON,mObject.toString());
+                Request request = new Request.Builder()
+                        .url(API_URL)
+                        .post(mBody)
+                        .header("Authorization", Constants.FCM_SERVER_KEY)
+                        .header("Content-Type", "application/json")
+                        .build();
+
+
+
+                okhttp3.Response response = mClient.newCall(request).execute();
+
+                Log.d("DeleteBulkFromBackEnd", "Code: " + response.code());
+                Log.d("DeleteBulkFromBackEnd", "Body: " + response.body().string());
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+    }
 }

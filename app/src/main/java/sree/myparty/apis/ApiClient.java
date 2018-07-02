@@ -11,10 +11,10 @@ public class ApiClient {
  
     public static Retrofit getFirebaseClient() {
         if (retrofit==null) {
-            retrofit = new Retrofit.Builder()
+            /*retrofit = new Retrofit.Builder()
                     .baseUrl(Constants.FIREBASE_PUSH_API)
                     .addConverterFactory(GsonConverterFactory.create())
-                    .build();
+                    .build();*/
         }
         return retrofit;
     }

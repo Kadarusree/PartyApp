@@ -5,6 +5,8 @@ import android.util.Log;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
+import sree.myparty.session.SessionManager;
+
 /**
  * Created by srikanthk on 6/29/2018.
  */
@@ -23,5 +25,8 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
         // manage this apps subscriptions on the server side, send the
         // Instance ID token to your app server.
         //sendRegistrationToServer(refreshedToken);
+
+        SessionManager mSessionManager = new SessionManager(getApplicationContext());
+        mSessionManager.storeFirebaseKey(refreshedToken);
     }
 }
