@@ -28,7 +28,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
-showNotification(getApplicationContext(),remoteMessage.getData().get("key"),new Intent());
+
 
 
 
@@ -46,7 +46,7 @@ showNotification(getApplicationContext(),remoteMessage.getData().get("key"),new 
                         .setSmallIcon(R.drawable.ic_logo)
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(body))
                         .setContentText(body)
-                        .setAutoCancel(true)
+                        .setAutoCancel(false)
                         .setSound(defaultSoundUri)
                         .setContentIntent(PendingIntent.getActivity(this,
                                 0, new Intent(),PendingIntent.FLAG_UPDATE_CURRENT));
