@@ -47,6 +47,8 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
     implementation 'com.google.firebase:firebase-messaging:11.6.0'
+    implementation 'com.google.firebase:firebase-database:11.6.0'
+
 
     compile 'com.squareup.retrofit2:retrofit:2.4.0'
     compile 'com.google.code.gson:gson:2.6.2'

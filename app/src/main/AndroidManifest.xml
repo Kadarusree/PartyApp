@@ -69,7 +69,12 @@
         <activity android:name=".volunteer.VolunteerLogin" />
         <activity android:name=".volunteer.VolunteerRegis" />
         <activity android:name=".admin.AdminLogin" />
-        <activity android:name=".volunteer.VolunteerDashboard" android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".volunteer.VolunteerDashboard"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".volunteer.InfluencePerson" />
+        <activity android:name=".volunteer.Local_Issues" />
+        <activity android:name=".volunteer.CasteWiseVoters"></activity>
     </application>
 
 </manifest>
