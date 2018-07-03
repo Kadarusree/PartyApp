@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import sree.myparty.R;
+import sree.myparty.utils.ActivityLauncher;
 
 public abstract class BaseActvity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -88,7 +89,7 @@ public abstract class BaseActvity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+            ActivityLauncher.postNews(this);
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {

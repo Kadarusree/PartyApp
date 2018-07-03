@@ -83,7 +83,7 @@ public class RegistartionActivity extends AppCompatActivity {
         mData.setKey("Hello User");
 
         ArrayList<String> keys = new ArrayList<>();
-        keys.add("f019FvmE0Oc:APA91bGIGz-Ws5paXtj9mF9WeU5YSmGFxD8Ltldk4YjB0_LC_RG782Y7c6zkTz-OffR1MEZnuud38nqJNCifryLUEvzLKrNq03hBSYTEEy_1RlblQPvC0Yws2q0TXIbQdDIaNco_8k-sZZEhljjxQ9bCUn6RN89uVQ");
+        keys.add(fb_key);
 
      /*   mModel.setData(mData);
         mModel.setRegistrationIds(keys);*/

@@ -44,5 +44,11 @@
     <string name="vol_db_option5"></string>
     <string name="vol_db_option6"></string>
 
+
+    <string name="takephoto">TAKE PICTURE</string>
+    <string name="choosefromlib">PICK FROM GALLERY</string>
+    <string name="cancel">CANCEL</string>
+    <string name="permission">PICK FROM GALLERY</string>
+    <string name="externalstorage">CANCEL</string>
     <string name="marque_text">This is a very long text to test the marquee text</string>
 </resources>

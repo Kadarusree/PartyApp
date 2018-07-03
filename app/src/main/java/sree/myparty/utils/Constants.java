@@ -21,6 +21,8 @@ public class Constants {
     public static final String VOTERID = "voterID";
     public static final String CONSTIUNCY = "constiuency";
 
+    public static String GKA_IMAGE_STORAGE_PATH="GKSurveyIMG";
+
     public static void showToast(String text, Activity mActivty){
         Toast.makeText(mActivty,text,Toast.LENGTH_LONG).show();
     }

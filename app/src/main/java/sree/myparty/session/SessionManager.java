@@ -29,8 +29,8 @@ public class SessionManager {
     }
 
     public String getFirebaseKey(){
-       // return mSharedPref.getString(Constants.FIREBASE_KEY,"0");
+       return mSharedPref.getString(Constants.FIREBASE_KEY,"0");
 
-        return "eubrXBi1dEI:APA91bHnvVoGX8KdFZBMSkiGV7ULC8lBByPEwSSYLy31U3JH5SX3xenoN-jGAsr5zKlHrvXLPqHr18endH-e_HI8961UBfRSvlyLXgSofrLbzV8C3bI9xlO1YW6jH7_TsBg1M5ZI9Q0w7Bp_eSyiyOAdLaUciDaDGA";
+       // return "eubrXBi1dEI:APA91bHnvVoGX8KdFZBMSkiGV7ULC8lBByPEwSSYLy31U3JH5SX3xenoN-jGAsr5zKlHrvXLPqHr18endH-e_HI8961UBfRSvlyLXgSofrLbzV8C3bI9xlO1YW6jH7_TsBg1M5ZI9Q0w7Bp_eSyiyOAdLaUciDaDGA";
     }
 }

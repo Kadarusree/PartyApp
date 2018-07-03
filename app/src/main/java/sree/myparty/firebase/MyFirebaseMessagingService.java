@@ -28,16 +28,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
-
-
+        showNotification(getApplicationContext(), remoteMessage.getData().get("key"), new Intent());
 
 
     }
 
-    public void showNotification(Context context, String body, Intent intent)
-    {
+    public void showNotification(Context context, String body, Intent intent) {
         String channelId = "a3";
-        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this, channelId)
                         .setSmallIcon(R.drawable.ic_logo)
@@ -46,7 +44,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         .setAutoCancel(false)
                         .setSound(defaultSoundUri)
                         .setContentIntent(PendingIntent.getActivity(this,
-                                0, new Intent(),PendingIntent.FLAG_UPDATE_CURRENT));
+                                0, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT));
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -61,14 +59,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         try {
             notificationManager.notify(getNumber(), notificationBuilder.build());
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
 
         }
     }
 
-    public int getNumber()
-    {
+    public int getNumber() {
         Random random = new Random();
         return random.nextInt(9999);
     }

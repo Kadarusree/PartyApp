@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import sree.myparty.admin.AdminLogin;
+import sree.myparty.misc.PostNews;
 import sree.myparty.volunteer.CasteWiseVoters;
 import sree.myparty.volunteer.InfluencePerson;
 import sree.myparty.volunteer.Local_Issues;
@@ -39,6 +40,8 @@ public class ActivityLauncher {
         ctx.startActivity(new Intent(ctx,Local_Issues.class));
     }
 
-
+    public static void postNews(Context ctx){
+        ctx.startActivity(new Intent(ctx,PostNews.class));
+    }
 
 }
