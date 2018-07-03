@@ -20,6 +20,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
@@ -31,6 +32,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -61,12 +68,20 @@ public class PostNews extends AppCompatActivity {
 
     @BindView(R.id.news_image)
     ImageView img_thumbnail;
+
+
+    FirebaseStorage mFirebaseStorage;
+    StorageReference mStorageReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_post_news);
         ButterKnife.bind(this);
+
+        mFirebaseStorage = FirebaseStorage.getInstance();
+        mStorageReference = mFirebaseStorage.getReference();
+        mStorageReference = mStorageReference.child("NewsPictures/"+System.currentTimeMillis()+".jpg");
     }
 
     @OnClick(R.id.btn_news_uploadphoto)
@@ -75,14 +90,9 @@ public class PostNews extends AppCompatActivity {
     }
 
     private void selectImage() {
-        final CharSequence[] items = {"TAKE PICTURE", "GALLERY","CANCEL"};
+        final CharSequence[] items = {getResources().getString(R.string.takephoto), getResources().getString(R.string.choosefromlib), getResources().getString(R.string.cancel)};
 
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(PostNews.this);
-        // builder.setTitle(getResources().getString(R.string.pleaseataachsurveyimage));
-        // builder.setCustomTitle(R.layout.custom_date_layout)
-       /* View view = LayoutInflater.from(this).inflate(R.layout.titlebar, null);
-        builder.setCustomTitle(view);*/
-        //builder.setMessage(getResources().getString(R.string.pleaseataachsurveyimage));
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
@@ -112,7 +122,6 @@ public class PostNews extends AppCompatActivity {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_PICK);//
-        // intent.setAction(Intent.ACTION_GET_CONTENT);//
         startActivityForResult(Intent.createChooser(intent, "Select File"), SELECT_FILE);
 
     }
@@ -151,17 +160,21 @@ public class PostNews extends AppCompatActivity {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == SELECT_FILE)
                 onSelectFromGalleryResult(data);
+        }
+
 
             else if (requestCode == REQUEST_CAMERA)
+        {
 
 
                 onCaptureImageResult(data, null, true);
-
         }
 
     }
     private void onSelectFromGalleryResult(Intent data) {
 
+
+        img_thumbnail.setImageURI(data.getData());
         Bitmap bm = null;
         if (data != null) {
             try {
@@ -173,10 +186,6 @@ public class PostNews extends AppCompatActivity {
             }
         }
 
-        // Toast.makeText(getActivity(),data.getData().getPath().toString(),Toast.LENGTH_SHORT).show();
-        // tvImageName.setText(data.getData().getPath().toString());
-
-        //ivImage.setImageBitmap(bm);
     }
 
     private File createImageFile() throws IOException {
@@ -236,6 +245,8 @@ public class PostNews extends AppCompatActivity {
 
 
                 thumbnail = BitmapFactory.decodeFile(imageFilePath);
+                img_thumbnail.setImageBitmap(bitmap);
+
 
                 thumbnail=rotateImageIfRequired(thumbnail, Uri.parse(imageFilePath));
 
@@ -274,19 +285,9 @@ public class PostNews extends AppCompatActivity {
                 File mypath = new File(directory, System.currentTimeMillis() + ".jpg");
                 setImagePath(mypath, bytes);
 
+                uploadImageTask(bytes.toByteArray());
+         } catch (Exception e) {
 
-
-            } catch (Exception e) {
-                // Toast.makeText(getActivity(),"Please select appropriate image",Toast.LENGTH_SHORT).show();
-               /* showSignupResultDialog(
-                        getResources().getString(R.string.app_name),
-                        getResources().getString(R.string.pleaseSelectAppropriateImage),
-                        getResources().getString(R.string.Ok));
-*/
-
-        /*File destination = new File(Environment.getExternalStorageDirectory(),
-                System.currentTimeMillis() + ".jpg");
-*/
 
             }
             // ivImage.setImageBitmap(thumbnail);
@@ -350,5 +351,22 @@ public class PostNews extends AppCompatActivity {
         Bitmap rotatedImg = Bitmap.createBitmap(img, 0, 0, img.getWidth(), img.getHeight(), matrix, true);
         img.recycle();
         return rotatedImg;
+    }
+
+
+    public void uploadImageTask(byte[] data){
+        UploadTask uploadTask = mStorageReference.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+            }
+        });
     }
 }
