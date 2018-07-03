@@ -25,6 +25,7 @@
             android:layout_weight="0.7"
             android:layout_height="match_parent"
             android:background="@drawable/rounded_corner"
+            android:id="@+id/news_title"
             />
     </LinearLayout>
     <LinearLayout
@@ -45,6 +46,7 @@
             android:layout_weight="0.8"
             android:layout_height="0dp"
             android:background="@drawable/rounded_corner"
+            android:id="@+id/news_description"
             />
     </LinearLayout>
     <LinearLayout

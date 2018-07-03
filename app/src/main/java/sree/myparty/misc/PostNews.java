@@ -30,12 +30,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -51,7 +56,9 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import sree.myparty.MyApplication;
 import sree.myparty.R;
+import sree.myparty.beans.NewsPojo;
 import sree.myparty.utils.Constants;
 
 public class PostNews extends AppCompatActivity {
@@ -69,9 +76,17 @@ public class PostNews extends AppCompatActivity {
     @BindView(R.id.news_image)
     ImageView img_thumbnail;
 
+    @BindView(R.id.news_title)
+    EditText mTitle;
+
+    @BindView(R.id.news_description)
+    EditText mDescription;
+
 
     FirebaseStorage mFirebaseStorage;
     StorageReference mStorageReference;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +96,6 @@ public class PostNews extends AppCompatActivity {
 
         mFirebaseStorage = FirebaseStorage.getInstance();
         mStorageReference = mFirebaseStorage.getReference();
-        mStorageReference = mStorageReference.child("NewsPictures/"+System.currentTimeMillis()+".jpg");
     }
 
     @OnClick(R.id.btn_news_uploadphoto)
@@ -125,6 +139,7 @@ public class PostNews extends AppCompatActivity {
         startActivityForResult(Intent.createChooser(intent, "Select File"), SELECT_FILE);
 
     }
+
     private void cameraIntent() {
 
         Intent pictureIntent = new Intent(
@@ -144,7 +159,7 @@ public class PostNews extends AppCompatActivity {
 
                 if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
                     pictureIntent.setClipData(ClipData.newRawUri("", photoUri));
-                    pictureIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION|Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    pictureIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 }
                 startActivityForResult(pictureIntent, REQUEST_CAMERA);
             }
@@ -160,17 +175,14 @@ public class PostNews extends AppCompatActivity {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == SELECT_FILE)
                 onSelectFromGalleryResult(data);
-        }
+        } else if (requestCode == REQUEST_CAMERA) {
 
 
-            else if (requestCode == REQUEST_CAMERA)
-        {
-
-
-                onCaptureImageResult(data, null, true);
+            onCaptureImageResult(data, null, true);
         }
 
     }
+
     private void onSelectFromGalleryResult(Intent data) {
 
 
@@ -248,7 +260,7 @@ public class PostNews extends AppCompatActivity {
                 img_thumbnail.setImageBitmap(bitmap);
 
 
-                thumbnail=rotateImageIfRequired(thumbnail, Uri.parse(imageFilePath));
+                thumbnail = rotateImageIfRequired(thumbnail, Uri.parse(imageFilePath));
 
             } catch (Exception e) {
 
@@ -258,7 +270,6 @@ public class PostNews extends AppCompatActivity {
             thumbnail = bitmap;
 
         }
-
 
 
         if (thumbnail != null) {
@@ -286,7 +297,7 @@ public class PostNews extends AppCompatActivity {
                 setImagePath(mypath, bytes);
 
                 uploadImageTask(bytes.toByteArray());
-         } catch (Exception e) {
+            } catch (Exception e) {
 
 
             }
@@ -295,6 +306,7 @@ public class PostNews extends AppCompatActivity {
             Toast.makeText(this, "Image uploading Error", Toast.LENGTH_SHORT).show();
         }
     }
+
     Bitmap ShrinkBitmap(Bitmap file) {
 
 
@@ -312,6 +324,7 @@ public class PostNews extends AppCompatActivity {
         GlobalImagePath = path;
         GLOBALbytes = bytes;
     }
+
     public static String getDate(long milliSeconds) {
         // Create a DateFormatter object for displaying date in specified format.
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss a");
@@ -321,7 +334,8 @@ public class PostNews extends AppCompatActivity {
         calendar.setTimeInMillis(milliSeconds);
         return formatter.format(calendar.getTime());
     }
-    private static Bitmap rotateImageIfRequired(Bitmap img, Uri selectedImage)  {
+
+    private static Bitmap rotateImageIfRequired(Bitmap img, Uri selectedImage) {
 
         ExifInterface ei = null;
         try {
@@ -345,6 +359,7 @@ public class PostNews extends AppCompatActivity {
         }
         return img;
     }
+
     private static Bitmap rotateImage(Bitmap img, int degree) {
         Matrix matrix = new Matrix();
         matrix.postRotate(degree);
@@ -354,7 +369,8 @@ public class PostNews extends AppCompatActivity {
     }
 
 
-    public void uploadImageTask(byte[] data){
+    public void uploadImageTask(byte[] data) {
+        mStorageReference = mStorageReference.child("NewsPictures/" + System.currentTimeMillis() + ".jpg");
         UploadTask uploadTask = mStorageReference.putBytes(data);
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
@@ -366,7 +382,36 @@ public class PostNews extends AppCompatActivity {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
+
+
+                DatabaseReference mRef = MyApplication.getFirebaseDatabase().getReference("Telangana/News");
+                String key = mRef.push().getKey();
+
+                NewsPojo mNews = new NewsPojo(mTitle.getText().toString(), mDescription.getText().toString(), downloadUrl.toString(), System.currentTimeMillis() + "", "Sree");
+                postNews(mNews, mRef, key);
+            }
+        });
+
+
+    }
+
+    public void postNews(NewsPojo news, DatabaseReference mRef, String key) {
+        mRef.child(key).setValue(news).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+
             }
         });
     }
+
 }
