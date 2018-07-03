@@ -36,9 +36,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     public void showNotification(Context context, String body, Intent intent)
     {
-
-
-
         String channelId = "a3";
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder =
