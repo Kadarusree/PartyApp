@@ -7,10 +7,9 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".MyApplication"
@@ -79,7 +78,7 @@
         <activity android:name=".volunteer.InfluencePerson" />
         <activity android:name=".volunteer.Local_Issues" />
         <activity android:name=".volunteer.CasteWiseVoters" />
-        <activity android:name=".misc.PostNews"></activity>
+        <activity android:name=".misc.PostNews" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -88,9 +87,10 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
+                android:resource="@xml/file_paths" />
         </provider>
 
+        <activity android:name=".misc.NewsList"></activity>
     </application>
 
 </manifest>

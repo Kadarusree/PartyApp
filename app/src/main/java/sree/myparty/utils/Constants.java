@@ -23,6 +23,15 @@ public class Constants {
 
     public static String GKA_IMAGE_STORAGE_PATH="GKSurveyIMG";
 
+    //
+    public static final String STATE = "Telangana";
+    public static final String ASSEMBLY_CONST = "Sirpur";
+    public static final String PARLIMENT_CONST = "Adilabad";
+
+    public static final String DB_PATH = STATE+"/"+PARLIMENT_CONST+"/"+ASSEMBLY_CONST;
+
+
+
     public static void showToast(String text, Activity mActivty){
         Toast.makeText(mActivty,text,Toast.LENGTH_LONG).show();
     }

@@ -91,7 +91,7 @@ public abstract class BaseActvity extends AppCompatActivity
         if (id == R.id.nav_camera) {
             ActivityLauncher.postNews(this);
         } else if (id == R.id.nav_gallery) {
-
+            ActivityLauncher.newsList(this);
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {

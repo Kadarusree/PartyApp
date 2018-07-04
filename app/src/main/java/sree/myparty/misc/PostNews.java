@@ -370,7 +370,7 @@ public class PostNews extends AppCompatActivity {
 
 
     public void uploadImageTask(byte[] data) {
-        mStorageReference = mStorageReference.child("NewsPictures/" + System.currentTimeMillis() + ".jpg");
+        mStorageReference = mStorageReference.child(Constants.DB_PATH+"/" + System.currentTimeMillis() + ".jpg");
         UploadTask uploadTask = mStorageReference.putBytes(data);
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
@@ -383,8 +383,7 @@ public class PostNews extends AppCompatActivity {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
 
-
-                DatabaseReference mRef = MyApplication.getFirebaseDatabase().getReference("Telangana/News");
+                DatabaseReference mRef = MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/News");
                 String key = mRef.push().getKey();
 
                 NewsPojo mNews = new NewsPojo(mTitle.getText().toString(), mDescription.getText().toString(), downloadUrl.toString(), System.currentTimeMillis() + "", "Sree");
