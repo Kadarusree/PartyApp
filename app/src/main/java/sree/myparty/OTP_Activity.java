@@ -21,11 +21,17 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.philio.pinentry.PinEntryView;
 import sree.myparty.DashBoard.Dashboard;
+import sree.myparty.utils.Constants;
+import sree.myparty.utils.DailogUtill;
 
 public class OTP_Activity extends AppCompatActivity {
     private static final String TAG = "PhoneAuthActivity";
@@ -33,6 +39,8 @@ public class OTP_Activity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     PinEntryView pinEntry;
     String vfId;
+    ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,47 +48,30 @@ public class OTP_Activity extends AppCompatActivity {
         ButterKnife.bind(this);
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         mAuth = FirebaseAuth.getInstance();
+        progressBar = new ProgressBar(OTP_Activity.this);
 
-         vfId=getIntent().getStringExtra("VERIFICATION_ID");
-Log.d("shri",vfId);
-        ProgressBar mProgressbar = (ProgressBar)findViewById(R.id.progressBar);
-        mProgressbar.setVisibility(View.VISIBLE);
+        vfId = getIntent().getStringExtra("VERIFICATION_ID");
 
-
-         pinEntry = (PinEntryView) findViewById(R.id.inputOtp);
+        ProgressBar mProgressbar = (ProgressBar) findViewById(R.id.progressBar);
 
 
-
+        pinEntry = (PinEntryView) findViewById(R.id.inputOtp);
 
 
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             @Override
             public void onVerificationCompleted(PhoneAuthCredential credential) {
-                // This callback will be invoked in two situations:
-                // 1 - Instant verification. In some cases the phone number can be instantly
-                //     verified without needing to send or enter a verification code.
-                // 2 - Auto-retrieval. On some devices Google Play services can automatically
-                //     detect the incoming verification SMS and perform verification without
-                //     user action.
-                // Log.d(TAG, "onVerificationCompleted:" + credential);
-                // [START_EXCLUDE silent]
 
-                // [START_EXCLUDE silent]
-
-                // Update the UI and attempt sign in with the phone credential
-                //  updateUI(STATE_VERIFY_SUCCESS, credential);
-                // [END_EXCLUDE]
-                //signInWithPhoneAuthCredential(credential);
                 pinEntry.setText(credential.getSmsCode());
 
-                  Toast.makeText(getApplicationContext(),"Automatic detected",Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onVerificationFailed(FirebaseException e) {
                 // This callback is invoked in an invalid request for verification is made,
                 // for instance if the the phone number format is not valid.
+                progressBar.setVisibility(View.GONE);
                 Log.w(TAG, "onVerificationFailed", e);
                 // [START_EXCLUDE silent]
 
@@ -89,7 +80,8 @@ Log.d("shri",vfId);
                 if (e instanceof FirebaseAuthInvalidCredentialsException) {
                     // Invalid request
                     // [START_EXCLUDE]
-                   Toast.makeText(getApplicationContext(),"Invalid phone number.",Toast.LENGTH_SHORT).show();
+                    DailogUtill.showDialog("Invalid phone number", getSupportFragmentManager(), getApplicationContext());
+
                     // [END_EXCLUDE]
                 } else if (e instanceof FirebaseTooManyRequestsException) {
                     // The SMS quota for the project has been exceeded
@@ -105,31 +97,8 @@ Log.d("shri",vfId);
                 // [END_EXCLUDE]
             }
 
-            @Override
-            public void onCodeSent(String verificationId,
-                                   PhoneAuthProvider.ForceResendingToken token) {
-                // The SMS verification code has been sent to the provided phone number, we
-                // now need to ask the user to enter the code and then construct a credential
-                // by combining the code with a verification ID.
-                Log.d(TAG, "onCodeSent:" + verificationId);
 
-                // Save verification ID and resending token so we can use them later
-
-
-
-                // [START_EXCLUDE]
-                // Update UI
-                //updateUI(STATE_CODE_SENT);
-                // [END_EXCLUDE]
-            }
         };
-
-
-
-
-
-
-
 
 
     }
@@ -137,25 +106,25 @@ Log.d("shri",vfId);
     @OnClick(R.id.btn_verify_otp)
     public void onButtonClick(View view) {
 
-         Toast.makeText(getApplicationContext(),pinEntry.getText().toString(),Toast.LENGTH_SHORT).show();
 
-       if(pinEntry.getText().toString().length()==6)
-        {
-            String vfId=getIntent().getStringExtra("VERIFICATION_ID");
-            Log.d("shri",getIntent().getStringExtra("VERIFICATION_ID"));
-            verifyPhoneNumberWithCode(vfId,pinEntry.getText().toString());
+        if (pinEntry.getText().toString().length() == 6) {
+            progressBar.setVisibility(View.VISIBLE);
+            String vfId = getIntent().getStringExtra("VERIFICATION_ID");
+            Log.d("shri", getIntent().getStringExtra("VERIFICATION_ID"));
+            verifyPhoneNumberWithCode(vfId, pinEntry.getText().toString());
 
 
-        }else {
-            Toast.makeText(getApplicationContext(),"Enter valid OTP",Toast.LENGTH_SHORT).show();
+        } else {
+
+            DailogUtill.showDialog("Enter valid OTP", getSupportFragmentManager(), getApplicationContext());
         }
-        /*startActivity(new Intent(getApplicationContext(),Dashboard.class));
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);*/
+
     }
 
 
-   private void verifyPhoneNumberWithCode(String verificationId, String code) {
+    private void verifyPhoneNumberWithCode(String verificationId, String code) {
         // [START verify_with_code]
+
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
         // [END verify_with_code]
         signInWithPhoneAuthCredential(credential);
@@ -167,31 +136,57 @@ Log.d("shri",vfId);
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
 
-                            FirebaseUser user = task.getResult().getUser();
 
-                            Toast.makeText(getApplicationContext(),user.getUid()+":Auth",Toast.LENGTH_SHORT).show();
+                            final FirebaseUser user = task.getResult().getUser();
+                            final DatabaseReference mRef = MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/Users/"+user.getUid());
+                            mRef.setValue("Rahul");
+                            mRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    progressBar.setVisibility(View.GONE);
+                                    startActivity(new Intent(getApplicationContext(), Dashboard.class));
+                                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                                    Toast.makeText(getApplicationContext(), user.getUid() + ":Auth", Toast.LENGTH_SHORT).show();
+
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                    progressBar.setVisibility(View.GONE);
+
+                                }
+                            });
+
+
+
 
                             // [START_EXCLUDE]
                             //updateUI(STATE_SIGNIN_SUCCESS, user);
                             // [END_EXCLUDE]
                         } else {
+                            progressBar.setVisibility(View.GONE);
+
                             // Sign in failed, display a message and update the UI
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 // The verification code entered was invalid
                                 // [START_EXCLUDE silent]
                                 //mVerificationField.setError("Invalid code.");
-                                Toast.makeText(getApplicationContext(),"Invalid code.",Toast.LENGTH_SHORT).show();
+                                DailogUtill.showDialog("Invalid code.", getSupportFragmentManager(), getApplicationContext());
+
 
                                 // [END_EXCLUDE]
                             }
                             // [START_EXCLUDE silent]
                             // Update UI
-                         //   updateUI(STATE_SIGNIN_FAILED);
-                            Toast.makeText(getApplicationContext(),"Signed failed.",Toast.LENGTH_SHORT).show();
+                            //   updateUI(STATE_SIGNIN_FAILED);
+                            DailogUtill.showDialog("Signed failed.", getSupportFragmentManager(), getApplicationContext());
+
+                            //Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
 
                             // [END_EXCLUDE]
                         }
