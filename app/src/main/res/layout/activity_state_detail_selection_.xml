@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="sree.myparty.StateDetailSelection_Activity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="5dp"
+        android:paddingTop="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/select_state" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/spinner_background"
+            android:orientation="vertical">
+
+
+            <Spinner
+                android:id="@+id/spn_state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+
+                android:gravity="center"
+                android:minHeight="40dp"
+                android:padding="4sp"
+
+
+                android:textSize="15sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/select_parlimaent_cons" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/spinner_background"
+            android:orientation="vertical">
+
+
+            <Spinner
+                android:id="@+id/spn_pc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+
+                android:gravity="center"
+                android:minHeight="40dp"
+                android:padding="4sp"
+
+
+                android:textSize="15sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/select_assembly_cons" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/spinner_background"
+            android:orientation="vertical">
+
+
+            <Spinner
+                android:id="@+id/spn_as"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+
+                android:gravity="center"
+                android:minHeight="40dp"
+                android:padding="4sp"
+
+
+                android:textSize="15sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/btn_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="25dp"
+            android:background="@color/colorPrimaryDark"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="@string/lbl_next"
+            android:textColor="@android:color/white"
+            android:textSize="14dp" />
+    </LinearLayout>
+
+</LinearLayout>
