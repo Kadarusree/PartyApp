@@ -52,6 +52,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import sree.myparty.DashBoard.Dashboard;
 import sree.myparty.apis.ApiClient;
 import sree.myparty.apis.ApiInterface;
 import sree.myparty.firebase.Data;
@@ -79,7 +80,7 @@ public class RegistartionActivity extends AppCompatActivity {
     private PhoneAuthProvider.ForceResendingToken mResendToken;
     ProgressDialog progressDialog;
 
-    private final String VERIFICATION_ID = "mVerificationId";
+    private final String VERIFICATION_ID = "VERIFICATION_ID";
     private String mVerificationId;
 
     @Override
@@ -309,6 +310,9 @@ public class RegistartionActivity extends AppCompatActivity {
 
         if (currentUser != null) {
             //user signed up  with required info previosly
+            startActivity(new Intent(getApplicationContext(),Dashboard.class));
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+            Toast.makeText(getApplicationContext(),"Signed user",Toast.LENGTH_SHORT).show();
         }
 
         // [END_EXCLUDE]
