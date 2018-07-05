@@ -1,11 +1,13 @@
 package sree.myparty.utils;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.widget.Toast;
 
+import dmax.dialog.SpotsDialog;
 import sree.myparty.R;
 
 /**
@@ -25,6 +27,7 @@ public class Constants {
     public static final String USERNAME = "name";
     public static final String VOTERID = "voterID";
     public static final String CONSTIUNCY = "constiuency";
+    public static final String VOLUNTEER = "Sreekanth";
 
     public static String GKA_IMAGE_STORAGE_PATH="GKSurveyIMG";
 
@@ -41,5 +44,10 @@ public class Constants {
         Toast.makeText(mActivty,text,Toast.LENGTH_LONG).show();
     }
 
-
+    public static AlertDialog showDialog(Activity mActivty){
+        SpotsDialog.Builder dialog  = new SpotsDialog.Builder();
+        dialog.setContext(mActivty);
+        dialog.setMessage("Please Wait");
+        return dialog.build();
+    }
 }
