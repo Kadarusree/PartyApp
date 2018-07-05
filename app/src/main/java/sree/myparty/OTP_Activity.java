@@ -30,6 +30,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.philio.pinentry.PinEntryView;
 import sree.myparty.DashBoard.Dashboard;
+import sree.myparty.pojos.UserDetailPojo;
 import sree.myparty.utils.Constants;
 import sree.myparty.utils.DailogUtill;
 
@@ -142,26 +143,38 @@ public class OTP_Activity extends AppCompatActivity {
 
 
                             final FirebaseUser user = task.getResult().getUser();
-                            final DatabaseReference mRef = MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/Users/"+user.getUid());
-                            mRef.setValue("Rahul");
-                            mRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            final DatabaseReference mRef = MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/Users");
+                            mRef.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
-                                    progressBar.setVisibility(View.GONE);
-                                    startActivity(new Intent(getApplicationContext(), Dashboard.class));
-                                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-                                    Toast.makeText(getApplicationContext(), user.getUid() + ":Auth", Toast.LENGTH_SHORT).show();
+
+                                    if (dataSnapshot.exists()) {
+                                        startActivity(new Intent(getApplicationContext(), Dashboard.class));
+                                        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                                    } else {
+                                        UserDetailPojo pojo = new UserDetailPojo("shri", "metraskar", "123456");
+                                        mRef.child(user.getUid()).setValue(pojo).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    startActivity(new Intent(getApplicationContext(), Dashboard.class));
+                                                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+
+                                                }
+                                            }
+                                        });
+
+                                        Toast.makeText(getApplicationContext(), "not exists", Toast.LENGTH_SHORT).show();
+                                    }
 
                                 }
 
                                 @Override
                                 public void onCancelled(DatabaseError databaseError) {
-                                    progressBar.setVisibility(View.GONE);
+                                    Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_SHORT).show();
 
                                 }
                             });
-
-
 
 
                             // [START_EXCLUDE]
