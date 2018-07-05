@@ -9,6 +9,7 @@
 
     <color name="colorWhite">#FFFFFF</color>
 
+    <color name="cardColor">#FFFDE7</color>
 
     <color name="colorDataScreen">#af8756</color>
     <color name="transparent"></color>

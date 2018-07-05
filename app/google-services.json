@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "974598966497-c01q6u6qtprs633lakio54mchk9hdaq4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sree.myparty",
+            "certificate_hash": "eb5423a729ccb262ace9a489c7ec31707bc7eea6"
+          }
+        },
+        {
           "client_id": "974598966497-91tl716sksv7q1sucl9o61ur8iapcdv5.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -64,6 +72,14 @@
           "android_info": {
             "package_name": "sree.myparty.dev",
             "certificate_hash": "760f23b9bf5e5db167455f3406d37eded97f1b91"
+          }
+        },
+        {
+          "client_id": "974598966497-4mtvapi3q1s6ss6j9e07n2c8jl5rhq75.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sree.myparty.dev",
+            "certificate_hash": "eb5423a729ccb262ace9a489c7ec31707bc7eea6"
           }
         },
         {
