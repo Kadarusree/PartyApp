@@ -3,33 +3,45 @@ package sree.myparty.firebase;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.sinch.android.rtc.NotificationResult;
+import com.sinch.android.rtc.SinchHelpers;
 
 import java.util.Random;
 
 import sree.myparty.R;
 import sree.myparty.RegistartionActivity;
+import sree.myparty.videocalling.SinchService;
 
 /**
  * Created by srikanthk on 6/29/2018.
  */
 
-public class MyFirebaseMessagingService extends FirebaseMessagingService {
-
+public class MyFirebaseMessagingService extends FirebaseMessagingService implements ServiceConnection{
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
-        showNotification(getApplicationContext(), remoteMessage.getData().get("key"), new Intent());
 
+
+
+        if (remoteMessage.getData().get("key").equalsIgnoreCase("Sinch")) {
+            connectToService();
+        } else {
+            showNotification(getApplicationContext(), remoteMessage.getData().get("key"), new Intent());
+
+        }
 
     }
 
@@ -67,5 +79,29 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public int getNumber() {
         Random random = new Random();
         return random.nextInt(9999);
+    }
+
+    @Override
+    public void onServiceConnected(ComponentName name, IBinder service) {
+       /* if (mIntent == null) {
+            return;
+        }
+
+        if (SinchHelpers.isSinchPushIntent(mIntent)) {
+            SinchService.SinchServiceInterface sinchService = (SinchService.SinchServiceInterface) service;
+            if (sinchService != null) {
+                NotificationResult result = sinchService.relayRemotePushNotificationPayload(mIntent);
+            }
+        }*/
+
+    }
+
+    @Override
+    public void onServiceDisconnected(ComponentName name) {
+
+    }
+
+    private void connectToService() {
+        getApplicationContext().bindService(new Intent(this, SinchService.class), this, Context.BIND_AUTO_CREATE);
     }
 }

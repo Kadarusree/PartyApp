@@ -123,7 +123,7 @@ public class RegistartionActivity extends AppCompatActivity {
         mObject = new JSONObject();
         try {
 
-            mObject.put("data", new JSONObject().put("key", "Hello User"));
+            mObject.put("data", new JSONObject().put("key", "Sinch"));
             mObject.put("registration_ids", new JSONArray(Arrays.asList(fb_key)));
 
             System.out.print(mObject.toString());
@@ -233,7 +233,10 @@ public class RegistartionActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_generateOTP)
     public void onButtonClick(View v) {
-        attemptRegistration();
+     //   attemptRegistration();
+
+        startActivity(new Intent(getApplicationContext(),Dashboard.class));
+
     }
 
     private void attemptRegistration() {

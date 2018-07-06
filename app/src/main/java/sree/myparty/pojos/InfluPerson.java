@@ -16,6 +16,9 @@ public class InfluPerson {
         this.timestamp = timestamp;
         this.addedBy = addedBy;
         this.boothNumber = boothNumber;
+
+
+
     }
 
     public String getAddedBy() {
