@@ -18,6 +18,14 @@ public class InfluPerson {
         this.boothNumber = boothNumber;
     }
 
+    public String getAddedBy() {
+        return addedBy;
+    }
+
+    public void setAddedBy(String addedBy) {
+        this.addedBy = addedBy;
+    }
+
     String addedBy;
     int boothNumber;
 
