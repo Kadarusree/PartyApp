@@ -31,6 +31,7 @@ import butterknife.OnClick;
 import me.philio.pinentry.PinEntryView;
 import sree.myparty.DashBoard.Dashboard;
 import sree.myparty.pojos.UserDetailPojo;
+import sree.myparty.session.SessionManager;
 import sree.myparty.utils.Constants;
 import sree.myparty.utils.DailogUtill;
 
@@ -41,6 +42,8 @@ public class OTP_Activity extends AppCompatActivity {
     PinEntryView pinEntry;
     String vfId;
     ProgressBar progressBar;
+    String voterId, mobile_number,username;
+    SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +53,11 @@ public class OTP_Activity extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         mAuth = FirebaseAuth.getInstance();
         progressBar = new ProgressBar(OTP_Activity.this);
-
+        voterId = getIntent().getStringExtra(Constants.VOTER_ID);
+        mobile_number = getIntent().getStringExtra(Constants.MOBILE_NUMBER);
+        username = getIntent().getStringExtra(Constants.NAME);
         vfId = getIntent().getStringExtra("VERIFICATION_ID");
-
+        sessionManager = new SessionManager(getApplicationContext());
         ProgressBar mProgressbar = (ProgressBar) findViewById(R.id.progressBar);
 
 
@@ -152,7 +157,8 @@ public class OTP_Activity extends AppCompatActivity {
                                         startActivity(new Intent(getApplicationContext(), Dashboard.class));
                                         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                                     } else {
-                                        UserDetailPojo pojo = new UserDetailPojo("shri", "metraskar", "123456");
+
+                                        UserDetailPojo pojo = new UserDetailPojo(voterId, mobile_number, user.getUid(), "", username, sessionManager.getState(), sessionManager.getPC_NAME(), sessionManager.getAC_NAME(), 0);
                                         mRef.child(user.getUid()).setValue(pojo).addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
@@ -164,7 +170,7 @@ public class OTP_Activity extends AppCompatActivity {
                                             }
                                         });
 
-                                        Toast.makeText(getApplicationContext(), "not exists", Toast.LENGTH_SHORT).show();
+
                                     }
 
                                 }

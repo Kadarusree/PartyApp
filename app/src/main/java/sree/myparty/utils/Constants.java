@@ -22,9 +22,18 @@ public class Constants {
 
     public static final String PREF_NAME = "myparty";
     public static final String FIREBASE_KEY = "firebasekey";
-    public static final String USERNAME = "name";
+   /* public static final String USERNAME = "name";
     public static final String VOTERID = "voterID";
-    public static final String CONSTIUNCY = "constiuency";
+    public static final String CONSTIUNCY = "constiuency";*/
+
+
+   //constants only used for data transmit from reg to otp
+    public static final String VOTER_ID = "VOTER_ID";
+    public static final String MOBILE_NUMBER = "MOBILE_NUMBER";
+    public static final String NAME = "NAME";
+    //end
+
+
 
     public static String GKA_IMAGE_STORAGE_PATH="GKSurveyIMG";
 

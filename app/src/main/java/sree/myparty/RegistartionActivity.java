@@ -69,6 +69,9 @@ public class RegistartionActivity extends AppCompatActivity {
     @BindView(R.id.edt_voterID)
     EditText mVoterID;
 
+    @BindView(R.id.edt_userName)
+    EditText edt_userName;
+
     @BindView(R.id.edt_mobilenumber)
     EditText mMobileNumber;
     JSONObject mObject;
@@ -81,6 +84,7 @@ public class RegistartionActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
 
     private final String VERIFICATION_ID = "VERIFICATION_ID";
+
     private String mVerificationId;
 
     @Override
@@ -213,6 +217,8 @@ public class RegistartionActivity extends AppCompatActivity {
                 mVerificationId = verificationId;
                 Intent intent = new Intent(getApplicationContext(), OTP_Activity.class);
                 intent.putExtra(VERIFICATION_ID, verificationId);
+                intent.putExtra(Constants.VOTER_ID,mVoterID.getText().toString().trim());
+                intent.putExtra(Constants.NAME,edt_userName.getText().toString().trim());
                 startActivity(intent);
                 mResendToken = token;
 
@@ -236,13 +242,21 @@ public class RegistartionActivity extends AppCompatActivity {
 
         mVoterID.setError(null);
         mMobileNumber.setError(null);
-
+        edt_userName.setError(null);
         String VoterID = mVoterID.getText().toString();
         String MobileNumber = mMobileNumber.getText().toString();
+        String userName=edt_userName.getText().toString().trim();
 
         boolean cancel = false;
         View focusView = null;
 
+
+
+        if (TextUtils.isEmpty(userName)) {
+            edt_userName.setError(getString(R.string.error_invalid_user_name));
+            focusView = edt_userName;
+            cancel = true;
+        }
         if (TextUtils.isEmpty(VoterID)) {
             mVoterID.setError(getString(R.string.error_invalid_voter_id));
             focusView = mVoterID;
@@ -257,7 +271,7 @@ public class RegistartionActivity extends AppCompatActivity {
             focusView.requestFocus();
         } else {
             progressDialog.show();
-            startPhoneNumberVerification(mMobileNumber.getText().toString().trim());
+            startPhoneNumberVerification(MobileNumber);
             // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         }
 

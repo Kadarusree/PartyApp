@@ -15,6 +15,10 @@ public class SessionManager {
     Context mContext;
     SharedPreferences mSharedPref;
     SharedPreferences.Editor mEditor;
+    private final String STATE="STATE_NAME";
+    private final String PC_NAME="PC_NAME";
+    private final String AC_NAME="AC_NAME";
+
 
 
     public SessionManager(Context gContex) {
@@ -27,6 +31,30 @@ public class SessionManager {
         mEditor.putString(Constants.FIREBASE_KEY,key);
         mEditor.commit();
     }
+
+    public void storeConstiuencyInfo(String state,String pc,String ac)
+    {
+        mEditor.putString(STATE,state);
+        mEditor.putString(PC_NAME,pc);
+        mEditor.putString(AC_NAME,ac);
+        mEditor.commit();
+    }
+
+    public String getState()
+    {
+        return mSharedPref.getString(STATE,"");
+
+    }
+    public String getPC_NAME()
+    {
+        return mSharedPref.getString(PC_NAME,"");
+
+    }public String getAC_NAME()
+    {
+        return mSharedPref.getString(AC_NAME,"");
+
+    }
+
 
     public String getFirebaseKey(){
        return mSharedPref.getString(Constants.FIREBASE_KEY,"0");
