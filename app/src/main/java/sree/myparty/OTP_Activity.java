@@ -161,7 +161,7 @@ public class OTP_Activity extends AppCompatActivity {
                                         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                                     } else {
 
-                                        UserDetailPojo pojo = new UserDetailPojo(voterId, mobile_number, user.getUid(), "", username, sessionManager.getState(), sessionManager.getPC_NAME(), sessionManager.getAC_NAME(), 0);
+                                        UserDetailPojo pojo = new UserDetailPojo(voterId, mobile_number, user.getUid(), "", username, sessionManager.getState(), sessionManager.getPC_NAME(), sessionManager.getAC_NAME(), 0,sessionManager.getFirebaseKey());
                                         mRef.child(user.getUid()).setValue(pojo).addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
