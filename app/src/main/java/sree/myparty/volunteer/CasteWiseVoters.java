@@ -53,13 +53,14 @@ public class CasteWiseVoters extends AppCompatActivity {
     private RecyclerView recyclerView;
     private List<CasteWiseVoterBean> newsList;
     private CasteWiseVotersAdapter mAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_caste_wise_voters);
         ButterKnife.bind(this);
-        mReference = MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/CasteWiseVoters");
-    mDialog = Constants.showDialog(this);
+        mReference = MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/CasteWiseVoters");
+        mDialog = Constants.showDialog(this);
 
         recyclerView = findViewById(R.id.list_castewiseVoters);
         newsList = new ArrayList<>();
@@ -78,7 +79,6 @@ public class CasteWiseVoters extends AppCompatActivity {
                 newsList.clear();
                 for (DataSnapshot indi : dataSnapshot.getChildren()) {
                     indi.getKey();
-
 
                     CasteWiseVoterBean mNewsItem = indi.getValue(CasteWiseVoterBean.class);
                     newsList.add(mNewsItem);
@@ -100,7 +100,7 @@ public class CasteWiseVoters extends AppCompatActivity {
 
 
     @OnClick(R.id.btn_cwv_save)
-    public void onButtonClick(View v){
+    public void onButtonClick(View v) {
 
 
         String name = edt_name.getText().toString();
@@ -109,21 +109,20 @@ public class CasteWiseVoters extends AppCompatActivity {
 
         int boothNum = Integer.parseInt(edt_BoothNum.getText().toString().trim());
 
-        CasteWiseVoterBean mVoter = new CasteWiseVoterBean(name,voterID,caste,System.currentTimeMillis()+"",Constants.VOLUNTEER,boothNum);
+        CasteWiseVoterBean mVoter = new CasteWiseVoterBean(name, voterID, caste, System.currentTimeMillis() + "", Constants.VOLUNTEER, boothNum);
         save(mVoter);
     }
 
-    public void save(CasteWiseVoterBean mVoter){
+    public void save(CasteWiseVoterBean mVoter) {
         String key = mReference.push().getKey();
         mDialog.show();
         mReference.child(mVoter.getCaste()).child(key).setValue(mVoter).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 mDialog.dismiss();
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
                     Constants.showToast("Added SucessFully", CasteWiseVoters.this);
-                }
-                else {
+                } else {
                     Constants.showToast("Failed To add", CasteWiseVoters.this);
                 }
             }

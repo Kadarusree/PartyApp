@@ -1,12 +1,15 @@
 package sree.myparty.utils;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.widget.Toast;
 
 import sree.myparty.R;
+import sree.myparty.volunteer.CasteWiseVoters;
 
 /**
  * Created by srikanthk on 6/29/2018.
@@ -31,6 +34,7 @@ public class Constants {
     public static final String VOTER_ID = "VOTER_ID";
     public static final String MOBILE_NUMBER = "MOBILE_NUMBER";
     public static final String NAME = "NAME";
+    public static final String VOLUNTEER = "Sree";
     //end
 
     public static String GKA_IMAGE_STORAGE_PATH="GKSurveyIMG";
@@ -48,5 +52,16 @@ public class Constants {
         Toast.makeText(mActivty,text,Toast.LENGTH_LONG).show();
     }
 
+
+    static ProgressDialog mDialog;
+
+    public static ProgressDialog showDialog(Activity act) {
+
+        if (mDialog==null){
+            mDialog =  new ProgressDialog(act);
+            mDialog.setMessage("Please Wait");
+        }
+        return mDialog;
+    }
 
 }
