@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:clickable="true"
+    android:orientation="vertical"
+    android:padding="@dimen/activity_padding_horizontal">
+
+    <TextView
+        android:id="@+id/da_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif-medium"
+        android:maxLines="1"
+        android:textColor="@color/item_name"
+        android:textSize="@dimen/name" />
+
+    <TextView
+        android:id="@+id/da_booth_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:textColor="@color/chef"
+        android:textSize="@dimen/chef" />
+
+    <TextView
+        android:id="@+id/da_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/price"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/da_created_by"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_padding_horizontal"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:textColor="@color/description"
+        android:textSize="@dimen/description" />
+
+
+    <TextView
+        android:id="@+id/da_timestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/thumbnail"
+        android:maxLines="1"
+        android:text="2 min ago"
+        android:textColor="@color/timestamp"
+        android:textSize="@dimen/timestamp" />
+</LinearLayout>

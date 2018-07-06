@@ -72,6 +72,7 @@
 
         <activity android:name=".volunteer.VolunteerLogin" />
         <activity android:name=".volunteer.VolunteerRegis" />
+        <activity android:name=".misc.NewsList"></activity>
         <activity android:name=".admin.AdminLogin" />
         <activity
             android:name=".volunteer.VolunteerDashboard"

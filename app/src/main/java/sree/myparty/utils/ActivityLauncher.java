@@ -7,6 +7,7 @@ import android.content.Intent;
 import sree.myparty.DashBoard.BaseActvity;
 import sree.myparty.admin.AdminLogin;
 
+import sree.myparty.misc.NewsList;
 import sree.myparty.misc.PostNews;
 import sree.myparty.volunteer.CasteWiseVoters;
 import sree.myparty.volunteer.InfluencePerson;
@@ -47,7 +48,7 @@ public class ActivityLauncher {
     }
 
     public static void newsList(Context ctx) {
-       // ctx.startActivity(new Intent(ctx,NewsList.class));
+       ctx.startActivity(new Intent(ctx,NewsList.class));
 
     }
 }
