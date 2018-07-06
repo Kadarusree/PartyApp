@@ -2,6 +2,7 @@ package sree.myparty.DashBoard;
 
 import android.app.Dialog;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -23,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import butterknife.BindView;
 import sree.myparty.MyApplication;
 import sree.myparty.R;
+import sree.myparty.chat.UserListActicity;
 import sree.myparty.pojos.UserDetailPojo;
 import sree.myparty.utils.ActivityLauncher;
 import sree.myparty.utils.Constants;
@@ -114,6 +116,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 ActivityLauncher.volunteerRegistartionScreen(getActivity());
                 break;
             case R.id.db_op3:
+                startActivity(new Intent(getActivity(), UserListActicity.class));
                 break;
             case R.id.db_op4:
                 break;
