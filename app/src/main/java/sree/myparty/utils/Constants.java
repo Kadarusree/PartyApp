@@ -57,10 +57,11 @@ public class Constants {
 
     public static ProgressDialog showDialog(Activity act) {
 
-        if (mDialog==null){
+
             mDialog =  new ProgressDialog(act);
             mDialog.setMessage("Please Wait");
-        }
+            mDialog.setCancelable(false);
+
         return mDialog;
     }
 

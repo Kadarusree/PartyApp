@@ -81,7 +81,7 @@ public class RegistartionActivity extends AppCompatActivity {
     private boolean mVerificationInProgress = false;
     private static final String TAG = "PhoneAuthActivity";
     private PhoneAuthProvider.ForceResendingToken mResendToken;
-    ProgressDialog progressDialog;
+
 
     private final String VERIFICATION_ID = "VERIFICATION_ID";
 
@@ -98,9 +98,7 @@ public class RegistartionActivity extends AppCompatActivity {
         Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
         mLandigText.setTypeface(tf);
         mAuth = FirebaseAuth.getInstance();
-        progressDialog=new ProgressDialog(RegistartionActivity.this);
-        progressDialog.setMessage(getResources().getString(R.string.auth_phone_loading));
-        progressDialog.setCancelable(false);
+
         SessionManager mSessionManager = new SessionManager(this);
         String fb_key = mSessionManager.getFirebaseKey();
 
@@ -172,7 +170,7 @@ public class RegistartionActivity extends AppCompatActivity {
                 //  updateUI(STATE_VERIFY_SUCCESS, credential);
                 // [END_EXCLUDE]
                 //signInWithPhoneAuthCredential(credential);
-                progressDialog.cancel();
+                Constants.showDialog(RegistartionActivity.this).cancel();
                 Toast.makeText(getApplicationContext(),"Automatic detected",Toast.LENGTH_SHORT).show();
             }
 
@@ -181,7 +179,7 @@ public class RegistartionActivity extends AppCompatActivity {
                 // This callback is invoked in an invalid request for verification is made,
                 // for instance if the the phone number format is not valid.
                 Log.w(TAG, "onVerificationFailed", e);
-                progressDialog.cancel();
+                Constants.showDialog(RegistartionActivity.this).cancel();
                 // [START_EXCLUDE silent]
                 mVerificationInProgress = false;
                 // [END_EXCLUDE]
@@ -212,13 +210,14 @@ public class RegistartionActivity extends AppCompatActivity {
                 // now need to ask the user to enter the code and then construct a credential
                 // by combining the code with a verification ID.
                 Log.d(TAG, "onCodeSent:" + verificationId);
-                progressDialog.cancel();
+                Constants.showDialog(RegistartionActivity.this).cancel();
                 // Save verification ID and resending token so we can use them later
                 mVerificationId = verificationId;
                 Intent intent = new Intent(getApplicationContext(), OTP_Activity.class);
                 intent.putExtra(VERIFICATION_ID, verificationId);
                 intent.putExtra(Constants.VOTER_ID,mVoterID.getText().toString().trim());
                 intent.putExtra(Constants.NAME,edt_userName.getText().toString().trim());
+                intent.putExtra(Constants.MOBILE_NUMBER,mMobileNumber.getText().toString().trim());
                 startActivity(intent);
                 mResendToken = token;
 
@@ -270,7 +269,8 @@ public class RegistartionActivity extends AppCompatActivity {
         if (cancel) {
             focusView.requestFocus();
         } else {
-            progressDialog.show();
+            Constants.showDialog(RegistartionActivity.this).show();
+
             startPhoneNumberVerification(MobileNumber);
             // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         }

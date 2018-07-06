@@ -1,5 +1,6 @@
 package sree.myparty;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -35,13 +36,14 @@ import sree.myparty.session.SessionManager;
 import sree.myparty.utils.Constants;
 import sree.myparty.utils.DailogUtill;
 
+
 public class OTP_Activity extends AppCompatActivity {
     private static final String TAG = "PhoneAuthActivity";
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
     private FirebaseAuth mAuth;
     PinEntryView pinEntry;
     String vfId;
-    ProgressBar progressBar;
+    ProgressDialog progressDialog;
     String voterId, mobile_number,username;
     SessionManager sessionManager;
 
@@ -52,8 +54,8 @@ public class OTP_Activity extends AppCompatActivity {
         ButterKnife.bind(this);
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         mAuth = FirebaseAuth.getInstance();
-        progressBar = new ProgressBar(OTP_Activity.this);
-        voterId = getIntent().getStringExtra(Constants.VOTER_ID);
+        progressDialog= Constants.showDialog(OTP_Activity.this);
+         voterId = getIntent().getStringExtra(Constants.VOTER_ID);
         mobile_number = getIntent().getStringExtra(Constants.MOBILE_NUMBER);
         username = getIntent().getStringExtra(Constants.NAME);
         vfId = getIntent().getStringExtra("VERIFICATION_ID");
@@ -77,7 +79,7 @@ public class OTP_Activity extends AppCompatActivity {
             public void onVerificationFailed(FirebaseException e) {
                 // This callback is invoked in an invalid request for verification is made,
                 // for instance if the the phone number format is not valid.
-                progressBar.setVisibility(View.GONE);
+                progressDialog.dismiss();
                 Log.w(TAG, "onVerificationFailed", e);
                 // [START_EXCLUDE silent]
 
@@ -114,11 +116,9 @@ public class OTP_Activity extends AppCompatActivity {
 
 
         if (pinEntry.getText().toString().length() == 6) {
-            progressBar.setVisibility(View.VISIBLE);
-            String vfId = getIntent().getStringExtra("VERIFICATION_ID");
-            Log.d("shri", getIntent().getStringExtra("VERIFICATION_ID"));
-            verifyPhoneNumberWithCode(vfId, pinEntry.getText().toString());
-
+            //String vfId = getIntent().getStringExtra("VERIFICATION_ID");
+             verifyPhoneNumberWithCode(vfId, pinEntry.getText().toString());
+            Log.d("shri","test");
 
         } else {
 
@@ -130,6 +130,8 @@ public class OTP_Activity extends AppCompatActivity {
 
     private void verifyPhoneNumberWithCode(String verificationId, String code) {
         // [START verify_with_code]
+
+        progressDialog.show();
 
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
         // [END verify_with_code]
@@ -154,6 +156,7 @@ public class OTP_Activity extends AppCompatActivity {
                                 public void onDataChange(DataSnapshot dataSnapshot) {
 
                                     if (dataSnapshot.exists()) {
+                                        progressDialog.dismiss();
                                         startActivity(new Intent(getApplicationContext(), Dashboard.class));
                                         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                                     } else {
@@ -163,6 +166,7 @@ public class OTP_Activity extends AppCompatActivity {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()) {
+                                                    progressDialog.dismiss();
                                                     startActivity(new Intent(getApplicationContext(), Dashboard.class));
                                                     overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
@@ -177,6 +181,7 @@ public class OTP_Activity extends AppCompatActivity {
 
                                 @Override
                                 public void onCancelled(DatabaseError databaseError) {
+                                    progressDialog.dismiss();
                                     Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_SHORT).show();
 
                                 }
@@ -187,7 +192,7 @@ public class OTP_Activity extends AppCompatActivity {
                             //updateUI(STATE_SIGNIN_SUCCESS, user);
                             // [END_EXCLUDE]
                         } else {
-                            progressBar.setVisibility(View.GONE);
+                            progressDialog.dismiss();
 
                             // Sign in failed, display a message and update the UI
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -203,7 +208,7 @@ public class OTP_Activity extends AppCompatActivity {
                             // [START_EXCLUDE silent]
                             // Update UI
                             //   updateUI(STATE_SIGNIN_FAILED);
-                            DailogUtill.showDialog("Signed failed.", getSupportFragmentManager(), getApplicationContext());
+                          //  DailogUtill.showDialog("Signed failed.", getSupportFragmentManager(), getApplicationContext());
 
                             //Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
 
