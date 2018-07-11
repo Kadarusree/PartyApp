@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import sree.myparty.R;
 import sree.myparty.volunteer.CasteWiseVoters;
 
@@ -45,6 +47,7 @@ public class Constants {
     public static final String PARLIMENT_CONST = "Adilabad";
 
     public static final String DB_PATH = STATE+"/"+PARLIMENT_CONST+"/"+ASSEMBLY_CONST;
+    public static final String QR_URL = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=";
 
 
 
@@ -64,5 +67,5 @@ public class Constants {
 
         return mDialog;
     }
-
+    public static ArrayList<String> fcm_ids;
 }

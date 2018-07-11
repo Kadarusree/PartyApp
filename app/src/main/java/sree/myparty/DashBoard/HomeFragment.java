@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,6 +27,7 @@ import sree.myparty.MyApplication;
 import sree.myparty.R;
 import sree.myparty.chat.UserListActicity;
 import sree.myparty.pojos.UserDetailPojo;
+import sree.myparty.session.SessionManager;
 import sree.myparty.utils.ActivityLauncher;
 import sree.myparty.utils.Constants;
 
@@ -36,17 +38,15 @@ import sree.myparty.utils.Constants;
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
      ImageView db_op1,db_op2,db_op3,db_op4,db_op5,db_op6;
-     FirebaseAuth auth;
-     DatabaseReference reference;
+     SessionManager mSessionManager;
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
         View v =inflater.inflate(R.layout.home_fragment,null,false);
-        auth=FirebaseAuth.getInstance();
-
-        reference=  MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH +"/Users/"+auth.getUid());
-        db_op1 = (ImageView)v.findViewById(R.id.db_op1);
+            db_op1 = (ImageView)v.findViewById(R.id.db_op1);
         db_op2 = (ImageView)v.findViewById(R.id.db_op2);
         db_op3 = (ImageView)v.findViewById(R.id.db_op3);
         db_op4 = (ImageView)v.findViewById(R.id.db_op4);
@@ -59,14 +59,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         db_op5.setOnClickListener(this);
         db_op6.setOnClickListener(this);
 
+        mSessionManager = new SessionManager(getActivity());
 
 
-       /* db_op1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });*/
+
         return v;
     }
 
@@ -74,42 +71,23 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.db_op1:
-                reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+                Dialog d = new Dialog(getActivity());
+                d.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                d.setContentView(R.layout.id_card);
+                TextView tv_username=d.findViewById(R.id.tv_username);
+                TextView tv_user_voterid= d.findViewById(R.id.tv_user_voterid);
+                TextView tv_user_RegId= d.findViewById(R.id.tv_user_RegId);
+                tv_username.setText(mSessionManager.getName());
+                tv_user_voterid.setText(mSessionManager.getVoterID());
+                tv_user_RegId.setText(mSessionManager.getRegID());
 
-                        if(dataSnapshot!=null)
-                        {
+                ImageView profilePIC=d.findViewById(R.id.profile_pic);
+                ImageView Qrpic= d.findViewById(R.id.qr);
 
-                            Log.d("shri",dataSnapshot.getChildrenCount()+"");
-                              UserDetailPojo pojo=dataSnapshot.getValue(UserDetailPojo.class);
-                                    if(pojo!=null)
-                                    {
-                                        Dialog d = new Dialog(getActivity());
-                                        d.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                                        d.setContentView(R.layout.id_card);
-                                        TextView tv_username=d.findViewById(R.id.tv_username);
-                                        TextView tv_user_voterid= d.findViewById(R.id.tv_user_voterid);
-                                        TextView tv_user_RegId= d.findViewById(R.id.tv_user_RegId);
-                                        tv_username.setText(pojo.getUser_name());
-                                        tv_user_voterid.setText(pojo.getVoter_id());
-                                        tv_user_RegId.setText(pojo.getReg_id());
+                Glide.with(getActivity()).load(mSessionManager.getQR()).into(Qrpic);
+                Glide.with(getActivity()).load(mSessionManager.getQR()).into(profilePIC);
 
-                                        d.show();
-
-                                    }
-
-
-
-                        }
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
+                d.show();
 
                 break;
             case R.id.db_op2:

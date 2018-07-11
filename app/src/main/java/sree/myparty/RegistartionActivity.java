@@ -27,6 +27,10 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONArray;
@@ -57,8 +61,10 @@ import sree.myparty.apis.ApiClient;
 import sree.myparty.apis.ApiInterface;
 import sree.myparty.firebase.Data;
 import sree.myparty.firebase.FirebasePushModel;
+import sree.myparty.pojos.UserDetailPojo;
 import sree.myparty.session.SessionManager;
 import sree.myparty.utils.Constants;
+import sree.myparty.utils.DailogUtill;
 
 public class RegistartionActivity extends AppCompatActivity {
 
@@ -87,6 +93,9 @@ public class RegistartionActivity extends AppCompatActivity {
 
     private String mVerificationId;
 
+    ProgressDialog progressDialog;
+    SessionManager mSessionManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,12 +107,12 @@ public class RegistartionActivity extends AppCompatActivity {
         Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
         mLandigText.setTypeface(tf);
         mAuth = FirebaseAuth.getInstance();
-
+        progressDialog= Constants.showDialog(RegistartionActivity.this);
         SessionManager mSessionManager = new SessionManager(this);
         String fb_key = mSessionManager.getFirebaseKey();
 
         Constants.showToast(fb_key, this);
-
+        mSessionManager = new SessionManager(this);
         FirebaseInstanceId.getInstance().getToken();
 
        /* ApiInterface apiService =
@@ -132,27 +141,14 @@ public class RegistartionActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        DeleteBulkFromBackEnd mEnd = new DeleteBulkFromBackEnd(new OkHttpClient());
-        mEnd.execute();
-
-        /*Call<ResponseBody> call = apiService.sendNotification(mObject);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-            }
-        });*/
 
 
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             @Override
             public void onVerificationCompleted(PhoneAuthCredential credential) {
+
+
                 // This callback will be invoked in two situations:
                 // 1 - Instant verification. In some cases the phone number can be instantly
                 //     verified without needing to send or enter a verification code.
@@ -169,8 +165,8 @@ public class RegistartionActivity extends AppCompatActivity {
                 // Update the UI and attempt sign in with the phone credential
                 //  updateUI(STATE_VERIFY_SUCCESS, credential);
                 // [END_EXCLUDE]
-                //signInWithPhoneAuthCredential(credential);
-                Constants.showDialog(RegistartionActivity.this).cancel();
+             // signInWithPhoneAuthCredential(credential);
+                progressDialog.dismiss();
                 Toast.makeText(getApplicationContext(),"Automatic detected",Toast.LENGTH_SHORT).show();
             }
 
@@ -179,7 +175,7 @@ public class RegistartionActivity extends AppCompatActivity {
                 // This callback is invoked in an invalid request for verification is made,
                 // for instance if the the phone number format is not valid.
                 Log.w(TAG, "onVerificationFailed", e);
-                Constants.showDialog(RegistartionActivity.this).cancel();
+                progressDialog.dismiss();
                 // [START_EXCLUDE silent]
                 mVerificationInProgress = false;
                 // [END_EXCLUDE]
@@ -210,7 +206,7 @@ public class RegistartionActivity extends AppCompatActivity {
                 // now need to ask the user to enter the code and then construct a credential
                 // by combining the code with a verification ID.
                 Log.d(TAG, "onCodeSent:" + verificationId);
-                Constants.showDialog(RegistartionActivity.this).cancel();
+                progressDialog.dismiss();
                 // Save verification ID and resending token so we can use them later
                 mVerificationId = verificationId;
                 Intent intent = new Intent(getApplicationContext(), OTP_Activity.class);
@@ -233,9 +229,9 @@ public class RegistartionActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_generateOTP)
     public void onButtonClick(View v) {
-     //   attemptRegistration();
+       attemptRegistration();
 
-        startActivity(new Intent(getApplicationContext(),Dashboard.class));
+     //   startActivity(new Intent(getApplicationContext(),Dashboard.class));
 
     }
 
@@ -272,7 +268,7 @@ public class RegistartionActivity extends AppCompatActivity {
         if (cancel) {
             focusView.requestFocus();
         } else {
-            Constants.showDialog(RegistartionActivity.this).show();
+            progressDialog.show();
 
             startPhoneNumberVerification(MobileNumber);
             // overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
@@ -282,41 +278,6 @@ public class RegistartionActivity extends AppCompatActivity {
     }
 
 
-    class DeleteBulkFromBackEnd extends AsyncTask<Void, Void, String> {
-
-        final String API_URL = Constants.FIREBASE_PUSH_API;
-        final OkHttpClient mClient;
-
-        public DeleteBulkFromBackEnd(OkHttpClient client) {
-            mClient = client;
-        }
-
-        @Override
-        protected String doInBackground(Void... params) {
-            try {
-                MediaType JSON
-                        = MediaType.parse("application/json; charset=utf-8");
-                RequestBody mBody = RequestBody.create(JSON, mObject.toString());
-                Request request = new Request.Builder()
-                        .url(API_URL)
-                        .post(mBody)
-                        .header("Authorization", Constants.FCM_SERVER_KEY)
-                        .header("Content-Type", "application/json")
-                        .build();
-
-
-                okhttp3.Response response = mClient.newCall(request).execute();
-
-                Log.d("DeleteBulkFromBackEnd", "Code: " + response.code());
-                Log.d("DeleteBulkFromBackEnd", "Body: " + response.body().string());
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-    }
 
 
     @Override
@@ -388,5 +349,87 @@ public class RegistartionActivity extends AppCompatActivity {
                 });
     }*/
 
+    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
 
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithCredential:success");
+
+
+                            final FirebaseUser user = task.getResult().getUser();
+                            final DatabaseReference mRef = MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/Users");
+                            mRef.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                    if (dataSnapshot.exists()) {
+                                        progressDialog.dismiss();
+                                        startActivity(new Intent(getApplicationContext(), Dashboard.class));
+                                        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                                    } else {
+
+                                        UserDetailPojo pojo = new UserDetailPojo(mVoterID.getText().toString().trim(),
+                                                mMobileNumber.getText().toString().trim(),
+                                                user.getUid(),
+                                                "",
+                                                edt_userName.getText().toString().trim(), mSessionManager.getState(), mSessionManager.getPC_NAME(), mSessionManager.getAC_NAME(), 0,mSessionManager.getFirebaseKey(),"",Constants.QR_URL+user.getUid());
+                                        mRef.child(user.getUid()).setValue(pojo).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    progressDialog.dismiss();
+                                                    startActivity(new Intent(getApplicationContext(), Dashboard.class));
+                                                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+
+                                                }
+                                            }
+                                        });
+
+
+                                    }
+
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                    progressDialog.dismiss();
+                                    Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_SHORT).show();
+
+                                }
+                            });
+
+
+                            // [START_EXCLUDE]
+                            //updateUI(STATE_SIGNIN_SUCCESS, user);
+                            // [END_EXCLUDE]
+                        } else {
+                            progressDialog.dismiss();
+
+                            // Sign in failed, display a message and update the UI
+                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                                // The verification code entered was invalid
+                                // [START_EXCLUDE silent]
+                                //mVerificationField.setError("Invalid code.");
+                                DailogUtill.showDialog("Invalid code.", getSupportFragmentManager(), getApplicationContext());
+
+
+                                // [END_EXCLUDE]
+                            }
+                            // [START_EXCLUDE silent]
+                            // Update UI
+                            //   updateUI(STATE_SIGNIN_FAILED);
+                            //  DailogUtill.showDialog("Signed failed.", getSupportFragmentManager(), getApplicationContext());
+
+                            //Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT).show();
+
+                            // [END_EXCLUDE]
+                        }
+                    }
+                });
+    }
 }

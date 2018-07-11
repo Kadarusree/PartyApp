@@ -50,7 +50,8 @@ android:padding="@dimen/dp_5"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="30dp"
                         android:layout_marginTop="5dp"
-                        android:src="@drawable/sri" />
+                        android:src="@drawable/sri"
+                        android:id="@+id/profile_pic"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -103,7 +104,9 @@ android:padding="@dimen/dp_5"
                         android:layout_marginTop="30dp"
                         android:layout_gravity="bottom"
                         android:layout_marginRight="5dp"
-                        android:src="@drawable/ic_qr_code" />
+                        android:src="@drawable/ic_qr_code"
+                        android:id="@+id/qr"
+                        />
                 </LinearLayout>
             </LinearLayout>
 

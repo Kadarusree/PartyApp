@@ -17,6 +17,7 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -27,6 +28,7 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -44,11 +46,16 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -56,6 +63,10 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 import sree.myparty.MyApplication;
 import sree.myparty.R;
 import sree.myparty.beans.NewsPojo;
@@ -394,11 +405,11 @@ public class PostNews extends AppCompatActivity {
 
     }
 
-    public void postNews(NewsPojo news, DatabaseReference mRef, String key) {
+    public void postNews(final NewsPojo news, DatabaseReference mRef, String key) {
         mRef.child(key).setValue(news).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-
+                sendNotifications(news);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -412,5 +423,55 @@ public class PostNews extends AppCompatActivity {
             }
         });
     }
+    JSONObject  mObject;
+    public void sendNotifications(NewsPojo news){
+          mObject = new JSONObject();
+        try {
 
+            mObject.put("data", new JSONObject().put("key", news.getTitle()));
+            mObject.put("registration_ids", new JSONArray(Constants.fcm_ids));
+            System.out.print(mObject.toString());
+
+            NotificationsTask mEnd = new NotificationsTask(new OkHttpClient());
+            mEnd.execute();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    class NotificationsTask extends AsyncTask<Void, Void, String> {
+
+        final String API_URL = Constants.FIREBASE_PUSH_API;
+        final OkHttpClient mClient;
+
+        public NotificationsTask(OkHttpClient client) {
+            mClient = client;
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            try {
+                MediaType JSON
+                        = MediaType.parse("application/json; charset=utf-8");
+                RequestBody mBody = RequestBody.create(JSON, mObject.toString());
+                Request request = new Request.Builder()
+                        .url(API_URL)
+                        .post(mBody)
+                        .header("Authorization", Constants.FCM_SERVER_KEY)
+                        .header("Content-Type", "application/json")
+                        .build();
+
+
+                okhttp3.Response response = mClient.newCall(request).execute();
+
+                Log.d("DeleteBulkFromBackEnd", "Code: " + response.code());
+                Log.d("DeleteBulkFromBackEnd", "Body: " + response.body().string());
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+    }
 }

@@ -3,7 +3,14 @@ package sree.myparty.DashBoard;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
+import android.content.ContentValues;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -15,9 +22,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.ArrayList;
+
+import sree.myparty.MyApplication;
 import sree.myparty.R;
+import sree.myparty.pojos.UserDetailPojo;
 import sree.myparty.utils.ActivityLauncher;
+import sree.myparty.utils.Constants;
 
 public abstract class BaseActvity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -48,6 +70,8 @@ public abstract class BaseActvity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         replaceFragement(new HomeFragment());
+
+        getAllFirebaseIDs();
     }
 
     @Override
@@ -107,10 +131,35 @@ public abstract class BaseActvity extends AppCompatActivity
         return true;
     }
 
-    public void replaceFragement(Fragment fg){
+    public void replaceFragement(Fragment fg) {
         FragmentManager mFragmentManager = getFragmentManager();
         FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
         mFragmentTransaction.replace(R.id.content_frame, fg);
         mFragmentTransaction.commit();
     }
+
+    public void getAllFirebaseIDs() {
+        final ArrayList<String> fcmIds = new ArrayList<>();
+        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/Users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                fcmIds.clear();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    UserDetailPojo MUser = postSnapshot.getValue(UserDetailPojo.class);
+                    fcmIds.add(MUser.getFcm_id());
+                }
+
+                Toast.makeText(getApplicationContext(), fcmIds.size() + "", Toast.LENGTH_LONG).show();
+            Constants.fcm_ids = fcmIds;
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
+
 }
