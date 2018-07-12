@@ -17,11 +17,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 import sree.myparty.MyApplication;
 import sree.myparty.R;
 import sree.myparty.session.SessionManager;
@@ -59,6 +64,7 @@ public class ParticularChat extends AppCompatActivity {
         String combinedEmail = getIntent().getStringExtra("key");
         name = getIntent().getStringExtra("name");
         name = getCapName(name);
+        fcmkey=getIntent().getStringExtra("fcm");
       //  db = FirebaseObjects.getDbObject();
         getSupportActionBar().setTitle(name);
         uid = getIntent().getStringExtra("uid");
@@ -83,6 +89,8 @@ public class ParticularChat extends AppCompatActivity {
 
                     ChatMessage chatMessage = new ChatMessage(sessionManager.getName(), name, sessionManager.getRegID(), uid, edtMsgBox.getText().toString().trim());
                     dbref.child(key).setValue(chatMessage);
+
+                    sendNotification();
                     edtMsgBox.setText("");
                 }
 
@@ -128,7 +136,61 @@ public class ParticularChat extends AppCompatActivity {
                 .append(name.substring(1)).toString();
     }
 
+    public void sendNotification() {
 
+        JSONObject jsonObjec = null;
+        String bodydata =edtMsgBox.getText().toString().trim();
+        try {
+
+
+
+            ArrayList<String> al = new ArrayList<>();
+            al.add(fcmkey);
+            jsonObjec = new JSONObject();
+
+            JSONArray jsonArray = new JSONArray(al);
+            jsonObjec.put("registration_ids", jsonArray);
+            JSONObject jsonObjec2 = new JSONObject();
+            jsonObjec2.put("body", bodydata);
+            jsonObjec2.put("title", name);
+            jsonObjec.put("notification", jsonObjec2);
+
+            jsonObjec.put("time_to_live", 172800);
+            jsonObjec.put("priority", "HIGH");
+
+
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Exception", Toast.LENGTH_SHORT).show();
+        }
+
+
+
+
+
+
+        OkHttpClient client = new OkHttpClient();
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        RequestBody body = RequestBody.create(JSON, jsonObjec.toString());
+        Request request = new Request.Builder()
+                .addHeader("Content-Type","application/json")
+                .addHeader("Authorization",Constants.FCM_SERVER_KEY)
+                .url("https://fcm.googleapis.com/fcm/send")
+                .post(body)
+                .build();
+        okhttp3.Call call = client.newCall(request);
+        call.enqueue(new okhttp3.Callback() {
+            @Override
+            public void onFailure(okhttp3.Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
+
+            }
+        });
+
+    }
 
 }
 
