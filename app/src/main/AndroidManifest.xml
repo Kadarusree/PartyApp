@@ -8,9 +8,9 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".MyApplication"
@@ -82,11 +82,23 @@
         <activity android:name=".admin.AdminLogin" />
         <activity
             android:name=".volunteer.VolunteerDashboard"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".volunteer.InfluencePerson" />
-        <activity android:name=".volunteer.Local_Issues" />
-        <activity android:name=".volunteer.CasteWiseVoters" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".volunteer.InfluencePerson"
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".volunteer.Local_Issues"
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".volunteer.CasteWiseVoters"
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"/>
         <activity android:name=".misc.PostNews"></activity>
+        <activity android:name=".chat.ParticularChat" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -95,7 +107,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
+                android:resource="@xml/file_paths" />
         </provider>
 
     </application>

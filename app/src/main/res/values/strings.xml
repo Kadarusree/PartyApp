@@ -57,4 +57,15 @@
     <string name="auth_phone_loading">Authenticating phone number...</string>
     <string name="ok">OK</string>
     <string name="error_invalid_user_name">Enter user name</string>
+
+
+    <string-array name="caste">
+        <item>A Caste</item>
+        <item>B Caste</item>
+        <item>C Caste</item>
+        <item>D Caste</item>
+        <item>E Caste</item>
+        <item>F Caste</item>
+
+    </string-array>
 </resources>

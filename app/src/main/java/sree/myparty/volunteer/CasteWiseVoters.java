@@ -8,7 +8,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,10 +25,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import sree.myparty.Adapters.CasteWiseVotersAdapter;
-import sree.myparty.Adapters.InfluencePersonAdapter;
+
 import sree.myparty.MyApplication;
 import sree.myparty.R;
+import sree.myparty.adapters.CasteWiseVotersAdapter;
 import sree.myparty.pojos.CasteWiseVoterBean;
 import sree.myparty.pojos.InfluPerson;
 import sree.myparty.utils.Constants;
@@ -45,7 +47,7 @@ public class CasteWiseVoters extends AppCompatActivity {
     EditText edt_BoothNum;
 
     @BindView(R.id.cwv_caste)
-    EditText edt_caste;
+    Spinner edt_caste;
 
     DatabaseReference mReference;
     AlertDialog mDialog;
@@ -72,27 +74,38 @@ public class CasteWiseVoters extends AppCompatActivity {
         recyclerView.addItemDecoration(new MyDividerItemDecoration(this, LinearLayoutManager.VERTICAL, 16));
         recyclerView.setAdapter(mAdapter);
         mDialog.show();
-        mReference.addValueEventListener(new ValueEventListener() {
+        edt_caste.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                mDialog.dismiss();
-                newsList.clear();
-                for (DataSnapshot indi : dataSnapshot.getChildren()) {
-                    indi.getKey();
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mReference.
+                        child(getResources().
+                                getStringArray(R.array.caste)[edt_caste.getSelectedItemPosition()]).
+                        addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        mDialog.dismiss();
+                        newsList.clear();
+                        for (DataSnapshot indi : dataSnapshot.getChildren()) {
+                            CasteWiseVoterBean mNewsItem = indi.getValue(CasteWiseVoterBean.class);
+                            newsList.add(mNewsItem);
+                        }
+                        // refreshing recycler view
+                        mAdapter.notifyDataSetChanged();
 
-                    CasteWiseVoterBean mNewsItem = indi.getValue(CasteWiseVoterBean.class);
-                    newsList.add(mNewsItem);
-                }
-                // refreshing recycler view
-                mAdapter.notifyDataSetChanged();
+                        // stop animating Shimmer and hide the layout
 
-                // stop animating Shimmer and hide the layout
+                    }
 
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        mDialog.dismiss();
+                    }
+                });
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                mDialog.dismiss();
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
 
@@ -105,7 +118,7 @@ public class CasteWiseVoters extends AppCompatActivity {
 
         String name = edt_name.getText().toString();
         String voterID = edt_voterID.getText().toString();
-        String caste = edt_caste.getText().toString().trim();
+        String caste = getResources().getStringArray(R.array.caste)[edt_caste.getSelectedItemPosition()];
 
         int boothNum = Integer.parseInt(edt_BoothNum.getText().toString().trim());
 

@@ -1,4 +1,4 @@
-package sree.myparty.Adapters;
+package sree.myparty.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import sree.myparty.R;
@@ -51,11 +55,22 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.MyViewHold
         holder.booth_num.setText("Booth Number :" + person.getBoothnumber()+"");
         holder.description.setText("Description :" + person.getDescription());
         holder.createdby.setText("Created By: " + person.getCreatedBy());
-        holder.timestamp.setText("Posted At : "+person.getTimestamp()+"");
+        holder.timestamp.setText("Posted At : "+getDate(person.getTimestamp(),"dd/MM/yyyy HH:mm aa"));
     }
     // recipe
     @Override
     public int getItemCount() {
         return personList.size();
+    }
+
+    public static String getDate(long milliSeconds, String dateFormat)
+    {
+        // Create a DateFormatter object for displaying date in specified format.
+        SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
+
+        // Create a calendar object that will convert the date and time value in milliseconds to date.
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(milliSeconds);
+        return formatter.format(calendar.getTime());
     }
 }

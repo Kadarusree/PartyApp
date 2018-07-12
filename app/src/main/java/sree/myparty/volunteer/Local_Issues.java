@@ -23,10 +23,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import sree.myparty.Adapters.CasteWiseVotersAdapter;
-import sree.myparty.Adapters.IssuesAdapter;
+
 import sree.myparty.MyApplication;
 import sree.myparty.R;
+import sree.myparty.adapters.IssuesAdapter;
 import sree.myparty.pojos.CasteWiseVoterBean;
 import sree.myparty.pojos.IssueBean;
 import sree.myparty.utils.Constants;

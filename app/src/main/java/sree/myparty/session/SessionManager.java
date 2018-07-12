@@ -106,6 +106,9 @@ public class SessionManager {
     }
     public String getRegID(){
         return mSharedPref.getString(REG_ID,"");
+    } public String getMobileNumber(){
+        return mSharedPref.getString(MOBILE_NUMBER,"");
     }
+
 
 }
