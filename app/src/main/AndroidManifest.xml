@@ -23,6 +23,7 @@
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".chat.ParticularChat" />
         <activity
             android:name=".RegistartionActivity"
             android:screenOrientation="portrait">

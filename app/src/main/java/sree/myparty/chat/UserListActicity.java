@@ -20,6 +20,7 @@ import sree.myparty.DashBoard.BaseActvity;
 import sree.myparty.MyApplication;
 import sree.myparty.R;
 import sree.myparty.pojos.UserDetailPojo;
+import sree.myparty.session.SessionManager;
 import sree.myparty.utils.Constants;
 
 public class UserListActicity extends AppCompatActivity {
@@ -31,33 +32,36 @@ public class UserListActicity extends AppCompatActivity {
     UserListAdapter userListAdapter;
     DatabaseReference databaseReference;
     ArrayList<UserDetailPojo> dataList;
-
+    SessionManager sessionManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.userlist_layout);
         ButterKnife.bind(this);
-
-        userListAdapter=new UserListAdapter(UserListActicity.this,new ArrayList<UserDetailPojo>());
+        sessionManager=new SessionManager(getApplicationContext());
+        userListAdapter=new UserListAdapter(UserListActicity.this,new ArrayList<UserDetailPojo>(),new SessionManager(getApplicationContext()));
         databaseReference= MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/Users");
         dataList=new ArrayList<>();
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
+                dataList=new ArrayList<>();
                 for(DataSnapshot dataSnapshot1:dataSnapshot.getChildren())
                 {
 
                     UserDetailPojo userDetailPojo=dataSnapshot1.getValue(UserDetailPojo.class);
-                    dataList.add(userDetailPojo);
-                    UserListAdapter adapter=new UserListAdapter(UserListActicity.this,dataList);
-                    recycler_view_user.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
+                    if(!sessionManager.getRegID().equalsIgnoreCase(userDetailPojo.getReg_id())) {
+                        dataList.add(userDetailPojo);
+                    }
+
 
 
 
                 }
+                UserListAdapter adapter=new UserListAdapter(UserListActicity.this,dataList,new SessionManager(getApplicationContext()));
+                recycler_view_user.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
 
 
             }

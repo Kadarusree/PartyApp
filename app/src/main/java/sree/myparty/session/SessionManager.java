@@ -92,6 +92,9 @@ public class SessionManager {
     public String getQR(){
         return mSharedPref.getString(QR_PIC,"");
     }
+    public String getMobile(){
+        return mSharedPref.getString(MOBILE_NUMBER,"");
+    }
     public String getName(){
         return mSharedPref.getString(USERNAME,"");
     }

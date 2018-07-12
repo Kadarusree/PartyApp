@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MyPartyApp.iml" filepath="$PROJECT_DIR$/MyPartyApp.iml" />
-      <module fileurl="file://E:\PartyApp\MyPartyApp\MyPartyApp\PartyApp.iml" filepath="E:\PartyApp\MyPartyApp\MyPartyApp\PartyApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/PartyApp.iml" filepath="$PROJECT_DIR$/.idea/PartyApp.iml" />
+      <module fileurl="file://E:/PartyApp/MyPartyApp/MyPartyApp/PartyApp.iml" filepath="E:/PartyApp/MyPartyApp/MyPartyApp/PartyApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

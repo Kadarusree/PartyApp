@@ -29,7 +29,7 @@
             android:layout_weight="0.8"
             android:gravity="center|left"
             android:text="Shridhar"
-            android:id="@+id/tvUser"
+            android:id="@+id/tvname"
             android:textColor="#000000"
             android:textSize="16sp" />
     </LinearLayout>
