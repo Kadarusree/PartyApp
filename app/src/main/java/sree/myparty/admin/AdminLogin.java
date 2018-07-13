@@ -14,15 +14,15 @@ public class AdminLogin extends AppCompatActivity {
     @BindView(R.id.tv_admin_laningText)
     TextView mLandigText;
 
-    @BindView(R.id.edt_vol_username)
+    @BindView(R.id.edt_admin_username)
     EditText edt_username;
 
-    @BindView(R.id.edt_vol_password)
+    @BindView(R.id.edt_admin_password)
     EditText edt_password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_volunteer_login);
+        setContentView(R.layout.activity_admin_login);
 
         ButterKnife.bind(this);
         mLandigText.setText("Voter 360\u00b0\n Admin Login");

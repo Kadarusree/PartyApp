@@ -41,11 +41,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
      SessionManager mSessionManager;
 
 
+     TextView tv;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
         View v =inflater.inflate(R.layout.home_fragment,null,false);
+
+        tv = (TextView) v.findViewById(R.id.mywidget);
+        tv.setSelected(true);
+
+
             db_op1 = (ImageView)v.findViewById(R.id.db_op1);
         db_op2 = (ImageView)v.findViewById(R.id.db_op2);
         db_op3 = (ImageView)v.findViewById(R.id.db_op3);
@@ -85,7 +92,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 ImageView Qrpic= d.findViewById(R.id.qr);
 
                 Glide.with(getActivity()).load(mSessionManager.getQR()).into(Qrpic);
-                Glide.with(getActivity()).load(mSessionManager.getQR()).into(profilePIC);
+                Glide.with(getActivity()).load(mSessionManager.getProfilePic()).into(profilePIC);
 
                 d.show();
 

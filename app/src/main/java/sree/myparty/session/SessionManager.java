@@ -31,6 +31,8 @@ public class SessionManager {
     private final String REG_ID="REG_ID";
     private final String FCM_ID="FCM_ID";
 
+    private final String DB_PATH="DB_PATH";
+
     public SessionManager(Context gContex) {
         this.mContext=gContex;
         mSharedPref = mContext.getSharedPreferences(Constants.PREF_NAME,Context.MODE_PRIVATE);
@@ -110,5 +112,33 @@ public class SessionManager {
         return mSharedPref.getString(MOBILE_NUMBER,"");
     }
 
+    public void setDB_PATH(String path){
+        mEditor.putString(DB_PATH,path);
+        mEditor.commit();
+    }
 
+    public String getDB_PATH(String path){
+        return mSharedPref.getString(DB_PATH,"");
+
+    }
+
+    public void setState(String s) {
+        mEditor.putString(STATE,s);
+        mEditor.commit();
+    }
+
+    public void setPC(String s) {
+        mEditor.putString(PC_NAME,s);
+        mEditor.commit();
+    }
+
+    public void setAC(String s) {
+        mEditor.putString(AC_NAME,s);
+        mEditor.commit();
+    }
+
+    public void logout() {
+        mEditor.clear();
+        mEditor.commit();
+    }
 }

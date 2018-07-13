@@ -40,8 +40,8 @@
     <string name="vol_db_option1">CASTEWISE\nVOTERS</string>
     <string name="vol_db_option2">INFLUENCE\nPERSON</string>
     <string name="vol_db_option3">LOCAL\nISSUES</string>
-    <string name="vol_db_option4"></string>
-    <string name="vol_db_option5"></string>
+    <string name="vol_db_option4">READ NEWS</string>
+    <string name="vol_db_option5">POST\nNEWS</string>
     <string name="vol_db_option6"></string>
 
 

@@ -27,16 +27,16 @@ public class VolunteerHomeFragment extends Fragment implements View.OnClickListe
         db_op1 = (ImageView)v.findViewById(R.id.vol_db_op1);
         db_op2 = (ImageView)v.findViewById(R.id.vol_db_op2);
         db_op3 = (ImageView)v.findViewById(R.id.vol_db_op3);
-        /*db_op4 = (ImageView)v.findViewById(R.id.vol_db_op4);
+       db_op4 = (ImageView)v.findViewById(R.id.vol_db_op4);
         db_op5 = (ImageView)v.findViewById(R.id.vol_db_op5);
-        db_op6 = (ImageView)v.findViewById(R.id.vol_db_op6);*/
+      //  db_op6 = (ImageView)v.findViewById(R.id.vol_db_op6);*/
 
         db_op1.setOnClickListener(this);
         db_op2.setOnClickListener(this);
         db_op3.setOnClickListener(this);
-        /*db_op4.setOnClickListener(this);
+        db_op4.setOnClickListener(this);
         db_op5.setOnClickListener(this);
-        db_op6.setOnClickListener(this);*/
+      //  db_op6.setOnClickListener(this);*/
 
 
         return v;
@@ -54,8 +54,14 @@ public class VolunteerHomeFragment extends Fragment implements View.OnClickListe
                 break;
             case R.id.vol_db_op3:
                 ActivityLauncher.localIssues(getActivity());
-
                 break;
+            case R.id.vol_db_op4:
+                ActivityLauncher.newsList(getActivity());
+                break;
+            case R.id.vol_db_op5:
+                ActivityLauncher.postNews(getActivity());
+                break;
+
         }
     }
 }

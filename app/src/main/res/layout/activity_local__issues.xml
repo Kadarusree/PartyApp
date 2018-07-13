@@ -48,6 +48,8 @@
             android:layout_height="0dp"
             android:background="@drawable/rounded_corner"
             android:id="@+id/issue_description"
+            android:gravity="top|left"
+           android:padding="@dimen/dp_2"
             />
     </LinearLayout>
     <LinearLayout

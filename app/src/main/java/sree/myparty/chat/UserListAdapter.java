@@ -5,7 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -38,7 +41,7 @@ class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.USerViewHolde
     public void onBindViewHolder(USerViewHolder holder, final int position) {
 
         holder.tv_user.setText(arrayList.get(position).getUser_name());
-
+        Glide.with(acticity).load(arrayList.get(position).getProfile_url()).into(holder.img_user);
         holder.tv_user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,10 +76,13 @@ class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.USerViewHolde
     class USerViewHolder extends RecyclerView.ViewHolder
     {
             TextView tv_user;
+            ImageView  img_user;
+
 
         public USerViewHolder(View itemView) {
             super(itemView);
             tv_user=itemView.findViewById(R.id.tvUser);
+            img_user=itemView.findViewById(R.id.img_user);
         }
     }
 }

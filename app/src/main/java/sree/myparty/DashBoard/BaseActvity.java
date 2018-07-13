@@ -24,6 +24,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -38,6 +39,7 @@ import java.util.ArrayList;
 import sree.myparty.MyApplication;
 import sree.myparty.R;
 import sree.myparty.pojos.UserDetailPojo;
+import sree.myparty.session.SessionManager;
 import sree.myparty.utils.ActivityLauncher;
 import sree.myparty.utils.Constants;
 
@@ -113,12 +115,20 @@ public abstract class BaseActvity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            ActivityLauncher.postNews(this);
+            ActivityLauncher.newsList(this);
         } else if (id == R.id.nav_gallery) {
             ActivityLauncher.newsList(this);
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
+            FirebaseAuth  auth= FirebaseAuth.getInstance();
+            auth.signOut();
+
+
+            SessionManager mSessionManager = new SessionManager(this);
+            mSessionManager.logout();
+
+            this.finish();
 
         } else if (id == R.id.nav_share) {
 

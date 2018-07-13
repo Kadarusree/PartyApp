@@ -90,7 +90,7 @@ public class ParticularChat extends AppCompatActivity {
                     ChatMessage chatMessage = new ChatMessage(sessionManager.getName(), name, sessionManager.getRegID(), uid, edtMsgBox.getText().toString().trim());
                     dbref.child(key).setValue(chatMessage);
 
-                    sendNotification();
+                  //  sendNotification();
                     edtMsgBox.setText("");
                 }
 

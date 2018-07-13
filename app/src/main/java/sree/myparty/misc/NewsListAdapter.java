@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -53,10 +55,10 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.MyView
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         final NewsPojo recipe = cartList.get(position);
         holder.name.setText(recipe.getTitle());
-        holder.chef.setText("By " + recipe.getPostedby());
+        holder.chef.setText("Posted by : " + recipe.getPostedby());
         holder.description.setText(recipe.getDescription());
-        holder.price.setText("Time: " + recipe.getTimestamp());
-        holder.timestamp.setText(recipe.getTimestamp());
+        holder.price.setVisibility(View.GONE);
+       holder.timestamp.setText(getDate(Long.parseLong(recipe.getTimestamp()),"dd/MM/yyyy HH:mm aa"));
 
         Glide.with(context)
                 .load(recipe.getImageUrl())
@@ -66,5 +68,16 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.MyView
     @Override
     public int getItemCount() {
         return cartList.size();
+    }
+
+    public static String getDate(long milliSeconds, String dateFormat)
+    {
+        // Create a DateFormatter object for displaying date in specified format.
+        SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
+
+        // Create a calendar object that will convert the date and time value in milliseconds to date.
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(milliSeconds);
+        return formatter.format(calendar.getTime());
     }
 }

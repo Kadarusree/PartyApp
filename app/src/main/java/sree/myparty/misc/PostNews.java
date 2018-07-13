@@ -2,6 +2,7 @@ package sree.myparty.misc;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.ContextWrapper;
@@ -97,6 +98,8 @@ public class PostNews extends AppCompatActivity {
     FirebaseStorage mFirebaseStorage;
     StorageReference mStorageReference;
 
+    ProgressDialog mProgressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +107,7 @@ public class PostNews extends AppCompatActivity {
 
         setContentView(R.layout.activity_post_news);
         ButterKnife.bind(this);
-
+        mProgressDialog = Constants.showDialog(this);
         mFirebaseStorage = FirebaseStorage.getInstance();
         mStorageReference = mFirebaseStorage.getReference();
     }
@@ -381,6 +384,8 @@ public class PostNews extends AppCompatActivity {
 
 
     public void uploadImageTask(byte[] data) {
+        mProgressDialog.setMessage("Uploading Image");
+        mProgressDialog.show();
         mStorageReference = mStorageReference.child(Constants.DB_PATH+"/" + System.currentTimeMillis() + ".jpg");
         UploadTask uploadTask = mStorageReference.putBytes(data);
         uploadTask.addOnFailureListener(new OnFailureListener() {
@@ -393,6 +398,7 @@ public class PostNews extends AppCompatActivity {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                mProgressDialog.setMessage("Posting News");
 
                 DatabaseReference mRef = MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/News");
                 String key = mRef.push().getKey();
@@ -409,7 +415,7 @@ public class PostNews extends AppCompatActivity {
         mRef.child(key).setValue(news).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                sendNotifications(news);
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -419,6 +425,16 @@ public class PostNews extends AppCompatActivity {
         }).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
+                mProgressDialog.dismiss();
+                if (task.isSuccessful()){
+                    sendNotifications(news);
+                    Constants.showToast("News Posted",PostNews.this);
+                }
+                else {
+                    Constants.showToast("Failed",PostNews.this);
+
+                }
+
 
             }
         });

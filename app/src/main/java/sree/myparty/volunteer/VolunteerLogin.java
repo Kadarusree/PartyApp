@@ -45,6 +45,9 @@ public class VolunteerLogin extends AppCompatActivity {
         mLandigText.setTypeface(tf);
 
         mSessionManager = new SessionManager(this);
+        edt_username.setText(mSessionManager.getRegID());
+        edt_username.setEnabled(false);
+
     }
 
     @OnClick(R.id.btn_vol_login)
@@ -68,6 +71,10 @@ public class VolunteerLogin extends AppCompatActivity {
                             else {
                                 Constants.showToast("Request Pending with Admin",VolunteerLogin.this);
                             }
+                        }
+                        else {
+                            Constants.showToast("You must register first",VolunteerLogin.this);
+
                         }
 
                     }

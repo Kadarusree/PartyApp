@@ -1,5 +1,6 @@
 package sree.myparty;
 
+import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -65,6 +66,7 @@ import sree.myparty.pojos.UserDetailPojo;
 import sree.myparty.session.SessionManager;
 import sree.myparty.utils.Constants;
 import sree.myparty.utils.DailogUtill;
+import sree.myparty.utils.SelectPC;
 
 public class RegistartionActivity extends AppCompatActivity {
 
@@ -102,22 +104,18 @@ public class RegistartionActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_registartion);
         ButterKnife.bind(this);
-        mLandigText.setText("Voter 360\u00b0\n Hyderabad Constituency");
+        mLandigText.setText("Voter 360\u00b0\n Telangana State");
         String fontPath = "fonts/oswald_regular.ttf";
         Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
         mLandigText.setTypeface(tf);
         mAuth = FirebaseAuth.getInstance();
-        progressDialog= Constants.showDialog(RegistartionActivity.this);
-        SessionManager mSessionManager = new SessionManager(this);
-        String fb_key = mSessionManager.getFirebaseKey();
-
-        Constants.showToast(fb_key, this);
+        progressDialog = Constants.showDialog(RegistartionActivity.this);
         mSessionManager = new SessionManager(this);
+        String fb_key = mSessionManager.getFirebaseKey();
+        Constants.showToast(fb_key, this);
         FirebaseInstanceId.getInstance().getToken();
 
-       /* ApiInterface apiService =
-                ApiClient.getFirebaseClient().create(ApiInterface.class);
-        FirebasePushModel mModel = new FirebasePushModel();*/
+
 
         Data mData = new Data();
         mData.setKey("Hello User");
@@ -142,7 +140,6 @@ public class RegistartionActivity extends AppCompatActivity {
         }
 
 
-
         mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             @Override
@@ -165,9 +162,9 @@ public class RegistartionActivity extends AppCompatActivity {
                 // Update the UI and attempt sign in with the phone credential
                 //  updateUI(STATE_VERIFY_SUCCESS, credential);
                 // [END_EXCLUDE]
-             // signInWithPhoneAuthCredential(credential);
+                signInWithPhoneAuthCredential(credential);
                 progressDialog.dismiss();
-                Toast.makeText(getApplicationContext(),"Automatic detected",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Automatic detected", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -211,9 +208,9 @@ public class RegistartionActivity extends AppCompatActivity {
                 mVerificationId = verificationId;
                 Intent intent = new Intent(getApplicationContext(), OTP_Activity.class);
                 intent.putExtra(VERIFICATION_ID, verificationId);
-                intent.putExtra(Constants.VOTER_ID,mVoterID.getText().toString().trim());
-                intent.putExtra(Constants.NAME,edt_userName.getText().toString().trim());
-                intent.putExtra(Constants.MOBILE_NUMBER,mMobileNumber.getText().toString().trim());
+                intent.putExtra(Constants.VOTER_ID, mVoterID.getText().toString().trim());
+                intent.putExtra(Constants.NAME, edt_userName.getText().toString().trim());
+                intent.putExtra(Constants.MOBILE_NUMBER, mMobileNumber.getText().toString().trim());
                 startActivity(intent);
                 mResendToken = token;
 
@@ -229,9 +226,9 @@ public class RegistartionActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_generateOTP)
     public void onButtonClick(View v) {
-       attemptRegistration();
+        attemptRegistration();
 
-     //   startActivity(new Intent(getApplicationContext(),Dashboard.class));
+        //   startActivity(new Intent(getApplicationContext(),Dashboard.class));
 
     }
 
@@ -243,11 +240,10 @@ public class RegistartionActivity extends AppCompatActivity {
         edt_userName.setError(null);
         String VoterID = mVoterID.getText().toString();
         String MobileNumber = mMobileNumber.getText().toString();
-        String userName=edt_userName.getText().toString().trim();
+        String userName = edt_userName.getText().toString().trim();
 
         boolean cancel = false;
         View focusView = null;
-
 
 
         if (TextUtils.isEmpty(userName)) {
@@ -278,8 +274,6 @@ public class RegistartionActivity extends AppCompatActivity {
     }
 
 
-
-
     @Override
     public void onStart() {
         super.onStart();
@@ -288,9 +282,9 @@ public class RegistartionActivity extends AppCompatActivity {
 
         if (currentUser != null) {
             //user signed up  with required info previosly
-            startActivity(new Intent(getApplicationContext(),Dashboard.class));
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-            Toast.makeText(getApplicationContext(),"Signed user",Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(getApplicationContext(), Dashboard.class));
+            overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+            Toast.makeText(getApplicationContext(), "Signed user", Toast.LENGTH_SHORT).show();
         }
 
         // [END_EXCLUDE]
@@ -376,7 +370,7 @@ public class RegistartionActivity extends AppCompatActivity {
                                                 mMobileNumber.getText().toString().trim(),
                                                 user.getUid(),
                                                 "",
-                                                edt_userName.getText().toString().trim(), mSessionManager.getState(), mSessionManager.getPC_NAME(), mSessionManager.getAC_NAME(), 0,mSessionManager.getFirebaseKey(),"",Constants.QR_URL+user.getUid());
+                                                edt_userName.getText().toString().trim(), mSessionManager.getState(), mSessionManager.getPC_NAME(), mSessionManager.getAC_NAME(), 0, mSessionManager.getFirebaseKey(), "", Constants.QR_URL + user.getUid());
                                         mRef.child(user.getUid()).setValue(pojo).addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
@@ -431,5 +425,16 @@ public class RegistartionActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if (currentUser == null) {
+            SelectPC mPc = new SelectPC();
+            mPc.show(getFragmentManager(), "SelectPC");
+        }
     }
 }
