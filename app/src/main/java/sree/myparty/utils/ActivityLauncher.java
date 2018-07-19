@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import sree.myparty.DashBoard.BaseActvity;
+import sree.myparty.DashBoard.ProfileScreen;
 import sree.myparty.admin.AdminLogin;
 
 import sree.myparty.misc.NewsList;
@@ -49,6 +50,11 @@ public class ActivityLauncher {
 
     public static void newsList(Context ctx) {
        ctx.startActivity(new Intent(ctx,NewsList.class));
+
+    }
+
+    public static void profileScreen(Context ctx) {
+        ctx.startActivity(new Intent(ctx,ProfileScreen.class));
 
     }
 }

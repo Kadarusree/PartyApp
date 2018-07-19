@@ -110,7 +110,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".DashBoard.ProfileScreen"></activity>
+        <activity android:name=".DashBoard.ProfileScreen" android:parentActivityName=".DashBoard.Dashboard" android:label="ID CARD"></activity>
     </application>
 
 </manifest>
