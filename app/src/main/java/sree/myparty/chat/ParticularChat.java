@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -90,7 +91,7 @@ public class ParticularChat extends AppCompatActivity {
                     ChatMessage chatMessage = new ChatMessage(sessionManager.getName(), name, sessionManager.getRegID(), uid, edtMsgBox.getText().toString().trim());
                     dbref.child(key).setValue(chatMessage);
 
-                  //  sendNotification();
+                   sendNotification();
                     edtMsgBox.setText("");
                 }
 
@@ -146,14 +147,15 @@ public class ParticularChat extends AppCompatActivity {
 
             ArrayList<String> al = new ArrayList<>();
             al.add(fcmkey);
+           // al.add("c9IPlDrmaug:APA91bFyh_FjY_c3Dr88kpDx12pW5w_SidlybInldngZ20vCedLnVbkOXikAm_hF_DMblkRhKH9Jcr0x_hDMMBPtFtb4DgQ7wLOFMRTMrq83Um2W3NbKmBBzIlONPnawGYlbNvCNUcwy_grVd9CWWPSu6Kb4rSZ7Pg");
             jsonObjec = new JSONObject();
-
+//Log.d("shri",sessionManager.getFirebaseKey());
             JSONArray jsonArray = new JSONArray(al);
             jsonObjec.put("registration_ids", jsonArray);
             JSONObject jsonObjec2 = new JSONObject();
-            jsonObjec2.put("body", bodydata);
-            jsonObjec2.put("title", name);
-            jsonObjec.put("notification", jsonObjec2);
+            jsonObjec2.put("message", bodydata);
+            jsonObjec2.put("username", name);
+            jsonObjec.put("data", jsonObjec2);
 
             jsonObjec.put("time_to_live", 172800);
             jsonObjec.put("priority", "HIGH");
@@ -164,9 +166,7 @@ public class ParticularChat extends AppCompatActivity {
         }
 
 
-
-
-
+        Log.d("Shri",jsonObjec.toString());
 
         OkHttpClient client = new OkHttpClient();
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");

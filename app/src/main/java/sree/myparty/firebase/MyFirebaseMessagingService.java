@@ -22,6 +22,7 @@ import java.util.Random;
 
 import sree.myparty.R;
 import sree.myparty.RegistartionActivity;
+import sree.myparty.chat.UserListActicity;
 import sree.myparty.videocalling.SinchService;
 
 /**
@@ -34,33 +35,40 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService impleme
         super.onMessageReceived(remoteMessage);
 
 
+        if (remoteMessage.getData() != null && remoteMessage.getData().get("message") != null) {
+            showNotification(getApplicationContext(), remoteMessage.getData().get("message"), new Intent(getApplicationContext(), UserListActicity.class),remoteMessage.getData().get("username"));
 
-
-        if (remoteMessage.getData().get("key").equalsIgnoreCase("Sinch")) {
-            connectToService();
         } else {
-            showNotification(getApplicationContext(), remoteMessage.getData().get("key"), new Intent());
+
+            if (remoteMessage.getData().get("key").equalsIgnoreCase("Sinch")) {
+                connectToService();
+            } else {
+                showNotification(getApplicationContext(), remoteMessage.getData().get("key"), new Intent(),getResources().getString(R.string.app_name));
+
+            }
 
         }
-
     }
-
-    public void showNotification(Context context, String body, Intent intent) {
+    public void showNotification(Context context, String body, Intent intent,String username) {
         String channelId = "a3";
+        PendingIntent pendingIntent=PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_ONE_SHOT);
+
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this, channelId)
                         .setSmallIcon(R.drawable.ic_logo)
-                        .setStyle(new NotificationCompat.BigTextStyle().bigText(body))
+                        .setStyle(new NotificationCompat.BigTextStyle().bigText(username+":"+body))
                         .setContentText(body)
                         .setAutoCancel(false)
                         .setSound(defaultSoundUri)
-                        .setContentIntent(PendingIntent.getActivity(this,
-                                0, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT));
+
+                        .setContentIntent(pendingIntent);
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
+         /*.setContentIntent(PendingIntent.getActivity(this,
+                0, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT));*/
 // Since android Oreo notification channel is needed.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(channelId,
