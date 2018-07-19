@@ -64,7 +64,7 @@ public class CasteWiseVoters extends AppCompatActivity {
         mReference = MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/CasteWiseVoters");
         mDialog = Constants.showDialog(this);
 
-        recyclerView = findViewById(R.id.list_castewiseVoters);
+        /*recyclerView = findViewById(R.id.list_castewiseVoters);
         newsList = new ArrayList<>();
         mAdapter = new CasteWiseVotersAdapter(this, newsList);
 
@@ -72,14 +72,14 @@ public class CasteWiseVoters extends AppCompatActivity {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new MyDividerItemDecoration(this, LinearLayoutManager.VERTICAL, 16));
-        recyclerView.setAdapter(mAdapter);
+        recyclerView.setAdapter(mAdapter);*/
         mDialog.show();
         edt_caste.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mReference.
+                /*mReference.
                         child(getResources().
-                                getStringArray(R.array.caste)[edt_caste.getSelectedItemPosition()]).
+                                getStringArray(R.array.catageories)[edt_caste.getSelectedItemPosition()]).
                         addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -100,7 +100,7 @@ public class CasteWiseVoters extends AppCompatActivity {
                     public void onCancelled(DatabaseError databaseError) {
                         mDialog.dismiss();
                     }
-                });
+                });*/
             }
 
             @Override
@@ -115,10 +115,9 @@ public class CasteWiseVoters extends AppCompatActivity {
     @OnClick(R.id.btn_cwv_save)
     public void onButtonClick(View v) {
 
-
         String name = edt_name.getText().toString();
         String voterID = edt_voterID.getText().toString();
-        String caste = getResources().getStringArray(R.array.caste)[edt_caste.getSelectedItemPosition()];
+        String caste = getResources().getStringArray(R.array.catageories)[edt_caste.getSelectedItemPosition()];
 
         int boothNum = Integer.parseInt(edt_BoothNum.getText().toString().trim());
 

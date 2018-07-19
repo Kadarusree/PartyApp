@@ -59,13 +59,12 @@
     <string name="error_invalid_user_name">Enter user name</string>
 
 
-    <string-array name="caste">
-        <item>A Caste</item>
-        <item>B Caste</item>
-        <item>C Caste</item>
-        <item>D Caste</item>
-        <item>E Caste</item>
-        <item>F Caste</item>
+    <string-array name="catageories">
+        <item>OC</item>
+        <item>BC</item>
+        <item>OBC</item>
+        <item>SC</item>
+        <item>ST</item>
 
     </string-array>
 </resources>
