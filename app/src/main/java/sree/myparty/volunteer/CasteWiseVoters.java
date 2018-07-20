@@ -38,6 +38,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -55,6 +56,7 @@ import sree.myparty.pojos.InfluPerson;
 import sree.myparty.pojos.VoterPojo;
 import sree.myparty.utils.Constants;
 import sree.myparty.utils.MyDividerItemDecoration;
+import sree.myparty.utils.VolunteerSessionManager;
 
 public class CasteWiseVoters extends AppCompatActivity {
 
@@ -115,6 +117,8 @@ public class CasteWiseVoters extends AppCompatActivity {
 
     LatLng addedLocation;
 
+    VolunteerSessionManager mVolunteerSessionManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,6 +127,7 @@ public class CasteWiseVoters extends AppCompatActivity {
         mReference = MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/Voters");
         mDialog = Constants.showDialog(this);
 
+   mVolunteerSessionManager = new VolunteerSessionManager(this);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -222,10 +227,9 @@ public class CasteWiseVoters extends AppCompatActivity {
         address = edt_address.getText().toString().trim();
         mobileNumber = edt_mobile_number.getText().toString();
 
-
         if (validations()) {
             VoterPojo mVoter = new VoterPojo(voterID, name, fatherName, sex
-                    , Integer.parseInt(age), mobileNumber, address, catageory, caste, boothNumber, location, Constants.VOLUNTEER, addedLocation);
+                    , Integer.parseInt(age), mobileNumber, address, catageory, caste, boothNumber, location, mVolunteerSessionManager.getVolName(), addedLocation);
 
             save(mVoter);
 //            Snackbar.make(null,"Validations are good",Snackbar.LENGTH_SHORT).show();
@@ -257,6 +261,16 @@ public class CasteWiseVoters extends AppCompatActivity {
                 mDialog.dismiss();
                 if (task.isSuccessful()) {
                     Constants.showToast("Added SucessFully", CasteWiseVoters.this);
+                    edt_name.clearComposingText();
+                    edt_voterID.clearComposingText();
+                    edt_fatherName.clearComposingText();
+                    edt_age.clearComposingText();
+                    edt_address.clearComposingText();
+                    edt_casteName.clearComposingText();
+                    edt_BoothNum.clearComposingText();
+                    edt_location.clearComposingText();
+                    rb_female.setChecked(false);
+                    rb_male.setChecked(false);
                 } else {
                     Constants.showToast("Failed To add", CasteWiseVoters.this);
                 }

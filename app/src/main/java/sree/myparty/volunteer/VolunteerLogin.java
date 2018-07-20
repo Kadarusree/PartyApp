@@ -20,6 +20,7 @@ import sree.myparty.pojos.VolunteerPojo;
 import sree.myparty.session.SessionManager;
 import sree.myparty.utils.ActivityLauncher;
 import sree.myparty.utils.Constants;
+import sree.myparty.utils.VolunteerSessionManager;
 
 public class VolunteerLogin extends AppCompatActivity {
     @BindView(R.id.tv_vol_laningText)
@@ -31,6 +32,7 @@ public class VolunteerLogin extends AppCompatActivity {
     @BindView(R.id.edt_vol_password)
     EditText edt_password;
 
+    VolunteerSessionManager Vol_mSessionManager;
     SessionManager mSessionManager;
 
     @Override
@@ -44,6 +46,7 @@ public class VolunteerLogin extends AppCompatActivity {
         Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
         mLandigText.setTypeface(tf);
 
+        Vol_mSessionManager = new VolunteerSessionManager(this);
         mSessionManager = new SessionManager(this);
         edt_username.setText(mSessionManager.getRegID());
         edt_username.setEnabled(false);
@@ -62,6 +65,7 @@ public class VolunteerLogin extends AppCompatActivity {
                               VolunteerPojo mVol =dataSnapshot.getValue(VolunteerPojo.class);
                             if (mVol.isAccepted()) {
                                 if (edt_password.getText().toString().equalsIgnoreCase(mVol.getPassword())){
+                                    Vol_mSessionManager.createUserSession(mVol);
                                     ActivityLauncher.volunteerDashboard(VolunteerLogin.this);
                                 }
                                 else {

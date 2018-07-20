@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import sree.myparty.pojos.UserDetailPojo;
+import sree.myparty.pojos.VolunteerPojo;
 import sree.myparty.utils.Constants;
 
 /**
@@ -32,6 +33,8 @@ public class SessionManager {
     private final String FCM_ID="FCM_ID";
 
     private final String DB_PATH="DB_PATH";
+
+
 
     public SessionManager(Context gContex) {
         this.mContext=gContex;
@@ -144,4 +147,6 @@ public class SessionManager {
         mEditor.clear();
         mEditor.commit();
     }
+
+
 }

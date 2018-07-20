@@ -30,6 +30,7 @@ import sree.myparty.pojos.UserDetailPojo;
 import sree.myparty.session.SessionManager;
 import sree.myparty.utils.ActivityLauncher;
 import sree.myparty.utils.Constants;
+import sree.myparty.utils.VolunteerSessionManager;
 
 /**
  * Created by srikanthk on 6/28/2018.
@@ -40,6 +41,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
      ImageView db_op1,db_op2,db_op3,db_op4,db_op5,db_op6;
      SessionManager mSessionManager;
 
+
+    VolunteerSessionManager mVolunteerSessionManager;
 
      TextView tv;
 
@@ -67,7 +70,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         db_op6.setOnClickListener(this);
 
         mSessionManager = new SessionManager(getActivity());
-
+        mVolunteerSessionManager = new VolunteerSessionManager(getActivity());
 
 
 
@@ -106,7 +109,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             case R.id.db_op4:
                 break;
             case R.id.db_op5:
-                ActivityLauncher.volunteerLoginScreen(getActivity());
+
+                if (mVolunteerSessionManager.hasActiveSession()){
+                    ActivityLauncher.volunteerDashboard(getActivity());
+                }
+                else {
+                    ActivityLauncher.volunteerLoginScreen(getActivity());
+                }
 
                 break;
             case R.id.db_op6:

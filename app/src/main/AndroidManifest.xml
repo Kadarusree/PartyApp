@@ -102,7 +102,9 @@
         <activity
             android:name=".volunteer.CasteWiseVoters"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:parentActivityName=".volunteer.VolunteerDashboard"
+            android:label="ADD VOTER"/>
         <activity android:name=".misc.PostNews"  android:parentActivityName=".volunteer.VolunteerDashboard" android:label="Post News"/>
 
         <provider
