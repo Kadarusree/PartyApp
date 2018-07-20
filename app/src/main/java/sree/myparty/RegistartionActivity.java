@@ -194,6 +194,13 @@ public class RegistartionActivity extends AppCompatActivity {
                 // [START_EXCLUDE]
                 //updateUI(STATE_VERIFY_FAILED);
                 // [END_EXCLUDE]
+
+
+            }
+
+            @Override
+            public void onCodeAutoRetrievalTimeOut(String s) {
+                super.onCodeAutoRetrievalTimeOut(s);
             }
 
             @Override

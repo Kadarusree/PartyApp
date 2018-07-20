@@ -90,6 +90,9 @@ public class SessionManager {
         mEditor.commit();
 
     }
+    public Integer getPoints(){
+        return mSharedPref.getInt(POINTS,00);
+    }
 
     public String getQR(){
         return mSharedPref.getString(QR_PIC,"");

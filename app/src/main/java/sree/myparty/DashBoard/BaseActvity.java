@@ -22,6 +22,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -46,10 +47,15 @@ import sree.myparty.utils.Constants;
 public abstract class BaseActvity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    ImageView mProfilePic;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base_actvity);
+        mProfilePic = findViewById(R.id.nav_imageView);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -114,8 +120,8 @@ public abstract class BaseActvity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            ActivityLauncher.newsList(this);
+        if (id == R.id.id_card) {
+            ActivityLauncher.profileScreen(this);
         } else if (id == R.id.nav_gallery) {
             ActivityLauncher.newsList(this);
         } else if (id == R.id.nav_slideshow) {
