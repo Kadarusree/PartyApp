@@ -25,7 +25,11 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -156,6 +160,8 @@ public class OTP_Activity extends AppCompatActivity {
                                 public void onDataChange(DataSnapshot dataSnapshot) {
 
                                     if (dataSnapshot.exists()) {
+
+
                                         progressDialog.dismiss();
                                         startActivity(new Intent(getApplicationContext(), Dashboard.class));
                                         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);

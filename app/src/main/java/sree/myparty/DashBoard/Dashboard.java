@@ -14,6 +14,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import sree.myparty.MyApplication;
 import sree.myparty.R;
 import sree.myparty.pojos.UserDetailPojo;
@@ -27,11 +30,16 @@ import sree.myparty.utils.Constants;
 public class Dashboard extends BaseActvity {
     DatabaseReference reference;
     FirebaseAuth auth;
+    SessionManager sessionManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         auth=FirebaseAuth.getInstance();
+        sessionManager=new SessionManager(getApplicationContext());
         reference=  MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH +"/Users/"+auth.getUid());
+        Map<String,Object> taskMap = new HashMap<String,Object>();
+        taskMap.put("fcm_id", sessionManager.getFirebaseKey());
+        reference.updateChildren(taskMap);
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
