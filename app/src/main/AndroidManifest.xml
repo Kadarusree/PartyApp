@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="sree.myparty">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -10,6 +11,10 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+
+        <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
         android:name=".MyApplication"
@@ -38,7 +43,8 @@
         <activity
             android:name=".DashBoard.BaseActvity"
             android:label="@string/title_activity_base_actvity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+           />
         <activity
             android:name=".DashBoard.Dashboard"
             android:label="@string/title_activity_base_actvity"
@@ -98,7 +104,6 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".misc.PostNews"  android:parentActivityName=".volunteer.VolunteerDashboard" android:label="Post News"/>
-        <activity android:name=".chat.ParticularChat" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -109,6 +114,10 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAcGa6rAwCaFAroV4xp4q4SJGX_EfWw8L8" />
 
         <activity android:name=".DashBoard.ProfileScreen" android:parentActivityName=".DashBoard.Dashboard" android:label="ID CARD"></activity>
     </application>
