@@ -8,6 +8,7 @@ import sree.myparty.DashBoard.BaseActvity;
 import sree.myparty.DashBoard.ProfileScreen;
 import sree.myparty.admin.AdminLogin;
 
+import sree.myparty.admin.AdminMap;
 import sree.myparty.misc.NewsList;
 import sree.myparty.misc.PostNews;
 import sree.myparty.volunteer.CasteWiseVoters;
@@ -55,6 +56,11 @@ public class ActivityLauncher {
 
     public static void profileScreen(Context ctx) {
         ctx.startActivity(new Intent(ctx,ProfileScreen.class));
+
+    }
+
+    public static void launchMapActivity(Context ctx) {
+        ctx.startActivity(new Intent(ctx,AdminMap.class));
 
     }
 }

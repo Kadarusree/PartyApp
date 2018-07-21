@@ -1,6 +1,5 @@
 package sree.myparty.pojos;
 
-import com.google.android.gms.maps.model.LatLng;
 
 /**
  * Created by srikanthk on 7/20/2018.
@@ -9,6 +8,9 @@ import com.google.android.gms.maps.model.LatLng;
 public class VoterPojo {
 
     String voterID, voterName, voterFatherName, sex, mobileNumber, catageory, caste, boothNumber, address;
+
+    public VoterPojo() {
+    }
 
     LatLng location;
 

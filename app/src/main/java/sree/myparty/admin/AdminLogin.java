@@ -3,12 +3,15 @@ package sree.myparty.admin;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import sree.myparty.R;
+import sree.myparty.utils.ActivityLauncher;
 
 public class AdminLogin extends AppCompatActivity {
     @BindView(R.id.tv_admin_laningText)
@@ -29,5 +32,10 @@ public class AdminLogin extends AppCompatActivity {
         String fontPath = "fonts/oswald_regular.ttf";
         Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
         mLandigText.setTypeface(tf);
+    }
+
+    @OnClick(R.id.btn_admin_login)
+    public void Login(View v){
+        ActivityLauncher.launchMapActivity(AdminLogin.this);
     }
 }

@@ -5,7 +5,7 @@ android {
     flavorDimensions "versionCode"
     defaultConfig {
         applicationId "sree.myparty"
-        minSdkVersion 16
+        minSdkVersion 17
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -20,13 +20,13 @@ android {
     }
     productFlavors {
         development {
-            minSdkVersion 16
+            minSdkVersion 17
             applicationId 'sree.myparty.dev'
             resValue "string", "app_name", "MyParty-Dev"
             buildConfigField 'String', 'HOST', '"https://dev.ilp.org.in"'
         }
         production {
-            minSdkVersion 16
+            minSdkVersion 17
             applicationId 'sree.myparty'
             resValue "string", "app_name", "MyParty"
             buildConfigField 'String', 'HOST', '"https://dev.ilp.org.in"'

@@ -67,5 +67,6 @@
         <item>ST</item>
 
     </string-array>
+    <string name="title_activity_admin_map">Map</string>
 
 </resources>

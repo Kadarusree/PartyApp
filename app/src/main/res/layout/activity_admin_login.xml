@@ -98,6 +98,7 @@
                 android:text="Login"
                 android:textColor="#ffffff"
                 android:textStyle="bold"
+                android:onClick="Login"
                 android:background="@drawable/button_backround"
                 />
         </RelativeLayout>

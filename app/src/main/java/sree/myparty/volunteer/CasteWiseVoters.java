@@ -31,7 +31,6 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -53,6 +52,7 @@ import sree.myparty.R;
 import sree.myparty.adapters.CasteWiseVotersAdapter;
 import sree.myparty.pojos.CasteWiseVoterBean;
 import sree.myparty.pojos.InfluPerson;
+import sree.myparty.pojos.LatLng;
 import sree.myparty.pojos.VoterPojo;
 import sree.myparty.utils.Constants;
 import sree.myparty.utils.MyDividerItemDecoration;
@@ -255,7 +255,7 @@ public class CasteWiseVoters extends AppCompatActivity {
     public void save(VoterPojo mVoter) {
         String key = mReference.push().getKey();
         mDialog.show();
-        mReference.child(boothNumber).child(key).setValue(mVoter).addOnCompleteListener(new OnCompleteListener<Void>() {
+        mReference.child(key).setValue(mVoter).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 mDialog.dismiss();
@@ -283,7 +283,7 @@ public class CasteWiseVoters extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 Place place = PlacePicker.getPlace(data, this);
 
-                location = place.getLatLng();
+                location = new LatLng(place.getLatLng().latitude,place.getLatLng().longitude);
                 edt_location.setText(String.format("%s", place.getName()));
 
                /* String toastMsg = String.format("Place: %s", place.getName());
@@ -366,7 +366,6 @@ public class CasteWiseVoters extends AppCompatActivity {
                         // Got last known location. In some rare situations this can be null.
                         if (location != null) {
                             addedLocation = new LatLng(location.getLatitude(), location.getLongitude());
-
                         }
                     }
                 });

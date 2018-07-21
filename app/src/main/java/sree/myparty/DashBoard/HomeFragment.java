@@ -81,7 +81,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.db_op1:
-                Dialog d = new Dialog(getActivity());
+                /*Dialog d = new Dialog(getActivity());
                 d.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 d.setContentView(R.layout.id_card);
                 TextView tv_username=d.findViewById(R.id.tv_username);
@@ -98,6 +98,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 Glide.with(getActivity()).load(mSessionManager.getProfilePic()).into(profilePIC);
 
                 d.show();
+*/
+
+                ActivityLauncher.profileScreen(getActivity());
 
                 break;
             case R.id.db_op2:
