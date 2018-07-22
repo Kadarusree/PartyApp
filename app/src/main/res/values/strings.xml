@@ -36,13 +36,24 @@
     <string name="db_option5">VOLUNTEER\n LOGIN</string>
     <string name="db_option6">ADMIN\n LOGIN</string>
 
-
     <string name="vol_db_option1">CASTEWISE\nVOTERS</string>
     <string name="vol_db_option2">INFLUENCE\nPERSON</string>
     <string name="vol_db_option3">LOCAL\nISSUES</string>
     <string name="vol_db_option4">READ NEWS</string>
     <string name="vol_db_option5">POST\nNEWS</string>
     <string name="vol_db_option6"></string>
+
+
+    <string name="admin_db_option1">BOOTH\nCOMMITTEE</string>
+    <string name="admin_db_option2">VOTERS</string>
+    <string name="admin_db_option3">INFLUENCE\nPERSON</string>
+    <string name="admin_db_option4">LOCAL\nISSUES</string>
+    <string name="admin_db_option5">WORK\nDONE</string>
+    <string name="admin_db_option6">SURVEY</string>
+    <string name="admin_db_option7">VOL\nTRACKING</string>
+    <string name="admin_db_option8">MEETING\nATTENDENCE</string>
+    <string name="admin_db_option9">VISITS</string>
+    <string name="admin_db_option10">ANALYSIS</string>
 
 
     <string name="takephoto">TAKE PICTURE</string>
@@ -67,6 +78,6 @@
         <item>ST</item>
 
     </string-array>
-    <string name="title_activity_admin_map">Map</string>
+    <string name="title_activity_admin_map">VOTER MAP</string>
 
 </resources>

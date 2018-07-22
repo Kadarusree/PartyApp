@@ -36,6 +36,6 @@ public class AdminLogin extends AppCompatActivity {
 
     @OnClick(R.id.btn_admin_login)
     public void Login(View v){
-        ActivityLauncher.launchMapActivity(AdminLogin.this);
+        ActivityLauncher.launchAdminDB(AdminLogin.this);
     }
 }

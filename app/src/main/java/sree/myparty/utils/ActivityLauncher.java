@@ -6,9 +6,11 @@ import android.content.Intent;
 
 import sree.myparty.DashBoard.BaseActvity;
 import sree.myparty.DashBoard.ProfileScreen;
+import sree.myparty.admin.AdminDashboard;
 import sree.myparty.admin.AdminLogin;
 
 import sree.myparty.admin.AdminMap;
+import sree.myparty.admin.MeetingAttendence;
 import sree.myparty.misc.NewsList;
 import sree.myparty.misc.PostNews;
 import sree.myparty.volunteer.CasteWiseVoters;
@@ -61,6 +63,17 @@ public class ActivityLauncher {
 
     public static void launchMapActivity(Context ctx) {
         ctx.startActivity(new Intent(ctx,AdminMap.class));
+
+    }
+
+    public static void launchAdminDB(Context ctx) {
+        ctx.startActivity(new Intent(ctx,AdminDashboard.class));
+
+    }
+
+
+    public static void launchAttendenceActivity(Context ctx) {
+        ctx.startActivity(new Intent(ctx,MeetingAttendence.class));
 
     }
 }

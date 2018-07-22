@@ -182,7 +182,7 @@
             <EditText
                 android:layout_width="0dp"
                 android:layout_weight="0.6"
-                android:hint="Enter Booth Number Here"
+                android:hint="Enter Address Here"
                 android:gravity="left|center"
                 android:layout_height="match_parent"
                 android:textColor="@color/colorPrimary"

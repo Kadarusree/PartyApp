@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
+
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Place;
@@ -219,7 +220,7 @@ public class CasteWiseVoters extends AppCompatActivity {
 
         voterID = edt_voterID.getText().toString();
         name = edt_name.getText().toString();
-        fatherName = edt_name.getText().toString();
+        fatherName = edt_fatherName.getText().toString();
         catageory = getResources().getStringArray(R.array.catageories)[spn_catageory.getSelectedItemPosition()];
         boothNumber = edt_BoothNum.getText().toString().trim();
         caste = edt_casteName.getText().toString().trim();
