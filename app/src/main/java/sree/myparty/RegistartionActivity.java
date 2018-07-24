@@ -42,6 +42,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
@@ -62,6 +63,7 @@ import sree.myparty.apis.ApiClient;
 import sree.myparty.apis.ApiInterface;
 import sree.myparty.firebase.Data;
 import sree.myparty.firebase.FirebasePushModel;
+import sree.myparty.pojos.ReferalPojo;
 import sree.myparty.pojos.UserDetailPojo;
 import sree.myparty.session.SessionManager;
 import sree.myparty.utils.Constants;
@@ -114,7 +116,6 @@ public class RegistartionActivity extends AppCompatActivity {
         String fb_key = mSessionManager.getFirebaseKey();
         Constants.showToast(fb_key, this);
         FirebaseInstanceId.getInstance().getToken();
-
 
 
         Data mData = new Data();
@@ -373,22 +374,62 @@ public class RegistartionActivity extends AppCompatActivity {
                                         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                                     } else {
 
-                                        UserDetailPojo pojo = new UserDetailPojo(mVoterID.getText().toString().trim(),
-                                                mMobileNumber.getText().toString().trim(),
-                                                user.getUid(),
-                                                "",
-                                                edt_userName.getText().toString().trim(), mSessionManager.getState(), mSessionManager.getPC_NAME(), mSessionManager.getAC_NAME(), 0, mSessionManager.getFirebaseKey(), "", Constants.QR_URL + user.getUid());
-                                        mRef.child(user.getUid()).setValue(pojo).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        MyApplication.getFirebaseDatabase().getReference("TempVal").addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                if (task.isSuccessful()) {
-                                                    progressDialog.dismiss();
-                                                    startActivity(new Intent(getApplicationContext(), Dashboard.class));
-                                                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                DecimalFormat df = new DecimalFormat("0000");
 
-                                                }
+
+                                                final String referalValue = df.format((Long.parseLong(dataSnapshot.getValue().toString()) + 1));
+
+                                                Toast.makeText(getApplicationContext(), dataSnapshot.getValue() + "--", Toast.LENGTH_SHORT).show();
+                                                final String formatedRefral = randomAlphaNumeric(3) + referalValue;
+
+                                                MyApplication.getFirebaseDatabase().getReference("TempVal").setValue(referalValue).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+
+                                                        if (task != null && task.isSuccessful()) {
+                                                            UserDetailPojo pojo = new UserDetailPojo(mVoterID.getText().toString().trim(),
+                                                                    mMobileNumber.getText().toString().trim(),
+                                                                    user.getUid(),
+                                                                    "",
+                                                                    edt_userName.getText().toString().trim(), mSessionManager.getState(), mSessionManager.getPC_NAME(), mSessionManager.getAC_NAME(), 0, mSessionManager.getFirebaseKey(), "", Constants.QR_URL + user.getUid(), formatedRefral);
+                                                            mRef.child(user.getUid()).setValue(pojo).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Void> task) {
+                                                                    if (task.isSuccessful()) {
+                                                                        ReferalPojo referalPojo = new ReferalPojo(user.getUid(), Constants.DB_PATH);
+
+
+                                                                        MyApplication.getFirebaseDatabase().getReference("ReferalLinks/").child(formatedRefral).setValue(referalPojo).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                            @Override
+                                                                            public void onComplete(@NonNull Task<Void> task) {
+                                                                                progressDialog.dismiss();
+                                                                                startActivity(new Intent(getApplicationContext(), Dashboard.class));
+                                                                                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                                                                            }
+                                                                        });
+
+                                                                    }
+                                                                }
+                                                            });
+
+                                                        }
+                                                    }
+                                                });
+
+
+                                            }
+
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+
                                             }
                                         });
+
+
+                                        /*   */
 
 
                                     }
@@ -432,6 +473,16 @@ public class RegistartionActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    public static String randomAlphaNumeric(int count) {
+        String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        StringBuilder builder = new StringBuilder();
+        while (count-- != 0) {
+            int character = (int) (Math.random() * ALPHA_NUMERIC_STRING.length());
+            builder.append(ALPHA_NUMERIC_STRING.charAt(character));
+        }
+        return builder.toString();
     }
 
     @Override

@@ -27,6 +27,7 @@ public class UserDetailPojo {
     String pc_name;
     String ac_name;
     String fcm_id;
+    String referal_code;
 
     public String getProfile_url() {
         return profile_url;
@@ -48,7 +49,7 @@ public class UserDetailPojo {
     String qr_url;
     int points;
 
-    public UserDetailPojo(String voter_id, String mobile_number, String reg_id, String both_number, String user_name, String state_name, String pc_name, String ac_name, int points,String fcm_id,String profile_url,String qr_url) {
+    public UserDetailPojo(String voter_id, String mobile_number, String reg_id, String both_number, String user_name, String state_name, String pc_name, String ac_name, int points,String fcm_id,String profile_url,String qr_url,String referal_code) {
         this.voter_id = voter_id;
         this.mobile_number = mobile_number;
         this.reg_id = reg_id;
@@ -61,6 +62,11 @@ public class UserDetailPojo {
         this.fcm_id=fcm_id;
         this.profile_url=profile_url;
         this.qr_url=qr_url;
+        this.referal_code=referal_code;
+    }
+
+    public String getReferal_code() {
+        return referal_code;
     }
 
     public String getVoter_id() {

@@ -79,7 +79,9 @@ public class SelectPC extends DialogFragment {
                 String key = "";
                for (DataSnapshot mIndi : dataSnapshot.getChildren()){
                    key=   mIndi.getKey();
-                   states.add(key);
+                   if(!key.equalsIgnoreCase("ReferalLinks")&&!key.equalsIgnoreCase("TempVal")) {
+                       states.add(key);
+                   }
                }
 
                 if (states.size()>0){

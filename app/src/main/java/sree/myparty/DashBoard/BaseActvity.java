@@ -5,6 +5,8 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -137,6 +139,7 @@ public abstract class BaseActvity extends AppCompatActivity
             this.finish();
 
         } else if (id == R.id.nav_share) {
+          shareApp(new SessionManager(this).getName()+": Refered you to join My Party app..");
 
         } else if (id == R.id.nav_send) {
 
@@ -147,6 +150,29 @@ public abstract class BaseActvity extends AppCompatActivity
         return true;
     }
 
+
+   public  void shareApp( String link)
+    {
+
+      /*  Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT,link);
+        sendIntent.setType("text/plain");
+        startActivity(sendIntent);*/
+
+
+        String shareBody = link+"\n"+"https://play.google.com/store/apps/details?id="+getApplicationContext().getPackageName();
+
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getResources().getString(R.string.app_name)+" -Download App from playstore");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody+"\n"+"Promo code-"+new SessionManager(this).getREFERAL_CODE());
+
+        Intent i=new Intent(Intent.createChooser(sharingIntent, "Share via"));
+        startActivity(i);
+
+
+    }
     public void replaceFragement(Fragment fg) {
         FragmentManager mFragmentManager = getFragmentManager();
         FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();

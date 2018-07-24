@@ -31,6 +31,7 @@ public class SessionManager {
     private final String POINTS="POINTS";
     private final String REG_ID="REG_ID";
     private final String FCM_ID="FCM_ID";
+    private final String REFERAL_CODE="REFERAL_CODE";
 
     private final String DB_PATH="DB_PATH";
 
@@ -68,6 +69,10 @@ public class SessionManager {
     {
         return mSharedPref.getString(AC_NAME,"");
 
+    }public String getREFERAL_CODE()
+    {
+        return mSharedPref.getString(REFERAL_CODE,"");
+
     }
 
 
@@ -90,6 +95,7 @@ public class SessionManager {
         mEditor.putString(PC_NAME,mPojo.getPc_name());
         mEditor.putString(STATE,mPojo.getState_name());
         mEditor.putInt(POINTS,mPojo.getPoints());
+        mEditor.putString(REFERAL_CODE,mPojo.getReferal_code());
         mEditor.commit();
 
     }
