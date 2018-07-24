@@ -3,11 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group android:checkableBehavior="single" >
         <item
             android:id="@+id/id_card"
             android:icon="@drawable/ic_menu_camera"
-            android:title="ID CARD" />
+            android:title="ID CARD"
+            />
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"
@@ -22,29 +23,37 @@
             android:title="Logout" />
     </group>
 
-    <item android:title="Volunteer" android:icon="@drawable/ic_person_black_24dp">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
-        </menu>
-    </item>
-    <item android:title="Admin">
-        <menu>
-            <item
-                android:id="@+id/nav_admin1"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_admin2"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
-        </menu>
-    </item>
+    <group>
+        <item android:title="Volunteer" android:id="@+id/volunteerOptions" android:icon="@drawable/ic_person_black_24dp" >
+            <menu >
+                <item
+                    android:id="@+id/nav_share"
+                    android:icon="@drawable/ic_menu_share"
+                    android:title="Share" />
+                <item
+                    android:id="@+id/vol_logout"
+                    android:icon="@drawable/ic_menu_send"
+                    android:title="Volunteer Logout" />
+            </menu>
+        </item>
+    </group>
+    <group>
+        <item android:title="Admin" android:id="@+id/adminOptions">
+            <menu>
+                <item
+                    android:id="@+id/nav_admin1"
+                    android:icon="@drawable/ic_menu_share"
+                    android:title="Share" />
+                <item
+                    android:id="@+id/nav_admin2"
+                    android:icon="@drawable/ic_menu_send"
+                    android:title="Send" />
+            </menu>
+        </item>
+    </group>
+
+
+
+
 
 </menu>

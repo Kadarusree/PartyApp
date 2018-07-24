@@ -30,7 +30,7 @@ import dmax.dialog.SpotsDialog;
 import sree.myparty.DashBoard.Dashboard;
 import sree.myparty.MyApplication;
 import sree.myparty.R;
-import sree.myparty.adapters.InfluencePersonAdapter;
+import sree.myparty.Adapters.InfluencePersonAdapter;
 import sree.myparty.beans.NewsPojo;
 import sree.myparty.misc.NewsListAdapter;
 import sree.myparty.pojos.InfluPerson;

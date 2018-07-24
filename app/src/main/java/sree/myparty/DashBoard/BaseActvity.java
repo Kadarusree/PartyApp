@@ -51,7 +51,7 @@ public abstract class BaseActvity extends AppCompatActivity
 
     ImageView mProfilePic;
 
-
+    NavigationView navigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,12 +76,15 @@ public abstract class BaseActvity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         replaceFragement(new HomeFragment());
 
         getAllFirebaseIDs();
+
+        hideAdminOptions();
+        hideVolOptions();
     }
 
     @Override
@@ -119,6 +122,8 @@ public abstract class BaseActvity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+
+
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -141,7 +146,10 @@ public abstract class BaseActvity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
           shareApp(new SessionManager(this).getName()+": Refered you to join My Party app..");
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.vol_logout) {
+
+        }
+        else if(id == R.id.vol_logout){
 
         }
 
@@ -149,7 +157,20 @@ public abstract class BaseActvity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+    private void hideVolOptions()
+    {
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.getMenu().removeGroup(1);
+    }
 
+    private void hideAdminOptions()
+    {
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+       navigationView.getMenu().removeGroup(2);
+
+    //   navigationView.getMenu().add(1)
+        //nav_Menu.findItem(R.id.adminOptions).setVisible(false);
+    }
 
    public  void shareApp( String link)
     {

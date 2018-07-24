@@ -50,7 +50,7 @@
     <string name="admin_db_option4">LOCAL\nISSUES</string>
     <string name="admin_db_option5">WORK\nDONE</string>
     <string name="admin_db_option6">SURVEY</string>
-    <string name="admin_db_option7">VOL\nTRACKING</string>
+    <string name="admin_db_option7">MANAGE\nVOLUNTEER</string>
     <string name="admin_db_option8">MEETING\nATTENDENCE</string>
     <string name="admin_db_option9">VISITS</string>
     <string name="admin_db_option10">ANALYSIS</string>

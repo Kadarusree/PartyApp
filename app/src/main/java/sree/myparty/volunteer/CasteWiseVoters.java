@@ -50,7 +50,7 @@ import butterknife.OnClick;
 
 import sree.myparty.MyApplication;
 import sree.myparty.R;
-import sree.myparty.adapters.CasteWiseVotersAdapter;
+import sree.myparty.Adapters.CasteWiseVotersAdapter;
 import sree.myparty.pojos.CasteWiseVoterBean;
 import sree.myparty.pojos.InfluPerson;
 import sree.myparty.pojos.LatLng;
