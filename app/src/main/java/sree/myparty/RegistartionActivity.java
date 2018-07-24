@@ -45,6 +45,8 @@ import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -81,6 +83,9 @@ public class RegistartionActivity extends AppCompatActivity {
 
     @BindView(R.id.edt_userName)
     EditText edt_userName;
+
+    @BindView(R.id.edt_referal)
+    EditText edt_referal;
 
     @BindView(R.id.edt_mobilenumber)
     EditText mMobileNumber;
@@ -299,57 +304,48 @@ public class RegistartionActivity extends AppCompatActivity {
     }
 
 
-    private void startPhoneNumberVerification(String phoneNumber) {
+    private void startPhoneNumberVerification(final String phoneNumber) {
         // [START start_phone_auth]
-        PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                phoneNumber,        // Phone number to verify
-                60,                 // Timeout duration
-                TimeUnit.SECONDS,   // Unit of timeout
-                this,               // Activity (for callback binding)
-                mCallbacks);        // OnVerificationStateChangedCallbacks
-        // [END start_phone_auth]
+        if (edt_referal.getText().toString().trim().equalsIgnoreCase("")) {
+            PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                    phoneNumber,        // Phone number to verify
+                    60,                 // Timeout duration
+                    TimeUnit.SECONDS,   // Unit of timeout
+                    this,               // Activity (for callback binding)
+                    mCallbacks);        // OnVerificationStateChangedCallbacks
+            // [END start_phone_auth]
 
-        mVerificationInProgress = true;
+            mVerificationInProgress = true;
+        }
+        else
+        {
+            //referal ids validation checking
+            MyApplication.getFirebaseDatabase().getReference("ReferalLinks/"+edt_referal.getText().toString().trim()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    if(dataSnapshot.exists())
+                    {   progressDialog.dismiss();
+                        PhoneAuthProvider.getInstance().verifyPhoneNumber(phoneNumber,60,TimeUnit.SECONDS,
+                                RegistartionActivity.this,mCallbacks);
+                                  mVerificationInProgress = true;
+                    }else {
+                        progressDialog.dismiss();
+                        Toast.makeText(getApplicationContext(),"Invalid Referal",Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+        }
     }
 
 
-/*    private void verifyPhoneNumberWithCode(String verificationId, String code) {
-        // [START verify_with_code]
-        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
-        // [END verify_with_code]
-        signInWithPhoneAuthCredential(credential);
-    }*/
 
-   /* private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
-
-                            FirebaseUser user = task.getResult().getUser();
-                            // [START_EXCLUDE]
-                            //updateUI(STATE_SIGNIN_SUCCESS, user);
-                            // [END_EXCLUDE]
-                        } else {
-                            // Sign in failed, display a message and update the UI
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                // The verification code entered was invalid
-                                // [START_EXCLUDE silent]
-                                //mVerificationField.setError("Invalid code.");
-                                // [END_EXCLUDE]
-                            }
-                            // [START_EXCLUDE silent]
-                            // Update UI
-                         //   updateUI(STATE_SIGNIN_FAILED);
-                            // [END_EXCLUDE]
-                        }
-                    }
-                });
-    }*/
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         mAuth.signInWithCredential(credential)
@@ -399,10 +395,49 @@ public class RegistartionActivity extends AppCompatActivity {
                                                                 @Override
                                                                 public void onComplete(@NonNull Task<Void> task) {
                                                                     if (task.isSuccessful()) {
+                                                                      //
+
+                                                                   if(!edt_referal.getText().toString().trim().equalsIgnoreCase(""))
+                                                                   {
+
+                                                                       MyApplication.getFirebaseDatabase().getReference("ReferalLinks/"+edt_referal.getText().toString().trim()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                           @Override
+                                                                           public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                                                               if(dataSnapshot.exists())
+                                                                               {
+                                                                                   ReferalPojo referalPojo=dataSnapshot.getValue(ReferalPojo.class);
+                                                                                   if(referalPojo!=null)
+                                                                                   {
+                                                                                       String path=referalPojo.path;
+                                                                                       String id=referalPojo.getUser_id();
+                                                                                       Map<String, Object> taskMap = new HashMap<String, Object>();
+                                                                                       taskMap.put("points", 10);
+
+                                                                                    MyApplication.getFirebaseDatabase().getReference(path+"/Users/"+id).updateChildren(taskMap);
+
+
+
+                                                                                   }
+                                                                               }
+                                                                           }
+
+                                                                           @Override
+                                                                           public void onCancelled(DatabaseError databaseError) {
+
+                                                                           }
+                                                                       });
+
+
+                                                                   }
+
+
+
+
+
+                                                                        //
                                                                         ReferalPojo referalPojo = new ReferalPojo(user.getUid(), Constants.DB_PATH);
-
-
-                                                                        MyApplication.getFirebaseDatabase().getReference("ReferalLinks/").child(formatedRefral).setValue(referalPojo).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                                 MyApplication.getFirebaseDatabase().getReference("ReferalLinks/").child(formatedRefral).setValue(referalPojo).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                             @Override
                                                                             public void onComplete(@NonNull Task<Void> task) {
                                                                                 progressDialog.dismiss();

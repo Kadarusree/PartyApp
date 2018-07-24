@@ -12,7 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.35"
+        android:layout_weight="0.25"
         android:orientation="vertical">
         <ImageView
             android:layout_width="match_parent"
@@ -37,7 +37,7 @@
         android:layout_height="0dp"
         android:orientation="vertical"
         android:padding="30dp"
-        android:layout_weight="0.45">
+        android:layout_weight="0.55">
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -95,6 +95,29 @@
                 />
 
         </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"
+            app:hintTextAppearance="@style/MyAppearance"
+            android:layout_marginTop="4dp">
+
+            <EditText
+                android:id="@+id/edt_referal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:hint="Referal (Optional)"
+                android:maxLength="10"
+                android:imeOptions="actionDone"
+                android:textColor="@color/colorWhite"
+                android:drawableLeft="@drawable/ic_mobile"
+                />
+
+        </android.support.design.widget.TextInputLayout>
+
+
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

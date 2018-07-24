@@ -12,5 +12,13 @@ public class ReferalPojo {
         this.path = path;
     }
 
-  public   String path;
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public   String path;
 }
