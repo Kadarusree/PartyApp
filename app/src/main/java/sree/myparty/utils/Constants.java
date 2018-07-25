@@ -37,6 +37,7 @@ public class Constants {
     public static final String MOBILE_NUMBER = "MOBILE_NUMBER";
     public static final String NAME = "NAME";
     public static final String VOLUNTEER = "Sree";
+    public static final String REFRAL_TEMP_SESSION ="" ;
     //end
 
     public static String GKA_IMAGE_STORAGE_PATH="GKSurveyIMG";

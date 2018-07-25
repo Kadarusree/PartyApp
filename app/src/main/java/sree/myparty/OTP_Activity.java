@@ -52,6 +52,7 @@ public class OTP_Activity extends AppCompatActivity {
     ProgressDialog progressDialog;
     String voterId, mobile_number, username;
     SessionManager sessionManager;
+    String refral = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,7 @@ public class OTP_Activity extends AppCompatActivity {
         ButterKnife.bind(this);
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
         mAuth = FirebaseAuth.getInstance();
+        refral = getIntent().getStringExtra(Constants.REFRAL_TEMP_SESSION);
         progressDialog = Constants.showDialog(OTP_Activity.this);
         voterId = getIntent().getStringExtra(Constants.VOTER_ID);
         mobile_number = getIntent().getStringExtra(Constants.MOBILE_NUMBER);
@@ -168,10 +170,11 @@ public class OTP_Activity extends AppCompatActivity {
                                         startActivity(new Intent(getApplicationContext(), Dashboard.class));
                                         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                                     } else {
+
+
                                         MyApplication.getFirebaseDatabase().getReference("TempVal").addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(DataSnapshot dataSnapshot) {
-
                                                 DecimalFormat df = new DecimalFormat("0000");
 
 
@@ -185,14 +188,69 @@ public class OTP_Activity extends AppCompatActivity {
                                                     public void onComplete(@NonNull Task<Void> task) {
 
                                                         if (task != null && task.isSuccessful()) {
-                                                            UserDetailPojo pojo = new UserDetailPojo(voterId, mobile_number, user.getUid(), "", username, sessionManager.getState(), sessionManager.getPC_NAME(), sessionManager.getAC_NAME(), 0, sessionManager.getFirebaseKey(), "", Constants.QR_URL + user.getUid(), formatedRefral);
+                                                            UserDetailPojo pojo = new UserDetailPojo(voterId,
+                                                                    mobile_number,
+                                                                    user.getUid(),
+                                                                    "",
+                                                                    username, sessionManager.getState(), sessionManager.getPC_NAME(), sessionManager.getAC_NAME(), 0, sessionManager.getFirebaseKey(), "", Constants.QR_URL + user.getUid(), formatedRefral);
                                                             mRef.child(user.getUid()).setValue(pojo).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                 @Override
                                                                 public void onComplete(@NonNull Task<Void> task) {
                                                                     if (task.isSuccessful()) {
+                                                                        //
+
+                                                                        if (!refral.equalsIgnoreCase("")) {
+
+                                                                            MyApplication.getFirebaseDatabase().getReference("ReferalLinks/" + refral).addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                                @Override
+                                                                                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                                                                    if (dataSnapshot.exists()) {
+                                                                                        ReferalPojo referalPojo = dataSnapshot.getValue(ReferalPojo.class);
+                                                                                        if (referalPojo != null) {
+
+                                                                                            final String path = referalPojo.path;
+                                                                                            final String id = referalPojo.getUser_id();
+                                                                                            MyApplication.getFirebaseDatabase().getReference(path + "/Users/" + id).addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                                                @Override
+                                                                                                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                                                                                    if (dataSnapshot != null && dataSnapshot.getValue() != null) {
+                                                                                                        UserDetailPojo userDetailPojo = dataSnapshot.getValue(UserDetailPojo.class);
+                                                                                                        int points = userDetailPojo.getPoints();
+                                                                                                        Map<String, Object> taskMap = new HashMap<String, Object>();
+                                                                                                        taskMap.put("points", (points + 10));
+
+                                                                                                        MyApplication.getFirebaseDatabase().getReference(path + "/Users/" + id).updateChildren(taskMap);
+
+
+                                                                                                    }
+
+                                                                                                }
+
+                                                                                                @Override
+                                                                                                public void onCancelled(DatabaseError databaseError) {
+
+                                                                                                }
+                                                                                            });
+
+
+                                                                                        }
+                                                                                    }
+                                                                                }
+
+                                                                                @Override
+                                                                                public void onCancelled(DatabaseError databaseError) {
+
+                                                                                }
+                                                                            });
+
+
+                                                                        }
+
+
+                                                                        //
                                                                         ReferalPojo referalPojo = new ReferalPojo(user.getUid(), Constants.DB_PATH);
-
-
                                                                         MyApplication.getFirebaseDatabase().getReference("ReferalLinks/").child(formatedRefral).setValue(referalPojo).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                             @Override
                                                                             public void onComplete(@NonNull Task<Void> task) {
@@ -201,7 +259,6 @@ public class OTP_Activity extends AppCompatActivity {
                                                                                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                                                                             }
                                                                         });
-
 
                                                                     }
                                                                 }
@@ -221,7 +278,11 @@ public class OTP_Activity extends AppCompatActivity {
                                         });
 
 
+                                        /*   */
+
+
                                     }
+
 
                                 }
 

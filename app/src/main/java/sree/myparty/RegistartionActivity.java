@@ -224,6 +224,7 @@ public class RegistartionActivity extends AppCompatActivity {
                 intent.putExtra(Constants.VOTER_ID, mVoterID.getText().toString().trim());
                 intent.putExtra(Constants.NAME, edt_userName.getText().toString().trim());
                 intent.putExtra(Constants.MOBILE_NUMBER, mMobileNumber.getText().toString().trim());
+                intent.putExtra(Constants.REFRAL_TEMP_SESSION, edt_referal.getText().toString().trim());
                 startActivity(intent);
                 mResendToken = token;
 
@@ -316,22 +317,20 @@ public class RegistartionActivity extends AppCompatActivity {
             // [END start_phone_auth]
 
             mVerificationInProgress = true;
-        }
-        else
-        {
+        } else {
             //referal ids validation checking
-            MyApplication.getFirebaseDatabase().getReference("ReferalLinks/"+edt_referal.getText().toString().trim()).addListenerForSingleValueEvent(new ValueEventListener() {
+            MyApplication.getFirebaseDatabase().getReference("ReferalLinks/" + edt_referal.getText().toString().trim()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    if(dataSnapshot.exists())
-                    {   progressDialog.dismiss();
-                        PhoneAuthProvider.getInstance().verifyPhoneNumber(phoneNumber,60,TimeUnit.SECONDS,
-                                RegistartionActivity.this,mCallbacks);
-                                  mVerificationInProgress = true;
-                    }else {
+                    if (dataSnapshot.exists()) {
                         progressDialog.dismiss();
-                        Toast.makeText(getApplicationContext(),"Invalid Referal",Toast.LENGTH_SHORT).show();
+                        PhoneAuthProvider.getInstance().verifyPhoneNumber(phoneNumber, 60, TimeUnit.SECONDS,
+                                RegistartionActivity.this, mCallbacks);
+                        mVerificationInProgress = true;
+                    } else {
+                        progressDialog.dismiss();
+                        Toast.makeText(getApplicationContext(), "Invalid Referal", Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -343,8 +342,6 @@ public class RegistartionActivity extends AppCompatActivity {
 
         }
     }
-
-
 
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
@@ -395,49 +392,61 @@ public class RegistartionActivity extends AppCompatActivity {
                                                                 @Override
                                                                 public void onComplete(@NonNull Task<Void> task) {
                                                                     if (task.isSuccessful()) {
-                                                                      //
+                                                                        //
 
-                                                                   if(!edt_referal.getText().toString().trim().equalsIgnoreCase(""))
-                                                                   {
+                                                                        if (!edt_referal.getText().toString().trim().equalsIgnoreCase("")) {
 
-                                                                       MyApplication.getFirebaseDatabase().getReference("ReferalLinks/"+edt_referal.getText().toString().trim()).addListenerForSingleValueEvent(new ValueEventListener() {
-                                                                           @Override
-                                                                           public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                            MyApplication.getFirebaseDatabase().getReference("ReferalLinks/" + edt_referal.getText().toString().trim()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                                @Override
+                                                                                public void onDataChange(DataSnapshot dataSnapshot) {
 
-                                                                               if(dataSnapshot.exists())
-                                                                               {
-                                                                                   ReferalPojo referalPojo=dataSnapshot.getValue(ReferalPojo.class);
-                                                                                   if(referalPojo!=null)
-                                                                                   {
-                                                                                       String path=referalPojo.path;
-                                                                                       String id=referalPojo.getUser_id();
-                                                                                       Map<String, Object> taskMap = new HashMap<String, Object>();
-                                                                                       taskMap.put("points", 10);
+                                                                                    if (dataSnapshot.exists()) {
+                                                                                        ReferalPojo referalPojo = dataSnapshot.getValue(ReferalPojo.class);
+                                                                                        if (referalPojo != null) {
 
-                                                                                    MyApplication.getFirebaseDatabase().getReference(path+"/Users/"+id).updateChildren(taskMap);
+                                                                                            final String path = referalPojo.path;
+                                                                                            final String id = referalPojo.getUser_id();
+                                                                                            MyApplication.getFirebaseDatabase().getReference(path + "/Users/" + id).addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                                                @Override
+                                                                                                public void onDataChange(DataSnapshot dataSnapshot) {
 
+                                                                                                    if (dataSnapshot != null && dataSnapshot.getValue() != null) {
+                                                                                                        UserDetailPojo userDetailPojo = dataSnapshot.getValue(UserDetailPojo.class);
+                                                                                                        int points = userDetailPojo.getPoints();
+                                                                                                        Map<String, Object> taskMap = new HashMap<String, Object>();
+                                                                                                        taskMap.put("points", (points + 10));
 
-
-                                                                                   }
-                                                                               }
-                                                                           }
-
-                                                                           @Override
-                                                                           public void onCancelled(DatabaseError databaseError) {
-
-                                                                           }
-                                                                       });
+                                                                                                        MyApplication.getFirebaseDatabase().getReference(path + "/Users/" + id).updateChildren(taskMap);
 
 
-                                                                   }
+                                                                                                    }
+
+                                                                                                }
+
+                                                                                                @Override
+                                                                                                public void onCancelled(DatabaseError databaseError) {
+
+                                                                                                }
+                                                                                            });
 
 
+                                                                                        }
+                                                                                    }
+                                                                                }
 
+                                                                                @Override
+                                                                                public void onCancelled(DatabaseError databaseError) {
+
+                                                                                }
+                                                                            });
+
+
+                                                                        }
 
 
                                                                         //
                                                                         ReferalPojo referalPojo = new ReferalPojo(user.getUid(), Constants.DB_PATH);
-                                                                                 MyApplication.getFirebaseDatabase().getReference("ReferalLinks/").child(formatedRefral).setValue(referalPojo).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                        MyApplication.getFirebaseDatabase().getReference("ReferalLinks/").child(formatedRefral).setValue(referalPojo).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                             @Override
                                                                             public void onComplete(@NonNull Task<Void> task) {
                                                                                 progressDialog.dismiss();
