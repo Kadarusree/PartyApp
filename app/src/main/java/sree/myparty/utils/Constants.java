@@ -49,6 +49,7 @@ public class Constants {
     public static String DB_PATH = STATE+"/"+PARLIMENT_CONST+"/"+ASSEMBLY_CONST;
     public static final String QR_URL = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=";
 
+    public static final String Vol_Table =  Constants.DB_PATH + "/Volunteers";
 
 
     public static void showToast(String text, Activity mActivty){

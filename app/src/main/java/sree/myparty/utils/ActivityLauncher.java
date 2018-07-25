@@ -11,6 +11,7 @@ import sree.myparty.admin.AdminLogin;
 
 import sree.myparty.admin.AdminMap;
 import sree.myparty.admin.MeetingAttendence;
+import sree.myparty.admin.VolunteerList;
 import sree.myparty.misc.NewsList;
 import sree.myparty.misc.PostNews;
 import sree.myparty.volunteer.CasteWiseVoters;
@@ -75,5 +76,9 @@ public class ActivityLauncher {
     public static void launchAttendenceActivity(Context ctx) {
         ctx.startActivity(new Intent(ctx,MeetingAttendence.class));
 
+    }
+
+    public static void volunteersList(Context ctx) {
+        ctx.startActivity(new Intent(ctx,VolunteerList.class));
     }
 }

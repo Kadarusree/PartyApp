@@ -79,5 +79,10 @@
 
     </string-array>
     <string name="title_activity_admin_map">VOTER MAP</string>
+    <string name="title_volunteer_list">VOLUNTEERS</string>
 
+
+    <string name="view_profile">View profile</string>
+    <string name="track_on_map">Track on Map</string>
+    <string name="approve">Approve</string>
 </resources>

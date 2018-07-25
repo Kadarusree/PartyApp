@@ -1,10 +1,13 @@
 package sree.myparty.pojos;
 
+import java.io.Serializable;
+
 /**
  * Created by srikanthk on 7/12/2018.
  */
 
-public class VolunteerPojo {
+public class VolunteerPojo implements Serializable {
+
     String name;
 
     public VolunteerPojo() {

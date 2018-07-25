@@ -79,7 +79,7 @@ public class AdminHomeFragment extends Fragment implements View.OnClickListener{
 
                 break;
             case R.id.admin_db_opt7:
-                Constants.showToast("Coming Soon",getActivity());
+                ActivityLauncher.volunteersList(getActivity());
 
                 break;
             case R.id.admin_db_opt8:
