@@ -13,11 +13,13 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.text.DecimalFormat;
 import java.util.HashMap;
@@ -45,9 +47,12 @@ public class Dashboard extends BaseActvity {
         auth = FirebaseAuth.getInstance();
         sessionManager = new SessionManager(this);
         reference = MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/Users/" + auth.getUid());
-        Map<String, Object> taskMap = new HashMap<String, Object>();
-        taskMap.put("fcm_id", sessionManager.getFirebaseKey());
-        reference.updateChildren(taskMap);
+        if(FirebaseInstanceId.getInstance().getToken()!=null) {
+            sessionManager.storeFirebaseKey(FirebaseInstanceId.getInstance().getToken());
+            Map<String, Object> taskMap = new HashMap<String, Object>();
+            taskMap.put("fcm_id", FirebaseInstanceId.getInstance().getToken());
+            reference.updateChildren(taskMap);
+        }
 
 
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
