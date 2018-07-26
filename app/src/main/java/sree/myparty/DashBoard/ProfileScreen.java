@@ -61,6 +61,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 import sree.myparty.MyApplication;
 import sree.myparty.R;
 import sree.myparty.beans.NewsPojo;
@@ -74,7 +75,7 @@ public class ProfileScreen extends AppCompatActivity {
 
 
     @BindView(R.id.id_profile_pic)
-    ImageView mProfilePic;
+    CircleImageView mProfilePic;
 
     @BindView(R.id.id_QRCode)
     ImageView mQRcode;

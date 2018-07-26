@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import sree.myparty.R;
 import sree.myparty.pojos.UserDetailPojo;
 import sree.myparty.session.SessionManager;
@@ -33,7 +34,6 @@ class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.USerViewHolde
     public USerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view= LayoutInflater.from(acticity).inflate(R.layout.userlist_adapter,parent,false);
-
         return new USerViewHolder(view);
     }
 
@@ -76,7 +76,7 @@ class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.USerViewHolde
     class USerViewHolder extends RecyclerView.ViewHolder
     {
             TextView tv_user;
-            ImageView  img_user;
+            CircleImageView img_user;
 
 
         public USerViewHolder(View itemView) {

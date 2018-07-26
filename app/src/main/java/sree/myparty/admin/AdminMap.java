@@ -82,7 +82,7 @@ public class AdminMap extends AppCompatActivity implements OnMapReadyCallback {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        mReference = MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/Voters/97");
+        mReference = MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/Voters");
         constitution.setChecked(true);
         boothLayout.setVisibility(View.GONE);
         constitution.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
