@@ -159,7 +159,8 @@
             android:parentActivityName=".admin.VolunteerList"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.ActionBar" />
-        <activity android:name=".admin.MeetingsActivity"></activity>
+        <activity android:name=".admin.MeetingsActivity" />
+        <activity android:name=".admin.AnalysisActivity"></activity>
     </application>
 
 </manifest>

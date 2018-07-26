@@ -91,7 +91,7 @@ public class AdminHomeFragment extends Fragment implements View.OnClickListener{
 
                 break;
             case R.id.admin_db_opt10:
-                Constants.showToast("Coming Soon",getActivity());
+                ActivityLauncher.launchAnalysisActivity(getActivity());
 
                 break;
         }
