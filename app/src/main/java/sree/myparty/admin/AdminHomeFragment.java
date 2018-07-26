@@ -83,7 +83,7 @@ public class AdminHomeFragment extends Fragment implements View.OnClickListener{
 
                 break;
             case R.id.admin_db_opt8:
-                ActivityLauncher.launchAttendenceActivity(getActivity());
+                ActivityLauncher.launchMeetingsActivity(getActivity());
 
                 break;
             case R.id.admin_db_opt9:

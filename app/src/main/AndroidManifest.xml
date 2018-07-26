@@ -152,13 +152,14 @@
             android:name=".admin.VolunteerList"
             android:label="@string/title_volunteer_list"
             android:parentActivityName=".admin.AdminDashboard"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".admin.VolunteerProfile"
-            android:theme="@style/AppTheme.ActionBar"
-            android:screenOrientation="portrait"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".admin.VolunteerProfile"
             android:label="Volunteer Profile"
-            android:parentActivityName=".admin.VolunteerList"></activity>
+            android:parentActivityName=".admin.VolunteerList"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.ActionBar" />
+        <activity android:name=".admin.MeetingsActivity"></activity>
     </application>
 
 </manifest>

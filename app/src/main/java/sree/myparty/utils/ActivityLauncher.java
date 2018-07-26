@@ -1,5 +1,6 @@
 package sree.myparty.utils;
 
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +12,7 @@ import sree.myparty.admin.AdminLogin;
 
 import sree.myparty.admin.AdminMap;
 import sree.myparty.admin.MeetingAttendence;
+import sree.myparty.admin.MeetingsActivity;
 import sree.myparty.admin.VolunteerList;
 import sree.myparty.misc.NewsList;
 import sree.myparty.misc.PostNews;
@@ -80,5 +82,10 @@ public class ActivityLauncher {
 
     public static void volunteersList(Context ctx) {
         ctx.startActivity(new Intent(ctx,VolunteerList.class));
+    }
+
+    public static void launchMeetingsActivity(Context activity) {
+        activity.startActivity(new Intent(activity,MeetingsActivity.class));
+
     }
 }
