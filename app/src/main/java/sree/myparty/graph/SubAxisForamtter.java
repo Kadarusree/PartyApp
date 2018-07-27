@@ -27,7 +27,11 @@ public class SubAxisForamtter implements IAxisValueFormatter {
     @Override
     public String getFormattedValue(float value, AxisBase axis) {
 
-        String monthName = keys.get((int) value);
+        String monthName = "";
+        if (keys.size()>(int) value){
+            monthName = keys.get((int) value);
+
+        }
 
         return monthName + " ";
 

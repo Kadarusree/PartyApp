@@ -36,7 +36,7 @@ import sree.myparty.graph.SubAxisForamtter;
 import sree.myparty.pojos.VoterPojo;
 import sree.myparty.utils.Constants;
 
-public class AnalysisActivity extends AppCompatActivity implements OnChartValueSelectedListener {
+public class AnalysisActivity extends AppCompatActivity {
 
 
     ArrayList<VoterPojo> mVotersList;
@@ -68,54 +68,22 @@ public class AnalysisActivity extends AppCompatActivity implements OnChartValueS
 
 
 
+
         casteData = new ArrayList<>();
         casteNames = new ArrayList<>();
 
-
-
-
-
-        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/Voters").addListenerForSingleValueEvent(new ValueEventListener() {
+        mChart = findViewById(R.id.chart1);
+        mChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                mVotersList = new ArrayList<>();
-                pDialog.dismiss();
-                for (DataSnapshot indi : dataSnapshot.getChildren()) {
-                    VoterPojo mPojo = indi.getValue(VoterPojo.class);
-                    mVotersList.add(mPojo);
-                }
-                long records = db.insertVoters(mVotersList);
-                if (records > 0) {
-                    ArrayList<String> catageories = db.getCatageories();
-                    getOC(catageories);
-                }
+            public void onValueSelected(Entry e, Highlight h) {
+               getCasteData(keys.get((int) h.getX()) + "");
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                pDialog.dismiss();
+            public void onNothingSelected() {
+
             }
         });
-    }
-
-
-    @Override
-    public void onValueSelected(Entry e, Highlight h) {
-
-      //  getCasteData(keys.get((int) h.getX()) + "");
-
-    }
-
-
-    @Override
-    public void onNothingSelected() {
-
-    }
-
-
-    private void setData(ArrayList<Integer> dataList, ArrayList<String> keys) {
-        mChart = findViewById(R.id.chart1);
-        mChart.setOnChartValueSelectedListener(this);
         mChart.setDrawBarShadow(false);
         mChart.setDrawValueAboveBar(true);
         mChart.getDescription().setEnabled(false);
@@ -144,7 +112,8 @@ public class AnalysisActivity extends AppCompatActivity implements OnChartValueS
         rightAxis.setLabelCount(8, false);
         rightAxis.setValueFormatter(custom);
         rightAxis.setSpaceTop(15f);
-        rightAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
+        rightAxis.setAxisMinimum(0f);
+        rightAxis.setDrawLabels(false);// this replaces setStartAtZero(true)
 
         Legend l = mChart.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
@@ -156,7 +125,105 @@ public class AnalysisActivity extends AppCompatActivity implements OnChartValueS
         l.setTextSize(11f);
         l.setXEntrySpace(4f);
 
+        mChart.notifyDataSetChanged();
 
+
+
+
+
+
+
+
+
+
+        /////////////Chart2////////////////////
+        subChart = findViewById(R.id.chart2);
+        subChart.setDrawBarShadow(false);
+        subChart.setDrawValueAboveBar(true);
+        subChart.getDescription().setEnabled(false);
+
+        // if more than 60 entries are displayed in the chart, no values will be
+        // drawn
+        subChart.setMaxVisibleValueCount(60);
+
+        // scaling can now only be done on x- and y-axis separately
+        subChart.setPinchZoom(false);
+
+        subChart.setDrawGridBackground(false);
+        // mChart.setDrawYLabels(false);
+
+        IAxisValueFormatter xAxisFormatter2 = new SubAxisForamtter(subChart, casteNames);
+
+        XAxis xAxis2 = subChart.getXAxis();
+        xAxis2.setPosition(XAxis.XAxisPosition.BOTTOM);
+        //1     xAxis.setTypeface(mTfLight);
+        xAxis2.setDrawGridLines(false);
+        xAxis2.setGranularity(1f); // only intervals of 1 day
+        xAxis2.setLabelCount(7);
+        xAxis2.setValueFormatter(xAxisFormatter2);
+
+        IAxisValueFormatter custom2 = new MyAxisValueFormatter();
+
+        YAxis leftAxis2 = subChart.getAxisLeft();
+        //2       leftAxis.setTypeface(mTfLight);
+        leftAxis2.setLabelCount(8, false);
+        leftAxis2.setValueFormatter(custom2);
+        leftAxis2.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
+        leftAxis2.setSpaceTop(15f);
+        leftAxis2.setAxisMinimum(0f); // this replaces setStartAtZero(true)
+
+        YAxis rightAxis2 = subChart.getAxisRight();
+        rightAxis.setDrawGridLines(false);
+//3        rightAxis.setTypeface(mTfLight);
+        rightAxis2.setLabelCount(8, false);
+        rightAxis2.setValueFormatter(custom2);
+        rightAxis2.setSpaceTop(15f);
+        rightAxis2.setAxisMinimum(0f);
+        rightAxis2.setDrawLabels(false);// this replaces setStartAtZero(true)
+
+        Legend l2 = subChart.getLegend();
+        l2.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+        l2.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
+        l2.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        l2.setDrawInside(false);
+        l2.setForm(Legend.LegendForm.SQUARE);
+        l2.setFormSize(9f);
+        l2.setTextSize(11f);
+        l2.setXEntrySpace(4f);
+
+
+        subChart.notifyDataSetChanged();
+
+
+
+
+        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/Voters").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mVotersList = new ArrayList<>();
+                pDialog.dismiss();
+                for (DataSnapshot indi : dataSnapshot.getChildren()) {
+                    VoterPojo mPojo = indi.getValue(VoterPojo.class);
+                    mVotersList.add(mPojo);
+                }
+                long records = db.insertVoters(mVotersList);
+                if (records > 0) {
+                    ArrayList<String> catageories = db.getCatageories();
+                    getOC(catageories);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                pDialog.dismiss();
+            }
+        });
+    }
+
+
+
+
+    private void setData(ArrayList<Integer> dataList, ArrayList<String> keys) {
 
         ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
         for (int i = 0; i < dataList.size(); i++) {
@@ -185,6 +252,8 @@ public class AnalysisActivity extends AppCompatActivity implements OnChartValueS
             data.setBarWidth(0.9f);
 
             mChart.setData(data);
+            mChart.notifyDataSetChanged();
+            mChart.invalidate();
         }
     }
 
@@ -208,11 +277,10 @@ public class AnalysisActivity extends AppCompatActivity implements OnChartValueS
 
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onPause() {
+        super.onPause();
         db.delete();
     }
-
 
     private void getCasteData(String s) {
     ArrayList<String>  d  = db.getCasteData(s);
@@ -241,85 +309,27 @@ public class AnalysisActivity extends AppCompatActivity implements OnChartValueS
 
 
     private void prepareSubchart(ArrayList<Integer> subData, ArrayList<String> keys2) {
-        subChart = findViewById(R.id.chart2);
-
-        subChart.setDrawBarShadow(false);
-        subChart.setDrawValueAboveBar(true);
-
-        subChart.getDescription().setEnabled(false);
-
-        // if more than 60 entries are displayed in the chart, no values will be
-        // drawn
-        subChart.setMaxVisibleValueCount(60);
-
-        // scaling can now only be done on x- and y-axis separately
-        subChart.setPinchZoom(false);
-
-        subChart.setDrawGridBackground(false);
-        // mChart.setDrawYLabels(false);
-
-        IAxisValueFormatter xAxisFormatter = new SubAxisForamtter(subChart, keys2);
-
-        XAxis xAxis = subChart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        //1     xAxis.setTypeface(mTfLight);
-        xAxis.setDrawGridLines(false);
-        xAxis.setGranularity(1f); // only intervals of 1 day
-        xAxis.setLabelCount(7);
-        xAxis.setValueFormatter(xAxisFormatter);
-
-        IAxisValueFormatter custom = new MyAxisValueFormatter();
-
-        YAxis leftAxis = mChart.getAxisLeft();
-        //2       leftAxis.setTypeface(mTfLight);
-        leftAxis.setLabelCount(8, false);
-        leftAxis.setValueFormatter(custom);
-        leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
-        leftAxis.setSpaceTop(15f);
-        leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
-
-        YAxis rightAxis = subChart.getAxisRight();
-        rightAxis.setDrawGridLines(false);
-//3        rightAxis.setTypeface(mTfLight);
-        rightAxis.setLabelCount(8, false);
-        rightAxis.setValueFormatter(custom);
-        rightAxis.setSpaceTop(15f);
-        rightAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
-
-        Legend l = subChart.getLegend();
-        l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
-        l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
-        l.setDrawInside(false);
-        l.setForm(Legend.LegendForm.SQUARE);
-        l.setFormSize(9f);
-        l.setTextSize(11f);
-        l.setXEntrySpace(4f);
-
-
-        subChart.notifyDataSetChanged();
-
         setupSubchartData(subChart,subData,keys2);
     }
 
-    private void setupSubchartData(BarChart subChart, ArrayList<Integer> data, ArrayList<String> keys) {
+    private void setupSubchartData(BarChart subChart, ArrayList<Integer> subdata, ArrayList<String> keys) {
         ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
 
+        subChart.clear();
+        for (int i = 0; i < subdata.size(); i++) {
 
-        for (int i = 0; i < data.size(); i++) {
-
-            yVals1.add(new BarEntry(i, data.get(i), getResources().getDrawable(R.drawable.ic_girl)));
+            yVals1.add(new BarEntry(i, subdata.get(i), getResources().getDrawable(R.drawable.ic_girl)));
         }
         BarDataSet set1;
 
         if (subChart.getData() != null &&
                 subChart.getData().getDataSetCount() > 0) {
-            set1 = (BarDataSet) mChart.getData().getDataSetByIndex(0);
+            set1 = (BarDataSet) subChart.getData().getDataSetByIndex(0);
             set1.setValues(yVals1);
             subChart.getData().notifyDataChanged();
             subChart.notifyDataSetChanged();
         } else {
-            set1 = new BarDataSet(yVals1, "The year 2017");
+            set1 = new BarDataSet(yVals1, "Voters in Constituency");
 
             set1.setDrawIcons(false);
 
@@ -334,6 +344,8 @@ public class AnalysisActivity extends AppCompatActivity implements OnChartValueS
             data2.setBarWidth(0.9f);
 
             subChart.setData(data2);
+            subChart.notifyDataSetChanged();
+            subChart.invalidate();
         }
     }
 }
