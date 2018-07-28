@@ -146,8 +146,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".admin.MeetingAttendence"
-            android:parentActivityName=".admin.AdminDashboard"
-            android:screenOrientation="portrait" />
+            android:parentActivityName=".admin.MeetingsListActivity"
+            android:screenOrientation="portrait"
+            android:label="Meeting Attendance"/>
         <activity
             android:name=".admin.VolunteerList"
             android:label="@string/title_volunteer_list"
@@ -159,14 +160,21 @@
             android:parentActivityName=".admin.VolunteerList"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.ActionBar" />
-        <activity android:name=".admin.MeetingsActivity"
+        <activity
+            android:name=".admin.MeetingsActivity"
+            android:label="MEETINGS"
             android:parentActivityName=".admin.AdminDashboard"
             android:screenOrientation="portrait"
-            android:label="MEETINGS"/>
-        <activity android:name=".admin.AnalysisActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".admin.AnalysisActivity"
+            android:label="VOTER ANALYSIS"
             android:parentActivityName=".admin.AdminDashboard"
+            android:screenOrientation="portrait" />
+        <activity android:name=".admin.MeetingsListActivity"
             android:screenOrientation="portrait"
-            android:label="VOTER ANALYSIS"></activity>
+            android:parentActivityName=".admin.AdminDashboard"
+            android:label="Meetings List"></activity>
     </application>
 
 </manifest>

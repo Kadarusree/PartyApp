@@ -212,7 +212,7 @@ public abstract class BaseActvity extends AppCompatActivity
                     fcmIds.add(MUser.getFcm_id());
                 }
 
-                Toast.makeText(getApplicationContext(), fcmIds.size() + "", Toast.LENGTH_LONG).show();
+          //      Toast.makeText(getApplicationContext(), fcmIds.size() + "", Toast.LENGTH_LONG).show();
             Constants.fcm_ids = fcmIds;
             }
 

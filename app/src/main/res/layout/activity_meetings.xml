@@ -177,7 +177,7 @@
             android:layout_weight="0.2">
 
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="45dp"
                 android:id="@+id/btn_save_meeting"
                 android:layout_centerHorizontal="true"

@@ -175,8 +175,10 @@ public class MeetingsActivity extends AppCompatActivity {
         dateTime = meetingDateTime.getText().toString();
         location_name = meetingLocation.getText().toString();
         if (validations()){
-               MeetingPojo mPojo = new MeetingPojo(name, purpose,dateTime,location_name,is_for_all,"Admin",location);
-               save(mPojo);
+            DatabaseReference mRef =  MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/Meetings");
+            String key = mRef.push().getKey();
+               MeetingPojo mPojo = new MeetingPojo(key,name, purpose,dateTime,location_name,is_for_all,"Admin",location);
+               save(mPojo,mRef);
         }
     }
 
@@ -203,18 +205,15 @@ public class MeetingsActivity extends AppCompatActivity {
     }
 
 
-    public void save(MeetingPojo mPojo){
+    public void save(MeetingPojo mPojo, DatabaseReference mRef){
 
-       DatabaseReference mRef =  MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/Meetings");
-       String key = mRef.push().getKey();
        pDailog.show();
-       mRef.child(key).setValue(mPojo).addOnCompleteListener(new OnCompleteListener<Void>() {
+       mRef.child(mPojo.getKey()).setValue(mPojo).addOnCompleteListener(new OnCompleteListener<Void>() {
            @Override
            public void onComplete(@NonNull Task<Void> task) {
                pDailog.dismiss();
                if (task.isSuccessful()){
                    Constants.showToast("Meeting Scheduled",MeetingsActivity.this);
-
                    location = null;
                    meetingName.setText("");
                    meetingPurpose.setText("");

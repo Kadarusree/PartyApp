@@ -1,17 +1,33 @@
 package sree.myparty.pojos;
 
 
+import java.io.Serializable;
+
 /**
  * Created by srikanthk on 7/26/2018.
  */
 
-public class MeetingPojo {
+public class MeetingPojo implements Serializable {
 
     String meetingName, meetingPurpose, meetingDateTime, meetingVenue,  scheduledBy;
     LatLng meetingLocation;
     boolean isForAll;
 
-    public MeetingPojo(String meetingName, String meetingPurpose, String meetingDateTime, String meetingVenue, boolean isForAll, String scheduledBy, LatLng meetingLocation) {
+    public MeetingPojo() {
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    String key;
+
+    public MeetingPojo(String key, String meetingName, String meetingPurpose, String meetingDateTime, String meetingVenue, boolean isForAll, String scheduledBy, LatLng meetingLocation) {
+        this.key = key;
         this.meetingName = meetingName;
         this.meetingPurpose = meetingPurpose;
         this.meetingDateTime = meetingDateTime;
@@ -20,6 +36,7 @@ public class MeetingPojo {
         this.scheduledBy = scheduledBy;
         this.meetingLocation = meetingLocation;
     }
+
 
 
     public String getMeetingName() {

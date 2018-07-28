@@ -298,7 +298,7 @@ public class RegistartionActivity extends AppCompatActivity {
             //user signed up  with required info previosly
             startActivity(new Intent(getApplicationContext(), Dashboard.class));
             overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-            Toast.makeText(getApplicationContext(), "Signed user", Toast.LENGTH_SHORT).show();
+         //   Toast.makeText(getApplicationContext(), "Signed user", Toast.LENGTH_SHORT).show();
         }
 
         // [END_EXCLUDE]

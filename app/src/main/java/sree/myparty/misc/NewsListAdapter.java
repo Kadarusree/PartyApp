@@ -1,6 +1,8 @@
 package sree.myparty.misc;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,17 +25,16 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.MyView
     private List<NewsPojo> cartList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView name, description, price, chef, timestamp;
-        public ImageView thumbnail;
+        public TextView title, description, postedby;
+        public ImageView thumbnail, overflow;
 
         public MyViewHolder(View view) {
             super(view);
-            name = view.findViewById(R.id.name);
-            chef = view.findViewById(R.id.chef);
-            description = view.findViewById(R.id.description);
-            price = view.findViewById(R.id.price);
+            title = view.findViewById(R.id.news_title);
+            description = view.findViewById(R.id.news_description);
+            postedby = view.findViewById(R.id.news_by_dateTime);
             thumbnail = view.findViewById(R.id.thumbnail);
-            timestamp = view.findViewById(R.id.timestamp);
+            overflow = view.findViewById(R.id.overflow);
         }
     }
 
@@ -54,24 +55,39 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsListAdapter.MyView
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         final NewsPojo recipe = cartList.get(position);
-        holder.name.setText(recipe.getTitle());
-        holder.chef.setText("Posted by : " + recipe.getPostedby());
-        holder.description.setText(recipe.getDescription());
-        holder.price.setVisibility(View.GONE);
-       holder.timestamp.setText(getDate(Long.parseLong(recipe.getTimestamp()),"dd/MM/yyyy HH:mm aa"));
+        String fontPath = "fonts/oswald_regular.ttf";
+        Typeface tf = Typeface.createFromAsset(context.getAssets(), fontPath);
+        holder.title.setTypeface(tf);
+        holder.title.setText(recipe.getTitle());
 
+        holder.postedby.setText("Posted by : " + recipe.getPostedby()
+                +"  On : "+getDate(Long.parseLong(recipe.getTimestamp()), "dd/MM/yyyy HH:mm aa"));
+        holder.description.setText(recipe.getDescription());
         Glide.with(context)
                 .load(recipe.getImageUrl())
                 .into(holder.thumbnail);
+
+        holder.overflow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, cartList.get(position).getTitle()
+                        +"\n\n"+cartList.get(position).getDescription()
+                        +"\n\n"+cartList.get(position).getImageUrl());
+                sendIntent.setType("text/plain");
+                context.startActivity(sendIntent);
+            }
+        });
     }
+
     // recipe
     @Override
     public int getItemCount() {
         return cartList.size();
     }
 
-    public static String getDate(long milliSeconds, String dateFormat)
-    {
+    public static String getDate(long milliSeconds, String dateFormat) {
         // Create a DateFormatter object for displaying date in specified format.
         SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
 

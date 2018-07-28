@@ -14,6 +14,7 @@ import sree.myparty.admin.AdminMap;
 import sree.myparty.admin.AnalysisActivity;
 import sree.myparty.admin.MeetingAttendence;
 import sree.myparty.admin.MeetingsActivity;
+import sree.myparty.admin.MeetingsListActivity;
 import sree.myparty.admin.VolunteerList;
 import sree.myparty.misc.NewsList;
 import sree.myparty.misc.PostNews;
@@ -92,6 +93,8 @@ public class ActivityLauncher {
 
     public static void launchAnalysisActivity(Context activity) {
         activity.startActivity(new Intent(activity,AnalysisActivity.class));
-
+    }
+    public static void launchMeetingsList(Context activity) {
+        activity.startActivity(new Intent(activity,MeetingsListActivity.class));
     }
 }

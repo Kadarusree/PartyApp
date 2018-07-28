@@ -51,7 +51,7 @@
     <string name="admin_db_option5">WORK\nDONE</string>
     <string name="admin_db_option6">SURVEY</string>
     <string name="admin_db_option7">MANAGE\nVOLUNTEER</string>
-    <string name="admin_db_option8">MEETING\nATTENDENCE</string>
+    <string name="admin_db_option8">MEETINGS</string>
     <string name="admin_db_option9">VISITS</string>
     <string name="admin_db_option10">ANALYSIS</string>
 
@@ -85,4 +85,11 @@
     <string name="view_profile">View profile</string>
     <string name="track_on_map">Track on Map</string>
     <string name="approve">Approve</string>
+
+
+    <string name="capture_attendence">Capture Attendence</string>
+    <string name="directions">Venue on map</string>
+    <string name="delete">Delete</string>
+
+
 </resources>

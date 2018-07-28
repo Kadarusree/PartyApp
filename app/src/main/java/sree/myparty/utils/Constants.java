@@ -11,6 +11,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import sree.myparty.R;
+import sree.myparty.pojos.MeetingPojo;
 import sree.myparty.volunteer.CasteWiseVoters;
 
 /**
@@ -51,7 +52,12 @@ public class Constants {
     public static final String QR_URL = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=";
 
     public static final String Vol_Table =  Constants.DB_PATH + "/Volunteers";
+    public static final String Meetings_Table =  Constants.DB_PATH + "/Meetings";
+    public static final String Users_Table =  Constants.DB_PATH + "/Users";
+    public static final String Attendence_Table =  Constants.DB_PATH + "/Meeting_Attendence";
 
+
+    public static MeetingPojo selected_meeting;
 
     public static void showToast(String text, Activity mActivty){
         Toast.makeText(mActivty,text,Toast.LENGTH_LONG).show();

@@ -121,8 +121,7 @@ public class VolunteersListAdapter extends RecyclerView.Adapter<VolunteersListAd
         public boolean onMenuItemClick(MenuItem menuItem) {
             switch (menuItem.getItemId()) {
                 case R.id.action_add_favourite:
-                    Toast.makeText(mContext, "View Profle", Toast.LENGTH_SHORT).show();
-                    Bundle b = new Bundle();
+
                     VolunteerPojo mVol = volunteerList.get(selected_position);
                     Intent i = new Intent(mContext, VolunteerProfile.class);
                     i.putExtra("Volunteer", (Serializable) mVol);

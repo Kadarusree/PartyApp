@@ -7,13 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,74 +21,53 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
-import sree.myparty.Adapters.InfluencePersonAdapter;
+import butterknife.OnClick;
+import sree.myparty.Adapters.MeetingsAdapter;
 import sree.myparty.Adapters.VolunteersListAdapter;
 import sree.myparty.MyApplication;
 import sree.myparty.R;
 import sree.myparty.pojos.Album;
-import sree.myparty.pojos.InfluPerson;
+import sree.myparty.pojos.MeetingPojo;
 import sree.myparty.pojos.VolunteerPojo;
-import sree.myparty.pojos.VoterPojo;
+import sree.myparty.utils.ActivityLauncher;
 import sree.myparty.utils.Constants;
-import sree.myparty.utils.MyDividerItemDecoration;
 
-public class VolunteerList extends AppCompatActivity {
+public class MeetingsListActivity extends AppCompatActivity {
 
-    DatabaseReference mDbref;
+
 
     AlertDialog mDialog;
-
     private RecyclerView recyclerView;
-    private List<VolunteerPojo> volunteerList;
-    private VolunteersListAdapter mAdapter;
-
-    private List<Album> albumList;
+    private List<MeetingPojo> meetingPojoList;
+    private MeetingsAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_volunteer_list);
+        setContentView(R.layout.activity_meetings_list);
         ButterKnife.bind(this);
-        volunteerList = new ArrayList<>();
+        meetingPojoList = new ArrayList<>();
 
         mDialog = Constants.showDialog(this);
 
-        recyclerView = (RecyclerView) findViewById(R.id.list_volunteers);
+        recyclerView = (RecyclerView) findViewById(R.id.meetingsList);
 
-        albumList = new ArrayList<>();
-        mAdapter = new VolunteersListAdapter(this, volunteerList);
+        mAdapter = new MeetingsAdapter(this, meetingPojoList);
 
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
+        recyclerView.addItemDecoration(new MeetingsListActivity.GridSpacingItemDecoration(1, dpToPx(10), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
 
         getVolunteers();
-
-
-    }
-
-    private void getVolunteers(){
-        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/Volunteers").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                volunteerList.clear();
-                for (DataSnapshot indi : dataSnapshot.getChildren()) {
-                    VolunteerPojo volItem = indi.getValue(VolunteerPojo.class);
-                    volunteerList.add(volItem);
-                }
-                mAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
 
 
+    @OnClick(R.id.btn_createMeeting)
+    public void lauchmeetingS(View view) {
+        ActivityLauncher.launchMeetingsActivity(MeetingsListActivity.this);
+    }
 
     public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
 
@@ -134,4 +111,31 @@ public class VolunteerList extends AppCompatActivity {
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
+
+    private void getVolunteers(){
+        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/Meetings").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                meetingPojoList.clear();
+
+                if (dataSnapshot.getChildrenCount()>0){
+                    for (DataSnapshot indi : dataSnapshot.getChildren()) {
+                        MeetingPojo volItem = indi.getValue(MeetingPojo.class);
+                        meetingPojoList.add(volItem);
+                    }
+                    mAdapter.notifyDataSetChanged();
+                }
+                else {
+                    Toast.makeText(getApplicationContext(),"No Meetings Found",Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 }

@@ -21,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 import sree.myparty.MyApplication;
 import sree.myparty.R;
 import sree.myparty.pojos.LatLng;
@@ -30,7 +31,7 @@ import sree.myparty.utils.Constants;
 
 public class VolunteerProfile extends AppCompatActivity implements OnMapReadyCallback {
     @BindView(R.id.id_profile_pic)
-    ImageView mProfilePic;
+    CircleImageView mProfilePic;
 
     @BindView(R.id.id_QRCode)
     ImageView mQRcode;
