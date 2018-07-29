@@ -1,59 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:fitsSystemWindows="true"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:elevation="@dimen/dp_2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:layout_marginLeft="-5dp"
+                android:layout_marginRight="@dimen/dp_10"
+                android:layout_weight="0.1"
+                android:src="@drawable/ic_arrow_back_black_24dp" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/chat_image"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.13" />
+
+            <TextView
+                android:id="@+id/chat_title"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.57"
+                android:gravity="left|center"
+                android:paddingLeft="@dimen/dp_10"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/dp_18"
+                android:textStyle="bold"
+
+                />
+
+            <ImageView
+                android:id="@+id/call"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:layout_weight="0.1"
+                android:src="@drawable/ic_call_black_24dp" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:layout_weight="0.1" />
+
+        </LinearLayout>
+    </android.support.v7.widget.Toolbar>
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#FFFFFF"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:background="#FFFFFF">
 
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerChat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="5dp"
+            android:background="#FFFFFF"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:background="#FFFFFF"
-            android:id="@+id/recyclerChat"
-            >
-        </android.support.v7.widget.RecyclerView>
+            android:paddingTop="5dp"></android.support.v7.widget.RecyclerView>
 
     </LinearLayout>
-
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:padding="10dp"
-        android:minHeight="40dp"
         android:background="#FFFFFF"
-        android:orientation="horizontal">
+        android:minHeight="40dp"
+        android:orientation="horizontal"
+        android:padding="10dp">
 
         <EditText
             android:id="@+id/edtMsgBox"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:paddingLeft="8dp"
-
             android:layout_weight="0.85"
+
             android:background="@drawable/rectangle"
+            android:paddingLeft="8dp"
             android:textColor="#000000" />
 
         <Button
-            android:layout_width="0dp"
-            android:layout_weight="0.15"
-            android:layout_marginLeft="5dp"
-
-            android:background="@drawable/send"
             android:id="@+id/buttonSend"
-            android:layout_height="match_parent" />
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+
+            android:layout_marginLeft="5dp"
+            android:layout_weight="0.15"
+            android:background="@drawable/send" />
     </LinearLayout>
 
 </LinearLayout>

@@ -144,7 +144,7 @@ TextView description, timestamp, createdby;*/
                             + getDate(Long.parseLong(personList.get(selected_position).getTimestamp()), "dd/MM/yyyy HH:mm aa"), Toast.LENGTH_SHORT).show();
                     return true;
                 case R.id.delete:
-                    //DeletePerson(personList.get())
+                    DeletePerson(personList.get(selected_position).getReg_id());
                     return true;
                 default:
             }

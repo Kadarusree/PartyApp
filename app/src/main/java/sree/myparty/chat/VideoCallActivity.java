@@ -14,15 +14,18 @@ import com.opentok.android.Session;
 import com.opentok.android.Stream;
 import com.opentok.android.Subscriber;
 
+import java.util.ArrayList;
+import java.util.StringTokenizer;
+
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 import sree.myparty.R;
 
-public class VideoCallActivity extends AppCompatActivity implements Session.SessionListener, PublisherKit.PublisherListener{
+public class VideoCallActivity extends AppCompatActivity implements Session.SessionListener, PublisherKit.PublisherListener {
 
-    private static String API_KEY = "46162222";
-    private static String SESSION_ID = "2_MX40NjE2MjIyMn5-MTUzMjg3MzM2ODY4OX5ZUDhSR2ZnWnJwQVIxZ3FJL29ZYnlFblZ-fg";
-    private static String TOKEN = "T1==cGFydG5lcl9pZD00NjE2MjIyMiZzaWc9MDU2YTY2NzZmYTI3NDQzZGZjZjM4YzJkMjk4ZDdjODc3ZmY2NDJkZTpzZXNzaW9uX2lkPTJfTVg0ME5qRTJNakl5TW41LU1UVXpNamczTXpNMk9EWTRPWDVaVURoU1IyWm5Xbkp3UVZJeFozRkpMMjlaWW5sRmJsWi1mZyZjcmVhdGVfdGltZT0xNTMyODczMzY4JnJvbGU9cHVibGlzaGVyJm5vbmNlPTE1MzI4NzMzNjguNzMzMjExNzc1Njk2NDQ=";
+    private static String API_KEY = "";
+    private static String SESSION_ID = "";
+    private static String TOKEN = "";
     private static final String LOG_TAG = VideoCallActivity.class.getSimpleName();
     private static final int RC_SETTINGS_SCREEN_PERM = 123;
     private static final int RC_VIDEO_APP_PERM = 124;
@@ -36,10 +39,29 @@ public class VideoCallActivity extends AppCompatActivity implements Session.Sess
 
     private Publisher mPublisher;
     private Subscriber mSubscriber;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_call);
+
+
+        String tokens = getIntent().getStringExtra("TOKENS");
+        System.out.println(tokens);
+
+        ArrayList<String> listTokens = new ArrayList<>();
+
+        if (tokens!=null){
+            listTokens.clear();
+            StringTokenizer mTokenizer = new StringTokenizer(tokens,"@#@");
+           while (mTokenizer.hasMoreTokens()){
+                listTokens.add(mTokenizer.nextToken());
+            }
+            API_KEY = listTokens.get(0);
+            SESSION_ID = listTokens.get(1);
+            TOKEN = listTokens.get(2);
+        }
+
 
         requestPermissions();
     }
@@ -50,13 +72,14 @@ public class VideoCallActivity extends AppCompatActivity implements Session.Sess
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
+
     @AfterPermissionGranted(RC_VIDEO_APP_PERM)
     private void requestPermissions() {
-        String[] perms = { Manifest.permission.INTERNET, Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO };
+        String[] perms = {Manifest.permission.INTERNET, Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO};
         if (EasyPermissions.hasPermissions(this, perms)) {
             // initialize view objects from your layout
-            mPublisherViewContainer = (FrameLayout)findViewById(R.id.publisher_container);
-            mSubscriberViewContainer = (FrameLayout)findViewById(R.id.subscriber_container);
+            mPublisherViewContainer = (FrameLayout) findViewById(R.id.publisher_container);
+            mSubscriberViewContainer = (FrameLayout) findViewById(R.id.subscriber_container);
 
             // initialize and connect to the session
             mSession = new Session.Builder(this, API_KEY, SESSION_ID).build();
@@ -122,5 +145,11 @@ public class VideoCallActivity extends AppCompatActivity implements Session.Sess
     @Override
     public void onError(PublisherKit publisherKit, OpentokError opentokError) {
         Log.e(LOG_TAG, "Publisher error: " + opentokError.getMessage());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mSession.disconnect();
     }
 }

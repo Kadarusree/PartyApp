@@ -626,7 +626,7 @@ public class InfluencePerson extends AppCompatActivity {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 final Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                InfluPerson mPerson = new InfluPerson(name, mobile_number, System.currentTimeMillis() + "", downloadUrl.toString(), address, location, Constants.VOLUNTEER, booth_number);
+                InfluPerson mPerson = new InfluPerson(key,name, mobile_number, System.currentTimeMillis() + "", downloadUrl.toString(), address, location, Constants.VOLUNTEER, booth_number);
                 save(mPerson, mRef, key);
             }
         });

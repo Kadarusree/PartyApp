@@ -16,7 +16,7 @@ public class CustomInfoWindowGoogleMap implements GoogleMap.InfoWindowAdapter {
 
     private Context context;
 
-    public CustomInfoWindowGoogleMap(Context ctx){
+    public CustomInfoWindowGoogleMap(Context ctx) {
         context = ctx;
     }
 
@@ -27,8 +27,8 @@ public class CustomInfoWindowGoogleMap implements GoogleMap.InfoWindowAdapter {
 
     @Override
     public View getInfoContents(Marker marker) {
-        View view = ((Activity)context).getLayoutInflater()
-.inflate(R.layout.map_info_window, null);
+        View view = ((Activity) context).getLayoutInflater()
+                .inflate(R.layout.map_info_window, null);
 
         TextView name_tv = view.findViewById(R.id.name);
         TextView details_tv = view.findViewById(R.id.details);
@@ -43,14 +43,14 @@ public class CustomInfoWindowGoogleMap implements GoogleMap.InfoWindowAdapter {
         name_tv.setText(marker.getTitle());
 
         VoterPojo infoWindowData = (VoterPojo) marker.getTag();
-        details_tv.setText("ADDRESS : "+infoWindowData.getAddress());
-        age.setText("AGE : "+infoWindowData.getAge());
-        caste.setText("CASTE : "+infoWindowData.getCatageory()+" - "+infoWindowData.getCaste());
-        fatherName.setText("FATHER NAME : "+infoWindowData.getVoterFatherName());
-        hotel_tv.setText("VOTER ID : "+infoWindowData.getVoterID());
-        food_tv.setText("BOOTH NUMBER : "+infoWindowData.getBoothNumber());
-        transport_tv.setText("PHONE  NO : "+infoWindowData.getMobileNumber());
-        addedby.setText("ADDED BY : "+infoWindowData.getAdded_by());
+        details_tv.setText("ADDRESS : " + infoWindowData.getAddress());
+        age.setText("AGE : " + infoWindowData.getAge());
+        caste.setText("CASTE : " + infoWindowData.getCatageory() + " - " + infoWindowData.getCaste());
+        fatherName.setText("FATHER NAME : " + infoWindowData.getVoterFatherName());
+        hotel_tv.setText("VOTER ID : " + infoWindowData.getVoterID());
+        food_tv.setText("BOOTH NUMBER : " + infoWindowData.getBoothNumber());
+        transport_tv.setText("PHONE  NO : " + infoWindowData.getMobileNumber());
+        addedby.setText("ADDED BY : " + infoWindowData.getAdded_by());
         return view;
     }
 }

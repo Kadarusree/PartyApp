@@ -15,7 +15,11 @@ import sree.myparty.admin.AnalysisActivity;
 import sree.myparty.admin.MeetingAttendence;
 import sree.myparty.admin.MeetingsActivity;
 import sree.myparty.admin.MeetingsListActivity;
+import sree.myparty.admin.VisitActivity;
+import sree.myparty.admin.VisitsListActivity;
 import sree.myparty.admin.VolunteerList;
+import sree.myparty.admin.WorkDoneActivity;
+import sree.myparty.admin.WorksListActivity;
 import sree.myparty.misc.NewsList;
 import sree.myparty.misc.PostNews;
 import sree.myparty.volunteer.CasteWiseVoters;
@@ -96,5 +100,19 @@ public class ActivityLauncher {
     }
     public static void launchMeetingsList(Context activity) {
         activity.startActivity(new Intent(activity,MeetingsListActivity.class));
+    }
+
+    public static void launchVisitListActivity(Context activity) {
+        activity.startActivity(new Intent(activity,VisitsListActivity.class));
+    }
+    public static void launchVisitActivity(Context activity) {
+        activity.startActivity(new Intent(activity,VisitActivity.class));
+    }
+
+    public static void launchWorkDoneActivity(Context activity) {
+        activity.startActivity(new Intent(activity,WorkDoneActivity.class));
+    }
+    public static void launchWorkDoneListActivity(Context activity) {
+        activity.startActivity(new Intent(activity,WorksListActivity.class));
     }
 }

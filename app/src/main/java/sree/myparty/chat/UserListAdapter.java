@@ -61,6 +61,8 @@ class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.USerViewHolde
                 intent.putExtra("name", arrayList.get(position).getUser_name());
                 intent.putExtra("uid", arrayList.get(position).getReg_id());
                 intent.putExtra("fcm", arrayList.get(position).getFcm_id());
+                intent.putExtra("profile_pic", arrayList.get(position).getProfile_url());
+
                 acticity.startActivity(intent);
 
             }

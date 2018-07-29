@@ -26,7 +26,10 @@
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".chat.ParticularChat" />
+        <activity android:name=".chat.ParticularChat"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan"
+            />
         <activity
             android:name=".RegistartionActivity"
             android:screenOrientation="portrait">
@@ -163,7 +166,7 @@
         <activity
             android:name=".admin.MeetingsActivity"
             android:label="MEETINGS"
-            android:parentActivityName=".admin.AdminDashboard"
+            android:parentActivityName=".admin.MeetingsListActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
@@ -176,10 +179,30 @@
             android:label="Meetings List"
             android:parentActivityName=".admin.AdminDashboard"
             android:screenOrientation="portrait" />
-        <activity android:name=".admin.VisitsListActivity" />
-        <activity android:name=".admin.VisitActivity" />
-        <activity android:name=".admin.WorkDoneActivity" />
-        <activity android:name=".admin.WorksListActivity" />
+        <activity
+            android:name=".admin.VisitsListActivity"
+            android:label="@string/visit_list"
+            android:parentActivityName=".admin.AdminDashboard"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".admin.VisitActivity"
+            android:label="@string/add_visit"
+            android:parentActivityName=".admin.VisitsListActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".admin.WorkDoneActivity"
+            android:label="@string/add_work"
+            android:parentActivityName=".admin.WorksListActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".admin.WorksListActivity"
+            android:label="@string/work_list"
+            android:parentActivityName=".admin.AdminDashboard"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".chat.VideoCallActivity"></activity>
     </application>
 

@@ -96,4 +96,10 @@
     <string name="call">Make a call</string>
     <string name="details">Added Details</string>
 
+
+    <string name="visit_list">VISIT\'S LIST</string>
+    <string name="add_visit">ADD A VISIT</string>
+    <string name="work_list">WORK DONE LIST</string>
+    <string name="add_work">ADD WORK DONE</string>
+
 </resources>

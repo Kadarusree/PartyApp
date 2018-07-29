@@ -157,14 +157,16 @@ public class AdminMap extends AppCompatActivity implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 
+mMap.getUiSettings().setZoomControlsEnabled(true);
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(17.37, 78.40);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sirpur"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(17.37, 78.40), 8));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(17.37, 78.40), 12));
         mMap.animateCamera(CameraUpdateFactory.zoomIn());// Zoom out to zoom level 10, animating with a duration of 2 seconds.
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(8), 2000, null);
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(12), 2000, null);
         mMap.getUiSettings().setMapToolbarEnabled(true);
 
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {

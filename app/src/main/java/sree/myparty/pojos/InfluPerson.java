@@ -38,7 +38,20 @@ public class InfluPerson {
     String location_name;
     LatLng location;
 
-    public InfluPerson(String name, String mobileNumber, String timestamp, String profile_pic, String location_name, LatLng location, String addedBy, int boothNumber) {
+    public String getReg_id() {
+        return reg_id;
+    }
+
+    public void setReg_id(String reg_id) {
+        this.reg_id = reg_id;
+    }
+
+    String reg_id;
+
+    public InfluPerson(String reg_id,String name, String mobileNumber, String timestamp, String profile_pic, String location_name, LatLng location, String addedBy, int boothNumber) {
+
+
+        this.reg_id = reg_id;
         this.name = name;
         this.mobileNumber = mobileNumber;
         this.timestamp = timestamp;
