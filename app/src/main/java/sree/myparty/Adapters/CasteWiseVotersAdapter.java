@@ -28,9 +28,9 @@ public class CasteWiseVotersAdapter extends RecyclerView.Adapter<CasteWiseVoters
             super(view);
             name = view.findViewById(R.id.da_title);
             booth_num = view.findViewById(R.id.da_booth_num);
-            description = view.findViewById(R.id.da_description);
+            /*description = view.findViewById(R.id.da_description);
             createdby = view.findViewById(R.id.da_created_by);
-            timestamp = view.findViewById(R.id.da_timestamp);
+            timestamp = view.findViewById(R.id.da_timestamp);*/
         }
     }
 
@@ -53,10 +53,10 @@ public class CasteWiseVotersAdapter extends RecyclerView.Adapter<CasteWiseVoters
         final CasteWiseVoterBean person = personList.get(position);
         holder.name.setText("Name : "+person.getName());
         holder.booth_num.setText("Voter ID :" + person.getVoterID()+"");
-        holder.description.setText("Caste :" + person.getCaste());
+      /*  holder.description.setText("Caste :" + person.getCaste());
         holder.createdby.setText("Booth Number: " + person.getBoothNum());
         holder.timestamp.setText("Added By : "+person.getCreatedby()+" At "+getDate(Long.parseLong(person.getTimestamp()),"dd/MM/yyyy HH:mm aa")+"");
-    }
+   */ }
     // recipe
     @Override
     public int getItemCount() {

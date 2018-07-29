@@ -9,16 +9,44 @@ public class InfluPerson {
     String name;
     String mobileNumber;
     String timestamp;
+    String profile_pic;
 
-    public InfluPerson(String name, String mobileNumber, String timestamp, String addedBy, int boothNumber) {
+    public String getProfile_pic() {
+        return profile_pic;
+    }
+
+    public void setProfile_pic(String profile_pic) {
+        this.profile_pic = profile_pic;
+    }
+
+    public String getLocation_name() {
+        return location_name;
+    }
+
+    public void setLocation_name(String location_name) {
+        this.location_name = location_name;
+    }
+
+    public LatLng getLocation() {
+        return location;
+    }
+
+    public void setLocation(LatLng location) {
+        this.location = location;
+    }
+
+    String location_name;
+    LatLng location;
+
+    public InfluPerson(String name, String mobileNumber, String timestamp, String profile_pic, String location_name, LatLng location, String addedBy, int boothNumber) {
         this.name = name;
         this.mobileNumber = mobileNumber;
         this.timestamp = timestamp;
+        this.profile_pic = profile_pic;
+        this.location_name = location_name;
+        this.location = location;
         this.addedBy = addedBy;
         this.boothNumber = boothNumber;
-
-
-
     }
 
     public String getAddedBy() {

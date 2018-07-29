@@ -15,15 +15,12 @@ import android.support.v4.app.NotificationCompat;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.sinch.android.rtc.NotificationResult;
-import com.sinch.android.rtc.SinchHelpers;
+
 
 import java.util.Random;
 
 import sree.myparty.R;
-import sree.myparty.RegistartionActivity;
 import sree.myparty.chat.UserListActicity;
-import sree.myparty.videocalling.SinchService;
 
 /**
  * Created by srikanthk on 6/29/2018.
@@ -41,7 +38,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService impleme
         } else {
 
             if (remoteMessage.getData().get("key").equalsIgnoreCase("Sinch")) {
-                connectToService();
+                //connectToService();
             } else {
                 showNotification(getApplicationContext(), remoteMessage.getData().get("key"), new Intent(),getResources().getString(R.string.app_name));
 
@@ -109,7 +106,5 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService impleme
 
     }
 
-    private void connectToService() {
-        getApplicationContext().bindService(new Intent(this, SinchService.class), this, Context.BIND_AUTO_CREATE);
-    }
+
 }

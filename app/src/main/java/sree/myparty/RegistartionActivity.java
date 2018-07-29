@@ -1,11 +1,8 @@
 package sree.myparty;
 
-import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.os.AsyncTask;
-import android.support.annotation.BinderThread;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -38,10 +35,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -52,19 +45,7 @@ import java.util.concurrent.TimeUnit;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import sree.myparty.DashBoard.Dashboard;
-import sree.myparty.apis.ApiClient;
-import sree.myparty.apis.ApiInterface;
-import sree.myparty.firebase.Data;
-import sree.myparty.firebase.FirebasePushModel;
 import sree.myparty.pojos.ReferalPojo;
 import sree.myparty.pojos.UserDetailPojo;
 import sree.myparty.session.SessionManager;
@@ -123,8 +104,6 @@ public class RegistartionActivity extends AppCompatActivity {
         FirebaseInstanceId.getInstance().getToken();
 
 
-        Data mData = new Data();
-        mData.setKey("Hello User");
 
         ArrayList<String> keys = new ArrayList<>();
         keys.add(fb_key);

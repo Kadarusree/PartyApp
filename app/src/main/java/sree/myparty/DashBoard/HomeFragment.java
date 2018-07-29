@@ -26,6 +26,7 @@ import butterknife.BindView;
 import sree.myparty.MyApplication;
 import sree.myparty.R;
 import sree.myparty.chat.UserListActicity;
+import sree.myparty.chat.VideoCallActivity;
 import sree.myparty.pojos.UserDetailPojo;
 import sree.myparty.session.SessionManager;
 import sree.myparty.utils.ActivityLauncher;
@@ -110,6 +111,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 startActivity(new Intent(getActivity(), UserListActicity.class));
                 break;
             case R.id.db_op4:
+                startActivity(new Intent(getActivity(), VideoCallActivity.class));
+
                 break;
             case R.id.db_op5:
 

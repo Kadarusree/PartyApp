@@ -28,9 +28,9 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.MyViewHold
             super(view);
             name = view.findViewById(R.id.da_title);
             booth_num = view.findViewById(R.id.da_booth_num);
-            description = view.findViewById(R.id.da_description);
+         /*   description = view.findViewById(R.id.da_description);
             createdby = view.findViewById(R.id.da_created_by);
-            timestamp = view.findViewById(R.id.da_timestamp);
+            timestamp = view.findViewById(R.id.da_timestamp);*/
         }
     }
 
@@ -53,10 +53,10 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.MyViewHold
         final IssueBean person = personList.get(position);
         holder.name.setVisibility(View.GONE);
         holder.booth_num.setText("Booth Number :" + person.getBoothnumber()+"");
-        holder.description.setText("Description :" + person.getDescription());
+       /* holder.description.setText("Description :" + person.getDescription());
         holder.createdby.setText("Created By: " + person.getCreatedBy());
         holder.timestamp.setText("Posted At : "+getDate(person.getTimestamp(),"dd/MM/yyyy HH:mm aa"));
-    }
+ */   }
     // recipe
     @Override
     public int getItemCount() {

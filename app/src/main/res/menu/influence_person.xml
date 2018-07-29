@@ -1,0 +1,21 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <item
+        android:id="@+id/map"
+        android:orderInCategory="100"
+        android:title="@string/address" />
+    <item
+        android:id="@+id/call"
+        android:orderInCategory="101"
+        android:title="@string/call" />
+    <item
+        android:id="@+id/details"
+        android:orderInCategory="101"
+        android:title="@string/details" />
+
+    <item
+        android:id="@+id/delete"
+        android:orderInCategory="101"
+        android:title="@string/delete" />
+</menu>
