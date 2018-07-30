@@ -36,11 +36,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         if (remoteMessage.getData() != null && remoteMessage.getData().get("message") != null) {
             if (remoteMessage.getData().get("username") != null) {
-                Intent intent = new Intent(getApplicationContext(), ParticularChat.class);
-                intent.putExtra("name",remoteMessage.getData().get("username"));
+                Intent intent = new Intent(getApplicationContext(), UserListActicity.class);
+                /*intent.putExtra("name",remoteMessage.getData().get("username"));
                 intent.putExtra("key",remoteMessage.getData().get("key"));
                 intent.putExtra("profile_pic",remoteMessage.getData().get("profile_pic"));
-                intent.putExtra("fcmkey",remoteMessage.getData().get("fcmkey"));
+                intent.putExtra("fcm",remoteMessage.getData().get("fcmkey"));
+                intent.putExtra("uid",remoteMessage.getData().get("uid"));*/
 
 
                 showNotification(getApplicationContext(), remoteMessage.getData().get("message"), intent, remoteMessage.getData().get("username"));
