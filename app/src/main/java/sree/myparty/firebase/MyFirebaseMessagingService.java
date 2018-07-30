@@ -20,6 +20,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import java.util.Random;
 
 import sree.myparty.R;
+import sree.myparty.chat.ParticularChat;
 import sree.myparty.chat.UserListActicity;
 import sree.myparty.chat.VideoCallActivity;
 
@@ -27,7 +28,7 @@ import sree.myparty.chat.VideoCallActivity;
  * Created by srikanthk on 6/29/2018.
  */
 
-public class MyFirebaseMessagingService extends FirebaseMessagingService{
+public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
@@ -35,9 +36,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService{
 
         if (remoteMessage.getData() != null && remoteMessage.getData().get("message") != null) {
             if (remoteMessage.getData().get("username") != null) {
-                showNotification(getApplicationContext(), remoteMessage.getData().get("message"), new Intent(getApplicationContext(), UserListActicity.class), remoteMessage.getData().get("username"));
-            } else if (remoteMessage.getData().get("purpose") != null && (remoteMessage.getData().get("purpose").equalsIgnoreCase("Incoming Video Call")))
-            {
+                Intent intent = new Intent(getApplicationContext(), ParticularChat.class);
+                intent.putExtra(remoteMessage.getData().get("name"), "");
+                intent.putExtra(remoteMessage.getData().get("key"), "");
+                intent.putExtra(remoteMessage.getData().get("profile_pic"), "");
+                intent.putExtra(remoteMessage.getData().get("fcmkey"), "");
+
+
+                showNotification(getApplicationContext(), remoteMessage.getData().get("message"), intent, remoteMessage.getData().get("username"));
+            } else if (remoteMessage.getData().get("purpose") != null && (remoteMessage.getData().get("purpose").equalsIgnoreCase("Incoming Video Call"))) {
                 showCallNotification(getApplicationContext(), remoteMessage.getData().get("message"), new Intent(getApplicationContext(), VideoCallActivity.class), remoteMessage.getData().get("purpose"));
 
             }
@@ -93,7 +100,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService{
 
     public void showCallNotification(Context context, String body, Intent intent, String username) {
         String channelId = "a3";
-        intent.putExtra("TOKENS",body);
+        intent.putExtra("TOKENS", body);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);

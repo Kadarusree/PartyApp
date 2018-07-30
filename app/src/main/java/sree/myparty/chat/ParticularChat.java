@@ -80,7 +80,7 @@ public class ParticularChat extends AppCompatActivity {
     ImageView call;
 
     ProgressDialog mDialog;
-
+    String combinedEmail="";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,7 +116,7 @@ public class ParticularChat extends AppCompatActivity {
         linearLayoutManager.setStackFromEnd(true);
         recycler.setLayoutManager(linearLayoutManager);
         recycler.setAdapter(new ParticularChatMessageAdapter(getApplicationContext(), arrayList));
-        String combinedEmail = getIntent().getStringExtra("key");
+         combinedEmail = getIntent().getStringExtra("key");
         name = getIntent().getStringExtra("name");
         name = getCapName(name);
         fcmkey = getIntent().getStringExtra("fcm");
@@ -212,6 +212,10 @@ public class ParticularChat extends AppCompatActivity {
             JSONObject jsonObjec2 = new JSONObject();
             jsonObjec2.put("message", bodydata);
             jsonObjec2.put("username", name);
+            jsonObjec2.put("key", combinedEmail);
+            jsonObjec2.put("profile_pic", profile_pic);
+            jsonObjec2.put("fcmkey", fcmkey);
+
             jsonObjec.put("data", jsonObjec2);
 
             jsonObjec.put("time_to_live", 172800);
