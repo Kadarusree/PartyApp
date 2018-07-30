@@ -102,4 +102,10 @@
     <string name="work_list">WORK DONE LIST</string>
     <string name="add_work">ADD WORK DONE</string>
 
+
+    <string name="create_survey">Create Survey</string>
+
+    <string name="surveyList">Survey</string>
+
+
 </resources>

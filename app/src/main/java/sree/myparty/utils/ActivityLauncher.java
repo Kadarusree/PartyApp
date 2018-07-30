@@ -22,6 +22,8 @@ import sree.myparty.admin.WorkDoneActivity;
 import sree.myparty.admin.WorksListActivity;
 import sree.myparty.misc.NewsList;
 import sree.myparty.misc.PostNews;
+import sree.myparty.survey.CreateSurvey;
+import sree.myparty.survey.SurveyList;
 import sree.myparty.volunteer.CasteWiseVoters;
 import sree.myparty.volunteer.InfluencePerson;
 import sree.myparty.volunteer.Local_Issues;
@@ -114,5 +116,12 @@ public class ActivityLauncher {
     }
     public static void launchWorkDoneListActivity(Context activity) {
         activity.startActivity(new Intent(activity,WorksListActivity.class));
+    }
+
+    public static void launchSurveyList(Context activity) {
+        activity.startActivity(new Intent(activity,SurveyList.class));
+    }
+    public static void launchCreateSurvey(Context activity) {
+        activity.startActivity(new Intent(activity,CreateSurvey.class));
     }
 }

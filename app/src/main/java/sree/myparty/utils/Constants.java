@@ -55,12 +55,14 @@ public class Constants {
     public static final String Meetings_Table =  Constants.DB_PATH + "/Meetings";
     public static final String Users_Table =  Constants.DB_PATH + "/Users";
     public static final String Attendence_Table =  Constants.DB_PATH + "/Meeting_Attendence";
+    public static final String Survey_Table = Constants.DB_PATH+"/Surveys";
+    public static final String Survey_Aswers_Table = Constants.DB_PATH+"/SurveyAnswers";
 
 
     public static MeetingPojo selected_meeting;
 
     public static void showToast(String text, Activity mActivty){
-        Toast.makeText(mActivty,text,Toast.LENGTH_LONG).show();
+        Toast.makeText(mActivty,text,Toast.LENGTH_SHORT).show();
     }
 
 

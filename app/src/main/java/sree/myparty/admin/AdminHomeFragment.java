@@ -72,7 +72,7 @@ public class AdminHomeFragment extends Fragment implements View.OnClickListener 
                 ActivityLauncher.launchWorkDoneListActivity(getActivity());
                 break;
             case R.id.admin_db_opt6:
-                Constants.showToast("Coming Soon", getActivity());
+                ActivityLauncher.launchCreateSurvey(getActivity());
 
                 break;
             case R.id.admin_db_opt7:

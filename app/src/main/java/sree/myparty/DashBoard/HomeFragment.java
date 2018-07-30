@@ -29,6 +29,7 @@ import sree.myparty.chat.UserListActicity;
 import sree.myparty.chat.VideoCallActivity;
 import sree.myparty.pojos.UserDetailPojo;
 import sree.myparty.session.SessionManager;
+import sree.myparty.survey.SurveyList;
 import sree.myparty.utils.ActivityLauncher;
 import sree.myparty.utils.Constants;
 import sree.myparty.utils.VolunteerSessionManager;
@@ -111,7 +112,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 startActivity(new Intent(getActivity(), UserListActicity.class));
                 break;
             case R.id.db_op4:
-                startActivity(new Intent(getActivity(), VideoCallActivity.class));
+                startActivity(new Intent(getActivity(), SurveyList.class));
 
                 break;
             case R.id.db_op5:

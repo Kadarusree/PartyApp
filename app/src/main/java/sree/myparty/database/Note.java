@@ -2,7 +2,9 @@ package sree.myparty.database;
 
 public class Note {
     public static final String TABLE_NAME = "voters";
- 
+    public static final String SURVEY_ANSWERS = "survey";
+
+
     public static final String COLUMN_ID = "id";
     public static final String NAME = "name";
     public static final String AGE = "age";
@@ -14,6 +16,11 @@ public class Note {
     private int id;
     private String note;
     private String timestamp;
+
+    public static final String SURVEY_ID = "id";
+    public static final String ANSWER = "answer";
+
+
  
  
     // Create table SQL query
@@ -26,6 +33,13 @@ public class Note {
                     + CATAGEORY + " TEXT,"
                     + CASTE + " TEXT,"
                     + BOOTH_NUMBER + " TEXT"
+                    + ")";
+
+    public static final String SURVEY_TABLE =
+            "CREATE TABLE " + SURVEY_ANSWERS + "("
+                    + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + SURVEY_ID + " TEXT,"
+                    + ANSWER + " TEXT"
                     + ")";
  
     public Note() {
