@@ -211,10 +211,7 @@ public class ParticularChat extends AppCompatActivity {
             jsonObjec.put("registration_ids", jsonArray);
             JSONObject jsonObjec2 = new JSONObject();
             jsonObjec2.put("message", bodydata);
-            jsonObjec2.put("username", name);
-            jsonObjec2.put("key", combinedEmail);
-            jsonObjec2.put("profile_pic", profile_pic);
-            jsonObjec2.put("fcmkey", fcmkey);
+            jsonObjec2.put("username", sessionManager.getName());
 
             jsonObjec.put("data", jsonObjec2);
 
