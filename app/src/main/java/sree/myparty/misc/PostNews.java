@@ -444,7 +444,7 @@ public class PostNews extends AppCompatActivity {
           mObject = new JSONObject();
         try {
 
-            mObject.put("data", new JSONObject().put("key", news.getTitle()));
+            mObject.put("data", new JSONObject().put("news", news.getTitle()));
             mObject.put("registration_ids", new JSONArray(Constants.fcm_ids));
             System.out.print(mObject.toString());
 

@@ -34,6 +34,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         super.onMessageReceived(remoteMessage);
 
 
+
+
+
         if (remoteMessage.getData() != null && remoteMessage.getData().get("message") != null) {
             if (remoteMessage.getData().get("username") != null) {
                 Intent intent = new Intent(getApplicationContext(), UserListActicity.class);
@@ -60,6 +63,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         }
     }
+
+
 
     public void showNotification(Context context, String body, Intent intent, String username) {
         String channelId = "a3";

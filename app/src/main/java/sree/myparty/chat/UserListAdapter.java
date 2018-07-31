@@ -1,6 +1,7 @@
 package sree.myparty.chat;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,9 +40,14 @@ class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.USerViewHolde
 
     @Override
     public void onBindViewHolder(USerViewHolder holder, final int position) {
-
+        Drawable mDefaultBackground = acticity.getResources().getDrawable(R.drawable.avatar);
         holder.tv_user.setText(arrayList.get(position).getUser_name());
-        Glide.with(acticity).load(arrayList.get(position).getProfile_url()).into(holder.img_user);
+      //  Glide.with(acticity).load(arrayList.get(position).getProfile_url()).into(holder.img_user).f;
+
+        Glide.with(acticity)
+                .load(arrayList.get(position).getProfile_url())
+
+                .error(mDefaultBackground).into(holder.img_user);
         holder.tv_user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
