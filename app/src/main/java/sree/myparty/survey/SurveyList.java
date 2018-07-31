@@ -34,6 +34,8 @@ public class SurveyList extends AppCompatActivity {
     private List<SurveyPojo> mSurveyList;
     private SurveyAdapter mAdapter;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -135,7 +137,7 @@ public class SurveyList extends AppCompatActivity {
                 if (dataSnapshot.getChildrenCount() > 0) {
                     Log.d("Parent-1",dataSnapshot.getChildrenCount()+"");
                     for (DataSnapshot indi : dataSnapshot.getChildren()) {
-                        Log.d("Parent-2",indi.getChildrenCount()+"");
+
                     }
                 } else {
                     Toast.makeText(getApplicationContext(), "No Meetings Found", Toast.LENGTH_SHORT).show();

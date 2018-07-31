@@ -22,6 +22,7 @@ import java.util.List;
 
 import sree.myparty.MyApplication;
 import sree.myparty.R;
+import sree.myparty.database.SurveyDB;
 import sree.myparty.utils.Constants;
 
 public class SurveyAdminList extends AppCompatActivity {
@@ -30,6 +31,8 @@ public class SurveyAdminList extends AppCompatActivity {
     private RecyclerView recyclerView;
     private List<SurveyPojo> mSurveyList;
     private SurveyAdapter mAdapter;
+
+    ArrayList<SurveyAnswerPojo> mSurveyAnswersList;
 
 
 
@@ -131,13 +134,20 @@ public class SurveyAdminList extends AppCompatActivity {
         MyApplication.getFirebaseDatabase().getReference(Constants.Survey_Aswers_Table).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                mSurveyList.clear();
+                mSurveyAnswersList = new ArrayList<>();
 
                 if (dataSnapshot.getChildrenCount() > 0) {
                     Log.d("Parent",dataSnapshot.getChildrenCount()+"");
                     for (DataSnapshot indi : dataSnapshot.getChildren()) {
-                        Log.d("Child",indi.getChildrenCount()+"");
+
+                        for (DataSnapshot Child : indi.getChildren()){
+                            Log.d("Child",indi.getChildrenCount()+"");
+                            SurveyAnswerPojo mSurvey = Child.getValue(SurveyAnswerPojo.class);
+                        }
+
                     }
+                    SurveyDB mSurveyDB = new SurveyDB(SurveyAdminList.this);
+                    mSurveyDB.insertAnswers(mSurveyAnswersList);
                 } else {
                     Toast.makeText(getApplicationContext(), "No Meetings Found", Toast.LENGTH_SHORT).show();
                 }
