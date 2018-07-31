@@ -207,14 +207,17 @@
         <activity
             android:name=".survey.CreateSurvey"
             android:label="@string/create_survey"
-            android:parentActivityName=".admin.AdminDashboard"
+            android:parentActivityName=".survey.SurveyAdminList"
             android:screenOrientation="portrait" />
         <activity
             android:name=".survey.SurveyList"
             android:label="@string/surveyList"
             android:parentActivityName=".DashBoard.Dashboard"
             android:screenOrientation="portrait" />
-        <activity android:name=".survey.SurveyAdminList"></activity>
+        <activity android:name=".survey.SurveyAdminList"
+            android:label="@string/surveyList"
+            android:parentActivityName=".admin.AdminDashboard"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

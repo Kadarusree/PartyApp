@@ -112,7 +112,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 startActivity(new Intent(getActivity(), UserListActicity.class));
                 break;
             case R.id.db_op4:
-                startActivity(new Intent(getActivity(), SurveyList.class));
+                ActivityLauncher.launchSurveyList(getActivity());
 
                 break;
             case R.id.db_op5:

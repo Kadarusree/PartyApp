@@ -1,9 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="sree.myparty.survey.SurveyAdminList">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.9">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/surveyList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1">
+
+        <Button
+            android:id="@+id/btn_createSurvey"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/button_backround"
+            android:onClick="createSurvey"
+            android:text="Click Here To Create a New Survey"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/dp_16"
+            android:typeface="serif"></Button>
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -17,7 +17,7 @@ public class Note {
     private String note;
     private String timestamp;
 
-    public static final String SURVEY_ID = "id";
+    public static final String SURVEY_ID = "question_id";
     public static final String ANSWER = "answer";
 
 

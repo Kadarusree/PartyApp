@@ -1,0 +1,101 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/card_margin"
+        android:elevation="5dp"
+        card_view:cardCornerRadius="@dimen/dp_2">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/main"
+            >
+            <TextView
+                android:id="@+id/surveyItem_Question"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left|center"
+                android:text="Heelo"
+                android:paddingLeft="@dimen/album_title_padding"
+                android:paddingRight="@dimen/album_title_padding"
+                android:paddingTop="@dimen/album_title_padding"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/dp_20"
+                android:textStyle="bold"
+                />
+            <RadioButton
+                android:id="@+id/surveyItem_Option1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/surveyItem_Question"
+                android:paddingLeft="@dimen/album_title_padding"
+                android:paddingRight="@dimen/album_title_padding"
+                android:textSize="@dimen/dp_15"
+                />
+
+            <RadioButton
+                android:id="@+id/surveyItem_Option2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/surveyItem_Option1"
+                android:paddingLeft="@dimen/album_title_padding"
+                android:paddingRight="@dimen/album_title_padding"
+                android:textColor="@color/album_title"
+                android:textSize="@dimen/dp_15" />
+
+            <RadioButton
+                android:id="@+id/surveyItem_Option3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/surveyItem_Option2"
+                android:paddingLeft="@dimen/album_title_padding"
+                android:paddingRight="@dimen/album_title_padding"
+                android:textSize="@dimen/dp_15" />
+
+            <Button
+                android:id="@+id/survey_Save_answer"
+                android:layout_width="100dp"
+                android:layout_height="35dp"
+                android:layout_below="@id/surveyItem_Option3"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:paddingLeft="@dimen/album_title_padding"
+                android:paddingRight="@dimen/album_title_padding"
+                android:layout_margin="@dimen/dp_5"
+                android:text="Submit"
+                android:visibility="gone"
+                android:background="@drawable/button_backround"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/dp_15" />
+            <ImageView
+                android:id="@+id/overflow"
+                android:layout_width="@dimen/ic_album_overflow_width"
+                android:layout_height="@dimen/ic_album_overflow_height"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/surveyItem_Option2"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_dot_menu"
+                />
+            <com.github.mikephil.charting.charts.BarChart
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:id="@+id/survey_graph"
+                android:layout_below="@id/survey_Save_answer"
+                >
+            </com.github.mikephil.charting.charts.BarChart>
+        </RelativeLayout>
+
+
+
+
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 
 import sree.myparty.pojos.VoterPojo;
+import sree.myparty.survey.SurveyAnswerPojo;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
  
@@ -29,6 +30,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
  
         // create notes table
         db.execSQL(Note.CREATE_TABLE);
+        db.execSQL(Note.CREATE_SURVEY_TABLE);
     }
  
     // Upgrading database
@@ -36,7 +38,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " + Note.TABLE_NAME);
- 
+        db.execSQL("DROP TABLE IF EXISTS " + Note.SURVEY_TABLE);
+
         // Create tables again
         onCreate(db);
     }
@@ -101,7 +104,43 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(Note.TABLE_NAME,null,null);
+        db.delete(Note.SURVEY_TABLE,null,null);
 
+
+    }
+
+
+    public long insertAnswers(ArrayList<SurveyAnswerPojo> mAnswer) {
+        // get writable database as we want to write data
+        SQLiteDatabase db = this.getWritableDatabase();
+        long id = 0;
+        for (int i = 0;i<mAnswer.size();i++){
+            ContentValues values = new ContentValues();
+            values.put(Note.SURVEY_ID, mAnswer.get(i).getQuestion_id());
+            values.put(Note.ANSWER, mAnswer.get(i).getAnswer());
+
+            id = db.insert(Note.SURVEY_TABLE, null, values);
+        }
+        db.close();
+        return id;
+    }
+    public ArrayList<String> getAnswers(String question_id) {
+        ArrayList<String> answers = new ArrayList<>();
+
+        String selectQuery = "SELECT "+Note.ANSWER+" FROM " + Note.SURVEY_TABLE +" WHERE "+Note.SURVEY_ID + " = '"+question_id+"'";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                answers.add(cursor.getString(cursor.getColumnIndex(Note.ANSWER)));
+            } while (cursor.moveToNext());
+        }
+
+        db.close();
+
+        return answers;
     }
 
 }

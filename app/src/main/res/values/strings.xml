@@ -105,7 +105,12 @@
 
     <string name="create_survey">Create Survey</string>
 
-    <string name="surveyList">Survey</string>
+
+    <string name="surveyList">Survey List</string>
+
+
+    <string name="end_survey">End Survey</string>
+
 
 
 </resources>

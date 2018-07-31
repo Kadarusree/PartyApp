@@ -35,7 +35,6 @@ public class SurveyList extends AppCompatActivity {
     private SurveyAdapter mAdapter;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,7 +111,9 @@ public class SurveyList extends AppCompatActivity {
                 if (dataSnapshot.getChildrenCount() > 0) {
                     for (DataSnapshot indi : dataSnapshot.getChildren()) {
                         SurveyPojo volItem = indi.getValue(SurveyPojo.class);
-                        mSurveyList.add(volItem);
+                        if (volItem.isActive()) {
+                            mSurveyList.add(volItem);
+                        }
                     }
                     mAdapter.notifyDataSetChanged();
                 } else {
@@ -128,14 +129,14 @@ public class SurveyList extends AppCompatActivity {
         });
     }
 
-    private void getAnswers(){
+    private void getAnswers() {
         MyApplication.getFirebaseDatabase().getReference(Constants.Survey_Aswers_Table).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
 
                 if (dataSnapshot.getChildrenCount() > 0) {
-                    Log.d("Parent-1",dataSnapshot.getChildrenCount()+"");
+                    Log.d("Parent-1", dataSnapshot.getChildrenCount() + "");
                     for (DataSnapshot indi : dataSnapshot.getChildren()) {
 
                     }

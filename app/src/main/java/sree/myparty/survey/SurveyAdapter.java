@@ -21,9 +21,19 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -31,6 +41,8 @@ import sree.myparty.Adapters.MeetingsAdapter;
 import sree.myparty.MyApplication;
 import sree.myparty.R;
 import sree.myparty.admin.MeetingAttendence;
+import sree.myparty.graph.DayAxisValueFormatter;
+import sree.myparty.graph.MyAxisValueFormatter;
 import sree.myparty.pojos.MeetingPojo;
 import sree.myparty.session.SessionManager;
 import sree.myparty.utils.Constants;
@@ -46,6 +58,8 @@ public class SurveyAdapter extends RecyclerView.Adapter<SurveyAdapter.MyViewHold
     private Context mContext;
     private List<SurveyPojo> mSurveyList;
     SessionManager mSessionManager;
+
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView question;
@@ -157,8 +171,6 @@ public class SurveyAdapter extends RecyclerView.Adapter<SurveyAdapter.MyViewHold
                 } else if (mSurveyList.get(position).isOption3Selected()) {
                     answer = mSurveyList.get(position).getSurveyOption3();
                 }
-                Constants.showToast(answer, (Activity) mContext);
-
 
                 // uncomment for production
                 // saveAnswer(mSurveyList.get(position).getSurveyID(),mSessionManager.getRegID(),answer);
@@ -210,9 +222,10 @@ public class SurveyAdapter extends RecyclerView.Adapter<SurveyAdapter.MyViewHold
 
 
     public void saveAnswer(String QuestionID, String userID, String answer) {
+        SurveyAnswerPojo mSurveyPojo =  new SurveyAnswerPojo(QuestionID,answer);
         final ProgressDialog pDialog = Constants.showDialog((Activity) mContext);
         pDialog.show();
-        MyApplication.getFirebaseDatabase().getReference(Constants.Survey_Aswers_Table).child(QuestionID).child(userID).setValue(answer).addOnCompleteListener(new OnCompleteListener<Void>() {
+        MyApplication.getFirebaseDatabase().getReference(Constants.Survey_Aswers_Table).child(QuestionID).child(userID).setValue(mSurveyPojo).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 pDialog.dismiss();
@@ -230,4 +243,7 @@ public class SurveyAdapter extends RecyclerView.Adapter<SurveyAdapter.MyViewHold
         Random random = new Random();
         return random.nextInt(9999);
     }
+
+
+
 }

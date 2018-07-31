@@ -23,6 +23,7 @@ import sree.myparty.admin.WorksListActivity;
 import sree.myparty.misc.NewsList;
 import sree.myparty.misc.PostNews;
 import sree.myparty.survey.CreateSurvey;
+import sree.myparty.survey.SurveyAdminList;
 import sree.myparty.survey.SurveyList;
 import sree.myparty.volunteer.CasteWiseVoters;
 import sree.myparty.volunteer.InfluencePerson;
@@ -123,5 +124,8 @@ public class ActivityLauncher {
     }
     public static void launchCreateSurvey(Context activity) {
         activity.startActivity(new Intent(activity,CreateSurvey.class));
+    }
+    public static void launchAdminSurveyList(Context ctx) {
+        ctx.startActivity(new Intent(ctx,SurveyAdminList.class));
     }
 }

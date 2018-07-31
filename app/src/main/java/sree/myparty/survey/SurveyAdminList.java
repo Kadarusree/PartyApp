@@ -20,9 +20,12 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import sree.myparty.MyApplication;
 import sree.myparty.R;
-import sree.myparty.database.SurveyDB;
+import sree.myparty.database.DatabaseHelper;
+import sree.myparty.utils.ActivityLauncher;
 import sree.myparty.utils.Constants;
 
 public class SurveyAdminList extends AppCompatActivity {
@@ -30,34 +33,41 @@ public class SurveyAdminList extends AppCompatActivity {
     AlertDialog mDialog;
     private RecyclerView recyclerView;
     private List<SurveyPojo> mSurveyList;
-    private SurveyAdapter mAdapter;
-
+    private SurveyAdminAdapter mAdapter;
     ArrayList<SurveyAnswerPojo> mSurveyAnswersList;
 
+
+    DatabaseHelper mSurveyDB;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_survey_list);
+        setContentView(R.layout.activity_survey_admin_list);
+        ButterKnife.bind(this);
         mSurveyList = new ArrayList<>();
 
         mDialog = Constants.showDialog(this);
 
         recyclerView = (RecyclerView) findViewById(R.id.surveyList);
 
-        mAdapter = new SurveyAdapter(this, mSurveyList);
+        mAdapter = new SurveyAdminAdapter(this, mSurveyList);
+
+        mSurveyDB = new DatabaseHelper(this);
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new SurveyAdminList.GridSpacingItemDecoration(1, dpToPx(10), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mAdapter);
 
         getVolunteers();
-        getAnswers();
 
+
+    }
+
+    @OnClick(R.id.btn_createSurvey)
+    public void createSurvey(View view) {
+        ActivityLauncher.launchCreateSurvey(this);
     }
 
 
@@ -115,6 +125,8 @@ public class SurveyAdminList extends AppCompatActivity {
                         SurveyPojo volItem = indi.getValue(SurveyPojo.class);
                         mSurveyList.add(volItem);
                     }
+                    mAdapter.notifyDataSetChanged();
+                    getAnswers();
                 } else {
                     Toast.makeText(getApplicationContext(), "No Meetings Found", Toast.LENGTH_SHORT).show();
                 }
@@ -128,24 +140,28 @@ public class SurveyAdminList extends AppCompatActivity {
         });
     }
 
-    private void getAnswers(){
+
+    private void getAnswers() {
         MyApplication.getFirebaseDatabase().getReference(Constants.Survey_Aswers_Table).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 mSurveyAnswersList = new ArrayList<>();
 
                 if (dataSnapshot.getChildrenCount() > 0) {
-                    Log.d("Parent",dataSnapshot.getChildrenCount()+"");
+                    Log.d("Parent", dataSnapshot.getChildrenCount() + "");
                     for (DataSnapshot indi : dataSnapshot.getChildren()) {
 
-                        for (DataSnapshot Child : indi.getChildren()){
-                            Log.d("Child",indi.getChildrenCount()+"");
+                        for (DataSnapshot Child : indi.getChildren()) {
+                            Log.d("Child", indi.getChildrenCount() + "");
                             SurveyAnswerPojo mSurvey = Child.getValue(SurveyAnswerPojo.class);
+                            mSurveyAnswersList.add(mSurvey);
                         }
 
                     }
-                    SurveyDB mSurveyDB = new SurveyDB(SurveyAdminList.this);
+                    mSurveyDB.delete();
                     mSurveyDB.insertAnswers(mSurveyAnswersList);
+                    recyclerView.setAdapter(mAdapter);
+
                 } else {
                     Toast.makeText(getApplicationContext(), "No Meetings Found", Toast.LENGTH_SHORT).show();
                 }
@@ -157,5 +173,18 @@ public class SurveyAdminList extends AppCompatActivity {
 
             }
         });
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
     }
 }
