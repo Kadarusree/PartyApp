@@ -234,7 +234,7 @@
                 android:padding="@dimen/dp_4"
                 android:orientation="vertical"
 
-                android:src="@drawable/silver_badge" >
+                android:src="@drawable/platinum_badge" >
 
 
 
