@@ -81,9 +81,9 @@ public class ProfileScreen extends AppCompatActivity {
     ImageView mQRcode;
 
 
-    @BindView(R.id.id_tv_app_profilepic)
+   /* @BindView(R.id.id_tv_app_profilepic)
     TextView btnUpdateProfilePic;
-
+*/
     @BindView(R.id.id_tv_points)
     TextView mPoints;
 
@@ -109,6 +109,8 @@ public class ProfileScreen extends AppCompatActivity {
     TextView ac;
 
 
+    @BindView(R.id.img_badge)
+    ImageView img_badge;
 
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
@@ -137,6 +139,7 @@ public class ProfileScreen extends AppCompatActivity {
         loadImage(this,mProfilePic,mSession.getProfilePic());
 
         mPoints.setText("Points : "+mSession.getPoints()+"");
+        checkBadge(mSession.getPoints());
         mRefNumber.setText( mSession.getRegID());
 
         mProgressDialog = Constants.showDialog(this);
@@ -153,11 +156,27 @@ public class ProfileScreen extends AppCompatActivity {
 
     }
 
-    @OnClick(R.id.id_tv_app_profilepic)
+    @OnClick(R.id.id_profile_pic)
     public void uploadPhoto(View v){
         selectImage();
     }
 
+    public void checkBadge(int points)
+    {
+        if(points<=50)
+        {
+        img_badge.setBackgroundResource(R.drawable.platinum_badge);
+        }else if(points<=100)
+        {
+            img_badge.setBackgroundResource(R.drawable.silver_badge);
+        }
+        else if(points<=150)
+        {
+            img_badge.setBackgroundResource(R.drawable.gold_badge);
+        }else {
+            img_badge.setBackgroundResource(R.drawable.diamond_badge);
+        }
+    }
     private void selectImage() {
         final CharSequence[] items = {getResources().getString(R.string.takephoto), getResources().getString(R.string.choosefromlib), getResources().getString(R.string.cancel)};
 

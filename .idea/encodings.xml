@@ -6,7 +6,9 @@
     <file url="file://$PROJECT_DIR$/app/src/main/java/sree/myparty/chat/ParticularChatMessageAdapter.java" charset="windows-1251" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/sree/myparty/chat/UserListActicity.java" charset="windows-1251" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/sree/myparty/chat/UserListAdapter.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-v21/card_rect.xml" charset="windows-1251" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/button.png" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/card_rect.xml" charset="windows-1251" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/chat_frd.9.png" charset="windows-1251" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/chat_me.9.png" charset="windows-1251" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/rectangle.xml" charset="windows-1251" />
