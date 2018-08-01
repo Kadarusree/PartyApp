@@ -8,172 +8,269 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_margin="@dimen/dp_2"
         android:layout_weight="0.3"
+
         android:orientation="horizontal">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginRight="2dp"
             android:layout_weight="0.5"
+            android:background="@color/colorWhite"
+            android:orientation="vertical"
             android:padding="10dp">
 
             <ImageView
                 android:id="@+id/db_op1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_margin="1dp"
-                android:src="@drawable/button" />
+                android:layout_weight="0.75"
+                android:src="@drawable/ic_id_card" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_below="@id/db_op1"
+                android:layout_weight="0.25"
                 android:gravity="center"
                 android:text="ID CARD"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/dp_20"
-                android:textStyle="bold" />
-        </RelativeLayout>
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/dp_18" />
+        </LinearLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
+            android:background="@color/colorWhite"
+            android:orientation="vertical"
             android:padding="10dp">
 
             <ImageView
                 android:id="@+id/db_op2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_margin="1dp"
-                android:src="@drawable/button" />
+                android:layout_weight="0.75"
+                android:src="@drawable/ic_work_done" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_below="@id/db_op1"
+                android:layout_weight="0.25"
                 android:gravity="center"
-                android:text="@string/db_option2"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/dp_20"
-                android:textStyle="bold" />
-        </RelativeLayout>
+                android:text="WORK DONE"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/dp_18" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginLeft="@dimen/dp_2"
+        android:layout_marginRight="@dimen/dp_2"
         android:layout_weight="0.3"
         android:orientation="horizontal">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginRight="2dp"
             android:layout_weight="0.5"
+            android:background="@color/colorWhite"
+            android:orientation="vertical"
             android:padding="10dp">
 
             <ImageView
                 android:id="@+id/db_op3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_margin="1dp"
-                android:src="@drawable/button" />
+                android:layout_weight="0.75"
+                android:src="@drawable/ic_chat" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_below="@id/db_op1"
+                android:layout_weight="0.25"
                 android:gravity="center"
-                android:text="@string/db_option3"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/dp_20"
-                android:textStyle="bold" />
-        </RelativeLayout>
+                android:text="CHATS"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/dp_18" />
+        </LinearLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
+            android:background="@color/colorWhite"
+            android:orientation="vertical"
             android:padding="10dp">
 
             <ImageView
                 android:id="@+id/db_op4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_margin="1dp"
-                android:src="@drawable/button" />
+                android:layout_weight="0.75"
+                android:src="@drawable/ic_meeting" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_below="@id/db_op1"
+                android:layout_weight="0.25"
                 android:gravity="center"
-                android:text="@string/db_option4"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/dp_20"
-                android:textStyle="bold" />
-        </RelativeLayout>
+                android:text="MEETINGS"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/dp_18" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_margin="@dimen/dp_2"
         android:layout_weight="0.3"
+
         android:orientation="horizontal">
 
-        <RelativeLayout
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/dp_2"
+            android:layout_weight="0.5"
+            android:background="@color/colorWhite"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/db_op7"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="1dp"
+                android:layout_marginBottom="@dimen/dp_2"
+                android:layout_marginTop="@dimen/dp_2"
+                android:layout_weight="0.75"
+                android:src="@drawable/ic_news" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_below="@id/db_op1"
+                android:layout_weight="0.25"
+                android:gravity="center"
+                android:text="NEWS"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/dp_18" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
+            android:background="@color/colorWhite"
+            android:orientation="vertical"
+
+            android:padding="10dp">
+
+
+            <ImageView
+                android:id="@+id/db_op8"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="1dp"
+                android:layout_weight="0.75"
+                android:src="@drawable/ic_polling" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_below="@id/db_op1"
+                android:layout_weight="0.25"
+                android:gravity="center"
+                android:text="SURVEY'S"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/dp_18" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/dp_2"
+        android:layout_marginLeft="@dimen/dp_2"
+        android:layout_marginRight="@dimen/dp_2"
+        android:layout_weight="0.3"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/dp_2"
+            android:layout_weight="0.5"
+            android:background="@color/colorWhite"
+            android:orientation="vertical"
+
             android:padding="10dp">
 
             <ImageView
                 android:id="@+id/db_op5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_margin="1dp"
-                android:src="@drawable/button" />
+                android:layout_weight="0.75"
+                android:src="@drawable/ic_id_card" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_below="@id/db_op1"
+                android:layout_weight="0.25"
                 android:gravity="center"
-                android:text="@string/db_option5"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/dp_20"
-                android:textStyle="bold" />
-        </RelativeLayout>
+                android:text="VOLUNTEER LOGIN"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/dp_18" />
 
-        <RelativeLayout
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
+            android:background="@color/colorWhite"
+            android:orientation="vertical"
+
             android:padding="10dp">
 
             <ImageView
                 android:id="@+id/db_op6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_margin="1dp"
-                android:src="@drawable/button" />
+                android:layout_weight="0.75"
+                android:src="@drawable/ic_id_card" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_below="@id/db_op1"
+                android:layout_weight="0.25"
                 android:gravity="center"
-                android:text="@string/db_option6"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/dp_20"
-                android:textStyle="bold" />
-        </RelativeLayout>
+                android:text="ADMIN LOGIN"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/dp_18" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout

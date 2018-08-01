@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/dp_5"
-    tools:context="sree.myparty.volunteer.InfluencePerson">
+    tools:context="sree.myparty.admin.WorkDoneActivity">
 
 
     <LinearLayout
@@ -23,7 +23,7 @@
             android:text="Work Name" />
 
         <EditText
-            android:id="@+id/infl_name"
+            android:id="@+id/wd_name"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.6"
@@ -48,14 +48,14 @@
             android:text="Area Name" />
 
         <EditText
-            android:id="@+id/infl_mobile_num"
+            android:id="@+id/wd_area_name"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.6"
             android:ems="10"
             android:gravity="left|center"
             android:hint="AREA NAME"
-            android:inputType="phone" />
+            android:inputType="textPostalAddress" />
     </LinearLayout>
 
     <LinearLayout
@@ -73,14 +73,13 @@
             android:text="Booth Number" />
 
         <EditText
-            android:id="@+id/infl_booth_num"
+            android:id="@+id/wd_booth_num"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.6"
             android:ems="10"
             android:gravity="left|center"
-            android:hint="BOOTH NUMBER"
-            android:inputType="number" />
+            android:hint="BOOTH NUMBER" />
     </LinearLayout>
 
 
@@ -98,12 +97,14 @@
             android:text="Work Started Date" />
 
         <EditText
+            android:id="@+id/wd_startDate"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.6"
             android:ems="10"
             android:gravity="left|center"
             android:hint="START DATE"
+            android:onClick="pickStartDate"
             android:inputType="number" />
     </LinearLayout>
 
@@ -121,12 +122,14 @@
             android:text="Work Ended Date" />
 
         <EditText
+            android:id="@+id/wd_endDate"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.6"
             android:ems="10"
             android:gravity="left|center"
             android:hint="END DATE"
+            android:onClick="pickEndDate"
             android:inputType="number" />
     </LinearLayout>
 
@@ -144,13 +147,14 @@
             android:text="Money Spent" />
 
         <EditText
+            android:id="@+id/wd_moneySpent"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.6"
             android:ems="10"
             android:gravity="left|center"
             android:hint="MONEY SPENT"
-            android:inputType="number" />
+            android:inputType="numberDecimal" />
     </LinearLayout>
 
     <LinearLayout
@@ -167,13 +171,14 @@
             android:text="Supervisor/Contractor" />
 
         <EditText
+            android:id="@+id/wd_supervisor"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.6"
             android:ems="10"
             android:gravity="left|center"
             android:hint="SUPERVISOR"
-            android:inputType="number" />
+            android:inputType="textPersonName" />
     </LinearLayout>
 
     <LinearLayout
@@ -190,13 +195,14 @@
             android:text="CONTACT NUMBER" />
 
         <EditText
+            android:id="@+id/wd_contactName"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.6"
             android:ems="10"
             android:gravity="left|center"
             android:hint="Contact Number"
-            android:inputType="number" />
+            android:inputType="phone" />
     </LinearLayout>
 
     <LinearLayout
@@ -213,14 +219,14 @@
             android:text="Upload Photo" />
 
         <EditText
-            android:id="@+id/infl_upload_photo"
+            android:id="@+id/wd_upload_photo"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.6"
             android:ems="10"
             android:gravity="left|center"
             android:hint="UPLOAD PHOTO"
-            android:inputType="number"
+            android:inputType="text"
             android:onClick="pickPhoto" />
     </LinearLayout>
 
@@ -238,12 +244,13 @@
 
 
         <Button
-            android:id="@+id/btn_infl_save"
+            android:id="@+id/btn_wd_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:background="@drawable/button_backround"
+            android:onClick="SaveWork"
             android:text="SAVE"
             android:textColor="@color/colorWhite"
             android:textStyle="bold" />

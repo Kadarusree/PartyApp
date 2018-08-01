@@ -70,7 +70,7 @@
                 android:paddingRight="@dimen/album_title_padding"
                 android:layout_margin="@dimen/dp_5"
                 android:text="Submit"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:background="@drawable/button_backround"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/dp_15" />

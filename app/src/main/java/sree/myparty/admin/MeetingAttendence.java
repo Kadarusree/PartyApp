@@ -66,6 +66,9 @@ public class MeetingAttendence extends AppCompatActivity implements QRCodeReader
     TextView lbl_meetingTitle;
     BarChart mChart;
 
+
+    String meetingForReference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,11 +82,25 @@ public class MeetingAttendence extends AppCompatActivity implements QRCodeReader
         keys_array = new ArrayList<>();
         count_array = new ArrayList<>();
 
-        keys_array.add("Total Users");
-        keys_array.add("Attended Users");
+
 
         pDialog = Constants.showDialog(this);
-        getUsersCount();
+
+
+        if (Constants.selected_meeting.getIsForAll()){
+            meetingForReference = Constants.Users_Table;
+            getUsersCount();
+            keys_array.add("Total Users");
+            keys_array.add("Attended Users");
+        }
+        else {
+            meetingForReference = Constants.Vol_Table;
+
+            getUsersCount();
+            keys_array.add("Volunteers");
+            keys_array.add("Attended Volunteers");
+        }
+
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,7 +188,7 @@ public class MeetingAttendence extends AppCompatActivity implements QRCodeReader
 
     public void isuserExist(final String key) {
         MyApplication.getFirebaseDatabase()
-                .getReference(Constants.Users_Table).child(key).addValueEventListener(new ValueEventListener() {
+                .getReference(meetingForReference).child(key).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -180,7 +197,7 @@ public class MeetingAttendence extends AppCompatActivity implements QRCodeReader
                 if (dataSnapshot.getChildrenCount() > 0) {
                     addAttendence(key);
                 } else {
-                    Toast.makeText(getApplicationContext(), "Not a registerd User", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Not a registered User/Volunteer", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -236,7 +253,7 @@ public class MeetingAttendence extends AppCompatActivity implements QRCodeReader
         count_array.clear();
         pDialog.show();
         MyApplication.getFirebaseDatabase()
-                .getReference(Constants.Users_Table)
+                .getReference(meetingForReference)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
