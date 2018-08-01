@@ -47,6 +47,7 @@ import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+import sree.myparty.DashBoard.Dashboard;
 import sree.myparty.MyApplication;
 import sree.myparty.R;
 import sree.myparty.session.SessionManager;
@@ -134,6 +135,7 @@ public class ParticularChat extends AppCompatActivity {
 
         loadImage(this, chatImage, profile_pic);
         uid = getIntent().getStringExtra("uid");
+        MyApplication.LastChatUSer=uid;
         //   dbRef2 = db.getReference("PaymentInfo/" + uid );
         //checkUserIdPayment(uid);
         arrayList = new ArrayList<>();
@@ -218,6 +220,15 @@ public class ParticularChat extends AppCompatActivity {
             jsonObjec2.put("message", bodydata);
             jsonObjec2.put("username", sessionManager.getName());
             jsonObjec2.put("purpose", "Chat");
+
+            //usefull to open particular chat
+            jsonObjec2.put("key",combinedEmail);
+            jsonObjec2.put("uid",sessionManager.getRegID());
+            jsonObjec2.put("name",sessionManager.getName());
+            jsonObjec2.put("fcm",sessionManager.getFirebaseKey());
+            jsonObjec2.put("profile_pic",sessionManager.getProfilePic());
+
+
             jsonObjec.put("data", jsonObjec2);
 
             jsonObjec.put("time_to_live", 172800);
@@ -367,6 +378,35 @@ public class ParticularChat extends AppCompatActivity {
 
             }
         });
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MyApplication.status=2;
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MyApplication.status=0;
+        MyApplication.LastChatUSer="";
+    }
+
+    @Override
+    public void onBackPressed() {
+        //  super.onBackPressed();
+        if(isTaskRoot())
+        {
+            Intent intent=new Intent(getApplicationContext(), UserListActicity.class);
+            startActivity(intent);
+            finish();
+        }
+        else {
+            super.onBackPressed();
+        }
 
     }
 }

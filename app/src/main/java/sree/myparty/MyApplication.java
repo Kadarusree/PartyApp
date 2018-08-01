@@ -13,6 +13,9 @@ public class MyApplication extends Application {
 
     public static FirebaseDatabase mFirebaseDatabase;
     public static FirebaseStorage mFirebaseStorage;
+    public static  int status=0; // 0 close  1=user list 2=particular list
+    public static  String LastChatUSer=""; // 0 close  1=user list 2=particular list
+
 
 
     @Override

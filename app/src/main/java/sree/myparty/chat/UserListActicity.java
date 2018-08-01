@@ -82,6 +82,18 @@ public class UserListActicity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        MyApplication.status=1;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MyApplication.status=0;
+    }
+
+    @Override
     public void onBackPressed() {
         //  super.onBackPressed();
         if(isTaskRoot())

@@ -10,9 +10,12 @@ import android.content.ServiceConnection;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.support.v4.app.NotificationCompat;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -21,6 +24,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import java.util.Map;
 import java.util.Random;
 
+import sree.myparty.MyApplication;
 import sree.myparty.R;
 import sree.myparty.RegistartionActivity;
 import sree.myparty.chat.ParticularChat;
@@ -63,8 +67,25 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             case "Chat":
                 //chat message
-                intent = new Intent(getApplicationContext(), UserListActicity.class);
-                showNotification(getApplicationContext(), data.get("message"), intent, data.get("username"));
+                if (MyApplication.status == 0 || MyApplication.status == 1) {
+                    intent = new Intent(getApplicationContext(), ParticularChat.class);
+                    intent.putExtra("key", data.get("key"));
+                    intent.putExtra("uid", data.get("uid"));
+                    intent.putExtra("name", data.get("name"));
+                    intent.putExtra("fcm", data.get("fcm"));
+                    intent.putExtra("profile_pic", data.get("profile_pic"));
+                    showNotification(getApplicationContext(), data.get("message"), intent, data.get("username"));
+                } else if (MyApplication.status == 2 && MyApplication.LastChatUSer.equalsIgnoreCase(data.get("uid"))) {
+                    //already ser chating with same user no need to send notification
+                } else {
+                    intent = new Intent(getApplicationContext(), ParticularChat.class);
+                    intent.putExtra("key", data.get("key"));
+                    intent.putExtra("uid", data.get("uid"));
+                    intent.putExtra("name", data.get("name"));
+                    intent.putExtra("fcm", data.get("fcm"));
+                    intent.putExtra("profile_pic", data.get("profile_pic"));
+                    showNotification(getApplicationContext(), data.get("message"), intent, data.get("username"));
+                }
                 break;
 
             case "Incoming Video Call":
