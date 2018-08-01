@@ -217,7 +217,7 @@ public class ParticularChat extends AppCompatActivity {
             JSONObject jsonObjec2 = new JSONObject();
             jsonObjec2.put("message", bodydata);
             jsonObjec2.put("username", sessionManager.getName());
-
+            jsonObjec2.put("purpose", "Chat");
             jsonObjec.put("data", jsonObjec2);
 
             jsonObjec.put("time_to_live", 172800);

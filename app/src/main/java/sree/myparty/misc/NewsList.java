@@ -1,10 +1,13 @@
 package sree.myparty.misc;
 
+import android.app.ActivityManager;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -15,8 +18,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import sree.myparty.DashBoard.Dashboard;
 import sree.myparty.MyApplication;
 import sree.myparty.R;
+import sree.myparty.RegistartionActivity;
 import sree.myparty.beans.NewsPojo;
 import sree.myparty.utils.Constants;
 import sree.myparty.utils.MyDividerItemDecoration;
@@ -77,5 +82,20 @@ public class NewsList extends AppCompatActivity {
     public void onPause() {
         mShimmerViewContainer.stopShimmerAnimation();
         super.onPause();
+    }
+
+    @Override
+    public void onBackPressed() {
+      //  super.onBackPressed();
+        if(isTaskRoot())
+        {
+            Intent intent=new Intent(getApplicationContext(), Dashboard.class);
+            startActivity(intent);
+            finish();
+        }
+        else {
+            super.onBackPressed();
+        }
+
     }
 }

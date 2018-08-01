@@ -1,5 +1,6 @@
 package sree.myparty.chat;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,8 +18,10 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import sree.myparty.DashBoard.BaseActvity;
+import sree.myparty.DashBoard.Dashboard;
 import sree.myparty.MyApplication;
 import sree.myparty.R;
+import sree.myparty.RegistartionActivity;
 import sree.myparty.pojos.UserDetailPojo;
 import sree.myparty.session.SessionManager;
 import sree.myparty.utils.Constants;
@@ -75,6 +78,21 @@ public class UserListActicity extends AppCompatActivity {
 
         recycler_view_user.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        //  super.onBackPressed();
+        if(isTaskRoot())
+        {
+            Intent intent=new Intent(getApplicationContext(), Dashboard.class);
+            startActivity(intent);
+            finish();
+        }
+        else {
+            super.onBackPressed();
+        }
 
     }
 }

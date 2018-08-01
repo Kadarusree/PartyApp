@@ -71,6 +71,7 @@ import okhttp3.RequestBody;
 import sree.myparty.MyApplication;
 import sree.myparty.R;
 import sree.myparty.beans.NewsPojo;
+import sree.myparty.session.SessionManager;
 import sree.myparty.utils.Constants;
 
 public class PostNews extends AppCompatActivity {
@@ -444,7 +445,12 @@ public class PostNews extends AppCompatActivity {
           mObject = new JSONObject();
         try {
 
-            mObject.put("data", new JSONObject().put("news", news.getTitle()));
+            JSONObject jsonObjec2 = new JSONObject();
+            jsonObjec2.put("news", news.getTitle());
+            jsonObjec2.put("username", new SessionManager(PostNews.this).getName());
+            jsonObjec2.put("purpose", "News");
+           // mObject.put("data", new JSONObject().put("news", news.getTitle()));
+            mObject.put("data",jsonObjec2);
             mObject.put("registration_ids", new JSONArray(Constants.fcm_ids));
             System.out.print(mObject.toString());
 
