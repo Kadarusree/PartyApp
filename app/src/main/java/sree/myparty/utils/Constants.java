@@ -57,6 +57,8 @@ public class Constants {
     public static final String Attendence_Table =  Constants.DB_PATH + "/Meeting_Attendence";
     public static final String Survey_Table = Constants.DB_PATH+"/Surveys";
     public static final String Survey_Aswers_Table = Constants.DB_PATH+"/SurveyAnswers";
+    public static final String Vists_Table = Constants.DB_PATH+"/Visits";
+    public static final String Work_Done_Table = Constants.DB_PATH+"/WorkDone";
 
 
     public static MeetingPojo selected_meeting;

@@ -42,20 +42,10 @@ class VisitsListActivity : AppCompatActivity() {
                         Log.d("shri",dataSnapshot.childrenCount.toString()+"kkk")
 
                         for (dataSnapshot1 in dataSnapshot.children) {
-                           // dataSnapshot1.getValue(VisitPojo::class.java)
-                           // list.add(dataSnapshot1.getValue(VisitPojo?:class.java))
-                            //list.add(dataSnapshot1.getValue<VisitPojo>(VisitPojo::class.java))
-                         //   visitlistAdapter!!.notifyDataSetChanged()
-
-                          //  list.clear()
 
                         val  pojo:VisitPojo=dataSnapshot1.getValue(VisitPojo::class.java) as VisitPojo
                             list.add(pojo)
-                          /*  dataSnapshot.children.mapNotNullTo(list) {
-                                it.getValue<VisitPojo>(VisitPojo::class.java)
-
-                            }*/
-                            Log.d("shri",pojo.AreaName+"--------")
+                          Log.d("shri",pojo.AreaName+"--------")
                             visitlistAdapter = VisitListAdapter(this@VisitsListActivity, list)
                             visitList.adapter = visitlistAdapter
                             visitlistAdapter!!.notifyDataSetChanged()
