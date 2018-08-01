@@ -40,30 +40,30 @@ import sree.myparty.utils.VolunteerSessionManager;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
-     ImageView db_op1,db_op2,db_op3,db_op4,db_op5,db_op6;
-     SessionManager mSessionManager;
+    ImageView db_op1, db_op2, db_op3, db_op4, db_op5, db_op6;
+    SessionManager mSessionManager;
 
 
     VolunteerSessionManager mVolunteerSessionManager;
 
-     TextView tv;
+    TextView tv;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
-        View v =inflater.inflate(R.layout.home_fragment,null,false);
+        View v = inflater.inflate(R.layout.home_fragment, null, false);
 
         tv = (TextView) v.findViewById(R.id.mywidget);
         tv.setSelected(true);
 
 
-            db_op1 = (ImageView)v.findViewById(R.id.db_op1);
-        db_op2 = (ImageView)v.findViewById(R.id.db_op2);
-        db_op3 = (ImageView)v.findViewById(R.id.db_op3);
-        db_op4 = (ImageView)v.findViewById(R.id.db_op4);
-        db_op5 = (ImageView)v.findViewById(R.id.db_op5);
-        db_op6 = (ImageView)v.findViewById(R.id.db_op6);
+        db_op1 = (ImageView) v.findViewById(R.id.db_op1);
+        db_op2 = (ImageView) v.findViewById(R.id.db_op2);
+        db_op3 = (ImageView) v.findViewById(R.id.db_op3);
+        db_op4 = (ImageView) v.findViewById(R.id.db_op4);
+        db_op5 = (ImageView) v.findViewById(R.id.db_op5);
+        db_op6 = (ImageView) v.findViewById(R.id.db_op6);
         db_op1.setOnClickListener(this);
         db_op2.setOnClickListener(this);
         db_op3.setOnClickListener(this);
@@ -75,13 +75,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         mVolunteerSessionManager = new VolunteerSessionManager(getActivity());
 
 
-
         return v;
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.db_op1:
                 /*Dialog d = new Dialog(getActivity());
                 d.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -112,21 +111,26 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 startActivity(new Intent(getActivity(), UserListActicity.class));
                 break;
             case R.id.db_op4:
-                ActivityLauncher.launchSurveyList(getActivity());
-
+                ActivityLauncher.launchMeetingsList(getActivity());
                 break;
             case R.id.db_op5:
-
-                if (mVolunteerSessionManager.hasActiveSession()){
+                if (mVolunteerSessionManager.hasActiveSession()) {
                     ActivityLauncher.volunteerDashboard(getActivity());
-                }
-                else {
+                } else {
                     ActivityLauncher.volunteerLoginScreen(getActivity());
                 }
-
                 break;
             case R.id.db_op6:
                 ActivityLauncher.adminLogin(getActivity());
+                break;
+            case R.id.db_op7:
+                ActivityLauncher.newsList(getActivity());
+
+
+                break;
+            case R.id.db_op8:
+                ActivityLauncher.launchSurveyList(getActivity());
+
 
                 break;
         }
