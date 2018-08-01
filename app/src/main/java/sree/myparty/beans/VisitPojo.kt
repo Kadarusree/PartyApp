@@ -1,3 +1,7 @@
 package sree.myparty.beans
 
-public data class VisitPojo constructor(val AreaName:String="",val VisitDate:String="",val BoothNumber:String="",val Purpose:String="")
+ data class VisitPojo(var AreaName:String="",var VisitDate:String="",var BoothNumber:String="", var Purpose:String=""){
+
+   //  constructor( AreaName:String, VisitDate:String, BoothNumber:String, Purpose:String)
+   // constructor() : this()
+ }

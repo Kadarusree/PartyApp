@@ -48,7 +48,7 @@ class VisitsListActivity : AppCompatActivity() {
                           Log.d("shri",pojo.AreaName+"--------")
                             visitlistAdapter = VisitListAdapter(this@VisitsListActivity, list)
                             visitList.adapter = visitlistAdapter
-                            visitlistAdapter!!.notifyDataSetChanged()
+                          //  visitlistAdapter!!.notifyDataSetChanged()
 
 
                         }

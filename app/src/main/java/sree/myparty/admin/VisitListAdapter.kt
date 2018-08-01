@@ -26,7 +26,7 @@ class VisitListAdapter: RecyclerView.Adapter<VisitListAdapter.VisitViewHolder> {
 
     override fun onBindViewHolder(holder: VisitViewHolder, position: Int) {
         try {
-         //   holder.tvname!!.text = listData.get(position).AreaName.toString()
+            holder.tvname!!.text = listData.get(position).AreaName.toString()
             Log.d("shri","==="+listData.get(position).AreaName.toString())
         }catch (e:KotlinNullPointerException)
         {
