@@ -24,7 +24,7 @@
             />
 
         <EditText
-            android:id="@+id/infl_name"
+            android:id="@+id/edt_area_name"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.6"
@@ -48,7 +48,7 @@
             android:text="Visit Date" />
 
         <EditText
-            android:id="@+id/infl_mobile_num"
+            android:id="@+id/edt_visitdate"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.6"
@@ -96,15 +96,14 @@
             android:text="Purpose of Visit" />
 
         <EditText
-            android:id="@+id/infl_upload_photo"
+            android:id="@+id/edt_purposeVisit"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.6"
             android:gravity="left|center"
-            android:ems="10"
+
             android:hint="PURPOSE OF VISIT"
-            android:onClick="pickPhoto"
-            android:inputType="number" />
+            android:inputType="text" />
     </LinearLayout>
 
     <RelativeLayout

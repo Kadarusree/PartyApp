@@ -146,7 +146,11 @@
             android:name=".admin.AdminDashboard"
             android:label="MY PARTY"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" />  <activity
+            android:name=".admin.VisitActivity"
+            android:label="VISIT"
+            android:screenOrientation="portrait"
+             />
         <activity
             android:name=".admin.MeetingAttendence"
             android:label="Meeting Attendance"
@@ -183,12 +187,6 @@
             android:name=".admin.VisitsListActivity"
             android:label="@string/visit_list"
             android:parentActivityName=".admin.AdminDashboard"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".admin.VisitActivity"
-            android:label="@string/add_visit"
-            android:parentActivityName=".admin.VisitsListActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity

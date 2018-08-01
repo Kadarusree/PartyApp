@@ -113,7 +113,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         .setSmallIcon(R.drawable.ic_logo)
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(username + ":" + body))
                         .setContentText(body)
-                        .setAutoCancel(false)
+                        .setAutoCancel(true)
                         .setSound(defaultSoundUri)
 
                         .setContentIntent(pendingIntent);
@@ -152,7 +152,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         .setSmallIcon(R.drawable.ic_logo)
                         .setStyle(new NotificationCompat.BigTextStyle().bigText("Incoming Call"))
                         .setContentText(body)
-                        .setAutoCancel(false)
+                        .setAutoCancel(true)
                         .setSound(defaultSoundUri)
 
                         .setContentIntent(pendingIntent);
