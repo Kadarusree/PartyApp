@@ -19,11 +19,14 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import sree.myparty.MyApplication;
 import sree.myparty.R;
+import sree.myparty.beans.VisitPojo;
 import sree.myparty.pojos.LatLng;
 import sree.myparty.pojos.VolunteerPojo;
 import sree.myparty.session.SessionManager;
@@ -84,7 +87,8 @@ public class VolunteerProfile extends AppCompatActivity implements OnMapReadyCal
         getSupportActionBar().setTitle(mVol.getName());
 
 
-    }
+
+        }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
