@@ -75,6 +75,7 @@ public class VolunteersListAdapter extends RecyclerView.Adapter<VolunteersListAd
         VolunteerPojo mVolunteer = volunteerList.get(position);
         holder.title.setText(mVolunteer.getName());
 
+        System.out.print("");
         if (mVolunteer.isAccepted()) {
             holder.count.setText("Approved");
             holder.count.setTextColor(mContext.getResources().getColor(R.color.color_green));
