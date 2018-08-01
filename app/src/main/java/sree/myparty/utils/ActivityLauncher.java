@@ -1,11 +1,8 @@
 package sree.myparty.utils;
 
-import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 
-import sree.myparty.DashBoard.BaseActvity;
 import sree.myparty.DashBoard.ProfileScreen;
 import sree.myparty.admin.AdminDashboard;
 import sree.myparty.admin.AdminLogin;

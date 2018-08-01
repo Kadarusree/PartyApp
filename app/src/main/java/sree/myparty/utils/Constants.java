@@ -57,6 +57,7 @@ public class Constants {
     public static final String Attendence_Table =  Constants.DB_PATH + "/Meeting_Attendence";
     public static final String Survey_Table = Constants.DB_PATH+"/Surveys";
     public static final String Survey_Aswers_Table = Constants.DB_PATH+"/SurveyAnswers";
+    public static final String Vists_Table = Constants.DB_PATH+"/Visits";
 
 
     public static MeetingPojo selected_meeting;
@@ -64,6 +65,7 @@ public class Constants {
     public static void showToast(String text, Activity mActivty){
         Toast.makeText(mActivty,text,Toast.LENGTH_SHORT).show();
     }
+
 
 
     static ProgressDialog mDialog;
