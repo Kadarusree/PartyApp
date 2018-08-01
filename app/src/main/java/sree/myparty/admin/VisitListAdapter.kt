@@ -39,7 +39,7 @@ class VisitListAdapter: RecyclerView.Adapter<VisitListAdapter.VisitViewHolder> {
 
     override fun getItemCount(): Int {
         if(listData.size>0) {
-            Log.d("shri", "" + listData!!.get(0).BoothNumber)
+       //     Log.d("shri", "" + listData!!.get(0).BoothNumber)
         }
       return  listData!!.size
     }
