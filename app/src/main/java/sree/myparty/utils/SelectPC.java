@@ -25,6 +25,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import sree.myparty.MyApplication;
 import sree.myparty.R;
+import sree.myparty.constuecies.Country;
+import sree.myparty.constuecies.PC;
+import sree.myparty.constuecies.State;
 import sree.myparty.session.SessionManager;
 
 /**
@@ -55,6 +58,16 @@ public class SelectPC extends DialogFragment {
 
     SessionManager mSessionManager ;
 
+    Country mCountry;
+
+    public SelectPC(Country mCountry) {
+        this.mCountry = mCountry;
+    }
+
+
+
+    String mState_name, mPc_name, mAc_name;
+
 
     @Nullable
     @Override
@@ -65,10 +78,74 @@ public class SelectPC extends DialogFragment {
         mFirebaseDatabase = MyApplication.getFirebaseDatabase();
         mDatabaseReference = mFirebaseDatabase.getReference();
 
+        mSessionManager = new SessionManager(getActivity());
+
+
         list_ac = new ArrayList<>();
         states = new ArrayList<>();
         list_pc = new ArrayList<>();
-        mPdialog = Constants.showDialog(getActivity());
+        states.clear();
+        for (int i = 0; i< mCountry.getStates().size();i++){
+            states.add(mCountry.getStates().get(i).getName());
+        }
+        /////////////////////
+
+        spin_states.setAdapter(new ArrayAdapter<String>(getActivity(),android.R.layout.simple_dropdown_item_1line,states));
+        spin_states.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, final int statePosition, long id) {
+                State mState =  mCountry.getStates().get(statePosition);
+                mState_name = mState.getName();
+                mSessionManager.setState(mState_name);
+
+                list_pc.clear();
+                for (int i = 0; i<mState.getPcs().size();i++){
+                    list_pc.add(mState.getPcs().get(i).getpCName());
+                }
+                spin_pc.setAdapter(new ArrayAdapter<String>(getActivity(),android.R.layout.simple_dropdown_item_1line,list_pc));
+                spin_pc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, final int pCPosition, long id) {
+                        list_ac.clear();
+                        PC mPC = mCountry.getStates().get(statePosition).getPcs().get(pCPosition);
+                        mPc_name = mPC.getpCName();
+                        mSessionManager.setPC(mPc_name);
+                        for (int k = 0; k<mPC.getAssemblies().size();k++){
+                            list_ac.add(mPC.getAssemblies().get(k));
+                        }
+                        spn_ac.setAdapter(new ArrayAdapter<String>(getActivity(),android.R.layout.simple_dropdown_item_1line,list_ac));
+                        spn_ac.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                mAc_name = list_ac.get(pCPosition);
+                                Constants.DB_PATH = mState_name+"/"+mPc_name+"/"+list_ac.get(position);
+                                mSessionManager.setAC(list_ac.get(position));
+                                mSessionManager.setDB_PATH(Constants.DB_PATH);
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                            }
+                        });
+
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        ///////////////////
+       /* mPdialog = Constants.showDialog(getActivity());
         mPdialog.show();
         mSessionManager = new SessionManager(getActivity());
         mDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -108,7 +185,7 @@ public class SelectPC extends DialogFragment {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        });*/
         return view;
     }
 

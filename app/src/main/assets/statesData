@@ -1,0 +1,58 @@
+﻿{
+	"STATES": {
+		"STATE": [
+			{
+				"STATENAME": "Telangana",
+				"PC": [
+					{
+						"PCNAME": "Adilabad",
+						"DISTRICT": "ADILABAD",
+						"ACS": {
+							"ACNAME": [
+								"Sirpur",
+								"Asifabad",
+								"Boath",
+								"Khanapur",
+								"Nirmal",
+								"Mudhole"
+							]
+						}
+					},
+					{
+						"PCNAME": "8-SECUNDRABAD",
+						"DISTRICT": "HYDERABAD",
+						"ACS": {
+							"ACNAME": [
+								"Amberpet",
+								"Khairatabad",
+								"Jubilee Hills",
+								"Sanath Nagar",
+								"Nampalli",
+								"Secundrabad"
+							]
+						}
+					}
+				]
+			},
+			{
+				"STATENAME": "UP",
+				"PC": [
+					{
+						"PCNAME": "SAHARANPUR",
+						"DISTRICT": "SAHARANPUR",
+						"ACS": {
+							"ACNAME": [
+								"BEHAT",
+								"SAHARANPUR_NAGAR",
+								"SAHARANPUR",
+								"DEOBAND",
+								"SAHARANPUR_NAGAR",
+								"RAMPUR_MANIHARAN"
+							]
+						}
+					}
+				]
+			}
+		]
+	}
+}

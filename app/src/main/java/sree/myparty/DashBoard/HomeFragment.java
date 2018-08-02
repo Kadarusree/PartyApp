@@ -40,7 +40,7 @@ import sree.myparty.utils.VolunteerSessionManager;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
-    ImageView db_op1, db_op2, db_op3, db_op4, db_op5, db_op6;
+    ImageView db_op1, db_op2, db_op3, db_op4, db_op5, db_op6,db_op7, db_op8;
     SessionManager mSessionManager;
 
 
@@ -64,12 +64,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         db_op4 = (ImageView) v.findViewById(R.id.db_op4);
         db_op5 = (ImageView) v.findViewById(R.id.db_op5);
         db_op6 = (ImageView) v.findViewById(R.id.db_op6);
+        db_op7 = (ImageView) v.findViewById(R.id.db_op7);
+        db_op8 = (ImageView) v.findViewById(R.id.db_op8);
         db_op1.setOnClickListener(this);
         db_op2.setOnClickListener(this);
         db_op3.setOnClickListener(this);
         db_op4.setOnClickListener(this);
         db_op5.setOnClickListener(this);
         db_op6.setOnClickListener(this);
+        db_op7.setOnClickListener(this);
+        db_op8.setOnClickListener(this);
 
         mSessionManager = new SessionManager(getActivity());
         mVolunteerSessionManager = new VolunteerSessionManager(getActivity());

@@ -112,5 +112,13 @@
     <string name="end_survey">End Survey</string>
 
 
+    <string-array name="parties">
+        <item>Congress</item>
+        <item>BJP</item>
+        <item>TDP</item>
+        <item>TRS</item>
+    </string-array>
+
+
 
 </resources>

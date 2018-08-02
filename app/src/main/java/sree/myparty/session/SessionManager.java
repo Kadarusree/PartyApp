@@ -129,7 +129,7 @@ public class SessionManager {
         mEditor.commit();
     }
 
-    public String getDB_PATH(String path){
+    public String getDB_PATH(){
         return mSharedPref.getString(DB_PATH,"");
 
     }

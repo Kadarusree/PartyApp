@@ -46,6 +46,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import sree.myparty.DashBoard.Dashboard;
+import sree.myparty.constuecies.Country;
+import sree.myparty.constuecies.Parser;
 import sree.myparty.pojos.ReferalPojo;
 import sree.myparty.pojos.UserDetailPojo;
 import sree.myparty.session.SessionManager;
@@ -102,7 +104,6 @@ public class RegistartionActivity extends AppCompatActivity {
         String fb_key = mSessionManager.getFirebaseKey();
         Constants.showToast(fb_key, this);
         FirebaseInstanceId.getInstance().getToken();
-
 
 
         ArrayList<String> keys = new ArrayList<>();
@@ -277,7 +278,7 @@ public class RegistartionActivity extends AppCompatActivity {
             //user signed up  with required info previosly
             startActivity(new Intent(getApplicationContext(), Dashboard.class));
             overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-         //   Toast.makeText(getApplicationContext(), "Signed user", Toast.LENGTH_SHORT).show();
+            //   Toast.makeText(getApplicationContext(), "Signed user", Toast.LENGTH_SHORT).show();
         }
 
         // [END_EXCLUDE]
@@ -513,9 +514,15 @@ public class RegistartionActivity extends AppCompatActivity {
         super.onResume();
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
+        Parser p = new Parser(this);
+        Country c = p.getConst();
+
         if (currentUser == null) {
-            SelectPC mPc = new SelectPC();
+            SelectPC mPc = new SelectPC(c);
             mPc.show(getFragmentManager(), "SelectPC");
+        }
+        else {
+            Constants.DB_PATH = new SessionManager(this).getDB_PATH();
         }
     }
 }
