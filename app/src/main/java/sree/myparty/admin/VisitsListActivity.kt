@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
+import android.widget.LinearLayout
 
 import butterknife.ButterKnife
 import butterknife.OnClick
@@ -22,8 +23,8 @@ import sree.myparty.utils.Constants
 class VisitsListActivity : AppCompatActivity() {
 
     var visitlistAdapter: VisitListAdapter? = null
-  //  var list = ArrayList<VisitPojo>()
-  var list: MutableList<VisitPojo> = mutableListOf<VisitPojo>()
+    //  var list = ArrayList<VisitPojo>()
+    var list: ArrayList<VisitPojo> =ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,45 +32,41 @@ class VisitsListActivity : AppCompatActivity() {
         ButterKnife.bind(this)
 
 
-        visitList.layoutManager = LinearLayoutManager(this@VisitsListActivity)
-        visitlistAdapter = VisitListAdapter(this@VisitsListActivity, list)
-        visitList.adapter = visitlistAdapter
-        visitlistAdapter!!.notifyDataSetChanged()
+        visitList.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
+      //  visitlistAdapter = VisitListAdapter(this@VisitsListActivity, list)
+    //    visitList.adapter = visitlistAdapter
+      //  visitlistAdapter!!.notifyDataSetChanged()
+   //   visitList.adapter.notifyDataSetChanged()
 
 
-                MyApplication.getFirebaseDatabase().getReference(Constants.Vists_Table).addValueEventListener(object : ValueEventListener {
-                    override fun onDataChange(dataSnapshot: DataSnapshot) {
-                        Log.d("shri",dataSnapshot.childrenCount.toString()+"kkk")
+        MyApplication.getFirebaseDatabase().getReference(Constants.Vists_Table).addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                Log.d("shri", dataSnapshot.childrenCount.toString() + "kkk")
+                list.clear()
+                for (dataSnapshot1 in dataSnapshot.children) {
 
-                        for (dataSnapshot1 in dataSnapshot.children) {
-
-                        val  pojo:VisitPojo=dataSnapshot1.getValue(VisitPojo::class.java) as VisitPojo
-                            list.add(pojo)
-                          Log.d("shri",pojo.AreaName+"--------")
-                            visitlistAdapter = VisitListAdapter(this@VisitsListActivity, list)
-                            visitList.adapter = visitlistAdapter
-                          //  visitlistAdapter!!.notifyDataSetChanged()
-
-
-                        }
-                    }
-
-                    override fun onCancelled(databaseError: DatabaseError) {
-
-                    }
-                })
+                    val pojo: VisitPojo = dataSnapshot1.getValue(VisitPojo::class.java) as VisitPojo
+                    list.add(pojo)
+                     Log.d("shri",pojo.AreaName+"--------")
+                    visitlistAdapter = VisitListAdapter(this@VisitsListActivity, list)
+                    visitList.adapter = visitlistAdapter
+                    visitList.adapter.notifyDataSetChanged()
+                    Log.d("shri",list.size.toString() +"-----=----")
 
 
+                }
+            }
 
+            override fun onCancelled(databaseError: DatabaseError) {
 
-
-
+            }
+        })
 
 
     }
 
-     @OnClick(R.id.btn_add_visit)
-        fun launchVisits(view: View) {
-            ActivityLauncher.launchVisitActivity(this)
-        }
+    @OnClick(R.id.btn_add_visit)
+    fun launchVisits(view: View) {
+        ActivityLauncher.launchVisitActivity(this)
+    }
 }
