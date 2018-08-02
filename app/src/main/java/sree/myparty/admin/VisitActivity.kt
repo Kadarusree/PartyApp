@@ -46,16 +46,16 @@ class VisitActivity : AppCompatActivity() {
 
 
             if (dataValidation(areaName, vistDate, boothNumber, purposeOfVisit)) {
-
-                val pojo = VisitPojo(areaName, vistDate, boothNumber, purposeOfVisit)
-
-
                 var database: FirebaseDatabase = MyApplication.getFirebaseDatabase();
 
+                val key:String=database.getReference(Constants.Vists_Table).push().key
+                val pojo = VisitPojo(areaName, vistDate, boothNumber, purposeOfVisit,false,key)
 
 
 
-                database.getReference(Constants.Vists_Table).push().setValue(pojo).addOnCompleteListener { task: Task<Void> ->
+
+
+                 database.getReference(Constants.Vists_Table).child(key).setValue(pojo).addOnCompleteListener { task: Task<Void> ->
                     if (task.isSuccessful) {
                         //Registration OK
                         edt_area_name.setText("")

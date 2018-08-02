@@ -5,12 +5,19 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.chatadapterlaout.view.*
 import kotlinx.android.synthetic.main.visit_list_adapter.view.*
+import sree.myparty.MyApplication
 import sree.myparty.R
 import sree.myparty.beans.VisitPojo
+import sree.myparty.utils.Constants
+import sree.myparty.utils.Constants.Vists_Table
+import java.util.HashMap
 
 class VisitListAdapter : RecyclerView.Adapter<VisitListAdapter.VisitViewHolder> {
 
@@ -26,10 +33,27 @@ class VisitListAdapter : RecyclerView.Adapter<VisitListAdapter.VisitViewHolder> 
 
     override fun onBindViewHolder(holder: VisitViewHolder, position: Int) {
 
-         holder.tvname!!.setText(listDatam!!.get(position).AreaName)
+        holder.tvname!!.setText(listDatam!!.get(position).AreaName)
         holder.visitdate!!.setText(listDatam!!.get(position).VisitDate)
         holder.tvPurpose!!.setText(listDatam!!.get(position).Purpose)
         holder.tvBoothNumber!!.setText(listDatam!!.get(position).BoothNumber)
+
+    if(listDatam!!.get(position).Done)
+    {
+        holder.linvisit!!.visibility=View.GONE
+    }else{
+        holder.linvisit!!.visibility=View.VISIBLE
+    }
+
+        holder.btnVisitDone!!.setOnClickListener({
+
+            val taskMap = HashMap<String, Any>()
+            taskMap["done"] = true
+
+          //  reference.updateChildren(taskMap);
+            MyApplication.getFirebaseDatabase().getReference(Vists_Table + "/" + listDatam!!.get(position).Key).updateChildren(taskMap)
+
+        })
 
     }
     // holder.tvname.setText(listData.get(position).AreaName.toString())
@@ -52,12 +76,16 @@ class VisitListAdapter : RecyclerView.Adapter<VisitListAdapter.VisitViewHolder> 
         var visitdate: TextView?
         var tvBoothNumber: TextView?
         var tvPurpose: TextView?
+        var btnVisitDone: Button?
+        var linvisit: LinearLayout?
 
         constructor(view: View) : super(view) {
             tvname = view.tvName
             visitdate = view.tvVisitdate
             tvBoothNumber = view.tvBoothNumber
             tvPurpose = view.tvPurpose
+            btnVisitDone = view.btnVisitDone
+            linvisit = view.linvisit
         }
 
     }

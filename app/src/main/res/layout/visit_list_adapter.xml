@@ -105,6 +105,29 @@
             android:text=""
             android:textSize="14sp" />
     </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/linvisit"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/btnVisitDone"
+                android:layout_width="100dp"
+                android:layout_height="35dp"
+                android:layout_below="@id/surveyItem_Option3"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:paddingLeft="@dimen/album_title_padding"
+                android:paddingRight="@dimen/album_title_padding"
+                android:layout_margin="@dimen/dp_5"
+                android:text="VISIT DONE"
+                android:visibility="visible"
+                android:background="@drawable/button_backround"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/dp_15" />
+        </LinearLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

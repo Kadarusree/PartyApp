@@ -24,7 +24,7 @@ public class MyApplication extends Application {
 
         mFirebaseDatabase = mFirebaseDatabase.getInstance();
         mFirebaseStorage = FirebaseStorage.getInstance();
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+      //  FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
     }
 
