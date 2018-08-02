@@ -40,6 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="25dp"
             android:gravity="center_horizontal"
+            android:padding="5dp"
             android:paddingLeft="40dp"
             android:paddingRight="40dp"
             android:text="@string/msg_manual_otp"
@@ -52,7 +53,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             app:accentType="character"
-
+            app:digitWidth="45dp"
+            app:digitHeight="45dp"
             app:digitBackground="@drawable/background_border"
             app:digitTextSize="9sp"
             app:mask="*"
@@ -79,34 +81,7 @@
     </LinearLayout>
 
 
-    <LinearLayout
-        android:id="@+id/layout_progress"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="50dp"
-        android:gravity="center"
-        android:orientation="vertical">
 
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:indeterminateTint="@color/colorAccent"
-            android:indeterminateTintMode="src_atop" />
-
-        <TextView
-            android:id="@+id/txt_progress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello World"
-            android:textColor="@android:color/white"
-            android:textSize="16dp" />
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/layout_edit_mobile"
