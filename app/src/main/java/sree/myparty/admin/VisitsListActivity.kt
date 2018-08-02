@@ -23,8 +23,7 @@ import sree.myparty.utils.Constants
 class VisitsListActivity : AppCompatActivity() {
 
     var visitlistAdapter: VisitListAdapter? = null
-    //  var list = ArrayList<VisitPojo>()
-    var list: ArrayList<VisitPojo> =ArrayList()
+    var list: ArrayList<VisitPojo> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,25 +32,18 @@ class VisitsListActivity : AppCompatActivity() {
 
 
         visitList.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
-      //  visitlistAdapter = VisitListAdapter(this@VisitsListActivity, list)
-    //    visitList.adapter = visitlistAdapter
-      //  visitlistAdapter!!.notifyDataSetChanged()
-   //   visitList.adapter.notifyDataSetChanged()
 
 
         MyApplication.getFirebaseDatabase().getReference(Constants.Vists_Table).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                Log.d("shri", dataSnapshot.childrenCount.toString() + "kkk")
                 list.clear()
                 for (dataSnapshot1 in dataSnapshot.children) {
 
                     val pojo: VisitPojo = dataSnapshot1.getValue(VisitPojo::class.java) as VisitPojo
                     list.add(pojo)
-                     Log.d("shri",pojo.AreaName+"--------")
                     visitlistAdapter = VisitListAdapter(this@VisitsListActivity, list)
                     visitList.adapter = visitlistAdapter
                     visitList.adapter.notifyDataSetChanged()
-                    Log.d("shri",list.size.toString() +"-----=----")
 
 
                 }

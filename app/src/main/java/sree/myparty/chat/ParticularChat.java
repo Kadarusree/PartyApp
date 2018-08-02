@@ -405,7 +405,7 @@ public class ParticularChat extends AppCompatActivity {
             finish();
         }
         else {
-            super.onBackPressed();
+          finish();
         }
 
     }

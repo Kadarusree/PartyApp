@@ -103,7 +103,7 @@ public class UserListActicity extends AppCompatActivity {
             finish();
         }
         else {
-            super.onBackPressed();
+           finish();
         }
 
     }

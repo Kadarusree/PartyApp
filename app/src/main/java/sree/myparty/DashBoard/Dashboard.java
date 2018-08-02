@@ -67,6 +67,7 @@ public class Dashboard extends BaseActvity {
                     if (pojo != null) {
                         SessionManager mSessionManager = new SessionManager(Dashboard.this);
                         mSessionManager.createUserSession(pojo);
+
                     }
 
                 }

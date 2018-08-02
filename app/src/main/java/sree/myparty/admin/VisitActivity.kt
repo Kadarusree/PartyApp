@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.DatePicker
 import android.widget.TimePicker
 import android.widget.Toast
+import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_visit.*
@@ -50,6 +51,10 @@ class VisitActivity : AppCompatActivity() {
 
 
                 var database: FirebaseDatabase = MyApplication.getFirebaseDatabase();
+
+
+
+
                 database.getReference(Constants.Vists_Table).push().setValue(pojo).addOnCompleteListener { task: Task<Void> ->
                     if (task.isSuccessful) {
                         //Registration OK
@@ -61,6 +66,7 @@ class VisitActivity : AppCompatActivity() {
 
                     } else {
                         //Registration error
+
                         DailogUtill.showDialog("Vister Not Added",supportFragmentManager,this@VisitActivity)
 
                     }

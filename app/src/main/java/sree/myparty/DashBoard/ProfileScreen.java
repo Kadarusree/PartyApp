@@ -154,6 +154,8 @@ public class ProfileScreen extends AppCompatActivity {
         pc.setText("Parliament Constituency : " +Constants.PARLIMENT_CONST);
 
 
+        getLatestData();
+
     }
 
     @OnClick(R.id.id_profile_pic)
@@ -590,6 +592,36 @@ public class ProfileScreen extends AppCompatActivity {
                 .animate(R.anim.fade_in) // when image (url) will be loaded by glide then this face in animation help to replace url image in the place of placeHolder (default) image.
                 .fitCenter()//this method help to fit image into center of your ImageView
                 .into(imageView); //pass imageView reference to appear the image.
+    }
+
+
+    public void getLatestData()
+    {
+        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/Users/" + mSession.getRegID()).addValueEventListener(new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+
+            if (dataSnapshot != null) {
+
+                 UserDetailPojo pojo = dataSnapshot.getValue(UserDetailPojo.class);
+
+                if (pojo != null) {
+                    SessionManager mSessionManager = new SessionManager(ProfileScreen.this);
+                    mSessionManager.createUserSession(pojo);
+                    mPoints.setText("Points : "+mSession.getPoints()+"");
+                    checkBadge(mSession.getPoints());
+
+                }
+
+            }
+
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
+    });
     }
 
 }
