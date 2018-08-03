@@ -98,6 +98,12 @@ public class CasteWiseVoters extends AppCompatActivity {
     @BindView(R.id.cwv_rb_female)
     RadioButton rb_female;
 
+    @BindView(R.id.cwv_lastvote)
+    Spinner spin_lastVoted;
+
+    @BindView(R.id.cwv_nextVote)
+    Spinner spin_nextVote;
+
     DatabaseReference mReference;
 
     AlertDialog mDialog;
@@ -112,13 +118,16 @@ public class CasteWiseVoters extends AppCompatActivity {
 
 
     LatLng location = null;
-    String voterID, name, fatherName, sex, age, mobileNumber, caste, boothNumber, catageory, address;
+    String voterID, name, fatherName, sex, age, mobileNumber, caste, boothNumber, catageory, address, lastVoted, nextVote;
 
     private FusedLocationProviderClient mFusedLocationClient;
 
     LatLng addedLocation;
 
     VolunteerSessionManager mVolunteerSessionManager;
+
+
+    String[] parties;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,8 +136,8 @@ public class CasteWiseVoters extends AppCompatActivity {
         ButterKnife.bind(this);
         mReference = MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/Voters");
         mDialog = Constants.showDialog(this);
-
-   mVolunteerSessionManager = new VolunteerSessionManager(this);
+        parties = getResources().getStringArray(R.array.parties);
+        mVolunteerSessionManager = new VolunteerSessionManager(this);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -227,10 +236,13 @@ public class CasteWiseVoters extends AppCompatActivity {
         age = edt_age.getText().toString().trim();
         address = edt_address.getText().toString().trim();
         mobileNumber = edt_mobile_number.getText().toString();
+        lastVoted = parties[spin_lastVoted.getSelectedItemPosition()];
+        nextVote = parties[spin_nextVote.getSelectedItemPosition()];
+
 
         if (validations()) {
             VoterPojo mVoter = new VoterPojo(voterID, name, fatherName, sex
-                    , Integer.parseInt(age), mobileNumber, address, catageory, caste, boothNumber, location, mVolunteerSessionManager.getVolName(), addedLocation);
+                    , Integer.parseInt(age), mobileNumber, address, catageory, caste, boothNumber, location, mVolunteerSessionManager.getVolName(), addedLocation, lastVoted, nextVote);
 
             save(mVoter);
 //            Snackbar.make(null,"Validations are good",Snackbar.LENGTH_SHORT).show();
@@ -284,7 +296,7 @@ public class CasteWiseVoters extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 Place place = PlacePicker.getPlace(data, this);
 
-                location = new LatLng(place.getLatLng().latitude,place.getLatLng().longitude);
+                location = new LatLng(place.getLatLng().latitude, place.getLatLng().longitude);
                 edt_location.setText(String.format("%s", place.getName()));
 
                /* String toastMsg = String.format("Place: %s", place.getName());
@@ -340,7 +352,7 @@ public class CasteWiseVoters extends AppCompatActivity {
         } else if (location == null) {
             edt_location.setError("Pick Home Location");
         } else if (!rb_female.isChecked() && !rb_male.isChecked()) {
-           Toast.makeText(getApplicationContext(), "Select Gender", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Select Gender", Toast.LENGTH_SHORT).show();
         } else {
             isValid = true;
         }

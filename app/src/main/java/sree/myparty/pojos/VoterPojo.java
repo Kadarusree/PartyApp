@@ -9,6 +9,26 @@ public class VoterPojo {
 
     String voterID, voterName, voterFatherName, sex, mobileNumber, catageory, caste, boothNumber, address;
 
+    String lastVoted;
+
+    public String getLastVoted() {
+        return lastVoted;
+    }
+
+    public void setLastVoted(String lastVoted) {
+        this.lastVoted = lastVoted;
+    }
+
+    public String getNextVote() {
+        return nextVote;
+    }
+
+    public void setNextVote(String nextVote) {
+        this.nextVote = nextVote;
+    }
+
+    String nextVote;
+
     public VoterPojo() {
     }
 
@@ -37,8 +57,7 @@ public class VoterPojo {
     LatLng added_location;
 
 
-
-    public VoterPojo(String voterID, String voterName, String voterFatherName, String sex,int age, String mobileNumber,String address, String catageory, String caste, String boothNumber,  LatLng location, String added_by, LatLng added_location) {
+    public VoterPojo(String voterID, String voterName, String voterFatherName, String sex, int age, String mobileNumber, String address, String catageory, String caste, String boothNumber, LatLng location, String added_by, LatLng added_location, String lastVoted, String nextVote) {
         this.voterID = voterID;
         this.voterName = voterName;
         this.voterFatherName = voterFatherName;
@@ -52,6 +71,8 @@ public class VoterPojo {
         this.location = location;
         this.added_by = added_by;
         this.added_location = added_location;
+        this.lastVoted = lastVoted;
+        this.nextVote = nextVote;
     }
 
     public String getVoterID() {

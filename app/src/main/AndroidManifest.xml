@@ -4,7 +4,7 @@
     package="sree.myparty">
 
     <uses-permission android:name="android.permission.INTERNET" />
-     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -146,11 +146,11 @@
             android:name=".admin.AdminDashboard"
             android:label="MY PARTY"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />  <activity
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".admin.VisitActivity"
             android:label="VISIT"
-            android:screenOrientation="portrait"
-             />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".admin.MeetingAttendence"
             android:label="Meeting Attendance"
@@ -173,11 +173,7 @@
             android:parentActivityName=".admin.MeetingsListActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".admin.AnalysisActivity"
-            android:label="VOTER ANALYSIS"
-            android:parentActivityName=".admin.AdminDashboard"
-            android:screenOrientation="portrait" />
+
         <activity
             android:name=".admin.MeetingsListActivity"
             android:label="Meetings List"
@@ -212,10 +208,28 @@
             android:label="@string/surveyList"
             android:parentActivityName=".DashBoard.Dashboard"
             android:screenOrientation="portrait" />
-        <activity android:name=".survey.SurveyAdminList"
+        <activity
+            android:name=".survey.SurveyAdminList"
             android:label="@string/surveyList"
             android:parentActivityName=".admin.AdminDashboard"
+            android:screenOrientation="portrait" />
+        <activity android:name=".admin.VotesAnalysis"
+            android:label="VOTES ANALYSIS"
+            android:parentActivityName=".admin.AnalysisMainActivity"
+            android:screenOrientation="portrait"
+            />
+
+        <activity android:name=".admin.AnalysisMainActivity"
+            android:label="ANALYSIS"
+            android:parentActivityName=".admin.AdminDashboard"
             android:screenOrientation="portrait"></activity>
+
+
+        <activity
+            android:name=".admin.AnalysisActivity"
+            android:label="VOTERS ANALYSIS"
+            android:parentActivityName=".admin.AnalysisMainActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -4,6 +4,11 @@ public class Note {
     public static final String TABLE_NAME = "voters";
     public static final String SURVEY_TABLE = "survey";
 
+    public static final String TABLE_LAST_VOTES = "lastVotes";
+    public static final String TABLE_FUTURE_VOTES = "futureVotes";
+
+
+    public static final String PARTY = "party";
 
     public static final String COLUMN_ID = "id";
     public static final String NAME = "name";
@@ -40,6 +45,18 @@ public class Note {
                     + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + SURVEY_ID + " TEXT,"
                     + ANSWER + " TEXT"
+                    + ")";
+
+    public static final String CREATE_LAST_VOTES_TABLE =
+            "CREATE TABLE " + TABLE_LAST_VOTES + "("
+                    + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + PARTY + " TEXT"
+                    + ")";
+
+    public static final String CREATE_NEXT_VOTES_TABLE =
+            "CREATE TABLE " + TABLE_FUTURE_VOTES + "("
+                    + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + PARTY + " TEXT"
                     + ")";
  
     public Note() {

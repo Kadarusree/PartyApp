@@ -9,12 +9,14 @@ import sree.myparty.admin.AdminLogin;
 
 import sree.myparty.admin.AdminMap;
 import sree.myparty.admin.AnalysisActivity;
+import sree.myparty.admin.AnalysisMainActivity;
 import sree.myparty.admin.MeetingAttendence;
 import sree.myparty.admin.MeetingsActivity;
 import sree.myparty.admin.MeetingsListActivity;
 import sree.myparty.admin.VisitActivity;
 import sree.myparty.admin.VisitsListActivity;
 import sree.myparty.admin.VolunteerList;
+import sree.myparty.admin.VotesAnalysis;
 import sree.myparty.admin.WorkDoneActivity;
 import sree.myparty.admin.WorksListActivity;
 import sree.myparty.misc.NewsList;
@@ -96,7 +98,7 @@ public class ActivityLauncher {
     }
 
     public static void launchAnalysisActivity(Context activity) {
-        activity.startActivity(new Intent(activity,AnalysisActivity.class));
+        activity.startActivity(new Intent(activity,AnalysisMainActivity.class));
     }
     public static void launchMeetingsList(Context activity) {
         activity.startActivity(new Intent(activity,MeetingsListActivity.class));
@@ -124,5 +126,13 @@ public class ActivityLauncher {
     }
     public static void launchAdminSurveyList(Context ctx) {
         ctx.startActivity(new Intent(ctx,SurveyAdminList.class));
+    }
+
+    public static void launchVotersAnalysis(Context activity) {
+        activity.startActivity(new Intent(activity,AnalysisActivity.class));
+    }
+
+    public static void launchVotesAnalysis(Context activity) {
+        activity.startActivity(new Intent(activity,VotesAnalysis.class));
     }
 }
