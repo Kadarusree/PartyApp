@@ -97,6 +97,7 @@ public class SelectPC extends DialogFragment {
                 State mState =  mCountry.getStates().get(statePosition);
                 mState_name = mState.getName();
                 mSessionManager.setState(mState_name);
+                Constants.STATE = mState_name;
 
                 list_pc.clear();
                 for (int i = 0; i<mState.getPcs().size();i++){
@@ -109,6 +110,7 @@ public class SelectPC extends DialogFragment {
                         list_ac.clear();
                         PC mPC = mCountry.getStates().get(statePosition).getPcs().get(pCPosition);
                         mPc_name = mPC.getpCName();
+                        Constants.PARLIMENT_CONST = mPc_name;
                         mSessionManager.setPC(mPc_name);
                         for (int k = 0; k<mPC.getAssemblies().size();k++){
                             list_ac.add(mPC.getAssemblies().get(k));
@@ -118,6 +120,7 @@ public class SelectPC extends DialogFragment {
                             @Override
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                 mAc_name = list_ac.get(pCPosition);
+                                Constants.ASSEMBLY_CONST = mAc_name;
                                 Constants.DB_PATH = mState_name+"/"+mPc_name+"/"+list_ac.get(position);
                                 mSessionManager.setAC(list_ac.get(position));
                                 mSessionManager.setDB_PATH(Constants.DB_PATH);

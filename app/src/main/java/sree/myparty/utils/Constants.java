@@ -44,9 +44,9 @@ public class Constants {
     public static String GKA_IMAGE_STORAGE_PATH="GKSurveyIMG";
 
     //
-    public static String STATE = "Telangana";
-    public static final String ASSEMBLY_CONST = "Sirpur";
-    public static final String PARLIMENT_CONST = "Adilabad";
+    public static String STATE = "";
+    public static  String ASSEMBLY_CONST = "";
+    public static  String PARLIMENT_CONST = "";
 
     public static String DB_PATH = STATE+"/"+PARLIMENT_CONST+"/"+ASSEMBLY_CONST;
     public static final String QR_URL = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=";

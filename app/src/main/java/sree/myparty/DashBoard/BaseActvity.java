@@ -30,6 +30,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.ByteArrayOutputStream;
@@ -41,6 +42,8 @@ import java.util.ArrayList;
 
 import sree.myparty.MyApplication;
 import sree.myparty.R;
+import sree.myparty.constuecies.Booths;
+import sree.myparty.constuecies.Parser;
 import sree.myparty.pojos.UserDetailPojo;
 import sree.myparty.session.SessionManager;
 import sree.myparty.utils.ActivityLauncher;
@@ -52,6 +55,7 @@ public abstract class BaseActvity extends AppCompatActivity
     ImageView mProfilePic;
 
     NavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +64,12 @@ public abstract class BaseActvity extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Parser mParser = new Parser(this);
+        /*Booths Booths = mParser.getBooths("Khairatabad");
+        DatabaseReference reference = MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH).child("Booths");
+
+        reference.setValue(Booths);*/
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +86,7 @@ public abstract class BaseActvity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-         navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         replaceFragement(new HomeFragment());
@@ -113,7 +123,7 @@ public abstract class BaseActvity extends AppCompatActivity
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
-            FirebaseAuth  auth= FirebaseAuth.getInstance();
+            FirebaseAuth auth = FirebaseAuth.getInstance();
             auth.signOut();
 
 
@@ -123,12 +133,11 @@ public abstract class BaseActvity extends AppCompatActivity
             this.finish();
 
         } else if (id == R.id.nav_share) {
-          shareApp(new SessionManager(this).getName()+": Refered you to join My Party app..");
+            shareApp(new SessionManager(this).getName() + ": Refered you to join My Party app..");
 
         } else if (id == R.id.vol_logout) {
 
-        }
-        else if(id == R.id.vol_logout){
+        } else if (id == R.id.vol_logout) {
 
         }
 
@@ -136,23 +145,21 @@ public abstract class BaseActvity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    private void hideVolOptions()
-    {
+
+    private void hideVolOptions() {
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.getMenu().removeGroup(1);
     }
 
-    private void hideAdminOptions()
-    {
+    private void hideAdminOptions() {
         navigationView = (NavigationView) findViewById(R.id.nav_view);
-       navigationView.getMenu().removeGroup(2);
+        navigationView.getMenu().removeGroup(2);
 
-    //   navigationView.getMenu().add(1)
+        //   navigationView.getMenu().add(1)
         //nav_Menu.findItem(R.id.adminOptions).setVisible(false);
     }
 
-   public  void shareApp( String link)
-    {
+    public void shareApp(String link) {
 
       /*  Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
@@ -161,18 +168,19 @@ public abstract class BaseActvity extends AppCompatActivity
         startActivity(sendIntent);*/
 
 
-        String shareBody = link+"\n"+"https://play.google.com/store/apps/details?id="+getApplicationContext().getPackageName();
+        String shareBody = link + "\n" + "https://play.google.com/store/apps/details?id=" + getApplicationContext().getPackageName();
 
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
-        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getResources().getString(R.string.app_name)+" -Download App from playstore");
-        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody+"\n"+"Promo code-"+new SessionManager(this).getREFERAL_CODE());
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getResources().getString(R.string.app_name) + " -Download App from playstore");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody + "\n" + "Promo code-" + new SessionManager(this).getREFERAL_CODE());
 
-        Intent i=new Intent(Intent.createChooser(sharingIntent, "Share via"));
+        Intent i = new Intent(Intent.createChooser(sharingIntent, "Share via"));
         startActivity(i);
 
 
     }
+
     public void replaceFragement(Fragment fg) {
         FragmentManager mFragmentManager = getFragmentManager();
         FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
@@ -191,8 +199,8 @@ public abstract class BaseActvity extends AppCompatActivity
                     fcmIds.add(MUser.getFcm_id());
                 }
 
-          //      Toast.makeText(getApplicationContext(), fcmIds.size() + "", Toast.LENGTH_LONG).show();
-            Constants.fcm_ids = fcmIds;
+                //      Toast.makeText(getApplicationContext(), fcmIds.size() + "", Toast.LENGTH_LONG).show();
+                Constants.fcm_ids = fcmIds;
             }
 
             @Override
@@ -201,7 +209,6 @@ public abstract class BaseActvity extends AppCompatActivity
             }
         });
     }
-
 
 
 }

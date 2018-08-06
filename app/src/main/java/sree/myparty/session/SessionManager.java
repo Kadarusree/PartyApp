@@ -96,6 +96,9 @@ public class SessionManager {
         mEditor.putString(STATE,mPojo.getState_name());
         mEditor.putInt(POINTS,mPojo.getPoints());
         mEditor.putString(REFERAL_CODE,mPojo.getReferal_code());
+
+        Constants.ASSEMBLY_CONST = mPojo.getAc_name();
+
         mEditor.commit();
 
     }

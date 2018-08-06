@@ -42,6 +42,21 @@ public class Parser {
         return json;
     }
 
+    public String loadBooths() {
+        String json = null;
+        try {
+            InputStream is = mActivity.getAssets().open("boothlist");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
+    }
 
     public Country getConst() {
 
@@ -85,5 +100,32 @@ public class Parser {
         }
 
         return  new Country(mStates);
+    }
+
+    public Booths getBooths(String constitucency) {
+
+        String data = loadBooths();
+        ArrayList<Booth> boothList = new ArrayList<>();
+        try {
+            JSONObject mJsonObject = new JSONObject(data);
+            JSONArray boothsArray = mJsonObject.getJSONArray(constitucency);
+
+            Booth mBooth;
+            for (int i = 0; i < boothsArray.length(); i++) {
+                mBooth = new Booth();
+                JSONObject boothObject = boothsArray.getJSONObject(i);
+                mBooth.setBoothNumber(boothObject.getString("polling Station No"));
+                mBooth.setName(boothObject.getString("Polling Station Name"));
+                mBooth.setLocation(boothObject.getString("Polling Station Location"));
+                mBooth.setMapLocation(null);
+                boothList.add(mBooth);
+            }
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return  new Booths(boothList);
     }
 }

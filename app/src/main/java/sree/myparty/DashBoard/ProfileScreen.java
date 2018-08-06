@@ -150,8 +150,8 @@ public class ProfileScreen extends AppCompatActivity {
         name.setText("Name : " +mSession.getName());
         voetrID.setText("Voter ID : " +mSession.getVoterID());
         mobileNumber.setText("Mobile : " +mSession.getMobileNumber());
-        ac.setText("Assembly Constituency : " +Constants.ASSEMBLY_CONST);
-        pc.setText("Parliament Constituency : " +Constants.PARLIMENT_CONST);
+        ac.setText("Assembly Constituency : " +mSession.getAC_NAME());
+        pc.setText("Parliament Constituency : " +mSession.getPC_NAME());
 
 
         getLatestData();
