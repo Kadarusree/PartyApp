@@ -11,41 +11,91 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.4">
-        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:map="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/map"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.9"
-            tools:context="sree.myparty.admin.ParticularBooth" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.2">
+            android:layout_height="match_parent">
+            <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:map="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="sree.myparty.admin.ParticularBooth" />
+
+            <TextView
+                android:id="@+id/booth_number_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center"
+                android:text="Heello"
+                android:gravity="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_alignParentBottom="true"/>
+
+        </RelativeLayout>
+
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.3">
+        android:layout_weight="0.15"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/booth_adress"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="left|center"
+            android:layout_weight="0.3"
+            android:gravity="left|center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15dp"
+            />
+
+        <TextView
+            android:id="@+id/booth_commitee_status_count"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="left|center"
+            android:layout_weight="0.3"
+            android:gravity="left|center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15dp"
+            />
+
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.1">
+        android:layout_weight="0.37">
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/list_volunteers"></android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.08">
+
         <Button
+            android:id="@+id/pick_loaction"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textColor="@color/colorWhite"
-            android:typeface="serif"
-            android:textSize="@dimen/dp_18"
             android:background="@drawable/button_backround"
+            android:onClick="launchPlacePicker"
             android:text="Click Here To Add Booth Location"
-            android:id="@+id/pick_loaction"
-            android:onClick="launchPlacePicker"></Button>
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/dp_18"
+            android:typeface="serif"></Button>
     </LinearLayout>
 
 </LinearLayout>
