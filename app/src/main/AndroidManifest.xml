@@ -227,8 +227,21 @@
             android:label="VOTERS ANALYSIS"
             android:parentActivityName=".admin.AnalysisMainActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".admin.BoothCommitteList" />
-        <activity android:name=".admin.ParticularBooth"></activity>
+        <activity
+            android:name=".admin.BoothCommitteList"
+            android:label="Booth List"
+            android:parentActivityName=".admin.AdminDashboard"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".admin.ParticularBooth"
+            android:label="Booth"
+            android:parentActivityName=".admin.BoothCommitteList"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".admin.PresentTrend"
+            android:label="Present Trend"
+            android:parentActivityName=".admin.AnalysisMainActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

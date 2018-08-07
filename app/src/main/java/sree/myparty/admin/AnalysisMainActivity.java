@@ -23,6 +23,8 @@ public class AnalysisMainActivity extends AppCompatActivity {
 
     @BindView(R.id.a_tv3)
     TextView tv3;
+    @BindView(R.id.a_tv4)
+    TextView tv4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,8 @@ public class AnalysisMainActivity extends AppCompatActivity {
         tv2.setTypeface(tf);
 
         tv3.setTypeface(tf);
+        tv4.setTypeface(tf);
+
 
     }
 
@@ -52,5 +56,10 @@ public class AnalysisMainActivity extends AppCompatActivity {
 
     @OnClick(R.id.cv3)
     public void BoothWiseAnalysis(View view) {
+    }
+
+    @OnClick(R.id.cv4)
+    public void presentTrend(View view) {
+        ActivityLauncher.launchPresentTrend(this);
     }
 }

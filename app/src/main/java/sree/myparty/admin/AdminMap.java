@@ -47,7 +47,6 @@ public class AdminMap extends AppCompatActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
 
 
-
     DatabaseReference mReference;
 
     ArrayList<VoterPojo> mVotersList;
@@ -77,7 +76,7 @@ public class AdminMap extends AppCompatActivity implements OnMapReadyCallback {
         setContentView(R.layout.activity_admin_map);
         ButterKnife.bind(this);
 //        setSupportActionBar(toolbar);
-        mDialog= Constants.showDialog(this);
+        mDialog = Constants.showDialog(this);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -88,7 +87,7 @@ public class AdminMap extends AppCompatActivity implements OnMapReadyCallback {
         constitution.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b){
+                if (b) {
                     booth.setChecked(false);
                     boothLayout.setVisibility(View.GONE);
                     onMapReady(mMap);
@@ -99,7 +98,7 @@ public class AdminMap extends AppCompatActivity implements OnMapReadyCallback {
         booth.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b){
+                if (b) {
                     constitution.setChecked(false);
                     boothLayout.setVisibility(View.VISIBLE);
                 }
@@ -108,11 +107,10 @@ public class AdminMap extends AppCompatActivity implements OnMapReadyCallback {
     }
 
     @OnClick(R.id.btn_search)
-    public void search(View v){
-        if (boothNumber.getText().toString().trim().length()==0){
+    public void search(View v) {
+        if (boothNumber.getText().toString().trim().length() == 0) {
             boothNumber.setError("Enter Booth Number");
-        }
-        else {
+        } else {
             searchByBooth(boothNumber.getText().toString().trim());
         }
     }
@@ -159,7 +157,7 @@ public class AdminMap extends AppCompatActivity implements OnMapReadyCallback {
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 
-mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.getUiSettings().setZoomControlsEnabled(true);
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(17.37, 78.40);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sirpur"));
@@ -173,10 +171,9 @@ mMap.getUiSettings().setZoomControlsEnabled(true);
             @Override
             public boolean onMarkerClick(Marker marker) {
                 VoterPojo mPojo = (VoterPojo) marker.getTag();
-                if (mPojo!=null){
+                if (mPojo != null) {
                     Toast.makeText(getApplicationContext(), mPojo.getVoterName(), Toast.LENGTH_LONG).show();
-                }
-                else {
+                } else {
                     Toast.makeText(getApplicationContext(), marker.getTitle(), Toast.LENGTH_LONG).show();
 
                 }

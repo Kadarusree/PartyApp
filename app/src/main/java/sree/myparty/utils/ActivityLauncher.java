@@ -15,6 +15,7 @@ import sree.myparty.admin.MeetingAttendence;
 import sree.myparty.admin.MeetingsActivity;
 import sree.myparty.admin.MeetingsListActivity;
 import sree.myparty.admin.ParticularBooth;
+import sree.myparty.admin.PresentTrend;
 import sree.myparty.admin.VisitActivity;
 import sree.myparty.admin.VisitsListActivity;
 import sree.myparty.admin.VolunteerList;
@@ -153,5 +154,9 @@ public class ActivityLauncher {
 
     public static void launchBooths(Context activity) {
         activity.startActivity(new Intent(activity, BoothCommitteList.class));
+    }
+
+    public static void launchPresentTrend(Context activity) {
+        activity.startActivity(new Intent(activity, PresentTrend.class));
     }
 }
