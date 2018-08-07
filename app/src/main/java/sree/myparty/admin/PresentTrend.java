@@ -7,6 +7,7 @@ import android.os.Bundle;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
@@ -47,6 +48,7 @@ public class PresentTrend extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void onMapReady(final GoogleMap googleMap) {
+        mMap = googleMap;
         MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/Booths/mBooths").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -56,8 +58,7 @@ public class PresentTrend extends AppCompatActivity implements OnMapReadyCallbac
                     Booth mBooth = indi.getValue(Booth.class);
                     mBoothsList.add(mBooth);
                 }
-                // refreshing recycler view
-                placemarkers(mBoothsList, googleMap);
+                loadAllVoters();
             }
 
             @Override
@@ -77,6 +78,14 @@ public class PresentTrend extends AppCompatActivity implements OnMapReadyCallbac
                 MarkerOptions mMarker = new MarkerOptions();
                 mMarker.position(markerLocation);
                 mMarker.title(mBooth.getBoothNumber() + " " + mBooth.getName());
+
+                if (getCount(mBooth.getBoothNumber())>0){
+                    mMarker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                }
+                else {
+                    mMarker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+
+                }
                 googleMap.addMarker(mMarker);
 
             }
@@ -96,10 +105,9 @@ public class PresentTrend extends AppCompatActivity implements OnMapReadyCallbac
                     VoterPojo mPojo = indi.getValue(VoterPojo.class);
                     mVotersList.add(mPojo);
                 }
-                long records = db.insertVoters(mVotersList);
-                if (records > 0) {
+                db.insertVoters(mVotersList);
 
-                }
+                placemarkers(mBoothsList,mMap);
             }
 
             @Override
@@ -107,5 +115,9 @@ public class PresentTrend extends AppCompatActivity implements OnMapReadyCallbac
 
             }
         });
+    }
+
+    public int getCount(String id){
+        return db.getBoothwiseVoters(id).size();
     }
 }
