@@ -212,4 +212,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return castes;
     }
+
+
+    public void getVotersByBooth(String boothNumber){
+
+    }
 }
