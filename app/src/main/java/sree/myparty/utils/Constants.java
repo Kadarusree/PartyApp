@@ -20,25 +20,25 @@ import sree.myparty.volunteer.CasteWiseVoters;
 
 public class Constants {
 
-    public static final String FIREBASE_PUSH_API = "https://fcm.googleapis.com/fcm/send";
-    public static final String FCM_SERVER_KEY = "key=AAAA4uqgDOE:APA91bEsiXQF6zCwtUMbEZBTt57KXmztAxHnVJt2t_cpXFRKlzSse1xSOnI6uG5GVUJuKAUNV9cC8oku8jGvbupNMwQ-N5q_KJ4mJU8fpLT_0OjOnSQs50uZ5bKnzuugh_-5vk1lz_a0clvCfVBuAmWeA9UEaFBDZg";
+    public static  String FIREBASE_PUSH_API = "https://fcm.googleapis.com/fcm/send";
+    public static  String FCM_SERVER_KEY = "key=AAAA4uqgDOE:APA91bEsiXQF6zCwtUMbEZBTt57KXmztAxHnVJt2t_cpXFRKlzSse1xSOnI6uG5GVUJuKAUNV9cC8oku8jGvbupNMwQ-N5q_KJ4mJU8fpLT_0OjOnSQs50uZ5bKnzuugh_-5vk1lz_a0clvCfVBuAmWeA9UEaFBDZg";
 
 
     //Session Constants:
 
-    public static final String PREF_NAME = "myparty";
-    public static final String FIREBASE_KEY = "firebasekey";
-    public static final String USERNAME = "name";
-    public static final String VOTERID = "voterID";
-    public static final String CONSTIUNCY = "constiuency";
+    public static  String PREF_NAME = "myparty";
+    public static  String FIREBASE_KEY = "firebasekey";
+    public static  String USERNAME = "name";
+    public static  String VOTERID = "voterID";
+    public static  String CONSTIUNCY = "constiuency";
 
 
     //constants only used for data transmit from reg to otp
-    public static final String VOTER_ID = "VOTER_ID";
-    public static final String MOBILE_NUMBER = "MOBILE_NUMBER";
-    public static final String NAME = "NAME";
-    public static final String VOLUNTEER = "Sree";
-    public static final String REFRAL_TEMP_SESSION ="" ;
+    public static  String VOTER_ID = "VOTER_ID";
+    public static  String MOBILE_NUMBER = "MOBILE_NUMBER";
+    public static  String NAME = "NAME";
+    public static  String VOLUNTEER = "Sree";
+    public static  String REFRAL_TEMP_SESSION ="" ;
     //end
 
     public static String GKA_IMAGE_STORAGE_PATH="GKSurveyIMG";
@@ -49,19 +49,20 @@ public class Constants {
     public static  String PARLIMENT_CONST = "";
 
     public static String DB_PATH = STATE+"/"+PARLIMENT_CONST+"/"+ASSEMBLY_CONST;
-    public static final String QR_URL = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=";
+    public static  String QR_URL = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=";
 
-    public static final String Vol_Table =  Constants.DB_PATH + "/Volunteers";
-    public static final String Meetings_Table =  Constants.DB_PATH + "/Meetings";
-    public static final String Users_Table =  Constants.DB_PATH + "/Users";
-    public static final String Attendence_Table =  Constants.DB_PATH + "/Meeting_Attendence";
-    public static final String Survey_Table = Constants.DB_PATH+"/Surveys";
-    public static final String Survey_Aswers_Table = Constants.DB_PATH+"/SurveyAnswers";
-    public static final String Vists_Table = Constants.DB_PATH+"/Visits";
-    public static final String Work_Done_Table = Constants.DB_PATH+"/WorkDone";
+    public static  String Vol_Table =  Constants.DB_PATH + "/Volunteers";
+    public static  String Meetings_Table =  Constants.DB_PATH + "/Meetings";
+    public static  String Users_Table =  Constants.DB_PATH + "/Users";
+    public static  String Attendence_Table =  Constants.DB_PATH + "/Meeting_Attendence";
+    public static  String Survey_Table = Constants.DB_PATH+"/Surveys";
+    public static  String Survey_Aswers_Table = Constants.DB_PATH+"/SurveyAnswers";
+    public static  String Vists_Table = Constants.DB_PATH+"/Visits";
+    public static  String Work_Done_Table = Constants.DB_PATH+"/WorkDone";
 
 
     public static MeetingPojo selected_meeting;
+    public static String selected_booth_id;
 
     public static void showToast(String text, Activity mActivty){
         Toast.makeText(mActivty,text,Toast.LENGTH_SHORT).show();

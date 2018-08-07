@@ -6,17 +6,26 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import sree.myparty.MyApplication;
 import sree.myparty.R;
+import sree.myparty.constuecies.Booth;
 import sree.myparty.pojos.VolunteerPojo;
 import sree.myparty.session.SessionManager;
 import sree.myparty.utils.ActivityLauncher;
@@ -27,7 +36,7 @@ public class VolunteerRegis extends AppCompatActivity {
     TextView mLandigText;
 
     @BindView(R.id.vol_reg_booth_num)
-    EditText mBoothNumber;
+    Spinner mBoothNumber;
 
     @BindView(R.id.vol_reg_id)
     TextView mRegID;
@@ -38,22 +47,61 @@ public class VolunteerRegis extends AppCompatActivity {
     SessionManager mSessionManager;
     ProgressDialog mProgressDialog;
 
+
+    ArrayList<Booth> mBoothsList;
+    ArrayList<String> boothNames;
+
+    ArrayAdapter<String>  adapter;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_volunteer_regis);
         mSessionManager = new SessionManager(this);
         mProgressDialog = Constants.showDialog(this);
-
+        boothNames = new ArrayList<>();
         ButterKnife.bind(this);
         mLandigText.setText("Voter 360\u00b0\n Volunteer Registration");
         String fontPath = "fonts/oswald_regular.ttf";
         Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
         mLandigText.setTypeface(tf);
 
+
+
         mRegID.setText("Reg ID. : " + mSessionManager.getRegID());
 
+        loadBooths();
 
+
+    }
+
+    private void loadBooths() {
+        mProgressDialog.setMessage("Loading Booths");
+        mProgressDialog.show();
+        MyApplication.getFirebaseDatabase()
+                .getReference(Constants.DB_PATH + "/Booths/mBooths")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        mProgressDialog.dismiss();
+                        mBoothsList = new ArrayList<>();
+                        boothNames.clear();
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            Booth mBooth = snapshot.getValue(Booth.class);
+                            mBoothsList.add(mBooth);
+                            boothNames.add(mBooth.getBoothNumber()+"-"+mBooth.getName());
+                        }
+                        adapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_dropdown_item_1line,boothNames);
+                        mBoothNumber.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        mProgressDialog.dismiss();
+                    }
+                });
     }
 
     @OnClick(R.id.btn_vol_register)
@@ -61,7 +109,7 @@ public class VolunteerRegis extends AppCompatActivity {
         if (validations()) {
 
             VolunteerPojo mVolunteer = new VolunteerPojo(mSessionManager.getName(),
-                    mBoothNumber.getText().toString().trim(),
+                    mBoothsList.get(mBoothNumber.getSelectedItemPosition()).getBoothNumber(),
                     mSessionManager.getRegID(),
                     mPassword.getText().toString(),
                     mSessionManager.getFirebaseKey(),
@@ -90,10 +138,8 @@ public class VolunteerRegis extends AppCompatActivity {
     public boolean validations() {
         boolean isValid = false;
 
-        if (mBoothNumber.getText().toString().length() < 1) {
-            mBoothNumber.setError("Enter Booth Number");
-        } else if (mPassword.getText().toString().trim().length() < 6) {
-            mBoothNumber.setError("Password Must be Minimum 6 Characters");
+         if (mPassword.getText().toString().trim().length() < 6) {
+             mPassword.setError("Password Must be Minimum 6 Characters");
         } else {
             isValid = true;
         }

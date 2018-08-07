@@ -173,7 +173,6 @@
             android:parentActivityName=".admin.MeetingsListActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-
         <activity
             android:name=".admin.MeetingsListActivity"
             android:label="Meetings List"
@@ -213,23 +212,23 @@
             android:label="@string/surveyList"
             android:parentActivityName=".admin.AdminDashboard"
             android:screenOrientation="portrait" />
-        <activity android:name=".admin.VotesAnalysis"
+        <activity
+            android:name=".admin.VotesAnalysis"
             android:label="VOTES ANALYSIS"
             android:parentActivityName=".admin.AnalysisMainActivity"
-            android:screenOrientation="portrait"
-            />
-
-        <activity android:name=".admin.AnalysisMainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".admin.AnalysisMainActivity"
             android:label="ANALYSIS"
             android:parentActivityName=".admin.AdminDashboard"
-            android:screenOrientation="portrait"></activity>
-
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".admin.AnalysisActivity"
             android:label="VOTERS ANALYSIS"
             android:parentActivityName=".admin.AnalysisMainActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".admin.BoothCommitteList" />
+        <activity android:name=".admin.ParticularBooth"></activity>
     </application>
 
 </manifest>

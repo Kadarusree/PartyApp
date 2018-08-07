@@ -54,7 +54,7 @@ public class AdminHomeFragment extends Fragment implements View.OnClickListener 
 
         switch (view.getId()) {
             case R.id.admin_db_opt1:
-                Constants.showToast("Coming Soon", getActivity());
+                ActivityLauncher.launchBooths(getActivity());
                 break;
             case R.id.admin_db_opt2:
                 ActivityLauncher.launchMapActivity(getActivity());

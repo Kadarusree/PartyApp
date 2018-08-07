@@ -109,7 +109,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
                 break;
             case R.id.db_op2:
-                ActivityLauncher.launchWorkDoneListActivity(getActivity());
+              //  ActivityLauncher.launchWorkDoneListActivity(getActivity());
+                ActivityLauncher.volunteerRegistartionScreen(getActivity());
+
                 break;
             case R.id.db_op3:
                 startActivity(new Intent(getActivity(), UserListActicity.class));

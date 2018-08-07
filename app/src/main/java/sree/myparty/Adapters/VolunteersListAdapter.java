@@ -163,7 +163,7 @@ public class VolunteersListAdapter extends RecyclerView.Adapter<VolunteersListAd
 
 
     public void approve(String reg_id) {
-        MyApplication.getFirebaseDatabase().getReference(Constants.Vol_Table).child(reg_id).child("accepted").setValue(true).addOnCompleteListener(new OnCompleteListener<Void>() {
+        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/Volunteers").child(reg_id).child("accepted").setValue(true).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
