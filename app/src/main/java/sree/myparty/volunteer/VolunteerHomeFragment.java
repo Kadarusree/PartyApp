@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -32,7 +33,7 @@ import sree.myparty.utils.Constants;
 public class VolunteerHomeFragment extends Fragment implements View.OnClickListener {
 
 
-    ImageView db_op1, db_op2, db_op3, db_op4, db_op5, db_op6;
+    LinearLayout db_op1, db_op2, db_op3, db_op4, db_op5, db_op6;
 
     private FusedLocationProviderClient mFusedLocationClient;
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
@@ -50,11 +51,11 @@ public class VolunteerHomeFragment extends Fragment implements View.OnClickListe
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.volunteer_home_fragment, null, false);
 
-        db_op1 = (ImageView) v.findViewById(R.id.vol_db_op1);
-        db_op2 = (ImageView) v.findViewById(R.id.vol_db_op2);
-        db_op3 = (ImageView) v.findViewById(R.id.vol_db_op3);
-        db_op4 = (ImageView) v.findViewById(R.id.vol_db_op4);
-        db_op5 = (ImageView) v.findViewById(R.id.vol_db_op5);
+        db_op1 = (LinearLayout) v.findViewById(R.id.vol_db_op1);
+        db_op2 = (LinearLayout) v.findViewById(R.id.vol_db_op2);
+        db_op3 = (LinearLayout) v.findViewById(R.id.vol_db_op3);
+        db_op4 = (LinearLayout) v.findViewById(R.id.vol_db_op4);
+        db_op5 = (LinearLayout) v.findViewById(R.id.vol_db_op5);
         //  db_op6 = (ImageView)v.findViewById(R.id.vol_db_op6);*/
 
         db_op1.setOnClickListener(this);
