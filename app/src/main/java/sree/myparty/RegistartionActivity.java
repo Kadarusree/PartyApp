@@ -207,6 +207,7 @@ public class RegistartionActivity extends AppCompatActivity {
                 intent.putExtra(Constants.REFRAL_TEMP_SESSION, edt_referal.getText().toString().trim());
                 startActivity(intent);
                 mResendToken = token;
+                finish();
 
                 // [START_EXCLUDE]
                 // Update UI
