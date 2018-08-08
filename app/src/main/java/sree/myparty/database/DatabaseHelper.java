@@ -234,4 +234,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return booths;
     }
+
+    public  ArrayList<String>  getBoothwiseVotesPercentage(String catageory) {
+        ArrayList<String> booths = new ArrayList<>();
+
+        String selectQuery = "SELECT " + Note.BOOTH_NUMBER + " FROM " + Note.TABLE_NAME + " WHERE " + Note.BOOTH_NUMBER + " = '" + catageory + "'";
+
+        String selectQuery2 = "SELECT " + Note.BOOTH_NUMBER + " FROM " + Note.TABLE_NAME + " WHERE " + Note.PARTY + " = 'Congress'";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        Cursor cursor2 = db.rawQuery(selectQuery2, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                booths.add(cursor.getString(cursor.getColumnIndex(Note.BOOTH_NUMBER)));
+            } while (cursor.moveToNext());
+        }
+
+        db.close();
+
+        return booths;
+    }
 }

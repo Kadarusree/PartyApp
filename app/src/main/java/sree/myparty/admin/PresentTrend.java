@@ -64,6 +64,7 @@ public class PresentTrend extends AppCompatActivity implements OnMapReadyCallbac
 
         db = new DatabaseHelper(this);
     }
+
     public boolean checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
@@ -103,6 +104,7 @@ public class PresentTrend extends AppCompatActivity implements OnMapReadyCallbac
             return true;
         }
     }
+
     public void getLocation() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -120,13 +122,14 @@ public class PresentTrend extends AppCompatActivity implements OnMapReadyCallbac
                     public void onSuccess(Location location) {
                         // Got last known location. In some rare situations this can be null.
                         if (location != null) {
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new com.google.android.gms.maps.model.LatLng(location.getLatitude(),location.getLongitude()),12));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new com.google.android.gms.maps.model.LatLng(location.getLatitude(), location.getLongitude()), 12));
                             mMap.animateCamera(CameraUpdateFactory.zoomIn());// Zoom out to zoom level 10, animating with a duration of 2 seconds.
                             mMap.animateCamera(CameraUpdateFactory.zoomTo(12), 2000, null);
                         }
                     }
                 });
     }
+
     @Override
     public void onMapReady(final GoogleMap googleMap) {
         mMap = googleMap;
@@ -183,17 +186,22 @@ public class PresentTrend extends AppCompatActivity implements OnMapReadyCallbac
                 com.google.android.gms.maps.model.LatLng markerLocation = new com.google.android.gms.maps.model.LatLng(mBooth.getMapLocation().getLatitude(), mBooth.getMapLocation().getLongitude());
                 MarkerOptions mMarker = new MarkerOptions();
                 mMarker.position(markerLocation);
-                mMarker.title(mBooth.getBoothNumber() + " " + mBooth.getName());
+                mMarker.title(mBooth.getBoothNumber());
 
 
-                if (getCount(mBooth.getBoothNumber())>0){
+
+                if (getCount(mBooth.getBoothNumber()) > 0) {
                     mMarker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-                }
-                else {
+                } else {
                     mMarker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
 
                 }
-                googleMap.addMarker(mMarker).setTag(mBooth);
+
+                Marker m = googleMap.addMarker(mMarker);
+
+                m.setTag(mBooth);
+                m.showInfoWindow();
+
 
             }
 
@@ -201,8 +209,7 @@ public class PresentTrend extends AppCompatActivity implements OnMapReadyCallbac
     }
 
 
-
-    public void loadAllVoters(){
+    public void loadAllVoters() {
         MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/Voters").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -214,7 +221,7 @@ public class PresentTrend extends AppCompatActivity implements OnMapReadyCallbac
                 }
                 db.insertVoters(mVotersList);
 
-                placemarkers(mBoothsList,mMap);
+                placemarkers(mBoothsList, mMap);
             }
 
             @Override
@@ -224,7 +231,11 @@ public class PresentTrend extends AppCompatActivity implements OnMapReadyCallbac
         });
     }
 
-    public int getCount(String id){
+    public int getCount(String id) {
         return db.getBoothwiseVoters(id).size();
+    }
+
+    public int getPercentage(String id) {
+        return db.getBoothwiseVotesPercentage(id).size();
     }
 }

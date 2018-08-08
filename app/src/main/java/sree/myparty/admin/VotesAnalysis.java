@@ -47,7 +47,11 @@ public class VotesAnalysis extends AppCompatActivity {
     protected BarChart subChart;
 
     ArrayList<Integer> data;
-    ArrayList<String> keys;
+    ArrayList<String> keys_;
+
+
+    ArrayList<Integer> next_data;
+    ArrayList<String> next_keys_;
 
     ArrayList<Integer> casteData;
     ArrayList<String> casteNames = new ArrayList<>();
@@ -62,7 +66,10 @@ public class VotesAnalysis extends AppCompatActivity {
         pDialog.show();
 
         data = new ArrayList<>();
-        keys = new ArrayList<>();
+        keys_ = new ArrayList<>();
+
+        next_data = new ArrayList<>();
+        next_keys_ = new ArrayList<>();
 
 
         casteData = new ArrayList<>();
@@ -87,13 +94,6 @@ public class VotesAnalysis extends AppCompatActivity {
         mChart.setPinchZoom(false);
         mChart.setDrawGridBackground(false);
 
-        IAxisValueFormatter xAxisFormatter = new DayAxisValueFormatter(mChart, keys);
-        XAxis xAxis = mChart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setDrawGridLines(false);
-        xAxis.setGranularity(1f); // only intervals of 1 day
-        xAxis.setLabelCount(7);
-        xAxis.setValueFormatter(xAxisFormatter);
 
         IAxisValueFormatter custom = new MyAxisValueFormatter();
         YAxis leftAxis = mChart.getAxisLeft();
@@ -140,15 +140,7 @@ public class VotesAnalysis extends AppCompatActivity {
         subChart.setDrawGridBackground(false);
         // mChart.setDrawYLabels(false);
 
-        IAxisValueFormatter xAxisFormatter2 = new SubAxisForamtter(subChart, keys);
 
-        XAxis xAxis2 = subChart.getXAxis();
-        xAxis2.setPosition(XAxis.XAxisPosition.BOTTOM);
-        //1     xAxis.setTypeface(mTfLight);
-        xAxis2.setDrawGridLines(false);
-        xAxis2.setGranularity(1f); // only intervals of 1 day
-        xAxis2.setLabelCount(7);
-        xAxis2.setValueFormatter(xAxisFormatter2);
 
         IAxisValueFormatter custom2 = new MyAxisValueFormatter();
 
@@ -202,7 +194,7 @@ public class VotesAnalysis extends AppCompatActivity {
 
                 if (records2 > 0) {
                     ArrayList<String> catageories = db.getNextVotes();
-                    getOC(catageories, 2);
+                getNextOC(catageories, 2);
                 }
             }
 
@@ -255,6 +247,16 @@ public class VotesAnalysis extends AppCompatActivity {
             //        data.setValueTypeface(mTfLight);
             data.setBarWidth(0.9f);
 
+
+
+            IAxisValueFormatter xAxisFormatter = new DayAxisValueFormatter(mChart, keys);
+            XAxis xAxis = mChart.getXAxis();
+            xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+            xAxis.setDrawGridLines(false);
+            xAxis.setGranularity(1f); // only intervals of 1 day
+            xAxis.setLabelCount(7);
+            xAxis.setValueFormatter(xAxisFormatter);
+
             mChart.setData(data);
             mChart.notifyDataSetChanged();
             mChart.invalidate();
@@ -265,22 +267,39 @@ public class VotesAnalysis extends AppCompatActivity {
     public void getOC(ArrayList<String> catageories, int i) {
 
         data.clear();
-        keys.clear();
+        keys_.clear();
 
         Set<String> unique = new HashSet<String>(catageories);
         for (String key : unique) {
             data.add(Collections.frequency(catageories, key));
-            keys.add(key);
+            keys_.add(key);
             //  Log.d(key ,  Collections.frequency(catageories, key)+"");
         }
 
 
         if (i == 1) {
-            setData(data, keys);
+            setData(data, keys_);
         } else if (i == 2) {
-            setFutureVotesData(data, keys);
+         //   setFutureVotesData(data, keys_);
 
         }
+    }
+
+    public void getNextOC(ArrayList<String> catageories, int i) {
+
+        next_data.clear();
+        next_keys_.clear();
+
+        Set<String> unique = new HashSet<String>(catageories);
+        for (String key : unique) {
+            next_data.add(Collections.frequency(catageories, key));
+            next_keys_.add(key);
+            //  Log.d(key ,  Collections.frequency(catageories, key)+"");
+        }
+
+        setFutureVotesData(next_data, next_keys_);
+
+
     }
 
 
@@ -379,6 +398,16 @@ public class VotesAnalysis extends AppCompatActivity {
             }
         }
         BarDataSet set1;
+
+        IAxisValueFormatter xAxisFormatter2 = new SubAxisForamtter(subChart, keys);
+
+        XAxis xAxis2 = subChart.getXAxis();
+        xAxis2.setPosition(XAxis.XAxisPosition.BOTTOM);
+        //1     xAxis.setTypeface(mTfLight);
+        xAxis2.setDrawGridLines(false);
+        xAxis2.setGranularity(1f); // only intervals of 1 day
+        xAxis2.setLabelCount(7);
+        xAxis2.setValueFormatter(xAxisFormatter2);
 
         if (subChart.getData() != null &&
                 subChart.getData().getDataSetCount() > 0) {
