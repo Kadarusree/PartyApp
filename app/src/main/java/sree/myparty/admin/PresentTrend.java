@@ -1,15 +1,29 @@
 package sree.myparty.admin;
 
+import android.Manifest;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.os.Build;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -22,6 +36,7 @@ import sree.myparty.R;
 import sree.myparty.constuecies.Booth;
 import sree.myparty.database.DatabaseHelper;
 import sree.myparty.pojos.VoterPojo;
+import sree.myparty.utils.ActivityLauncher;
 import sree.myparty.utils.Constants;
 
 public class PresentTrend extends AppCompatActivity implements OnMapReadyCallback {
@@ -33,6 +48,9 @@ public class PresentTrend extends AppCompatActivity implements OnMapReadyCallbac
     ArrayList<VoterPojo> mVotersList;
     private DatabaseHelper db;
 
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+    private FusedLocationProviderClient mFusedLocationClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,13 +60,85 @@ public class PresentTrend extends AppCompatActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         db = new DatabaseHelper(this);
     }
+    public boolean checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
 
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+                new AlertDialog.Builder(this)
+                        .setTitle("Alert")
+                        .setMessage("You need us to use your location to work with this module")
+                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //Prompt the user once explanation has been shown
+                                ActivityCompat.requestPermissions(PresentTrend.this,
+                                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                        MY_PERMISSIONS_REQUEST_LOCATION);
+                            }
+                        })
+                        .create()
+                        .show();
+
+
+            } else {
+                // No explanation needed, we can request the permission.
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_LOCATION);
+            }
+            return false;
+        } else {
+            return true;
+        }
+    }
+    public void getLocation() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        mFusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new com.google.android.gms.maps.model.LatLng(location.getLatitude(),location.getLongitude()),12));
+                            mMap.animateCamera(CameraUpdateFactory.zoomIn());// Zoom out to zoom level 10, animating with a duration of 2 seconds.
+                            mMap.animateCamera(CameraUpdateFactory.zoomTo(12), 2000, null);
+                        }
+                    }
+                });
+    }
     @Override
     public void onMapReady(final GoogleMap googleMap) {
         mMap = googleMap;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkLocationPermission()) {
+                getLocation();
+            }
+        } else {
+            getLocation();
+        }
+
         MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/Booths/mBooths").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -66,6 +156,22 @@ public class PresentTrend extends AppCompatActivity implements OnMapReadyCallbac
 
             }
         });
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                Booth mBooth = (Booth) marker.getTag();
+                if (mBooth != null) {
+                    Toast.makeText(getApplicationContext(), mBooth.getBoothNumber(), Toast.LENGTH_LONG).show();
+                    Constants.selected_booth_id = mBooth.getBoothNumber();
+                    ActivityLauncher.launchBoothWiseVotesAnalysyis(PresentTrend.this);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Booth Not Available", Toast.LENGTH_LONG).show();
+
+                }
+                return false;
+            }
+        });
     }
 
     public void placemarkers(List<Booth> mBoothsList, GoogleMap googleMap) {
@@ -79,6 +185,7 @@ public class PresentTrend extends AppCompatActivity implements OnMapReadyCallbac
                 mMarker.position(markerLocation);
                 mMarker.title(mBooth.getBoothNumber() + " " + mBooth.getName());
 
+
                 if (getCount(mBooth.getBoothNumber())>0){
                     mMarker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
                 }
@@ -86,7 +193,7 @@ public class PresentTrend extends AppCompatActivity implements OnMapReadyCallbac
                     mMarker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
 
                 }
-                googleMap.addMarker(mMarker);
+                googleMap.addMarker(mMarker).setTag(mBooth);
 
             }
 

@@ -241,7 +241,9 @@
             android:name=".admin.PresentTrend"
             android:label="Present Trend"
             android:parentActivityName=".admin.AnalysisMainActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".admin.BoothWiseVoterAnalysis" />
+        <activity android:name=".admin.BoothWiseVotesAnalysis"></activity>
     </application>
 
 </manifest>

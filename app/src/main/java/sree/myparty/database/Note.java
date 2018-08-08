@@ -50,12 +50,14 @@ public class Note {
     public static final String CREATE_LAST_VOTES_TABLE =
             "CREATE TABLE " + TABLE_LAST_VOTES + "("
                     + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + BOOTH_NUMBER + " TEXT,"
                     + PARTY + " TEXT"
                     + ")";
 
     public static final String CREATE_NEXT_VOTES_TABLE =
             "CREATE TABLE " + TABLE_FUTURE_VOTES + "("
                     + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + BOOTH_NUMBER + " TEXT,"
                     + PARTY + " TEXT"
                     + ")";
  

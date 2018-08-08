@@ -14,7 +14,7 @@ import sree.myparty.survey.SurveyAnswerPojo;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Database Version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     // Database Name
     private static final String DATABASE_NAME = "voters_db";
@@ -156,6 +156,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         for (int i = 0; i < mVotersr.size(); i++) {
             ContentValues values = new ContentValues();
             values.put(Note.PARTY, mVotersr.get(i).getLastVoted());
+            values.put(Note.BOOTH_NUMBER,mVotersr.get(i).getBoothNumber());
             id = db.insert(Note.TABLE_LAST_VOTES, null, values);
         }
         db.close();
@@ -169,6 +170,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         for (int i = 0; i < mVotersr.size(); i++) {
             ContentValues values = new ContentValues();
             values.put(Note.PARTY, mVotersr.get(i).getNextVote());
+            values.put(Note.BOOTH_NUMBER,mVotersr.get(i).getBoothNumber());
             id = db.insert(Note.TABLE_FUTURE_VOTES, null, values);
         }
         db.close();
