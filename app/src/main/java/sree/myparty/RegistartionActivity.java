@@ -367,7 +367,7 @@ public class RegistartionActivity extends AppCompatActivity {
                                                             UserDetailPojo pojo = new UserDetailPojo(mVoterID.getText().toString().trim(),
                                                                     mMobileNumber.getText().toString().trim(),
                                                                     user.getUid(),
-                                                                    "",
+                                                                    Constants.BOOTH_NUMBER,
                                                                     edt_userName.getText().toString().trim(), mSessionManager.getState(), mSessionManager.getPC_NAME(), mSessionManager.getAC_NAME(), 0, mSessionManager.getFirebaseKey(), "", Constants.QR_URL + user.getUid(), formatedRefral);
                                                             mRef.child(user.getUid()).setValue(pojo).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                 @Override
@@ -521,9 +521,9 @@ public class RegistartionActivity extends AppCompatActivity {
         if (currentUser == null) {
             SelectPC mPc = new SelectPC(c);
             mPc.show(getFragmentManager(), "SelectPC");
-        }
-        else {
+        } else {
             Constants.DB_PATH = new SessionManager(this).getDB_PATH();
+            Constants.BOOTH_NUMBER = new SessionManager(this).getBoothNumber();
         }
     }
 }

@@ -48,7 +48,7 @@ public class WorksListActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new MyDividerItemDecoration(this, LinearLayoutManager.VERTICAL, 16));
         recyclerView.setAdapter(mAdapter);
 
-        MyApplication.getFirebaseDatabase().getReference(Constants.Work_Done_Table).addValueEventListener(new ValueEventListener() {
+        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/WorkDone").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot indi : dataSnapshot.getChildren()){

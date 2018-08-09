@@ -142,6 +142,7 @@ public class PresentTrend extends AppCompatActivity implements OnMapReadyCallbac
             getLocation();
         }
 
+
         MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/Booths/mBooths").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -166,7 +167,9 @@ public class PresentTrend extends AppCompatActivity implements OnMapReadyCallbac
                 Booth mBooth = (Booth) marker.getTag();
                 if (mBooth != null) {
                     Toast.makeText(getApplicationContext(), mBooth.getBoothNumber(), Toast.LENGTH_LONG).show();
-                    Constants.selected_booth_id = mBooth.getBoothNumber();
+                    Constants.selected_booth_id = marker.getTitle();
+                    Constants.selected_booth_name = mBooth.getName();
+
                     ActivityLauncher.launchBoothWiseVotesAnalysyis(PresentTrend.this);
                 } else {
                     Toast.makeText(getApplicationContext(), "Booth Not Available", Toast.LENGTH_LONG).show();
@@ -188,19 +191,17 @@ public class PresentTrend extends AppCompatActivity implements OnMapReadyCallbac
                 mMarker.position(markerLocation);
                 mMarker.title(mBooth.getBoothNumber());
 
+                double percentage = getPercentage(mBooth.getBoothNumber());
 
-
-                if (getCount(mBooth.getBoothNumber()) > 0) {
-                    mMarker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-                } else {
+                if (percentage >= 0.0 && percentage < 40.0) {
                     mMarker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-
+                } else if (percentage >= 40.0 && percentage <= 60) {
+                    mMarker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+                } else if (percentage > 60.0) {
+                    mMarker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
                 }
 
-                Marker m = googleMap.addMarker(mMarker);
-
-                m.setTag(mBooth);
-                m.showInfoWindow();
+                googleMap.addMarker(mMarker).setTag(mBooth);
 
 
             }
@@ -220,6 +221,8 @@ public class PresentTrend extends AppCompatActivity implements OnMapReadyCallbac
                     mVotersList.add(mPojo);
                 }
                 db.insertVoters(mVotersList);
+                db.insertfuturevotes(mVotersList);
+                db.insertlastotes(mVotersList);
 
                 placemarkers(mBoothsList, mMap);
             }
@@ -235,7 +238,13 @@ public class PresentTrend extends AppCompatActivity implements OnMapReadyCallbac
         return db.getBoothwiseVoters(id).size();
     }
 
-    public int getPercentage(String id) {
-        return db.getBoothwiseVotesPercentage(id).size();
+    public double getPercentage(String id) {
+        return db.getBoothwiseVotesPercentage(id);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        db.delete();
     }
 }

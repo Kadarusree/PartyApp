@@ -51,13 +51,13 @@ public class NewsList extends AppCompatActivity {
         recyclerView.setAdapter(mAdapter);
 
 
-        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/News").addValueEventListener(new ValueEventListener() {
+        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/News").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                         for (DataSnapshot indi : dataSnapshot.getChildren()){
-                             NewsPojo mNewsItem = indi.getValue(NewsPojo.class);
-                             newsList.add(mNewsItem);
-                         }
+                for (DataSnapshot indi : dataSnapshot.getChildren()) {
+                    NewsPojo mNewsItem = indi.getValue(NewsPojo.class);
+                    newsList.add(mNewsItem);
+                }
                 // refreshing recycler view
                 mAdapter.notifyDataSetChanged();
 
@@ -72,6 +72,7 @@ public class NewsList extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -86,14 +87,12 @@ public class NewsList extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-      //  super.onBackPressed();
-        if(isTaskRoot())
-        {
-            Intent intent=new Intent(getApplicationContext(), Dashboard.class);
+        //  super.onBackPressed();
+        if (isTaskRoot()) {
+            Intent intent = new Intent(getApplicationContext(), Dashboard.class);
             startActivity(intent);
             finish();
-        }
-        else {
+        } else {
             super.onBackPressed();
         }
 

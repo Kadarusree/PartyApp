@@ -14,7 +14,7 @@ import sree.myparty.survey.SurveyAnswerPojo;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Database Version
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     // Database Name
     private static final String DATABASE_NAME = "voters_db";
@@ -235,25 +235,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return booths;
     }
 
-    public  ArrayList<String>  getBoothwiseVotesPercentage(String catageory) {
+    public  double  getBoothwiseVotesPercentage(String catageory) {
         ArrayList<String> booths = new ArrayList<>();
 
-        String selectQuery = "SELECT " + Note.BOOTH_NUMBER + " FROM " + Note.TABLE_NAME + " WHERE " + Note.BOOTH_NUMBER + " = '" + catageory + "'";
+        String selectQuery = "SELECT " + Note.BOOTH_NUMBER + " FROM " + Note.TABLE_FUTURE_VOTES + " WHERE " + Note.BOOTH_NUMBER + " = '" + catageory + "'";
 
-        String selectQuery2 = "SELECT " + Note.BOOTH_NUMBER + " FROM " + Note.TABLE_NAME + " WHERE " + Note.PARTY + " = 'Congress'";
+        String selectQuery2 = "SELECT " + Note.BOOTH_NUMBER + " FROM " + Note.TABLE_FUTURE_VOTES + " WHERE " + Note.PARTY + " = 'Congress' AND "+ Note.BOOTH_NUMBER + " = '" + catageory + "'";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
         Cursor cursor2 = db.rawQuery(selectQuery2, null);
 
-        if (cursor.moveToFirst()) {
-            do {
-                booths.add(cursor.getString(cursor.getColumnIndex(Note.BOOTH_NUMBER)));
-            } while (cursor.moveToNext());
+        int a = cursor.getCount();
+        int b = cursor2.getCount();
+
+        double percentage;
+        if (a>0&&b>0){
+            percentage = (b*100/a);
+        }
+        else {
+            percentage = 0;
         }
 
-        db.close();
 
-        return booths;
+
+        System.out.println(catageory+"---"+percentage);
+        db.close();
+        return percentage;
     }
 }

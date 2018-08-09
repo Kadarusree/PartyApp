@@ -191,7 +191,7 @@ public class OTP_Activity extends AppCompatActivity {
                                                             UserDetailPojo pojo = new UserDetailPojo(voterId,
                                                                     mobile_number,
                                                                     user.getUid(),
-                                                                    "",
+                                                                    Constants.BOOTH_NUMBER,
                                                                     username, sessionManager.getState(), sessionManager.getPC_NAME(), sessionManager.getAC_NAME(), 0, sessionManager.getFirebaseKey(), "", Constants.QR_URL + user.getUid(), formatedRefral);
                                                             mRef.child(user.getUid()).setValue(pojo).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                 @Override

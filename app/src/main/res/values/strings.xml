@@ -73,7 +73,7 @@
     <string-array name="catageories">
         <item>OC</item>
         <item>BC</item>
-        <item>OBC</item>
+        <item>Minority</item>
         <item>SC</item>
         <item>ST</item>
 
@@ -118,6 +118,11 @@
         <item>TDP</item>
         <item>TRS</item>
     </string-array>
+    <string name="title_activity_admin_base">AdminBaseActivity</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="title_activity_volunteer_base">VolunteerBaseActivity</string>
 
 
 </resources>

@@ -11,6 +11,8 @@ import sree.myparty.admin.AdminMap;
 import sree.myparty.admin.AnalysisActivity;
 import sree.myparty.admin.AnalysisMainActivity;
 import sree.myparty.admin.BoothCommitteList;
+import sree.myparty.admin.BoothList;
+import sree.myparty.admin.BoothWiseVoterAnalysis;
 import sree.myparty.admin.BoothWiseVotesAnalysis;
 import sree.myparty.admin.MeetingAttendence;
 import sree.myparty.admin.MeetingsActivity;
@@ -163,5 +165,13 @@ public class ActivityLauncher {
 
     public static void launchBoothWiseVotesAnalysyis(Context activity) {
         activity.startActivity(new Intent(activity, BoothWiseVotesAnalysis.class));
+    }
+
+    public static void launchBoothWiseVotersAnalysyis(Context activity) {
+        activity.startActivity(new Intent(activity, BoothWiseVoterAnalysis.class));
+    }
+
+    public static void launchBoothList(Context activity) {
+        activity.startActivity(new Intent(activity, BoothList.class));
     }
 }

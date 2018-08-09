@@ -51,7 +51,7 @@ public class VolunteerRegis extends AppCompatActivity {
     ArrayList<Booth> mBoothsList;
     ArrayList<String> boothNames;
 
-    ArrayAdapter<String>  adapter;
+    ArrayAdapter<String> adapter;
 
 
     @Override
@@ -66,7 +66,6 @@ public class VolunteerRegis extends AppCompatActivity {
         String fontPath = "fonts/oswald_regular.ttf";
         Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
         mLandigText.setTypeface(tf);
-
 
 
         mRegID.setText("Reg ID. : " + mSessionManager.getRegID());
@@ -90,9 +89,9 @@ public class VolunteerRegis extends AppCompatActivity {
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             Booth mBooth = snapshot.getValue(Booth.class);
                             mBoothsList.add(mBooth);
-                            boothNames.add(mBooth.getBoothNumber()+"-"+mBooth.getName());
+                            boothNames.add(mBooth.getBoothNumber() + "-" + mBooth.getName());
                         }
-                        adapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_dropdown_item_1line,boothNames);
+                        adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_dropdown_item_1line, boothNames);
                         mBoothNumber.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
                     }
@@ -138,8 +137,10 @@ public class VolunteerRegis extends AppCompatActivity {
     public boolean validations() {
         boolean isValid = false;
 
-         if (mPassword.getText().toString().trim().length() < 6) {
-             mPassword.setError("Password Must be Minimum 6 Characters");
+        if (mPassword.getText().toString().trim().length() < 6) {
+            mPassword.setError("Password Must be Minimum 6 Characters");
+        } else if (mSessionManager.getProfilePic().length() < 10) {
+            Constants.showToast("Upload your Profile Pic and Try Again", this);
         } else {
             isValid = true;
         }

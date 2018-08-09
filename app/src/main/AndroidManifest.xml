@@ -242,8 +242,29 @@
             android:label="Present Trend"
             android:parentActivityName=".admin.AnalysisMainActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".admin.BoothWiseVoterAnalysis" />
-        <activity android:name=".admin.BoothWiseVotesAnalysis"></activity>
+        <activity
+            android:name=".admin.BoothWiseVoterAnalysis"
+            android:label="Boothwise Voters"
+            android:parentActivityName=".admin.BoothList"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".admin.BoothWiseVotesAnalysis"
+            android:label="Present Trend"
+            android:parentActivityName=".admin.PresentTrend"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".admin.BoothList"
+            android:label="Present Trend"
+            android:parentActivityName=".admin.AnalysisMainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".admin.AdminBaseActivity"
+            android:label="@string/title_activity_admin_base"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".volunteer.VolunteerBaseActivity"
+            android:label="@string/title_activity_volunteer_base"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

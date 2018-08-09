@@ -47,7 +47,7 @@ public class CreateSurvey extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_survey);
         ButterKnife.bind(this);
-        mReference = MyApplication.getFirebaseDatabase().getReference(Constants.Survey_Table);
+        mReference = MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/Surveys");
         mDialog = Constants.showDialog(this);
     }
 

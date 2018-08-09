@@ -25,8 +25,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import sree.myparty.MyApplication;
 import sree.myparty.R;
+import sree.myparty.constuecies.Booth;
+import sree.myparty.constuecies.Booths;
 import sree.myparty.constuecies.Country;
 import sree.myparty.constuecies.PC;
+import sree.myparty.constuecies.Parser;
 import sree.myparty.constuecies.State;
 import sree.myparty.session.SessionManager;
 
@@ -45,6 +48,9 @@ public class SelectPC extends DialogFragment {
     @BindView(R.id.spin_ac)
     Spinner spn_ac;
 
+    @BindView(R.id.spin_booth)
+    Spinner spn_booth;
+
 
     FirebaseDatabase mFirebaseDatabase;
     DatabaseReference mDatabaseReference;
@@ -56,14 +62,13 @@ public class SelectPC extends DialogFragment {
     ArrayList<String> list_pc;
     ArrayList<String> list_ac;
 
-    SessionManager mSessionManager ;
+    SessionManager mSessionManager;
 
     Country mCountry;
 
     public SelectPC(Country mCountry) {
         this.mCountry = mCountry;
     }
-
 
 
     String mState_name, mPc_name, mAc_name;
@@ -85,25 +90,25 @@ public class SelectPC extends DialogFragment {
         states = new ArrayList<>();
         list_pc = new ArrayList<>();
         states.clear();
-        for (int i = 0; i< mCountry.getStates().size();i++){
+        for (int i = 0; i < mCountry.getStates().size(); i++) {
             states.add(mCountry.getStates().get(i).getName());
         }
         /////////////////////
 
-        spin_states.setAdapter(new ArrayAdapter<String>(getActivity(),android.R.layout.simple_dropdown_item_1line,states));
+        spin_states.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, states));
         spin_states.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, final int statePosition, long id) {
-                State mState =  mCountry.getStates().get(statePosition);
+                State mState = mCountry.getStates().get(statePosition);
                 mState_name = mState.getName();
                 mSessionManager.setState(mState_name);
                 Constants.STATE = mState_name;
 
                 list_pc.clear();
-                for (int i = 0; i<mState.getPcs().size();i++){
+                for (int i = 0; i < mState.getPcs().size(); i++) {
                     list_pc.add(mState.getPcs().get(i).getpCName());
                 }
-                spin_pc.setAdapter(new ArrayAdapter<String>(getActivity(),android.R.layout.simple_dropdown_item_1line,list_pc));
+                spin_pc.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, list_pc));
                 spin_pc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, final int pCPosition, long id) {
@@ -112,16 +117,16 @@ public class SelectPC extends DialogFragment {
                         mPc_name = mPC.getpCName();
                         Constants.PARLIMENT_CONST = mPc_name;
                         mSessionManager.setPC(mPc_name);
-                        for (int k = 0; k<mPC.getAssemblies().size();k++){
+                        for (int k = 0; k < mPC.getAssemblies().size(); k++) {
                             list_ac.add(mPC.getAssemblies().get(k));
                         }
-                        spn_ac.setAdapter(new ArrayAdapter<String>(getActivity(),android.R.layout.simple_dropdown_item_1line,list_ac));
+                        spn_ac.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, list_ac));
                         spn_ac.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                 mAc_name = list_ac.get(pCPosition);
                                 Constants.ASSEMBLY_CONST = mAc_name;
-                                Constants.DB_PATH = mState_name+"/"+mPc_name+"/"+list_ac.get(position);
+                                Constants.DB_PATH = mState_name + "/" + mPc_name + "/" + list_ac.get(position);
                                 mSessionManager.setAC(list_ac.get(position));
                                 mSessionManager.setDB_PATH(Constants.DB_PATH);
                             }
@@ -147,53 +152,12 @@ public class SelectPC extends DialogFragment {
 
             }
         });
-        ///////////////////
-       /* mPdialog = Constants.showDialog(getActivity());
-        mPdialog.show();
-        mSessionManager = new SessionManager(getActivity());
-        mDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                mPdialog.dismiss();
-                states.clear();
-                String key = "";
-               for (DataSnapshot mIndi : dataSnapshot.getChildren()){
-                   key=   mIndi.getKey();
-                   if(!key.equalsIgnoreCase("ReferalLinks")&&!key.equalsIgnoreCase("TempVal")) {
-                       states.add(key);
-                   }
-               }
 
-                if (states.size()>0){
-                    spin_states.setAdapter(new ArrayAdapter<String>(getActivity(),android.R.layout.simple_dropdown_item_1line,states));
-                    spin_states.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            getPCs(states.get(position));
-                            mSessionManager.setState(states.get(position));
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> parent) {
-
-                        }
-                    });
-                }
-                else {
-
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });*/
         return view;
     }
 
 
-    public void getPCs(final String state){
+    public void getPCs(final String state) {
         mPdialog.show();
         mDatabaseReference.child(state).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -201,17 +165,17 @@ public class SelectPC extends DialogFragment {
                 mPdialog.dismiss();
                 list_pc.clear();
                 String key = "";
-                for (DataSnapshot mIndi : dataSnapshot.getChildren()){
-                    key=   mIndi.getKey();
+                for (DataSnapshot mIndi : dataSnapshot.getChildren()) {
+                    key = mIndi.getKey();
                     list_pc.add(key);
                 }
 
-                if (list_pc.size()>0){
-                    spin_pc.setAdapter(new ArrayAdapter<String>(getActivity(),android.R.layout.simple_dropdown_item_1line,list_pc));
+                if (list_pc.size() > 0) {
+                    spin_pc.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, list_pc));
                     spin_pc.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            getACs(state+"/"+list_pc.get(position));
+                            getACs(state + "/" + list_pc.get(position));
                             mSessionManager.setPC(list_pc.get(position));
 
                         }
@@ -221,8 +185,7 @@ public class SelectPC extends DialogFragment {
 
                         }
                     });
-                }
-                else {
+                } else {
 
                 }
             }
@@ -234,7 +197,7 @@ public class SelectPC extends DialogFragment {
         });
     }
 
-    public void getACs(final String state_pc){
+    public void getACs(final String state_pc) {
         mPdialog.show();
         mDatabaseReference.child(state_pc).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -242,20 +205,21 @@ public class SelectPC extends DialogFragment {
                 mPdialog.dismiss();
                 list_ac.clear();
                 String key = "";
-                for (DataSnapshot mIndi : dataSnapshot.getChildren()){
-                    key=   mIndi.getKey();
+                for (DataSnapshot mIndi : dataSnapshot.getChildren()) {
+                    key = mIndi.getKey();
                     list_ac.add(key);
                 }
 
-                if (list_ac.size()>0){
-                    spn_ac.setAdapter(new ArrayAdapter<String>(getActivity(),android.R.layout.simple_dropdown_item_1line,list_ac));
+                if (list_ac.size() > 0) {
+                    spn_ac.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, list_ac));
                     spn_ac.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                            Constants.DB_PATH = state_pc+"/"+list_ac.get(position);
+                            Constants.DB_PATH = state_pc + "/" + list_ac.get(position);
                             mSessionManager.setAC(list_ac.get(position));
-                            mSessionManager.setDB_PATH(state_pc+"/"+list_ac.get(position));
+                            mSessionManager.setDB_PATH(state_pc + "/" + list_ac.get(position));
+                            getBooths(list_ac.get(position));
                         }
 
                         @Override
@@ -263,8 +227,7 @@ public class SelectPC extends DialogFragment {
 
                         }
                     });
-                }
-                else {
+                } else {
 
                 }
             }
@@ -278,9 +241,79 @@ public class SelectPC extends DialogFragment {
     }
 
     @OnClick(R.id.btn_ok)
-    public void OnButtonClick(View v){
+    public void OnButtonClick(View v) {
+        if (boothNames.size() > 0) {
+            getDialog().dismiss();
+        } else {
+            Constants.showToast("This Constituency is not supported", getActivity());
+        }
 
-       getDialog().dismiss();
+    }
 
+
+    ProgressDialog mProgressDialog;
+    ArrayList<Booth> mBoothsList;
+    ArrayList<String> boothNames;
+
+    public void getBooths(final String ac) {
+        mProgressDialog = Constants.showDialog(getActivity());
+        mProgressDialog.show();
+        boothNames = new ArrayList<>();
+          /*Booths Booths = mParser.getBooths("Khairatabad");
+        DatabaseReference reference = MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH).child("Booths");
+
+        reference.setValue(Booths);*/
+
+        MyApplication.getFirebaseDatabase()
+                .getReference(Constants.DB_PATH + "/Booths/mBooths")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        if (dataSnapshot.getChildrenCount() > 0) {
+                            mProgressDialog.dismiss();
+                            mBoothsList = new ArrayList<>();
+                            boothNames.clear();
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                Booth mBooth = snapshot.getValue(Booth.class);
+                                mBoothsList.add(mBooth);
+                                boothNames.add(mBooth.getBoothNumber() + "-" + mBooth.getName());
+                            }
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, boothNames);
+                            spn_booth.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
+
+                            spn_booth.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                @Override
+                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                    Constants.BOOTH_NUMBER = mBoothsList.get(spn_booth.getSelectedItemPosition()).getBoothNumber();
+                                    mSessionManager.setBoothNumber(Constants.BOOTH_NUMBER);
+                                }
+
+                                @Override
+                                public void onNothingSelected(AdapterView<?> parent) {
+
+                                }
+                            });
+                        } else {
+                            Parser mParser = new Parser();
+                            Booths Booths = mParser.getBooths(ac);
+
+                            if (Booths != null && Booths.getmBooths().size() > 0) {
+                                DatabaseReference reference = MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH).child("Booths");
+                                reference.setValue(Booths);
+                            } else {
+                                Constants.showToast("Booths Not Available", getActivity());
+                            }
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        mProgressDialog.dismiss();
+                    }
+                });
     }
 }

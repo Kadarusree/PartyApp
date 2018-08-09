@@ -513,7 +513,7 @@ public class WorkDoneActivity extends AppCompatActivity {
 
         if (validations()){
             moneySpent = Double.parseDouble(edt_moneySpent.getText().toString());
-            mDbref = MyApplication.getFirebaseDatabase().getReference(Constants.Work_Done_Table);
+            mDbref = MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/WorkDone");
             String key = mDbref.push().getKey();
             uploadImageTask(image_array, key, mDbref);
         }
@@ -546,7 +546,7 @@ public class WorkDoneActivity extends AppCompatActivity {
         mProgressDialog.setMessage("Uploading Profile Picture");
         mProgressDialog.show();
         UploadTask uploadTask = MyApplication.getFirebaseStorage()
-                .getReference(Constants.Work_Done_Table+ key + ".jpg")
+                .getReference(Constants.DB_PATH+"/WorkDone/"+ key + ".jpg")
                 .putBytes(data);
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override

@@ -115,7 +115,7 @@ public class SurveyAdminList extends AppCompatActivity {
     }
 
     private void getVolunteers() {
-        MyApplication.getFirebaseDatabase().getReference(Constants.Survey_Table).addValueEventListener(new ValueEventListener() {
+        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/Surveys").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 mSurveyList.clear();
@@ -128,7 +128,7 @@ public class SurveyAdminList extends AppCompatActivity {
                     mAdapter.notifyDataSetChanged();
                     getAnswers();
                 } else {
-                    Toast.makeText(getApplicationContext(), "No Meetings Found", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "No Survey Found", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -142,7 +142,7 @@ public class SurveyAdminList extends AppCompatActivity {
 
 
     private void getAnswers() {
-        MyApplication.getFirebaseDatabase().getReference(Constants.Survey_Aswers_Table).addValueEventListener(new ValueEventListener() {
+        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/SurveyAnswers").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 mSurveyAnswersList = new ArrayList<>();

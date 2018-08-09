@@ -51,18 +51,10 @@ public class Constants {
     public static String DB_PATH = STATE+"/"+PARLIMENT_CONST+"/"+ASSEMBLY_CONST;
     public static  String QR_URL = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=";
 
-    public static  String Vol_Table =  Constants.DB_PATH + "/Volunteers";
-    public static  String Meetings_Table =  Constants.DB_PATH + "/Meetings";
-    public static  String Users_Table =  Constants.DB_PATH + "/Users";
-    public static  String Attendence_Table =  Constants.DB_PATH + "/Meeting_Attendence";
-    public static  String Survey_Table = Constants.DB_PATH+"/Surveys";
-    public static  String Survey_Aswers_Table = Constants.DB_PATH+"/SurveyAnswers";
-    public static  String Vists_Table = Constants.DB_PATH+"/Visits";
-    public static  String Work_Done_Table = Constants.DB_PATH+"/WorkDone";
-
-
     public static MeetingPojo selected_meeting;
     public static String selected_booth_id;
+    public static String selected_booth_name;
+    public static String BOOTH_NUMBER;
 
     public static void showToast(String text, Activity mActivty){
         Toast.makeText(mActivty,text,Toast.LENGTH_SHORT).show();

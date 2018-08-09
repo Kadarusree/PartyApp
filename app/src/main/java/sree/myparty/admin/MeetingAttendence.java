@@ -88,13 +88,13 @@ public class MeetingAttendence extends AppCompatActivity implements QRCodeReader
 
 
         if (Constants.selected_meeting.getIsForAll()){
-            meetingForReference = Constants.Users_Table;
+            meetingForReference = Constants.DB_PATH + "/Users";
             getUsersCount();
             keys_array.add("Total Users");
             keys_array.add("Attended Users");
         }
         else {
-            meetingForReference = Constants.Vol_Table;
+            meetingForReference = Constants.DB_PATH + "/Volunteers/";
 
             getUsersCount();
             keys_array.add("Volunteers");
@@ -214,7 +214,7 @@ public class MeetingAttendence extends AppCompatActivity implements QRCodeReader
     public void addAttendence(String key) {
         pDialog.show();
         MyApplication.getFirebaseDatabase()
-                .getReference(Constants.Attendence_Table)
+                .getReference(Constants.DB_PATH + "/Meeting_Attendence")
                 .child(Constants.selected_meeting.getKey())
                 .child(key).setValue("Present")
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -233,7 +233,7 @@ public class MeetingAttendence extends AppCompatActivity implements QRCodeReader
     public void getAttendenceCount() {
         pDialog.show();
         MyApplication.getFirebaseDatabase()
-                .getReference(Constants.Attendence_Table)
+                .getReference(Constants.DB_PATH + "/Meeting_Attendence")
                 .child(Constants.selected_meeting.getKey()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

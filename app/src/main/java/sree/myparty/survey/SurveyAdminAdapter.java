@@ -254,7 +254,7 @@ public class SurveyAdminAdapter extends RecyclerView.Adapter<SurveyAdminAdapter.
         SurveyAnswerPojo mSurveyPojo = new SurveyAnswerPojo(QuestionID, answer);
         final ProgressDialog pDialog = Constants.showDialog((Activity) mContext);
         pDialog.show();
-        MyApplication.getFirebaseDatabase().getReference(Constants.Survey_Aswers_Table).child(QuestionID).child(userID).setValue(mSurveyPojo).addOnCompleteListener(new OnCompleteListener<Void>() {
+        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/SurveyAnswers").child(QuestionID).child(userID).setValue(mSurveyPojo).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 pDialog.dismiss();
@@ -270,7 +270,7 @@ public class SurveyAdminAdapter extends RecyclerView.Adapter<SurveyAdminAdapter.
 
     public void endSurvey(){
         MyApplication.getFirebaseDatabase()
-                .getReference(Constants.Survey_Table)
+                .getReference(Constants.DB_PATH+"/Surveys")
                 .child(mSurveyList.get(selected_position)
                         .getSurveyID())
                 .child("active").setValue(false)

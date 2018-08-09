@@ -108,6 +108,9 @@ public class ProfileScreen extends AppCompatActivity {
     @BindView(R.id.profile_tv_ac)
     TextView ac;
 
+    @BindView(R.id.profile_tv_boothNumber)
+    TextView boothNumber;
+
 
     @BindView(R.id.img_badge)
     ImageView img_badge;
@@ -152,6 +155,7 @@ public class ProfileScreen extends AppCompatActivity {
         mobileNumber.setText("Mobile : " +mSession.getMobileNumber());
         ac.setText("Assembly Constituency : " +mSession.getAC_NAME());
         pc.setText("Parliament Constituency : " +mSession.getPC_NAME());
+        boothNumber.setText("Booth Number : "+mSession.getBoothNumber());
 
 
         getLatestData();

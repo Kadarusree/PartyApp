@@ -10,7 +10,7 @@ import sree.myparty.DashBoard.BaseActvity;
 import sree.myparty.DashBoard.HomeFragment;
 import sree.myparty.R;
 
-public class VolunteerDashboard extends BaseActvity {
+public class VolunteerDashboard extends VolunteerBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

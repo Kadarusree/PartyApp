@@ -16,7 +16,6 @@ import sree.myparty.MyApplication
 import sree.myparty.R
 import sree.myparty.beans.VisitPojo
 import sree.myparty.utils.Constants
-import sree.myparty.utils.Constants.Vists_Table
 import java.util.HashMap
 
 class VisitListAdapter : RecyclerView.Adapter<VisitListAdapter.VisitViewHolder> {
@@ -51,7 +50,7 @@ class VisitListAdapter : RecyclerView.Adapter<VisitListAdapter.VisitViewHolder> 
             taskMap["done"] = true
 
           //  reference.updateChildren(taskMap);
-            MyApplication.getFirebaseDatabase().getReference(Vists_Table + "/" + listDatam!!.get(position).Key).updateChildren(taskMap)
+            MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/Visits" + "/" + listDatam!!.get(position).Key).updateChildren(taskMap)
 
         })
 

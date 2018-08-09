@@ -56,6 +56,7 @@ public class AnalysisMainActivity extends AppCompatActivity {
 
     @OnClick(R.id.cv3)
     public void BoothWiseAnalysis(View view) {
+        ActivityLauncher.launchBoothList(this);
     }
 
     @OnClick(R.id.cv4)

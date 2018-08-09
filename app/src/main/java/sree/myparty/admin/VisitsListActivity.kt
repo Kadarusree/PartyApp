@@ -34,7 +34,7 @@ class VisitsListActivity : AppCompatActivity() {
         visitList.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
 
 
-        MyApplication.getFirebaseDatabase().getReference(Constants.Vists_Table).addValueEventListener(object : ValueEventListener {
+        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/Visits").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 list.clear()
                 for (dataSnapshot1 in dataSnapshot.children) {
