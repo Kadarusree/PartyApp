@@ -6,51 +6,56 @@
     <group android:checkableBehavior="single" >
         <item
             android:id="@+id/id_card"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_id_card"
             android:title="ID CARD"
             />
+          <item
+            android:id="@+id/nav_workdone"
+            android:icon="@drawable/ic_work_done"
+            android:title="Work Done"
+            />
+          <item
+            android:id="@+id/nav_chat"
+              android:icon="@drawable/ic_chat"
+              android:title="Chats"
+            />
+          <item
+            android:id="@+id/id_meet"
+              android:icon="@drawable/ic_meeting"
+              android:title="Meetings"
+            />
+
         <item
             android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_news"
             android:title="NEWS" />
+
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:id="@+id/nav_survey"
+            android:icon="@drawable/ic_polling"
+            android:title="Surveys" />
+
+        <item
+            android:id="@+id/nav_vol_login"
+            android:icon="@drawable/ic_id_card"
+            android:title="Volunteer Login" />
+
+        <item
+            android:id="@+id/nav_admi_login"
+            android:icon="@drawable/ic_id_card"
+            android:title="Admin Login" />
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_menu_share"
+            android:title="Share" />
         <item
             android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/logout_vol"
             android:title="Logout" />
     </group>
 
-    <group>
-        <item android:title="Volunteer" android:id="@+id/volunteerOptions" android:icon="@drawable/ic_person_black_24dp" >
-            <menu >
-                <item
-                    android:id="@+id/nav_share"
-                    android:icon="@drawable/ic_menu_share"
-                    android:title="Share" />
-                <item
-                    android:id="@+id/vol_logout"
-                    android:icon="@drawable/ic_menu_send"
-                    android:title="Volunteer Logout" />
-            </menu>
-        </item>
-    </group>
-    <group>
-        <item android:title="Admin" android:id="@+id/adminOptions">
-            <menu>
-                <item
-                    android:id="@+id/nav_admin1"
-                    android:icon="@drawable/ic_menu_share"
-                    android:title="Share" />
-                <item
-                    android:id="@+id/nav_admin2"
-                    android:icon="@drawable/ic_menu_send"
-                    android:title="Send" />
-            </menu>
-        </item>
-    </group>
+
+
 
 
 

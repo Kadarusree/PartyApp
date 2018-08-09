@@ -1,5 +1,6 @@
 package sree.myparty.admin;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,11 +13,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+import sree.myparty.DashBoard.BaseActvity;
 import sree.myparty.R;
+import sree.myparty.session.SessionManager;
+import sree.myparty.utils.ActivityLauncher;
 
 public class AdminBaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    TextView nav_admin_user_name;
+    CircleImageView admin_user_image;
+    SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +38,7 @@ public class AdminBaseActivity extends AppCompatActivity
         setContentView(R.layout.activity_admin_base);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+sessionManager=new SessionManager(getApplicationContext());
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -34,8 +48,28 @@ public class AdminBaseActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-    }
+        View headerView = navigationView.getHeaderView(0);
 
+        admin_user_image=headerView.findViewById(R.id.admin_user_image);
+        nav_admin_user_name=headerView.findViewById(R.id.nav_admin_user_name);
+        loadImage(AdminBaseActivity.this, admin_user_image, sessionManager.getProfilePic().toString());
+        nav_admin_user_name.setText(sessionManager.getName());
+
+    }
+    public static void loadImage(final Activity context, ImageView imageView, String url) {
+        if (context == null || context.isDestroyed()) return;
+
+        //placeHolderUrl=R.drawable.ic_user;
+        //errorImageUrl=R.drawable.ic_error;
+        Glide.with(context) //passing context
+                .load(url) //passing your url to load image.
+                .placeholder(R.drawable.avatar) //this would be your default image (like default profile or logo etc). it would be loaded at initial time and it will replace with your loaded image once glide successfully load image using url.
+                .error(R.drawable.ic_warning)//in case of any glide exception or not able to download then this image will be appear . if you won't mention this error() then nothing to worry placeHolder image would be remain as it is.
+                .diskCacheStrategy(DiskCacheStrategy.ALL) //using to load into cache then second time it will load fast.
+                .animate(R.anim.fade_in) // when image (url) will be loaded by glide then this face in animation help to replace url image in the place of placeHolder (default) image.
+                .fitCenter()//this method help to fit image into center of your ImageView
+                .into(imageView); //pass imageView reference to appear the image.
+    }
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -74,17 +108,39 @@ public class AdminBaseActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_adm_boothCommitee) {
+            ActivityLauncher.launchBooths(getApplicationContext());
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_adm_voters) {
+            ActivityLauncher.launchMapActivity(getApplicationContext());
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_adm_influenceperson) {
+            ActivityLauncher.influencePersons(getApplicationContext());
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_adm_localIssue) {
+            ActivityLauncher.localIssues(getApplicationContext());
 
-        } else if (id == R.id.nav_send) {
+
+        } else if (id == R.id.nav_adm_workdone) {
+            ActivityLauncher.launchWorkDoneListActivity(getApplicationContext());
+
+        } else if (id == R.id.nav_adm_survey) {
+            ActivityLauncher.launchAdminSurveyList(getApplicationContext());
+
+        } else if (id == R.id.nav_adm_managevol) {
+            ActivityLauncher.volunteersList(getApplicationContext());
+
+        } else if (id == R.id.nav_adm_meeting) {
+            ActivityLauncher.launchMeetingsList(getApplicationContext());
+
+        } else if (id == R.id.nav_adm_visits) {
+            ActivityLauncher.launchVisitListActivity(getApplicationContext());
+
+        } else if (id == R.id.nav_adm_analysis) {
+            ActivityLauncher.launchAnalysisActivity(getApplicationContext());
+
+        }else if (id == R.id.nav_ad_log) {
+          finish();
 
         }
 

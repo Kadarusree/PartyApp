@@ -1,5 +1,6 @@
 package sree.myparty.DashBoard;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -25,8 +26,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,37 +44,40 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import sree.myparty.MyApplication;
 import sree.myparty.R;
+import sree.myparty.chat.UserListActicity;
 import sree.myparty.constuecies.Booths;
 import sree.myparty.constuecies.Parser;
 import sree.myparty.pojos.UserDetailPojo;
 import sree.myparty.session.SessionManager;
 import sree.myparty.utils.ActivityLauncher;
 import sree.myparty.utils.Constants;
+import sree.myparty.utils.VolunteerSessionManager;
+import sree.myparty.volunteer.VolunteerBaseActivity;
 
 public abstract class BaseActvity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    ImageView mProfilePic;
-
     NavigationView navigationView;
+    TextView nav_admin_name;
+    CircleImageView admin_imageView;
+    SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base_actvity);
-        mProfilePic = findViewById(R.id.nav_imageView);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        sessionManager = new SessionManager(getApplicationContext());
         Parser mParser = new Parser(this);
         /*Booths Booths = mParser.getBooths("Khairatabad");
         DatabaseReference reference = MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH).child("Booths");
 
         reference.setValue(Booths);*/
-
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -81,6 +88,12 @@ public abstract class BaseActvity extends AppCompatActivity
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View headerView = navigationView.getHeaderView(0);
+        admin_imageView = headerView.findViewById(R.id.admin_imageView);
+        nav_admin_name = headerView.findViewById(R.id.nav_admin_name);
+
+        loadImage(BaseActvity.this, admin_imageView, sessionManager.getProfilePic().toString());
+        nav_admin_name.setText(sessionManager.getName());
 
         replaceFragement(new HomeFragment());
 
@@ -88,6 +101,21 @@ public abstract class BaseActvity extends AppCompatActivity
 
         hideAdminOptions();
         hideVolOptions();
+    }
+
+    public static void loadImage(final Activity context, ImageView imageView, String url) {
+        if (context == null || context.isDestroyed()) return;
+
+        //placeHolderUrl=R.drawable.ic_user;
+        //errorImageUrl=R.drawable.ic_error;
+        Glide.with(context) //passing context
+                .load(url) //passing your url to load image.
+                .placeholder(R.drawable.avatar) //this would be your default image (like default profile or logo etc). it would be loaded at initial time and it will replace with your loaded image once glide successfully load image using url.
+                .error(R.drawable.ic_warning)//in case of any glide exception or not able to download then this image will be appear . if you won't mention this error() then nothing to worry placeHolder image would be remain as it is.
+                .diskCacheStrategy(DiskCacheStrategy.ALL) //using to load into cache then second time it will load fast.
+                .animate(R.anim.fade_in) // when image (url) will be loaded by glide then this face in animation help to replace url image in the place of placeHolder (default) image.
+                .fitCenter()//this method help to fit image into center of your ImageView
+                .into(imageView); //pass imageView reference to appear the image.
     }
 
     @Override
@@ -113,7 +141,27 @@ public abstract class BaseActvity extends AppCompatActivity
             ActivityLauncher.profileScreen(this);
         } else if (id == R.id.nav_gallery) {
             ActivityLauncher.newsList(this);
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_workdone) {
+            ActivityLauncher.volunteerRegistartionScreen(getApplicationContext());
+
+        } else if (id == R.id.nav_chat) {
+            startActivity(new Intent(getApplicationContext(), UserListActicity.class));
+
+        } else if (id == R.id.id_meet) {
+            ActivityLauncher.launchMeetingsList(getApplicationContext());
+
+        } else if (id == R.id.nav_survey) {
+            ActivityLauncher.launchSurveyList(getApplicationContext());
+
+        } else if (id == R.id.nav_vol_login) {
+            if (new VolunteerSessionManager(getApplicationContext()).hasActiveSession()) {
+                ActivityLauncher.volunteerDashboard(getApplicationContext());
+            } else {
+                ActivityLauncher.volunteerLoginScreen(getApplicationContext());
+            }
+
+        } else if (id == R.id.nav_admi_login) {
+            ActivityLauncher.adminLogin(getApplicationContext());
 
         } else if (id == R.id.nav_manage) {
             FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -128,10 +176,6 @@ public abstract class BaseActvity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
             shareApp(new SessionManager(this).getName() + ": Refered you to join My Party app..");
 
-        } else if (id == R.id.vol_logout) {
-
-        } else if (id == R.id.vol_logout) {
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -143,6 +187,7 @@ public abstract class BaseActvity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.getMenu().removeGroup(1);
     }
+
 
     private void hideAdminOptions() {
         navigationView = (NavigationView) findViewById(R.id.nav_view);

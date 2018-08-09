@@ -5,33 +5,58 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:id="@+id/nav_adm_boothCommitee"
+            android:icon="@drawable/right_arrow_vol"
+            android:title="Booth Commitee" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:id="@+id/nav_adm_voters"
+            android:icon="@drawable/right_arrow_vol"
+            android:title="Voters" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:id="@+id/nav_adm_influenceperson"
+            android:icon="@drawable/right_arrow_vol"
+            android:title="Influence Person" />
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/nav_adm_localIssue"
+            android:icon="@drawable/right_arrow_vol"
+            android:title="Local Issues" />
+
+        <item
+            android:id="@+id/nav_adm_workdone"
+            android:icon="@drawable/right_arrow_vol"
+            android:title="Work Done" />
+
+        <item
+            android:id="@+id/nav_adm_survey"
+            android:icon="@drawable/right_arrow_vol"
+            android:title="Survey" />
+         <item
+            android:id="@+id/nav_adm_managevol"
+            android:icon="@drawable/right_arrow_vol"
+            android:title="Manage Volunteer" />
+        <item
+            android:id="@+id/nav_adm_meeting"
+            android:icon="@drawable/right_arrow_vol"
+            android:title="Meetings" />
+        <item
+            android:id="@+id/nav_adm_visits"
+            android:icon="@drawable/right_arrow_vol"
+            android:title="Visits" />
+
+        <item
+            android:id="@+id/nav_adm_analysis"
+            android:icon="@drawable/right_arrow_vol"
+            android:title="Analysis" />
+
+
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Settings">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/nav_ad_log"
+                android:icon="@drawable/logout_vol"
+                android:title="Logout" />
         </menu>
     </item>
 
