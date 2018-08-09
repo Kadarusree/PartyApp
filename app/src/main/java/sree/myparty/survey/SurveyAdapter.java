@@ -32,6 +32,9 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +47,7 @@ import sree.myparty.admin.MeetingAttendence;
 import sree.myparty.graph.DayAxisValueFormatter;
 import sree.myparty.graph.MyAxisValueFormatter;
 import sree.myparty.pojos.MeetingPojo;
+import sree.myparty.pojos.UserDetailPojo;
 import sree.myparty.session.SessionManager;
 import sree.myparty.utils.Constants;
 
@@ -221,22 +225,45 @@ public class SurveyAdapter extends RecyclerView.Adapter<SurveyAdapter.MyViewHold
     }
 
 
-    public void saveAnswer(String QuestionID, String userID, String answer) {
-        SurveyAnswerPojo mSurveyPojo =  new SurveyAnswerPojo(QuestionID,answer);
+    public void saveAnswer(final String QuestionID, final String userID, String answer) {
+        final SurveyAnswerPojo mSurveyPojo =  new SurveyAnswerPojo(QuestionID,answer);
         final ProgressDialog pDialog = Constants.showDialog((Activity) mContext);
         pDialog.show();
-        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/SurveyAnswers").child(QuestionID).child(userID).setValue(mSurveyPojo).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                pDialog.dismiss();
-                if (task.isSuccessful()) {
-                    Constants.showToast("Your Answer Posted", (Activity) mContext);
 
-                } else {
-                    Constants.showToast("Failed", (Activity) mContext);
+        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/SurveyAnswers").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                pDialog.dismiss();
+
+                if (dataSnapshot.hasChild(userID)){
+
+                    Constants.showToast("You Already Answered This Survey", (Activity) mContext);
                 }
+                else {
+                    MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/SurveyAnswers").child(QuestionID).child(userID).setValue(mSurveyPojo).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            pDialog.dismiss();
+                            if (task.isSuccessful()) {
+                                increasePoints(mSessionManager.getRegID());
+                                Constants.showToast("Your Answer Posted, You earned 5 Points ", (Activity) mContext);
+
+                            } else {
+                                Constants.showToast("Failed", (Activity) mContext);
+                            }
+                        }
+                    });
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
+
+
     }
     
     public int getNumber() {
@@ -244,6 +271,37 @@ public class SurveyAdapter extends RecyclerView.Adapter<SurveyAdapter.MyViewHold
         return random.nextInt(9999);
     }
 
+   public void increasePoints(final String regID){
 
+
+       MyApplication.getFirebaseDatabase()
+               .getReference(Constants.DB_PATH+"/Users")
+               .child(regID).addListenerForSingleValueEvent(new ValueEventListener() {
+           @Override
+           public void onDataChange(DataSnapshot dataSnapshot) {
+               UserDetailPojo mUser = null;
+               if (dataSnapshot.getChildrenCount()>0){
+
+                       mUser = dataSnapshot.getValue(UserDetailPojo.class);
+
+               }
+
+               int currentPoints = mUser.getPoints();
+               int newpoints = currentPoints+5;
+
+               MyApplication.getFirebaseDatabase()
+                       .getReference(Constants.DB_PATH+"/Users")
+                       .child(regID).child("points").setValue(newpoints);
+           }
+
+           @Override
+           public void onCancelled(DatabaseError databaseError) {
+
+           }
+       });
+
+
+
+   }
 
 }

@@ -94,7 +94,7 @@ public class RegistartionActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_registartion);
         ButterKnife.bind(this);
-        mLandigText.setText("Voter 360\u00b0\n Telangana State");
+        mLandigText.setText("Voter 360\u00b0");
         String fontPath = "fonts/oswald_regular.ttf";
         Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
         mLandigText.setTypeface(tf);
@@ -509,7 +509,7 @@ public class RegistartionActivity extends AppCompatActivity {
         }
         return builder.toString();
     }
-
+    SelectPC mPc;
     @Override
     protected void onResume() {
         super.onResume();
@@ -519,8 +519,11 @@ public class RegistartionActivity extends AppCompatActivity {
         Country c = p.getConst();
 
         if (currentUser == null) {
-            SelectPC mPc = new SelectPC(c);
-            mPc.show(getFragmentManager(), "SelectPC");
+            if (mPc == null){
+                mPc = new SelectPC(c);
+                mPc.show(getFragmentManager(), "SelectPC");
+            }
+
         } else {
             Constants.DB_PATH = new SessionManager(this).getDB_PATH();
             Constants.BOOTH_NUMBER = new SessionManager(this).getBoothNumber();
