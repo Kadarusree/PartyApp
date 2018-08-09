@@ -65,4 +65,8 @@ public class VolunteerSessionManager {
     public String getVolName() {
         return mSharedPref.getString(VOL_NAME,"Default");
     }
+
+    public String getProfilePic() {
+        return mSharedPref.getString(PROFILE_PIC,"Default");
+    }
 }
