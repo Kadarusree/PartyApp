@@ -129,6 +129,9 @@ public class SelectPC extends DialogFragment {
                                 Constants.DB_PATH = mState_name + "/" + mPc_name + "/" + list_ac.get(position);
                                 mSessionManager.setAC(list_ac.get(position));
                                 mSessionManager.setDB_PATH(Constants.DB_PATH);
+
+                                getBooths(list_ac.get(position));
+
                             }
 
                             @Override
@@ -269,9 +272,9 @@ public class SelectPC extends DialogFragment {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-
+                        mProgressDialog.dismiss();
                         if (dataSnapshot.getChildrenCount() > 0) {
-                            mProgressDialog.dismiss();
+
                             mBoothsList = new ArrayList<>();
                             boothNames.clear();
                             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
@@ -292,11 +295,12 @@ public class SelectPC extends DialogFragment {
 
                                 @Override
                                 public void onNothingSelected(AdapterView<?> parent) {
-
+                                    mProgressDialog.dismiss();
                                 }
                             });
                         } else {
-                            Parser mParser = new Parser();
+                            mProgressDialog.dismiss();
+                            Parser mParser = new Parser(getActivity());
                             Booths Booths = mParser.getBooths(ac);
 
                             if (Booths != null && Booths.getmBooths().size() > 0) {
