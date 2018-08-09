@@ -125,4 +125,23 @@
     <string name="title_activity_volunteer_base">VolunteerBaseActivity</string>
 
 
+    <string-array name="committes">
+        <item>Booth Committee</item>
+        <item>Block Committee</item>
+        <item>Mandal/Taluk Committee</item>
+        <item>District Committee</item>
+        <item>State/Pradesh Committee</item>
+    </string-array>
+
+    <string-array name="positions">
+        <item>Member</item>
+        <item>Secretary</item>
+        <item>Joint Secretary</item>
+        <item>General Secretary</item>
+        <item>Vice President</item>
+        <item>President</item>
+        <item>Treasurer</item>
+    </string-array>
+
+
 </resources>
