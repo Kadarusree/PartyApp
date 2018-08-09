@@ -139,7 +139,7 @@ public class ParticularChat extends AppCompatActivity {
         //   dbRef2 = db.getReference("PaymentInfo/" + uid );
         //checkUserIdPayment(uid);
         arrayList = new ArrayList<>();
-        dbref = MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/ChatData/" + combinedEmail);
+        dbref = MyApplication.getFirebaseDatabase().getReference(sessionManager.getDB_PATH() + "/ChatData/" + combinedEmail);
 
         sessionManager = new SessionManager(getApplicationContext());
         buttonSend = (Button) findViewById(R.id.buttonSend);

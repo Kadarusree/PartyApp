@@ -40,10 +40,12 @@ public class UserListActicity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.userlist_layout);
+
         ButterKnife.bind(this);
         sessionManager=new SessionManager(getApplicationContext());
         userListAdapter=new UserListAdapter(UserListActicity.this,new ArrayList<UserDetailPojo>(),new SessionManager(getApplicationContext()));
-        databaseReference= MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/Users");
+       // databaseReference= MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/Users");
+        databaseReference= MyApplication.getFirebaseDatabase().getReference(sessionManager.getDB_PATH()+"/Users");
         dataList=new ArrayList<>();
 
         databaseReference.addValueEventListener(new ValueEventListener() {
