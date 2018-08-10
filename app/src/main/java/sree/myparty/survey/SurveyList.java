@@ -25,6 +25,7 @@ import sree.myparty.MyApplication;
 import sree.myparty.R;
 import sree.myparty.admin.MeetingsListActivity;
 import sree.myparty.pojos.MeetingPojo;
+import sree.myparty.session.SessionManager;
 import sree.myparty.utils.Constants;
 
 public class SurveyList extends AppCompatActivity {
@@ -34,6 +35,8 @@ public class SurveyList extends AppCompatActivity {
     private List<SurveyPojo> mSurveyList;
     private SurveyAdapter mAdapter;
 
+    SessionManager mSession;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +45,7 @@ public class SurveyList extends AppCompatActivity {
         mSurveyList = new ArrayList<>();
 
         mDialog = Constants.showDialog(this);
-
+        mSession = new SessionManager(this);
         recyclerView = (RecyclerView) findViewById(R.id.surveyList);
 
         mAdapter = new SurveyAdapter(this, mSurveyList);
@@ -112,12 +115,22 @@ public class SurveyList extends AppCompatActivity {
                     for (DataSnapshot indi : dataSnapshot.getChildren()) {
                         SurveyPojo volItem = indi.getValue(SurveyPojo.class);
                         if (volItem.isActive()) {
-                            mSurveyList.add(volItem);
+                            if (volItem.isCons()){
+                                mSurveyList.add(volItem);
+                            }
+                            else if (volItem.getBoothNumber().equalsIgnoreCase(mSession.getBoothNumber())){
+                                mSurveyList.add(volItem);
+                            }
+
                         }
+                    }
+
+                    if (mSurveyList.size()<1){
+                        Toast.makeText(getApplicationContext(), "No Active Survey Found", Toast.LENGTH_SHORT).show();
                     }
                     mAdapter.notifyDataSetChanged();
                 } else {
-                    Toast.makeText(getApplicationContext(), "No Meetings Found", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "No Active Survey Found", Toast.LENGTH_SHORT).show();
                 }
 
             }

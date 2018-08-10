@@ -25,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import butterknife.BindView;
 import sree.myparty.MyApplication;
 import sree.myparty.R;
+import sree.myparty.beans.NewsPojo;
 import sree.myparty.chat.UserListActicity;
 import sree.myparty.chat.VideoCallActivity;
 import sree.myparty.pojos.UserDetailPojo;
@@ -47,6 +48,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     VolunteerSessionManager mVolunteerSessionManager;
 
     TextView tv;
+
+
+    String news;
 
     @Nullable
     @Override
@@ -77,6 +81,24 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         mSessionManager = new SessionManager(getActivity());
         mVolunteerSessionManager = new VolunteerSessionManager(getActivity());
+        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"News").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                news = "";
+
+                for (DataSnapshot child : dataSnapshot.getChildren()){
+                    NewsPojo mnews = child.getValue(NewsPojo.class);
+                    news = news+" "+mnews.getTitle()+":"+mnews.getDescription()+"|| ";
+                }
+                tv.setText(news);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
         return v;

@@ -125,6 +125,7 @@ public class SurveyAdminList extends AppCompatActivity {
                         SurveyPojo volItem = indi.getValue(SurveyPojo.class);
                         mSurveyList.add(volItem);
                     }
+                    recyclerView.setAdapter(mAdapter);
                     mAdapter.notifyDataSetChanged();
                     getAnswers();
                 } else {
@@ -158,12 +159,14 @@ public class SurveyAdminList extends AppCompatActivity {
                         }
 
                     }
+                    recyclerView.setAdapter(mAdapter);
+                    mAdapter.notifyDataSetChanged();
                     mSurveyDB.delete();
                     mSurveyDB.insertAnswers(mSurveyAnswersList);
-                    recyclerView.setAdapter(mAdapter);
+
 
                 } else {
-                    Toast.makeText(getApplicationContext(), "No Meetings Found", Toast.LENGTH_SHORT).show();
+                    //       Toast.makeText(getApplicationContext(), "No Meetings Found", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -179,7 +182,7 @@ public class SurveyAdminList extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-
+      //  mSurveyDB.delete();
     }
 
     @Override
