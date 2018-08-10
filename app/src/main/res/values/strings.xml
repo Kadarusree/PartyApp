@@ -131,6 +131,8 @@
         <item>Mandal/Taluk Committee</item>
         <item>District Committee</item>
         <item>State/Pradesh Committee</item>
+        <item>NRI Committee</item>
+
     </string-array>
 
     <string-array name="positions">

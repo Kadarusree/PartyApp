@@ -81,17 +81,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         mSessionManager = new SessionManager(getActivity());
         mVolunteerSessionManager = new VolunteerSessionManager(getActivity());
-        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"News").addValueEventListener(new ValueEventListener() {
+        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/News").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 news = "";
-
-                for (DataSnapshot child : dataSnapshot.getChildren()){
-                    NewsPojo mnews = child.getValue(NewsPojo.class);
-                    news = news+" "+mnews.getTitle()+":"+mnews.getDescription()+"|| ";
+                for (DataSnapshot indi : dataSnapshot.getChildren()) {
+                    NewsPojo mNewsItem = indi.getValue(NewsPojo.class);
+                    news = news+"    "+mNewsItem.getTitle()+":"+mNewsItem.getDescription();
                 }
                 tv.setText(news);
+
             }
 
             @Override

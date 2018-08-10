@@ -18,6 +18,8 @@ public class VolunteerDashboard extends VolunteerBaseActivity {
 
         replaceFragement(new VolunteerHomeFragment());
 
+        getSupportActionBar().setTitle("Volunteer");
+
     }
     public void replaceFragement(Fragment fg){
         FragmentManager mFragmentManager = getFragmentManager();

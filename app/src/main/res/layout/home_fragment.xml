@@ -230,7 +230,7 @@
                 android:layout_height="0dp"
                 android:layout_margin="1dp"
                 android:layout_weight="0.75"
-                android:src="@drawable/ic_id_card" />
+                android:src="@drawable/ic_icon" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -259,7 +259,7 @@
                 android:layout_height="0dp"
                 android:layout_margin="1dp"
                 android:layout_weight="0.75"
-                android:src="@drawable/ic_id_card" />
+                android:src="@drawable/ic_maintenance" />
 
             <TextView
                 android:layout_width="match_parent"
