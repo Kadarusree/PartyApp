@@ -97,14 +97,33 @@ public class SurveyPojo {
         this.option3Selected = option3Selected;
     }
 
-    boolean option1Selected=false;
-    boolean option2Selected=false;
-    boolean option3Selected=false;
+    boolean option1Selected = false;
+    boolean option2Selected = false;
+    boolean option3Selected = false;
+
+    public boolean isCons() {
+        return isCons;
+    }
+
+    public void setCons(boolean cons) {
+        isCons = cons;
+    }
+
+    public String getBoothNumber() {
+        return boothNumber;
+    }
+
+    public void setBoothNumber(String boothNumber) {
+        this.boothNumber = boothNumber;
+    }
+
+    boolean isCons;
+    String boothNumber;
 
     public SurveyPojo() {
     }
 
-    public SurveyPojo(String surveyID, String surveyName, String surveyQuestion, String surveyOption1, String surveyOption2, String surveyOption3, String surveryPostedBy, boolean isActive) {
+    public SurveyPojo(String surveyID, String surveyName, String surveyQuestion, String surveyOption1, String surveyOption2, String surveyOption3, String surveryPostedBy, boolean isActive, boolean isCons, String boothNumber) {
         this.surveyID = surveyID;
         this.surveyName = surveyName;
         this.surveyQuestion = surveyQuestion;
@@ -113,5 +132,7 @@ public class SurveyPojo {
         this.surveyOption3 = surveyOption3;
         this.surveryPostedBy = surveryPostedBy;
         this.isActive = isActive;
+        this.isCons = isCons;
+        this.boothNumber = boothNumber;
     }
 }

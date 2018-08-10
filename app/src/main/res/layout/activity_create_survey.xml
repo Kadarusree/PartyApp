@@ -130,6 +130,63 @@
             android:maxLength="15" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1">
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.28"
+            android:gravity="left|center"
+            android:text="Survey Target"
+            />
+
+        <RadioButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.32"
+            android:gravity="left|center"
+            android:checked="true"
+            android:text="Constitution"
+            android:id="@+id/rb_const"/>
+
+        <RadioButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.4"
+            android:gravity="left|center"
+            android:text="Particular Booth"
+            android:id="@+id/rb_booth"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/booth_layout"
+        android:visibility="gone"
+        android:layout_weight="0.1">
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            android:gravity="left|center"
+            android:text="Select Booth" />
+
+        <Spinner
+            android:id="@+id/spin_booth"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.7"
+            android:gravity="left|center"
+            android:hint="Option3"
+            />
+    </LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -150,16 +207,16 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:background="@drawable/button_backround"
+            android:onClick="postSurvey"
             android:text="POST SURVEY"
             android:textColor="@color/colorWhite"
-            android:onClick="postSurvey"
             android:textStyle="bold" />
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.55">
+        android:layout_weight="0.45">
 
     </RelativeLayout>
 
