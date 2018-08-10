@@ -67,9 +67,10 @@ public class SurveyAdminAdapter extends RecyclerView.Adapter<SurveyAdminAdapter.
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView question;
         RadioButton option1, option2, option3;
-        Button saveAnswer;
+        TextView saveAnswer;
         BarChart surveyChart;
         ImageView overFlow;
+
 
 
         public MyViewHolder(View view) {
@@ -78,7 +79,7 @@ public class SurveyAdminAdapter extends RecyclerView.Adapter<SurveyAdminAdapter.
             option1 = (RadioButton) view.findViewById(R.id.surveyItem_Option1);
             option2 = (RadioButton) view.findViewById(R.id.surveyItem_Option2);
             option3 = (RadioButton) view.findViewById(R.id.surveyItem_Option3);
-            saveAnswer = (Button) view.findViewById(R.id.survey_Save_answer);
+            saveAnswer = (TextView) view.findViewById(R.id.survey_Save_answer);
             surveyChart = (BarChart) view.findViewById(R.id.survey_graph);
             overFlow = (ImageView)view.findViewById(R.id.overflow);
             setUpChart(surveyChart);
@@ -116,7 +117,13 @@ public class SurveyAdminAdapter extends RecyclerView.Adapter<SurveyAdminAdapter.
         String fontPath = "fonts/oswald_regular.ttf";
         Typeface tf = Typeface.createFromAsset(mContext.getAssets(), fontPath);
         holder.question.setTypeface(tf);
-        holder.question.setText((position + 1) + ". " + survey.getSurveyQuestion());
+        if (survey.isActive()){
+            holder.question.setText((position + 1) + ". " + survey.getSurveyQuestion());
+        }
+        else {
+            holder.question.setText((position + 1) + ". " + survey.getSurveyQuestion()+"(Survey Ended)");
+
+        }
         holder.option1.setText(survey.getSurveyOption1());
         holder.option2.setText(survey.getSurveyOption2());
         holder.option3.setText(survey.getSurveyOption3());
@@ -182,7 +189,14 @@ public class SurveyAdminAdapter extends RecyclerView.Adapter<SurveyAdminAdapter.
         });
 
 
-        holder.saveAnswer.setOnClickListener(new View.OnClickListener() {
+        if (mSurveyList.get(position).isCons()){
+            holder.saveAnswer.setText("Target Area : Full Constitution");
+        }
+        else {
+            holder.saveAnswer.setText("Target Area : Booth Number "+mSurveyList.get(position).getBoothNumber());
+        }
+
+       /* holder.saveAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String answer = "";
@@ -199,7 +213,7 @@ public class SurveyAdminAdapter extends RecyclerView.Adapter<SurveyAdminAdapter.
                 saveAnswer(mSurveyList.get(position).getSurveyID(), getNumber() + "", answer);
 
             }
-        });
+        });*/
 
         ArrayList<String> answers = keys = mHelper.getAnswers(survey.getSurveyID());
 

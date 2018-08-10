@@ -73,7 +73,7 @@ public class CreateSurvey extends AppCompatActivity {
 
     ArrayAdapter<String> adapter;
 
-    boolean isConst;
+    boolean isConst = true;
     String boothNumber;
 
     @Override
@@ -115,7 +115,14 @@ public class CreateSurvey extends AppCompatActivity {
         surveyOption1 = edt_surveyOption1.getText().toString();
         surveyOption2 = edt_surveyOption2.getText().toString();
         surveyOption3 = edt_surveyOption3.getText().toString();
-        boothNumber = mBoothsList.get(spin_booth.getSelectedItemPosition()).getBoothNumber();
+
+        if (isConst){
+            boothNumber ="";
+        }
+        else {
+            boothNumber = mBoothsList.get(spin_booth.getSelectedItemPosition()).getBoothNumber();
+
+        }
         if (validations()) {
             SurveyPojo mSurveyPojo = new SurveyPojo(surveyID, surveyName, surveyQuestion, surveyOption1, surveyOption2, surveyOption3, "Admin", true, isConst, boothNumber);
             save(mSurveyPojo);

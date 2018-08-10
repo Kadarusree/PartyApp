@@ -177,8 +177,8 @@ public class SurveyAdapter extends RecyclerView.Adapter<SurveyAdapter.MyViewHold
                 }
 
                 // uncomment for production
-                // saveAnswer(mSurveyList.get(position).getSurveyID(),mSessionManager.getRegID(),answer);
-                saveAnswer(mSurveyList.get(position).getSurveyID(), getNumber() + "", answer);
+               saveAnswer(mSurveyList.get(position).getSurveyID(),mSessionManager.getRegID(),answer);
+             //   saveAnswer(mSurveyList.get(position).getSurveyID(), getNumber() + "", answer);
 
             }
         });
@@ -230,16 +230,12 @@ public class SurveyAdapter extends RecyclerView.Adapter<SurveyAdapter.MyViewHold
         final ProgressDialog pDialog = Constants.showDialog((Activity) mContext);
         pDialog.show();
 
-        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/SurveyAnswers").addValueEventListener(new ValueEventListener() {
+        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/SurveyAnswers").child(QuestionID).child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 pDialog.dismiss();
 
-                if (dataSnapshot.hasChild(userID)){
-
-                    Constants.showToast("You Already Answered This Survey", (Activity) mContext);
-                }
-                else {
+                if (dataSnapshot.getValue()==null){
                     MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/SurveyAnswers").child(QuestionID).child(userID).setValue(mSurveyPojo).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -253,6 +249,10 @@ public class SurveyAdapter extends RecyclerView.Adapter<SurveyAdapter.MyViewHold
                             }
                         }
                     });
+
+                }
+                else {
+                    Constants.showToast("You Already Answered This Survey", (Activity) mContext);
                 }
 
             }
