@@ -55,7 +55,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="left"
                 android:layout_weight="0.1"
-                android:src="@drawable/ic_call_black_24dp" />
+                android:src="@drawable/video_call_icon" />
 
             <ImageView
                 android:layout_width="0dp"

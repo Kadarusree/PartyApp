@@ -68,7 +68,7 @@ public class VolunteerRegis extends AppCompatActivity {
         mLandigText.setTypeface(tf);
 
 
-        mRegID.setText("Reg ID. : " + mSessionManager.getRegID());
+        mRegID.setText("Registration ID\n" + mSessionManager.getRegID());
 
         loadBooths();
 

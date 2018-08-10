@@ -32,16 +32,16 @@
             android:title="Surveys" />
         <item
             android:id="@+id/nav_vol_lregis"
-            android:icon="@drawable/ic_id_card"
+            android:icon="@drawable/sign_in"
             android:title="Volunteer Registration" />
         <item
             android:id="@+id/nav_vol_login"
-            android:icon="@drawable/ic_id_card"
+            android:icon="@drawable/volunteer_icon"
             android:title="Volunteer Login" />
 
         <item
             android:id="@+id/nav_admi_login"
-            android:icon="@drawable/ic_id_card"
+            android:icon="@drawable/admin_icon"
             android:title="Admin Login" />
         <item
             android:id="@+id/nav_share"
