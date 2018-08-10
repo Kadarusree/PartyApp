@@ -1,10 +1,12 @@
 package sree.myparty.chat;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import com.opentok.android.OpentokError;
@@ -20,6 +22,7 @@ import java.util.StringTokenizer;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 import sree.myparty.R;
+import sree.myparty.utils.Constants;
 
 public class VideoCallActivity extends AppCompatActivity implements Session.SessionListener, PublisherKit.PublisherListener {
 
@@ -40,10 +43,16 @@ public class VideoCallActivity extends AppCompatActivity implements Session.Sess
     private Publisher mPublisher;
     private Subscriber mSubscriber;
 
+    ProgressDialog pDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_call);
+        pDialog = Constants.showDialog(this);
+        pDialog.setMessage("Connecting to Session");
+
+        getSupportActionBar().setTitle("Video Session");
 
 
         String tokens = getIntent().getStringExtra("TOKENS");
@@ -51,10 +60,10 @@ public class VideoCallActivity extends AppCompatActivity implements Session.Sess
 
         ArrayList<String> listTokens = new ArrayList<>();
 
-        if (tokens!=null){
+        if (tokens != null) {
             listTokens.clear();
-            StringTokenizer mTokenizer = new StringTokenizer(tokens,"@#@");
-           while (mTokenizer.hasMoreTokens()){
+            StringTokenizer mTokenizer = new StringTokenizer(tokens, "@#@");
+            while (mTokenizer.hasMoreTokens()) {
                 listTokens.add(mTokenizer.nextToken());
             }
             API_KEY = listTokens.get(0);
@@ -85,7 +94,7 @@ public class VideoCallActivity extends AppCompatActivity implements Session.Sess
             mSession = new Session.Builder(this, API_KEY, SESSION_ID).build();
             mSession.setSessionListener(this);
             mSession.connect(TOKEN);
-
+            pDialog.show();
 
         } else {
             EasyPermissions.requestPermissions(this, "This app needs access to your camera and mic to make video calls", RC_VIDEO_APP_PERM, perms);
@@ -94,6 +103,9 @@ public class VideoCallActivity extends AppCompatActivity implements Session.Sess
 
     @Override
     public void onConnected(Session session) {
+        pDialog.dismiss();
+        ;
+        Constants.showToast("Session Connected", this);
         Log.i(LOG_TAG, "Session Connected");
 
         mPublisher = new Publisher.Builder(this).build();
@@ -105,6 +117,9 @@ public class VideoCallActivity extends AppCompatActivity implements Session.Sess
 
     @Override
     public void onDisconnected(Session session) {
+        Constants.showToast("Session Disconnected", this);
+        finish();
+        pDialog.dismiss();
         Log.i(LOG_TAG, "Session Disconnected");
     }
 
@@ -150,6 +165,18 @@ public class VideoCallActivity extends AppCompatActivity implements Session.Sess
     @Override
     protected void onPause() {
         super.onPause();
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
         mSession.disconnect();
+    }
+
+    public void endCall(View view) {
+        mSession.disconnect();
+        pDialog.setMessage("Disconnecting");
+        pDialog.show();
     }
 }

@@ -22,5 +22,16 @@
             android:layout_marginRight="16dp"
             android:padding="2dp"
             android:background="#FFFFFF" />
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/endcall"
+            android:layout_gravity="bottom|center"
+            android:id="@+id/button"
+            android:padding="@dimen/dp_5"
+            android:gravity="center|right"
+            android:onClick="endCall"
+             />
+
     </FrameLayout>
 </android.support.constraint.ConstraintLayout>
