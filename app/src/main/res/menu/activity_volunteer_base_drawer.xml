@@ -16,10 +16,7 @@
             android:id="@+id/nav_vol_localIssue"
             android:icon="@drawable/right_arrow_vol"
             android:title="Local Issues" />
-        <item
-            android:id="@+id/nav_vol_readnews"
-            android:icon="@drawable/right_arrow_vol"
-            android:title="Read News" />
+
 
         <item
             android:id="@+id/nav_vol_postnews"

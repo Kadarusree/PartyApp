@@ -31,6 +31,7 @@ import sree.myparty.pojos.CasteWiseVoterBean;
 import sree.myparty.pojos.IssueBean;
 import sree.myparty.utils.Constants;
 import sree.myparty.utils.MyDividerItemDecoration;
+import sree.myparty.utils.VolunteerSessionManager;
 
 public class Local_Issues extends AppCompatActivity {
 
@@ -48,12 +49,13 @@ public class Local_Issues extends AppCompatActivity {
     private RecyclerView recyclerView;
     private List<IssueBean> newsList;
     private IssuesAdapter mAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_local__issues);
         ButterKnife.bind(this);
-        mReference = MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/LocalIssues");
+        mReference = MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/LocalIssues");
         mDialog = Constants.showDialog(this);
 
         mDialog = Constants.showDialog(this);
@@ -93,29 +95,36 @@ public class Local_Issues extends AppCompatActivity {
 
 
     @OnClick(R.id.btn_post_issue)
-    public void onButtonClick(View v){
+    public void onButtonClick(View v) {
+        if (edt_BoothNum.getText().toString().trim().equalsIgnoreCase("")) {
+            edt_BoothNum.setError("Booth number required");
+        } else if (edt_description.getText().toString().trim().equalsIgnoreCase("")) {
+            edt_description.setError("Add your issues description");
+        } else {
+            String desc = edt_description.getText().toString().trim();
+
+            int boothNum = Integer.parseInt(edt_BoothNum.getText().toString().trim());
+
+            IssueBean mIssue = new IssueBean(boothNum, System.currentTimeMillis(), desc, new VolunteerSessionManager(getApplicationContext()).getVolName());
+
+            save(mIssue);
+        }
 
 
-        String desc = edt_description.getText().toString().trim();
-
-        int boothNum = Integer.parseInt(edt_BoothNum.getText().toString().trim());
-
-        IssueBean mIssue = new IssueBean(boothNum,System.currentTimeMillis(),desc,Constants.VOLUNTEER);
-
-        save(mIssue);
     }
 
-    public void save(IssueBean mIssue){
+    public void save(IssueBean mIssue) {
         String key = mReference.push().getKey();
         mDialog.show();
         mReference.child(key).setValue(mIssue).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 mDialog.dismiss();
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
+                    edt_BoothNum.setText("");
+                    edt_description.setText("");
                     Constants.showToast("Issue Posted", Local_Issues.this);
-                }
-                else {
+                } else {
                     Constants.showToast("Failed To add", Local_Issues.this);
                 }
             }

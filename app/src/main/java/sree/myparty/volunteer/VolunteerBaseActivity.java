@@ -129,10 +129,7 @@ public class VolunteerBaseActivity extends AppCompatActivity
         } else if (id == R.id.nav_vol_localIssue) {
             Intent intent=new Intent(VolunteerBaseActivity.this,Local_Issues.class);
             startActivity(intent);
-        } else if (id == R.id.nav_vol_readnews) {
-            Intent intent=new Intent(VolunteerBaseActivity.this,NewsList.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_vol_logout) {
+        }  else if (id == R.id.nav_vol_logout) {
             volunteerSessionManager.logout();
             finish();
 
