@@ -1,13 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
-    android:orientation="vertical">
+    android:layout_height="200dp"
+    android:orientation="vertical"
+    android:padding="@dimen/dp_3">
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.3">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.4"
+            android:gravity="center"
+            android:text="Assign a Role"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/dp_15"
+            android:textStyle="italic|bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.3">
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -16,36 +36,37 @@
             android:text="Select Committee"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/dp_15"
-            android:textStyle="italic"/>
+            android:textStyle="italic" />
 
         <Spinner
+            android:id="@+id/spin_committee"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.6"
-            android:entries="@array/committes"
-            android:id="@+id/spin_committee"></Spinner>
+            android:entries="@array/committes"></Spinner>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.3">
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.4"
             android:gravity="left|center"
-            android:text="Select Committee"
+            android:text="Select Position"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/dp_15"
-            android:textStyle="italic"/>
+            android:textStyle="italic" />
 
         <Spinner
+            android:id="@+id/spin_position"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.6"
-            android:entries="@array/committes"
-            android:id="@+id/spin_position"></Spinner>
+            android:entries="@array/positions"></Spinner>
     </LinearLayout>
 
     <LinearLayout
@@ -53,6 +74,33 @@
         android:layout_height="0dp"
         android:layout_weight="0.3">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+         >
+
+            <Button
+                android:id="@+id/btn_cancel"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_backround"
+                android:text="Cancel"
+                android:layout_marginRight="@dimen/dp_3"
+                android:textColor="#ffffff"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btn_approve"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_backround"
+                android:text="Approve"
+                android:layout_marginLeft="@dimen/dp_3"
+                android:textColor="#ffffff"
+                android:textStyle="bold" />
+        </LinearLayout>
     </LinearLayout>
 
 

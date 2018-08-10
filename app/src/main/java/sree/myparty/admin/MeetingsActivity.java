@@ -195,7 +195,7 @@ public class MeetingsActivity extends AppCompatActivity {
                         date.set(Calendar.HOUR_OF_DAY, hourOfDay);
                         date.set(Calendar.MINUTE, minute);
                         Log.v("TAG", "The choosen one " + date.getTime());
-                        SimpleDateFormat format1 = new SimpleDateFormat("dd-MM-yyyy HH:MM");
+                        SimpleDateFormat format1 = new SimpleDateFormat("dd-MM-yyyy");
                         meetingDateTime.setText(format1.format(date.getTime()));
                       //  meetingDateTime.setEnabled(false);
                     }

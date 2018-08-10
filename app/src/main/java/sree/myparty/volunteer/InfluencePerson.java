@@ -39,6 +39,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -87,6 +88,7 @@ import sree.myparty.pojos.UserDetailPojo;
 import sree.myparty.session.SessionManager;
 import sree.myparty.utils.Constants;
 import sree.myparty.utils.MyDividerItemDecoration;
+import sree.myparty.utils.VolunteerSessionManager;
 
 public class InfluencePerson extends AppCompatActivity {
 
@@ -135,11 +137,18 @@ public class InfluencePerson extends AppCompatActivity {
     int booth_number;
     byte[] image_array;
 
+    LinearLayout maddlayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_influence_person);
         ButterKnife.bind(this);
+
+        maddlayout = (LinearLayout)findViewById(R.id.add_layout);
+        if (Constants.isAdmin){
+            maddlayout.setVisibility(View.GONE);
+        }
 
         mProgressDialog = Constants.showDialog(this);
         recyclerView = findViewById(R.id.list_influencePersons);
@@ -613,6 +622,8 @@ public class InfluencePerson extends AppCompatActivity {
     public void uploadImageTask(byte[] data, final String key, final DatabaseReference mRef) {
         mProgressDialog.setMessage("Uploading Profile Picture");
         mProgressDialog.show();
+
+        final VolunteerSessionManager mSession = new VolunteerSessionManager(InfluencePerson.this);
         UploadTask uploadTask = MyApplication.getFirebaseStorage()
                 .getReference(Constants.DB_PATH + "/InfluencePersons/" + key + ".jpg")
                 .putBytes(data);
@@ -626,7 +637,7 @@ public class InfluencePerson extends AppCompatActivity {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 final Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                InfluPerson mPerson = new InfluPerson(key,name, mobile_number, System.currentTimeMillis() + "", downloadUrl.toString(), address, location, Constants.VOLUNTEER, booth_number);
+                InfluPerson mPerson = new InfluPerson(key,name, mobile_number, System.currentTimeMillis() + "", downloadUrl.toString(), address, location,  mSession.getVolName(), booth_number);
                 save(mPerson, mRef, key);
             }
         });

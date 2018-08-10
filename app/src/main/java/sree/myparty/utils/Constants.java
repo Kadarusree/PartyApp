@@ -55,6 +55,7 @@ public class Constants {
     public static String selected_booth_id;
     public static String selected_booth_name;
     public static String BOOTH_NUMBER;
+    public static boolean isAdmin;
 
     public static void showToast(String text, Activity mActivty){
         Toast.makeText(mActivty,text,Toast.LENGTH_SHORT).show();

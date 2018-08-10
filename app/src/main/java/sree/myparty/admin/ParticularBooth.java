@@ -99,8 +99,8 @@ public class ParticularBooth extends AppCompatActivity implements OnMapReadyCall
         getBoothCommiteeMembers();
 
 
-
     }
+
     public boolean checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
@@ -140,6 +140,7 @@ public class ParticularBooth extends AppCompatActivity implements OnMapReadyCall
             return true;
         }
     }
+
     public void getLocation() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -158,13 +159,14 @@ public class ParticularBooth extends AppCompatActivity implements OnMapReadyCall
                         // Got last known location. In some rare situations this can be null.
                         if (location != null) {
                             addedLocation = new LatLng(location.getLatitude(), location.getLongitude());
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new com.google.android.gms.maps.model.LatLng(location.getLatitude(),location.getLongitude()),12));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new com.google.android.gms.maps.model.LatLng(location.getLatitude(), location.getLongitude()), 12));
                             mMap.animateCamera(CameraUpdateFactory.zoomIn());// Zoom out to zoom level 10, animating with a duration of 2 seconds.
                             mMap.animateCamera(CameraUpdateFactory.zoomTo(12), 2000, null);
                         }
                     }
                 });
     }
+
     @Override
     public void onMapReady(final GoogleMap googleMap) {
         mMap = googleMap;
@@ -183,12 +185,12 @@ public class ParticularBooth extends AppCompatActivity implements OnMapReadyCall
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 if (dataSnapshot != null && dataSnapshot.getChildrenCount() > 0) {
-                    for (DataSnapshot child : dataSnapshot.getChildren()){
+                    for (DataSnapshot child : dataSnapshot.getChildren()) {
                         key = child.getKey();
                         Booth mBooth = child.getValue(Booth.class);
 
-                        booth_adress.setText("Address : "+mBooth.getLocation());
-                        booth_number_name.setText("Booth  Number : "+mBooth.getBoothNumber());
+                        booth_adress.setText("Address : " + mBooth.getLocation());
+                        booth_number_name.setText("Booth  Number : " + mBooth.getBoothNumber());
 
 
                         if (mBooth.getMapLocation() != null) {
@@ -198,12 +200,11 @@ public class ParticularBooth extends AppCompatActivity implements OnMapReadyCall
                             mMarker.title(mBooth.getName());
                             googleMap.addMarker(mMarker);
 
-                            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(markerLocation,12));
+                            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(markerLocation, 12));
                             googleMap.animateCamera(CameraUpdateFactory.zoomIn());// Zoom out to zoom level 10, animating with a duration of 2 seconds.
                             googleMap.animateCamera(CameraUpdateFactory.zoomTo(12), 2000, null);
-                        }
-                        else {
-                            Constants.showToast("Location Not Avaialble",ParticularBooth.this);
+                        } else {
+                            Constants.showToast("Location Not Avaialble", ParticularBooth.this);
                         }
                     }
 
@@ -247,34 +248,34 @@ public class ParticularBooth extends AppCompatActivity implements OnMapReadyCall
         }
     }
 
-    public void getBoothCommiteeMembers(){
+    public void getBoothCommiteeMembers() {
 
-            MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/Volunteers").orderByChild("boothnumber").equalTo(Constants.selected_booth_id).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    volunteerList.clear();
-                    if (dataSnapshot.getChildrenCount()>0){
-                        booth_commitee_status_count.setText("Booth Committee Formed with "+dataSnapshot.getChildrenCount()+" Members");
+        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/Volunteers").orderByChild("boothnumber").equalTo(Constants.selected_booth_id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                volunteerList.clear();
+                if (dataSnapshot.getChildrenCount() > 0) {
+                    booth_commitee_status_count.setText("Booth Committee Formed with " + dataSnapshot.getChildrenCount() + " Members");
 
-                        for (DataSnapshot indi : dataSnapshot.getChildren()) {
-                            VolunteerPojo volItem = indi.getValue(VolunteerPojo.class);
-                            volunteerList.add(volItem);
-                        }
-                        mAdapter.notifyDataSetChanged();
+                    for (DataSnapshot indi : dataSnapshot.getChildren()) {
+                        VolunteerPojo volItem = indi.getValue(VolunteerPojo.class);
+                        volunteerList.add(volItem);
                     }
-                    else {
-                        booth_commitee_status_count.setText("Booth Committee Not Formed");
-                    }
-
+                    mAdapter.notifyDataSetChanged();
+                } else {
+                    booth_commitee_status_count.setText("Booth Committee Not Formed");
                 }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
+            }
 
-                }
-            });
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
     }
+
     public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
 
         private int spanCount;

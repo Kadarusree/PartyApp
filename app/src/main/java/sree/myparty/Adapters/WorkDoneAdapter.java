@@ -84,7 +84,7 @@ public class WorkDoneAdapter extends RecyclerView.Adapter<WorkDoneAdapter.MyView
         holder.venue.setText("Money Spent  : " + work.getMoneySpent());
 
         holder.meeting_for.setText("Work Done By : "+work.getSupervisor() + " Ph. No : "+work.getContactNumber());
-
+        holder.overflow.setVisibility(View.INVISIBLE);
         holder.overflow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,12 +104,14 @@ public class WorkDoneAdapter extends RecyclerView.Adapter<WorkDoneAdapter.MyView
 
 
     private void showPopupMenu(View view) {
-        // inflate menu
+
+
+     /*   // inflate menu
         PopupMenu popup = new PopupMenu(mContext, view);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.meeting_options, popup.getMenu());
         popup.setOnMenuItemClickListener(new MyMenuItemClickListener());
-        popup.show();
+        popup.show();*/
     }
 
     /**

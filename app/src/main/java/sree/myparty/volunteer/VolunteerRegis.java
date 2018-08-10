@@ -115,7 +115,7 @@ public class VolunteerRegis extends AppCompatActivity {
                     mSessionManager.getProfilePic(),
                     mSessionManager.getQR(),
                     mSessionManager.getMobileNumber(),
-                    false);
+                    false,"","");
             mProgressDialog.show();
             MyApplication.getFirebaseDatabase().
                     getReference(Constants.DB_PATH + "/Volunteers").

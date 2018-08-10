@@ -24,6 +24,7 @@ import sree.myparty.DashBoard.BaseActvity;
 import sree.myparty.R;
 import sree.myparty.session.SessionManager;
 import sree.myparty.utils.ActivityLauncher;
+import sree.myparty.utils.Constants;
 
 public class AdminBaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -38,7 +39,7 @@ public class AdminBaseActivity extends AppCompatActivity
         setContentView(R.layout.activity_admin_base);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-sessionManager=new SessionManager(getApplicationContext());
+        sessionManager = new SessionManager(getApplicationContext());
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -50,12 +51,13 @@ sessionManager=new SessionManager(getApplicationContext());
         navigationView.setNavigationItemSelectedListener(this);
         View headerView = navigationView.getHeaderView(0);
 
-        admin_user_image=headerView.findViewById(R.id.admin_user_image);
-        nav_admin_user_name=headerView.findViewById(R.id.nav_admin_user_name);
+        admin_user_image = headerView.findViewById(R.id.admin_user_image);
+        nav_admin_user_name = headerView.findViewById(R.id.nav_admin_user_name);
         loadImage(AdminBaseActivity.this, admin_user_image, sessionManager.getProfilePic().toString());
         nav_admin_user_name.setText(sessionManager.getName());
 
     }
+
     public static void loadImage(final Activity context, ImageView imageView, String url) {
         if (context == null || context.isDestroyed()) return;
 
@@ -70,6 +72,7 @@ sessionManager=new SessionManager(getApplicationContext());
                 .fitCenter()//this method help to fit image into center of your ImageView
                 .into(imageView); //pass imageView reference to appear the image.
     }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -139,13 +142,19 @@ sessionManager=new SessionManager(getApplicationContext());
         } else if (id == R.id.nav_adm_analysis) {
             ActivityLauncher.launchAnalysisActivity(getApplicationContext());
 
-        }else if (id == R.id.nav_ad_log) {
-          finish();
+        } else if (id == R.id.nav_ad_log) {
+            finish();
 
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Constants.isAdmin = false;
     }
 }

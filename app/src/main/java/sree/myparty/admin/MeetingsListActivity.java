@@ -10,6 +10,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -20,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import sree.myparty.Adapters.MeetingsAdapter;
@@ -41,12 +43,19 @@ public class MeetingsListActivity extends AppCompatActivity {
     private List<MeetingPojo> meetingPojoList;
     private MeetingsAdapter mAdapter;
 
+    @BindView(R.id.btn_createMeeting)
+    Button btn_createMeeting;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meetings_list);
         ButterKnife.bind(this);
         meetingPojoList = new ArrayList<>();
+
+        if (!Constants.isAdmin){
+            btn_createMeeting.setVisibility(View.GONE);
+        }
 
         mDialog = Constants.showDialog(this);
 

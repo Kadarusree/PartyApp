@@ -12,7 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.35">
+        android:layout_weight="0.3">
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -86,7 +86,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.25"
+        android:layout_weight="0.3"
         android:padding="@dimen/dp_5"
         android:orientation="vertical">
         <TextView
@@ -124,11 +124,36 @@
 
             />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="left|center"
+            android:layout_weight="0.3"
+            android:text="To become PLATINIUM member invite 500 people"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/dp_15"
+            android:id="@+id/profile_tv_committee"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="left|center"
+            android:layout_weight="0.3"
+            android:text="To become PLATINIUM member invite 500 people"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/dp_15"
+            android:id="@+id/profile_tv_position"
+            android:textStyle="bold"
+
+            />
+
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.35"
+        android:layout_weight="0.3"
         android:gravity="bottom"
         android:orientation="vertical">
        <fragment

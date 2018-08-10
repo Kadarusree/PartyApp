@@ -6,6 +6,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -14,6 +15,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import sree.myparty.Adapters.WorkDoneAdapter;
@@ -32,11 +34,19 @@ public class WorksListActivity extends AppCompatActivity {
     private List<WorkDonePojo> mWorkList;
     private WorkDoneAdapter mAdapter;
 
+
+    @BindView(R.id.btn_add_workdone)
+    Button btn_add_workdone;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_works_list);
         ButterKnife.bind(this);
+
+        if (!Constants.isAdmin){
+            btn_add_workdone.setVisibility(View.GONE);
+        }
 
         recyclerView = findViewById(R.id.worksList);
         mWorkList = new ArrayList<>();

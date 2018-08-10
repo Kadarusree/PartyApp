@@ -153,6 +153,10 @@ public abstract class BaseActvity extends AppCompatActivity
         } else if (id == R.id.nav_survey) {
             ActivityLauncher.launchSurveyList(getApplicationContext());
 
+        }
+        else if (id == R.id.nav_vol_lregis) {
+            ActivityLauncher.volunteerRegistartionScreen(getApplicationContext());
+
         } else if (id == R.id.nav_vol_login) {
             if (new VolunteerSessionManager(getApplicationContext()).hasActiveSession()) {
                 ActivityLauncher.volunteerDashboard(getApplicationContext());

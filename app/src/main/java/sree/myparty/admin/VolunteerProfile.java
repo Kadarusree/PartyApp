@@ -47,7 +47,6 @@ public class VolunteerProfile extends AppCompatActivity implements OnMapReadyCal
     TextView mRefNumber;
 
 
-
     @BindView(R.id.profile_tv_name)
     TextView name;
 
@@ -58,10 +57,13 @@ public class VolunteerProfile extends AppCompatActivity implements OnMapReadyCal
     TextView mobileNumber;
 
 
+    @BindView(R.id.profile_tv_position)
+    TextView position;
+
+    @BindView(R.id.profile_tv_committee)
+    TextView committee;
 
     private GoogleMap mMap;
-
-
 
 
     @Override
@@ -79,6 +81,8 @@ public class VolunteerProfile extends AppCompatActivity implements OnMapReadyCal
         mRefNumber.setText(mVol.getRegID());
         mobileNumber.setText("Mobile Number : " + mVol.getMobileNumber());
         boothNumber.setText("Booth Number : " + mVol.getBoothnumber());
+        committee.setText("Committee : " + mVol.getCommitte());
+        position.setText("Position : " + mVol.getPosition());
 
         Glide.with(this).load(mVol.getQr_URl()).into(mQRcode);
         loadImage(this, mProfilePic, mVol.getProfilePic());
@@ -87,14 +91,13 @@ public class VolunteerProfile extends AppCompatActivity implements OnMapReadyCal
         getSupportActionBar().setTitle(mVol.getName());
 
 
-
-        }
+    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         LatLng location = getLocation();
-        if (location!=null){
+        if (location != null) {
             com.google.android.gms.maps.model.LatLng lastLocation = new com.google.android.gms.maps.model.LatLng(location.getLatitude(), location.getLongitude());
             mMap.addMarker(new MarkerOptions().position(lastLocation).title("Last Login Location"));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(lastLocation));
@@ -136,33 +139,32 @@ public class VolunteerProfile extends AppCompatActivity implements OnMapReadyCal
                 .getReference(Constants.DB_PATH + "/VolunteerLocations")
                 .child(mGetVolunteer().getRegID())
                 .addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getChildrenCount()>0){
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.getChildrenCount() > 0) {
 
-                        mLatlng[0] = dataSnapshot.getValue(sree.myparty.pojos.LatLng.class);
-                    com.google.android.gms.maps.model.LatLng lastLocation = new com.google.android.gms.maps.model.LatLng(mLatlng[0].getLatitude(), mLatlng[0].getLongitude());
+                            mLatlng[0] = dataSnapshot.getValue(sree.myparty.pojos.LatLng.class);
+                            com.google.android.gms.maps.model.LatLng lastLocation = new com.google.android.gms.maps.model.LatLng(mLatlng[0].getLatitude(), mLatlng[0].getLongitude());
 
-                    mMap.addMarker(new MarkerOptions().position(lastLocation).title("Last Login Location"));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(lastLocation));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lastLocation, 16));
-                    mMap.animateCamera(CameraUpdateFactory.zoomIn());// Zoom out to zoom level 10, animating with a duration of 2 seconds.
-                    mMap.animateCamera(CameraUpdateFactory.zoomTo(16), 4000, null);
-                    mMap.getUiSettings().setMapToolbarEnabled(true);
+                            mMap.addMarker(new MarkerOptions().position(lastLocation).title("Last Login Location"));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLng(lastLocation));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lastLocation, 16));
+                            mMap.animateCamera(CameraUpdateFactory.zoomIn());// Zoom out to zoom level 10, animating with a duration of 2 seconds.
+                            mMap.animateCamera(CameraUpdateFactory.zoomTo(16), 4000, null);
+                            mMap.getUiSettings().setMapToolbarEnabled(true);
 
-                }
-                else {
-                    mLatlng[0] = null;
-                    Constants.showToast("Last login location not available", VolunteerProfile.this);
-                }
+                        } else {
+                            mLatlng[0] = null;
+                            Constants.showToast("Last login location not available", VolunteerProfile.this);
+                        }
 
-            }
+                    }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Constants.showToast("Last login location not available", VolunteerProfile.this);
-            }
-        });
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Constants.showToast("Last login location not available", VolunteerProfile.this);
+                    }
+                });
 
         return mLatlng[0];
     }
@@ -170,23 +172,23 @@ public class VolunteerProfile extends AppCompatActivity implements OnMapReadyCal
     public void getCount() {
 
         MyApplication.getFirebaseDatabase()
-                .getReference(Constants.DB_PATH+"/Voters")
+                .getReference(Constants.DB_PATH + "/Voters")
                 .orderByChild("added_by")
                 .equalTo(mGetVolunteer().getName())
                 .addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
 
-                mCount.setText("Voters Added : "+dataSnapshot.getChildrenCount()+"");
-                ;
-            }
+                        mCount.setText("Voters Added : " + dataSnapshot.getChildrenCount() + "");
+                        ;
+                    }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Constants.showToast("Last login location not available", VolunteerProfile.this);
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Constants.showToast("Last login location not available", VolunteerProfile.this);
 
-            }
-        });
+                    }
+                });
 
     }
 }

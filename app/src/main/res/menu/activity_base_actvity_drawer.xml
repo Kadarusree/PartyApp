@@ -3,38 +3,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single" >
+    <group android:checkableBehavior="single">
         <item
             android:id="@+id/id_card"
             android:icon="@drawable/ic_id_card"
-            android:title="ID CARD"
-            />
-          <item
+            android:title="ID card" />
+        <item
             android:id="@+id/nav_workdone"
             android:icon="@drawable/ic_work_done"
-            android:title="Work Done"
-            />
-          <item
+            android:title="Work Done" />
+        <item
             android:id="@+id/nav_chat"
-              android:icon="@drawable/ic_chat"
-              android:title="Chats"
-            />
-          <item
+            android:icon="@drawable/ic_chat"
+            android:title="Chats" />
+        <item
             android:id="@+id/id_meet"
-              android:icon="@drawable/ic_meeting"
-              android:title="Meetings"
-            />
+            android:icon="@drawable/ic_meeting"
+            android:title="Meetings" />
 
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_news"
-            android:title="NEWS" />
+            android:title="News" />
 
         <item
             android:id="@+id/nav_survey"
             android:icon="@drawable/ic_polling"
             android:title="Surveys" />
-
+        <item
+            android:id="@+id/nav_vol_lregis"
+            android:icon="@drawable/ic_id_card"
+            android:title="Volunteer Registration" />
         <item
             android:id="@+id/nav_vol_login"
             android:icon="@drawable/ic_id_card"
@@ -53,12 +52,6 @@
             android:icon="@drawable/logout_vol"
             android:title="Logout" />
     </group>
-
-
-
-
-
-
 
 
 </menu>

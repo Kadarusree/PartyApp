@@ -12,6 +12,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import sree.myparty.R;
 import sree.myparty.utils.ActivityLauncher;
+import sree.myparty.utils.Constants;
 
 public class AdminLogin extends AppCompatActivity {
     @BindView(R.id.tv_admin_laningText)
@@ -36,6 +37,7 @@ public class AdminLogin extends AppCompatActivity {
 
     @OnClick(R.id.btn_admin_login)
     public void Login(View v){
+        Constants.isAdmin = true;
         ActivityLauncher.launchAdminDB(AdminLogin.this);
     }
 }

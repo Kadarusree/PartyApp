@@ -30,6 +30,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
@@ -95,6 +96,9 @@ public class WorkDoneActivity extends AppCompatActivity {
     EditText edt_uploadPhoto;
 
 
+    @BindView(R.id.btn_wd_save)
+    Button workDone;
+
     String name, areaName, startDate, boothNumber, endDate, contracterName, phoneNumber, photo_uri;
     double moneySpent;
 
@@ -121,10 +125,14 @@ public class WorkDoneActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         mProgressDialog = Constants.showDialog(this);
 
+        if (!Constants.isAdmin){
+            workDone.setVisibility(View.GONE);
+        }
+
         edt_startDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if (b){
+                if (b) {
                     showDateTimePicker(edt_startDate);
                 }
             }
@@ -133,7 +141,7 @@ public class WorkDoneActivity extends AppCompatActivity {
         edt_endDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if (b){
+                if (b) {
                     showDateTimePicker(edt_endDate);
                 }
             }
@@ -141,7 +149,7 @@ public class WorkDoneActivity extends AppCompatActivity {
         edt_uploadPhoto.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if (b){
+                if (b) {
                     selectImage();
                 }
             }
@@ -153,6 +161,7 @@ public class WorkDoneActivity extends AppCompatActivity {
     public void pickPhoto(View view) {
         selectImage();
     }
+
     private void selectImage() {
         final CharSequence[] items = {getResources().getString(R.string.takephoto), getResources().getString(R.string.choosefromlib), getResources().getString(R.string.cancel)};
 
@@ -219,6 +228,7 @@ public class WorkDoneActivity extends AppCompatActivity {
 
 
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -507,13 +517,13 @@ public class WorkDoneActivity extends AppCompatActivity {
         startDate = edt_startDate.getText().toString();
         endDate = edt_endDate.getText().toString();
         contracterName = edt_supervisor.getText().toString();
-      //  moneySpent = edt_moneySpent.getText().toString();
+        //  moneySpent = edt_moneySpent.getText().toString();
         phoneNumber = edt_phoneNumber.getText().toString();
         photo_uri = edt_uploadPhoto.getText().toString();
 
-        if (validations()){
+        if (validations()) {
             moneySpent = Double.parseDouble(edt_moneySpent.getText().toString());
-            mDbref = MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/WorkDone");
+            mDbref = MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/WorkDone");
             String key = mDbref.push().getKey();
             uploadImageTask(image_array, key, mDbref);
         }
@@ -534,7 +544,7 @@ public class WorkDoneActivity extends AppCompatActivity {
                         date.set(Calendar.HOUR_OF_DAY, hourOfDay);
                         date.set(Calendar.MINUTE, minute);
                         Log.v("TAG", "The choosen one " + date.getTime());
-                        SimpleDateFormat format1 = new SimpleDateFormat("dd-MM-yyyy HH:MM");
+                        SimpleDateFormat format1 = new SimpleDateFormat("dd-MM-yyyy");
                         mEditText.setText(format1.format(date.getTime()));
                         //  meetingDateTime.setEnabled(false);
                     }
@@ -542,11 +552,12 @@ public class WorkDoneActivity extends AppCompatActivity {
             }
         }, currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DATE)).show();
     }
+
     public void uploadImageTask(byte[] data, final String key, final DatabaseReference mRef) {
         mProgressDialog.setMessage("Uploading Profile Picture");
         mProgressDialog.show();
         UploadTask uploadTask = MyApplication.getFirebaseStorage()
-                .getReference(Constants.DB_PATH+"/WorkDone/"+ key + ".jpg")
+                .getReference(Constants.DB_PATH + "/WorkDone/" + key + ".jpg")
                 .putBytes(data);
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
@@ -559,20 +570,20 @@ public class WorkDoneActivity extends AppCompatActivity {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 final Uri downloadUrl = taskSnapshot.getDownloadUrl();
 
-               WorkDonePojo mWorkDone = new WorkDonePojo(key,
-                       name,
-                       areaName,
-                       boothNumber,
-                       startDate,
-                       endDate,
-                       downloadUrl.toString(),
-                       contracterName,
-                       phoneNumber,
-                       "Admin",
-                       System.currentTimeMillis()+"",
-                       moneySpent,0,0);
+                WorkDonePojo mWorkDone = new WorkDonePojo(key,
+                        name,
+                        areaName,
+                        boothNumber,
+                        startDate,
+                        endDate,
+                        downloadUrl.toString(),
+                        contracterName,
+                        phoneNumber,
+                        "Admin",
+                        System.currentTimeMillis() + "",
+                        moneySpent, 0, 0);
 
-               save(mWorkDone,mDbref,key);
+                save(mWorkDone, mDbref, key);
 
             }
         });
@@ -629,7 +640,6 @@ public class WorkDoneActivity extends AppCompatActivity {
 
         return isValid;
     }
-
 
 
     @OnClick(R.id.wd_startDate)

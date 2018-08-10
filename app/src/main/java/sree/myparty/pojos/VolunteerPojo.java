@@ -10,6 +10,26 @@ public class VolunteerPojo implements Serializable {
 
     String name;
 
+    public String getCommitte() {
+        return committe;
+    }
+
+    public void setCommitte(String committe) {
+        this.committe = committe;
+    }
+
+    String committe;
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    String position;
+
     public VolunteerPojo() {
     }
 
@@ -22,7 +42,7 @@ public class VolunteerPojo implements Serializable {
     String mobileNumber;
     boolean isAccepted;
 
-    public VolunteerPojo(String name, String boothnumber, String regID, String password, String fcmID, String profilePic, String qr_URl, String mobileNumber, boolean isAccepted) {
+    public VolunteerPojo(String name, String boothnumber, String regID, String password, String fcmID, String profilePic, String qr_URl, String mobileNumber, boolean isAccepted, String committe, String position) {
         this.name = name;
         this.boothnumber = boothnumber;
         this.regID = regID;
@@ -32,6 +52,8 @@ public class VolunteerPojo implements Serializable {
         this.qr_URl = qr_URl;
         this.mobileNumber = mobileNumber;
         this.isAccepted = isAccepted;
+        this.committe = committe;
+        this.position = position;
     }
 
     public String getName() {

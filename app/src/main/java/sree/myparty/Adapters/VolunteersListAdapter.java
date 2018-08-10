@@ -1,8 +1,10 @@
 package sree.myparty.Adapters;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -11,8 +13,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -129,10 +133,12 @@ public class VolunteersListAdapter extends RecyclerView.Adapter<VolunteersListAd
                     mContext.startActivity(i);
                     return true;
                 case R.id.action_play_next:
-                    Toast.makeText(mContext, "Track On Map", Toast.LENGTH_SHORT).show();
+                    VolunteerPojo mVol3 = volunteerList.get(selected_position);
+                    dialContactPhone(mVol3.getMobileNumber());
                     return true;
                 case R.id.approve:
-                    approve(volunteerList.get(selected_position).getRegID());
+                    VolunteerPojo mVol2 = volunteerList.get(selected_position);
+                    approve(mVol2);
                     return true;
                 default:
             }
@@ -162,14 +168,67 @@ public class VolunteersListAdapter extends RecyclerView.Adapter<VolunteersListAd
     }
 
 
-    public void approve(String reg_id) {
-        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/Volunteers").child(reg_id).child("accepted").setValue(true).addOnCompleteListener(new OnCompleteListener<Void>() {
+    public void approve(final VolunteerPojo volunteer) {
+
+
+        // showDialog();
+
+        final Dialog d = new Dialog(mContext);
+        d.setContentView(R.layout.layout);
+
+        final Spinner committee = d.findViewById(R.id.spin_committee);
+        final Spinner position = d.findViewById(R.id.spin_position);
+
+        Button approve = d.findViewById(R.id.btn_approve);
+        Button cancel = d.findViewById(R.id.btn_cancel);
+
+        final String[] positions_array = mContext.getResources().getStringArray(R.array.positions);
+        final String[] committe_array = mContext.getResources().getStringArray(R.array.committes);
+
+
+        approve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                VolunteerPojo mVolunteer = new VolunteerPojo(volunteer.getName(),
+                        volunteer.getBoothnumber(),
+                        volunteer.getRegID(),
+                        volunteer.getPassword(),
+                        volunteer.getFcmID(),
+                        volunteer.getProfilePic(),
+                        volunteer.getQr_URl(),
+                        volunteer.getMobileNumber(),
+                        true, committe_array[committee.getSelectedItemPosition()],
+                        positions_array[position.getSelectedItemPosition()]);
+
+                MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/Volunteers").child(volunteer.getRegID()).setValue(mVolunteer).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(mContext, "Sucess", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                d.dismiss();
+            }
+        });
+        d.show();
+       /* MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/Volunteers").child(reg_id).child("accepted").setValue(true).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(mContext, "Sucess", Toast.LENGTH_SHORT).show();
                 }
             }
-        });
+        });*/
+    }
+
+
+    private void dialContactPhone(final String phoneNumber) {
+        mContext.startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null)));
     }
 }
