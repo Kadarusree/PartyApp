@@ -37,12 +37,15 @@ public class AdminLogin extends AppCompatActivity {
 
     @OnClick(R.id.btn_admin_login)
     public void Login(View v){
-        if (edt_username.getText().toString().equalsIgnoreCase("Mahesh")&&edt_password.getText().toString().equals("2011")){
+
+        Constants.isAdmin = true;
+        ActivityLauncher.launchAdminDB(AdminLogin.this);
+       /* if (edt_username.getText().toString().equalsIgnoreCase("Mahesh")&&edt_password.getText().toString().equals("2011")){
             Constants.isAdmin = true;
             ActivityLauncher.launchAdminDB(AdminLogin.this);
         }
         else{
             Constants.showToast("Invalid Credentials",this);
-        }
+        }*/
     }
 }
