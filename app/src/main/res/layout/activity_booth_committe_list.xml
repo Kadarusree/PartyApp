@@ -4,10 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="sree.myparty.admin.BoothCommitteList">
-    <android.support.v7.widget.RecyclerView
+    tools:context="sree.myparty.admin.BoothCommitteList"
+    android:orientation="vertical">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/boothList">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="0dp"
+        android:layout_weight="0.9">
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/boothList">
+        </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@color/colorWhite"
+            android:typeface="serif"
+            android:textSize="@dimen/dp_18"
+            android:background="@drawable/button_backround"
+            android:text="Click Here To View on MAP"
+            android:id="@+id/btn_createMeeting"
+            android:onClick="launchMap"></Button>
+
+    </LinearLayout>
 </LinearLayout>

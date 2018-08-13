@@ -36,6 +36,7 @@ public class BoothCommitteList extends AppCompatActivity {
 
     SessionManager mSessionManager;
     ProgressDialog mProgressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +73,7 @@ public class BoothCommitteList extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 mProgressDialog.dismiss();
 
-                for (DataSnapshot indi : dataSnapshot.getChildren()){
+                for (DataSnapshot indi : dataSnapshot.getChildren()) {
                     Booth mBooth = indi.getValue(Booth.class);
                     mBoothsList.add(mBooth);
                 }
@@ -107,4 +108,7 @@ public class BoothCommitteList extends AppCompatActivity {
     }
 
 
+    public void launchMap(View view) {
+        ActivityLauncher.launchBoothsOnMap(this);
+    }
 }
