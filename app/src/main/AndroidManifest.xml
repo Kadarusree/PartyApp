@@ -32,6 +32,7 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".SliderIndicator.IntroActivity"
+            android:noHistory="true"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,6 +43,7 @@
 
         <activity
             android:name=".RegistartionActivity"
+            android:noHistory="true"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".OTP_Activity"

@@ -63,14 +63,14 @@ public class SamplePagerAdapter extends PagerAdapter {
         if (position == 1) {
             textView.setText("");
             image.setBackgroundResource(R.drawable.avatar);
-            tagView = activity.getLayoutInflater().inflate(R.layout.induction_page1, null, false);
+            tagView = activity.getLayoutInflater().inflate(R.layout.induction_page2, null, false);
 
         }
 
         if (position == 2) {
             textView.setText("");
             image.setBackgroundResource(R.drawable.ic_logo);
-            tagView = activity.getLayoutInflater().inflate(R.layout.induction_page1, null, false);
+            tagView = activity.getLayoutInflater().inflate(R.layout.induction_page3, null, false);
 
         }
         textView.setBackgroundColor(0xff000000 | random.nextInt(0x00ffffff));
