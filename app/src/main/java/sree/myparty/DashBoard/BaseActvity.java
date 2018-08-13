@@ -35,6 +35,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.ByteArrayOutputStream;
@@ -47,9 +48,11 @@ import java.util.ArrayList;
 import de.hdodenhof.circleimageview.CircleImageView;
 import sree.myparty.MyApplication;
 import sree.myparty.R;
+import sree.myparty.beans.WishMePojo;
 import sree.myparty.chat.UserListActicity;
 import sree.myparty.constuecies.Booths;
 import sree.myparty.constuecies.Parser;
+import sree.myparty.misc.GiftFragmentDilaog;
 import sree.myparty.pojos.UserDetailPojo;
 import sree.myparty.session.SessionManager;
 import sree.myparty.utils.ActivityLauncher;
@@ -98,7 +101,7 @@ public abstract class BaseActvity extends AppCompatActivity
         replaceFragement(new HomeFragment());
 
         getAllFirebaseIDs();
-
+        checkWish();
         hideAdminOptions();
         hideVolOptions();
     }
@@ -153,8 +156,7 @@ public abstract class BaseActvity extends AppCompatActivity
         } else if (id == R.id.nav_survey) {
             ActivityLauncher.launchSurveyList(getApplicationContext());
 
-        }
-        else if (id == R.id.nav_vol_lregis) {
+        } else if (id == R.id.nav_vol_lregis) {
             ActivityLauncher.volunteerRegistartionScreen(getApplicationContext());
 
         } else if (id == R.id.nav_vol_login) {
@@ -190,6 +192,37 @@ public abstract class BaseActvity extends AppCompatActivity
     private void hideVolOptions() {
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.getMenu().removeGroup(1);
+    }
+
+    public void checkWish() {
+        FirebaseDatabase.getInstance().getReference(Constants.WISH_ME_PATH).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                WishMePojo pojo = dataSnapshot.getValue(WishMePojo.class);
+                if (pojo != null && pojo.isShow() == true) {
+
+                    try {
+                        if(sessionManager.getWishCode()!=pojo.getCode()) {
+                            GiftFragmentDilaog dFragment = new GiftFragmentDilaog(pojo.getPath(), pojo.getCode());
+                            dFragment.setCancelable(false); //don't close when touch outside
+                            dFragment.show(getSupportFragmentManager(), "Dialog Fragment");
+                        }
+                    } catch (Exception e) {
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
     }
 
 

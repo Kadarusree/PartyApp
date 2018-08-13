@@ -59,6 +59,26 @@ public class SessionManager {
 
     }
 
+    public void AddwishSession(int code, boolean flag) {
+        mEditor.putInt("WishCode", code);
+        mEditor.putBoolean("Shown", flag);
+
+        mEditor.commit();
+
+    }
+
+    public boolean getWish() {
+        return mSharedPref.getBoolean("Shown", false);
+
+
+    }
+
+    public int getWishCode() {
+        return mSharedPref.getInt("WishCode",0);
+
+
+    }
+
     public String getPC_NAME() {
         return mSharedPref.getString(PC_NAME, "");
 

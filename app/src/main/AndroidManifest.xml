@@ -31,7 +31,7 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".RegistartionActivity"
+            android:name=".SliderIndicator.IntroActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,6 +39,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".RegistartionActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".OTP_Activity"
             android:screenOrientation="portrait" />

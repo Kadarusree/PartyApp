@@ -26,6 +26,9 @@ public class Constants {
 
     //Session Constants:
 
+    //wish me
+    public static final String WISH_ME_PATH="Wish";
+
     public static  String PREF_NAME = "myparty";
     public static  String FIREBASE_KEY = "firebasekey";
     public static  String USERNAME = "name";
