@@ -25,13 +25,13 @@ android {
         development {
             minSdkVersion 17
             applicationId 'sree.myparty.dev'
-            resValue "string", "app_name", "MyParty-Dev"
+            resValue "string", "app_name", "Voter 360°-Dev"
             buildConfigField 'String', 'HOST', '"https://dev.ilp.org.in"'
         }
         production {
             minSdkVersion 17
             applicationId 'sree.myparty'
-            resValue "string", "app_name", "MyParty"
+            resValue "string", "app_name", "Voter 360°"
             buildConfigField 'String', 'HOST', '"https://dev.ilp.org.in"'
         }
     }

@@ -125,6 +125,12 @@ public class MeetingAttendence extends AppCompatActivity implements QRCodeReader
 
 /////////////Related to graph
         mChart = findViewById(R.id.attendence_cahrt);
+
+        if (!Constants.isAdmin){
+            mChart.setVisibility(View.INVISIBLE);
+        }
+
+
         mChart.setDrawBarShadow(false);
         mChart.setDrawValueAboveBar(true);
         mChart.getDescription().setEnabled(false);

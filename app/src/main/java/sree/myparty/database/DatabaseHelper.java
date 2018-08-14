@@ -8,13 +8,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 
+import sree.myparty.pojos.VolunteerPojo;
 import sree.myparty.pojos.VoterPojo;
 import sree.myparty.survey.SurveyAnswerPojo;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Database Version
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
 
     // Database Name
     private static final String DATABASE_NAME = "voters_db";
@@ -33,6 +34,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(Note.CREATE_SURVEY_TABLE);
         db.execSQL(Note.CREATE_LAST_VOTES_TABLE);
         db.execSQL(Note.CREATE_NEXT_VOTES_TABLE);
+        db.execSQL(Note.CREATE_TABLE_VOLUNTEERS);
     }
 
     // Upgrading database
@@ -111,6 +113,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.delete(Note.SURVEY_TABLE, null, null);
         db.delete(Note.TABLE_LAST_VOTES, null, null);
         db.delete(Note.TABLE_FUTURE_VOTES, null, null);
+        db.delete(Note.TABLE_VOLUNTEERS, null, null);
+
     }
 
 
@@ -262,5 +266,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         System.out.println(catageory+"---"+percentage);
         db.close();
         return percentage;
+    }
+
+    public long insertVolunteers(ArrayList<VolunteerPojo> mVolunteerPojos) {
+        // get writable database as we want to write data
+        SQLiteDatabase db = this.getWritableDatabase();
+        long id = 0;
+        for (int i = 0; i < mVolunteerPojos.size(); i++) {
+            ContentValues values = new ContentValues();
+            values.put(Note.NAME, mVolunteerPojos.get(i).getName());
+            values.put(Note.BOOTH_NUMBER,mVolunteerPojos.get(i).getBoothnumber());
+            id = db.insert(Note.TABLE_VOLUNTEERS, null, values);
+        }
+        db.close();
+        return id;
+    }
+
+    public int getBoothwiseVolunteersCount(String boothNumber) {
+
+
+        String selectQuery2 = "SELECT " + Note.BOOTH_NUMBER + " FROM " + Note.TABLE_VOLUNTEERS + " WHERE "+ Note.BOOTH_NUMBER + " = '" + boothNumber + "'";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor2 = db.rawQuery(selectQuery2, null);
+
+        return cursor2.getCount();
     }
 }

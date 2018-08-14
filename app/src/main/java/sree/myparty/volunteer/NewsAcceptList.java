@@ -26,6 +26,7 @@ public class NewsAcceptList extends AppCompatActivity {
     private RecyclerView recyclerView;
     private List<NewsPojo> newsList;
     private NewsVolunteerAdapter mAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +49,10 @@ public class NewsAcceptList extends AppCompatActivity {
                 newsList.clear();
                 for (DataSnapshot indi : dataSnapshot.getChildren()) {
                     NewsPojo mNewsItem = indi.getValue(NewsPojo.class);
-                    newsList.add(mNewsItem);
+
+                    if (!mNewsItem.isAccepted()) {
+                        newsList.add(mNewsItem);
+                    }
                 }
                 // refreshing recycler view
                 mAdapter.notifyDataSetChanged();

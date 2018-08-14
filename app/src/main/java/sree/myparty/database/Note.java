@@ -6,10 +6,20 @@ public class Note {
 
     public static final String TABLE_LAST_VOTES = "lastVotes";
     public static final String TABLE_FUTURE_VOTES = "futureVotes";
+    public static final String TABLE_VOLUNTEERS = "volunteers";
+
+
+
+
+    private int id;
+    private String note;
+    private String timestamp;
+
+    public static final String SURVEY_ID = "question_id";
+    public static final String ANSWER = "answer";
 
 
     public static final String PARTY = "party";
-
     public static final String COLUMN_ID = "id";
     public static final String NAME = "name";
     public static final String AGE = "age";
@@ -18,12 +28,6 @@ public class Note {
     public static final String CASTE = "caste";
     public static final String BOOTH_NUMBER = "booth_number";
 
-    private int id;
-    private String note;
-    private String timestamp;
-
-    public static final String SURVEY_ID = "question_id";
-    public static final String ANSWER = "answer";
 
 
  
@@ -37,6 +41,13 @@ public class Note {
                     + GENDER + " TEXT,"
                     + CATAGEORY + " TEXT,"
                     + CASTE + " TEXT,"
+                    + BOOTH_NUMBER + " TEXT"
+                    + ")";
+
+    public static final String CREATE_TABLE_VOLUNTEERS =
+            "CREATE TABLE " + TABLE_VOLUNTEERS + "("
+                    + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + NAME + " TEXT,"
                     + BOOTH_NUMBER + " TEXT"
                     + ")";
 

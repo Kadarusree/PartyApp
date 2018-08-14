@@ -53,6 +53,8 @@ public class NewsList extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot indi : dataSnapshot.getChildren()) {
+
+                    newsList.clear();
                     NewsPojo mNewsItem = indi.getValue(NewsPojo.class);
 
                     if (mNewsItem.isAccepted()){

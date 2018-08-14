@@ -19,6 +19,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -34,6 +35,7 @@ import sree.myparty.MyApplication;
 import sree.myparty.R;
 import sree.myparty.constuecies.Booth;
 import sree.myparty.database.DatabaseHelper;
+import sree.myparty.pojos.VolunteerPojo;
 import sree.myparty.pojos.VoterPojo;
 import sree.myparty.utils.ActivityLauncher;
 import sree.myparty.utils.Constants;
@@ -43,7 +45,7 @@ public class BoothCommitteeMap extends AppCompatActivity implements OnMapReadyCa
     ProgressDialog mProgressDialog;
     private List<Booth> mBoothsList;
 
-    ArrayList<VoterPojo> mVotersList;
+    ArrayList<VolunteerPojo> mVotersList;
     private DatabaseHelper db;
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
@@ -79,12 +81,14 @@ public class BoothCommitteeMap extends AppCompatActivity implements OnMapReadyCa
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 mProgressDialog.dismiss();
-
+                mBoothsList.clear();
                 for (DataSnapshot indi : dataSnapshot.getChildren()) {
                     Booth mBooth = indi.getValue(Booth.class);
                     mBoothsList.add(mBooth);
                 }
-              placeMarkers(mBoothsList,mMap);
+
+                loadAllVolunteers();
+
             }
 
             @Override
@@ -98,12 +102,12 @@ public class BoothCommitteeMap extends AppCompatActivity implements OnMapReadyCa
             public boolean onMarkerClick(Marker marker) {
                 Booth mBooth = (Booth) marker.getTag();
                 if (mBooth != null) {
-                    Toast.makeText(getApplicationContext(), mBooth.getBoothNumber(), Toast.LENGTH_LONG).show();
+                   /* Toast.makeText(getApplicationContext(), mBooth.getBoothNumber(), Toast.LENGTH_LONG).show();
                     Constants.selected_booth_id = marker.getTitle();
                     Constants.selected_booth_name = mBooth.getName();
 
                     ActivityLauncher.launchBoothWiseVotesAnalysyis(BoothCommitteeMap.this);
-                } else {
+         */       } else {
                     Toast.makeText(getApplicationContext(), "Booth Not Available", Toast.LENGTH_LONG).show();
 
                 }
@@ -112,58 +116,37 @@ public class BoothCommitteeMap extends AppCompatActivity implements OnMapReadyCa
         });
     }
 
-    private void placeMarkers(List<Booth> mBoothsList, GoogleMap gmap) {
+    private void placeMarkers(List<Booth> mBoothsList) {
         for (int i = 0; i < mBoothsList.size(); i++) {
 
             Booth mBooth = mBoothsList.get(i);
 
             if (mBooth.getMapLocation() != null) {
                 com.google.android.gms.maps.model.LatLng markerLocation = new com.google.android.gms.maps.model.LatLng(mBooth.getMapLocation().getLatitude(), mBooth.getMapLocation().getLongitude());
+
                 MarkerOptions mMarker = new MarkerOptions();
                 mMarker.position(markerLocation);
                 mMarker.title(mBooth.getBoothNumber());
+                int percentage = getCount(mBooth.getBoothNumber());
 
-                long percentage = getCount(mBooth.getBoothNumber());
-
-                if (percentage == 0.0) {
-                    mMarker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-                } else if (percentage > 0 && percentage < 10) {
+               if (percentage > 0 && percentage < 10) {
                     mMarker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
-                } else if (percentage > 10.0) {
+                } else if (percentage > 10) {
                     mMarker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
                 }
+               else {
+                   mMarker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+               }
 
-                gmap.addMarker(mMarker).setTag(mBooth);
-
-
+                mMap.addMarker(mMarker).setTag(mBooth);
             }
 
         }
     }
-    long count = 0;
-    private long  getCount(String boothNumber) {
 
-        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/Volunteers").orderByChild("boothnumber").equalTo(boothNumber).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                mProgressDialog.dismiss();
+    private int  getCount(String boothNumber) {
 
-                count  = dataSnapshot.getChildrenCount();
-                /*for (DataSnapshot indi : dataSnapshot.getChildren()) {
-                    Booth mBooth = indi.getValue(Booth.class);
-                    mBoothsList.add(mBooth);
-                }
-                placeMarkers(mBoothsList,mMap);*/
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-
-        return count;
+        return db.getBoothwiseVolunteersCount(boothNumber);
     }
 
     public boolean checkLocationPermission() {
@@ -233,5 +216,37 @@ public class BoothCommitteeMap extends AppCompatActivity implements OnMapReadyCa
 
     public void getBooths(){
 
+    }
+
+
+    public void loadAllVolunteers() {
+        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/Volunteers").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mVotersList = new ArrayList<>();
+
+                for (DataSnapshot indi : dataSnapshot.getChildren()) {
+                    VolunteerPojo mPojo = indi.getValue(VolunteerPojo.class);
+                    mVotersList.add(mPojo);
+                }
+                db.insertVolunteers(mVotersList);
+
+
+
+                placeMarkers(mBoothsList);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        db.delete();
     }
 }

@@ -58,7 +58,7 @@ public class GiftFragmentDilaog extends DialogFragment {
             return new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    sessionManager.AddwishSession(code,true);
+                   // sessionManager.AddwishSession(code,true);
                     GiftFragmentDilaog.this.dismiss();
                 }
             };

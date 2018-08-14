@@ -2,128 +2,128 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/dp_2"
-        android:layout_weight="0.5"
-        android:orientation="vertical">
-
-
-        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.4">
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.25"
-            android:background="@color/colorWhite"
-            android:layout_marginBottom="@dimen/dp_2"
-            android:id="@+id/vol_db_op1">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/vol_db_option1"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:textSize="@dimen/dp_15"
-                android:textColor="@color/colorPrimary"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.25"
-            android:background="@color/colorWhite"
-            android:layout_marginBottom="@dimen/dp_2"
-            android:id="@+id/vol_db_op3">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/vol_db_option3"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:textSize="@dimen/dp_15"
-                android:textColor="@color/colorPrimary"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.25"
-            android:background="@color/colorWhite"
-            android:layout_marginBottom="@dimen/dp_2"
-            >
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text=""
-                android:textStyle="bold"
-                android:gravity="center"
-                android:textSize="@dimen/dp_15"
-                android:textColor="@color/colorPrimary"/>
-        </LinearLayout>
+            android:layout_height="wrap_content">
 
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp_slider"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
+            <LinearLayout
+                android:id="@+id/ll_dots"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:orientation="horizontal"></LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
-
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="0.5"
-        android:layout_marginRight="@dimen/dp_2"
-        android:layout_marginBottom="@dimen/dp_2"
-        android:layout_marginTop="@dimen/dp_2"
-        android:orientation="vertical">
-
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.6">
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.25"
-            android:background="@color/colorWhite"
-            android:layout_marginBottom="@dimen/dp_2"
-            android:id="@+id/vol_db_op2">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/vol_db_option2"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:textSize="@dimen/dp_15"
-                android:textColor="@color/colorPrimary"
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.25"
-            android:background="@color/colorWhite"
-            android:layout_marginBottom="@dimen/dp_2"
-            android:id="@+id/vol_db_op5">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/vol_db_option5"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:textSize="@dimen/dp_15"
-                android:textColor="@color/colorPrimary"
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.25"
-            android:background="@color/colorWhite"
-            android:layout_marginBottom="@dimen/dp_2"
-            android:id="@+id/admin_db_opt6">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/vol_db_option6"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:textSize="@dimen/dp_15"
-                android:textColor="@color/colorPrimary"/>
-        </LinearLayout>
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/dp_2"
+            android:layout_weight="0.5"
+            android:orientation="vertical">
 
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.25"
+                android:background="@color/colorWhite"
+                android:layout_marginBottom="@dimen/dp_2"
+                android:id="@+id/vol_db_op1">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/vol_db_option1"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textSize="@dimen/dp_15"
+                    android:textColor="@color/colorPrimary"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.25"
+                android:background="@color/colorWhite"
+                android:layout_marginBottom="@dimen/dp_2"
+                android:id="@+id/vol_db_op3">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/vol_db_option3"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textSize="@dimen/dp_15"
+                    android:textColor="@color/colorPrimary"/>
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:layout_marginRight="@dimen/dp_2"
+            android:layout_marginBottom="@dimen/dp_2"
+            android:layout_marginTop="@dimen/dp_2"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.25"
+                android:background="@color/colorWhite"
+                android:layout_marginBottom="@dimen/dp_2"
+                android:id="@+id/vol_db_op2">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/vol_db_option2"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textSize="@dimen/dp_15"
+                    android:textColor="@color/colorPrimary"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.25"
+                android:background="@color/colorWhite"
+                android:layout_marginBottom="@dimen/dp_2"
+                android:id="@+id/vol_db_op5">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/vol_db_option5"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textSize="@dimen/dp_15"
+                    android:textColor="@color/colorPrimary"
+                    />
+            </LinearLayout>
+
+
+
+        </LinearLayout>
     </LinearLayout>
+
+
 </LinearLayout>
