@@ -271,7 +271,8 @@
             android:label="@string/title_activity_volunteer_base"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".admin.BoothCommitteeMap" />
-        <activity android:name=".volunteer.NewsAcceptList"></activity>
+        <activity android:name=".volunteer.NewsAcceptList" />
+        <activity android:name=".DashBoard.VideoActivity" android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>

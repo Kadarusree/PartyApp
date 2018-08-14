@@ -28,4 +28,6 @@
     <color name="color_green">#0f9e33</color>
     <color name="red">#dc1627</color>
 
+    <color name="shadow">#555555</color>
+    <color name="title">#777777</color>
 </resources>

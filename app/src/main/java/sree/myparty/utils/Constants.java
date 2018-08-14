@@ -23,7 +23,10 @@ public class Constants {
     public static  String FIREBASE_PUSH_API = "https://fcm.googleapis.com/fcm/send";
     public static  String FCM_SERVER_KEY = "key=AAAA4uqgDOE:APA91bEsiXQF6zCwtUMbEZBTt57KXmztAxHnVJt2t_cpXFRKlzSse1xSOnI6uG5GVUJuKAUNV9cC8oku8jGvbupNMwQ-N5q_KJ4mJU8fpLT_0OjOnSQs50uZ5bKnzuugh_-5vk1lz_a0clvCfVBuAmWeA9UEaFBDZg";
 
+    public static final String DEVELOPER_KEY = "AIzaSyBqzKBbPcD9QzaV61wX-i2CYK_kLXgHbxM";
 
+    // YouTube video id
+    public static final String YOUTUBE_VIDEO_CODE = "fopWtboKnHo";
     //Session Constants:
 
     //wish me

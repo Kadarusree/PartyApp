@@ -62,7 +62,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     ArrayList<String> slider_image_list;
     private TextView[] dots;
     int page_position = 0;
-
+     Handler handler;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -78,7 +78,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         addBottomDots(0);
 
-        final Handler handler = new Handler();
+        handler = new Handler();
 
         final Runnable update = new Runnable() {
             public void run() {
@@ -233,7 +233,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
             @Override
             public void onPageSelected(int position) {
-                addBottomDots(position);
+               addBottomDots(position);
             }
 
             @Override
@@ -248,14 +248,28 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         ll_dots.removeAllViews();
         for (int i = 0; i < dots.length; i++) {
-            dots[i] = new TextView(getActivity());
-            dots[i].setText(Html.fromHtml("&#8226;"));
-            dots[i].setTextSize(35);
-            dots[i].setTextColor(Color.parseColor("#FFFFFF"));
-            ll_dots.addView(dots[i]);
+            try {
+                dots[i] = new TextView(getActivity());
+                dots[i].setText(Html.fromHtml("&#8226;"));
+                dots[i].setTextSize(35);
+                dots[i].setTextColor(Color.parseColor("#FFFFFF"));
+                ll_dots.addView(dots[i]);
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+
         }
 
         if (dots.length > 0)
-            dots[currentPage].setTextColor(Color.parseColor("#2ECC71"));
+            if (dots[currentPage]!=null){
+                dots[currentPage].setTextColor(Color.parseColor("#2ECC71"));
+            }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        handler.removeMessages(0);
     }
 }
