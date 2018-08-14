@@ -101,6 +101,7 @@ public class PostNews extends AppCompatActivity {
 
     ProgressDialog mProgressDialog;
 
+    SessionManager mSessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +112,7 @@ public class PostNews extends AppCompatActivity {
         mProgressDialog = Constants.showDialog(this);
         mFirebaseStorage = FirebaseStorage.getInstance();
         mStorageReference = mFirebaseStorage.getReference();
+        mSessionManager = new SessionManager(this);
     }
 
     @OnClick(R.id.btn_news_uploadphoto)
@@ -387,7 +389,7 @@ public class PostNews extends AppCompatActivity {
     public void uploadImageTask(byte[] data) {
         mProgressDialog.setMessage("Uploading Image");
         mProgressDialog.show();
-        mStorageReference = mStorageReference.child(Constants.DB_PATH+"/" + System.currentTimeMillis() + ".jpg");
+        mStorageReference = mStorageReference.child(Constants.DB_PATH + "/" + System.currentTimeMillis() + ".jpg");
         UploadTask uploadTask = mStorageReference.putBytes(data);
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
@@ -401,15 +403,13 @@ public class PostNews extends AppCompatActivity {
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
                 mProgressDialog.setMessage("Posting News");
 
-                DatabaseReference mRef = MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/News");
+                DatabaseReference mRef = MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/News");
                 String key = mRef.push().getKey();
 
-                NewsPojo mNews = new NewsPojo(mTitle.getText().toString(), mDescription.getText().toString(), downloadUrl.toString(), System.currentTimeMillis() + "", "Sree");
+                NewsPojo mNews = new NewsPojo(mTitle.getText().toString(), mDescription.getText().toString(), downloadUrl.toString(), System.currentTimeMillis() + "", mSessionManager.getName(), false);
                 postNews(mNews, mRef, key);
             }
         });
-
-
     }
 
     public void postNews(final NewsPojo news, DatabaseReference mRef, String key) {
@@ -427,12 +427,11 @@ public class PostNews extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 mProgressDialog.dismiss();
-                if (task.isSuccessful()){
-                    sendNotifications(news);
-                    Constants.showToast("News Posted",PostNews.this);
-                }
-                else {
-                    Constants.showToast("Failed",PostNews.this);
+                if (task.isSuccessful()) {
+                 //   sendNotifications(news);
+                    Constants.showToast("News Posted", PostNews.this);
+                } else {
+                    Constants.showToast("Failed", PostNews.this);
 
                 }
 
@@ -440,17 +439,19 @@ public class PostNews extends AppCompatActivity {
             }
         });
     }
-    JSONObject  mObject;
-    public void sendNotifications(NewsPojo news){
-          mObject = new JSONObject();
+
+    JSONObject mObject;
+
+    public void sendNotifications(NewsPojo news) {
+        mObject = new JSONObject();
         try {
 
             JSONObject jsonObjec2 = new JSONObject();
             jsonObjec2.put("news", news.getTitle());
             jsonObjec2.put("username", new SessionManager(PostNews.this).getName());
             jsonObjec2.put("purpose", "News");
-           // mObject.put("data", new JSONObject().put("news", news.getTitle()));
-            mObject.put("data",jsonObjec2);
+            // mObject.put("data", new JSONObject().put("news", news.getTitle()));
+            mObject.put("data", jsonObjec2);
             mObject.put("registration_ids", new JSONArray(Constants.fcm_ids));
             System.out.print(mObject.toString());
 
@@ -461,6 +462,7 @@ public class PostNews extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
     class NotificationsTask extends AsyncTask<Void, Void, String> {
 
         final String API_URL = Constants.FIREBASE_PUSH_API;

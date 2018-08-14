@@ -8,10 +8,10 @@
             android:id="@+id/id_card"
             android:icon="@drawable/ic_id_card"
             android:title="ID card" />
-        <item
+       <!-- <item
             android:id="@+id/nav_workdone"
             android:icon="@drawable/ic_work_done"
-            android:title="Work Done" />
+            android:title="Work Done" />-->
         <item
             android:id="@+id/nav_chat"
             android:icon="@drawable/ic_chat"
@@ -20,6 +20,11 @@
             android:id="@+id/id_meet"
             android:icon="@drawable/ic_meeting"
             android:title="Meetings" />
+
+        <item
+          android:id="@+id/nav_postNews"
+          android:icon="@drawable/ic_news"
+          android:title="Post News" />
 
         <item
             android:id="@+id/nav_gallery"

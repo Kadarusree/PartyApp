@@ -92,7 +92,7 @@ public class VolunteerHomeFragment extends Fragment implements View.OnClickListe
                 break;
 
             case R.id.vol_db_op5:
-                ActivityLauncher.postNews(getActivity());
+                ActivityLauncher.newsAcceptList(getActivity());
                 break;
 
         }

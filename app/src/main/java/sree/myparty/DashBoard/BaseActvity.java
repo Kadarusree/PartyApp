@@ -144,10 +144,10 @@ public abstract class BaseActvity extends AppCompatActivity
             ActivityLauncher.profileScreen(this);
         } else if (id == R.id.nav_gallery) {
             ActivityLauncher.newsList(this);
-        } else if (id == R.id.nav_workdone) {
+        } /*else if (id == R.id.nav_workdone) {
             ActivityLauncher.volunteerRegistartionScreen(getApplicationContext());
 
-        } else if (id == R.id.nav_chat) {
+        }*/ else if (id == R.id.nav_chat) {
             startActivity(new Intent(getApplicationContext(), UserListActicity.class));
 
         } else if (id == R.id.id_meet) {
@@ -158,6 +158,9 @@ public abstract class BaseActvity extends AppCompatActivity
 
         } else if (id == R.id.nav_vol_lregis) {
             ActivityLauncher.volunteerRegistartionScreen(getApplicationContext());
+
+        } else if (id == R.id.nav_postNews) {
+            ActivityLauncher.postNews(getApplicationContext());
 
         } else if (id == R.id.nav_vol_login) {
             if (new VolunteerSessionManager(getApplicationContext()).hasActiveSession()) {
@@ -204,7 +207,7 @@ public abstract class BaseActvity extends AppCompatActivity
                 if (pojo != null && pojo.isShow() == true) {
 
                     try {
-                        if(sessionManager.getWishCode()!=pojo.getCode()) {
+                        if (sessionManager.getWishCode() != pojo.getCode()) {
                             GiftFragmentDilaog dFragment = new GiftFragmentDilaog(pojo.getPath(), pojo.getCode());
                             dFragment.setCancelable(false); //don't close when touch outside
                             dFragment.show(getSupportFragmentManager(), "Dialog Fragment");

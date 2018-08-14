@@ -2,18 +2,35 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimary"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="@dimen/dp_2"
         android:layout_weight="0.3"
 
         android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <LinearLayout
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp_slider"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <LinearLayout
+                android:id="@+id/ll_dots"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:orientation="horizontal"></LinearLayout>
+        </RelativeLayout>
+        <!--<LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginRight="2dp"
@@ -39,9 +56,9 @@
                 android:text="ID CARD"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/dp_18" />
-        </LinearLayout>
+        </LinearLayout>-->
 
-        <LinearLayout
+       <!-- <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
@@ -66,7 +83,7 @@
                 android:text="WORK DONE"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/dp_18" />
-        </LinearLayout>
+        </LinearLayout>-->
     </LinearLayout>
 
     <LinearLayout
@@ -74,7 +91,8 @@
         android:layout_height="0dp"
         android:layout_marginLeft="@dimen/dp_2"
         android:layout_marginRight="@dimen/dp_2"
-        android:layout_weight="0.3"
+        android:layout_marginTop="@dimen/dp_2"
+        android:layout_weight="0.21"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -137,7 +155,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="@dimen/dp_2"
-        android:layout_weight="0.3"
+        android:layout_weight="0.21"
 
         android:orientation="horizontal">
 
@@ -211,10 +229,38 @@
         android:layout_marginBottom="@dimen/dp_2"
         android:layout_marginLeft="@dimen/dp_2"
         android:layout_marginRight="@dimen/dp_2"
-        android:layout_weight="0.3"
+        android:layout_weight="0.21"
         android:orientation="horizontal">
 
         <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="2dp"
+            android:layout_weight="0.5"
+            android:background="@color/colorWhite"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/db_op1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="1dp"
+                android:layout_weight="0.75"
+                android:src="@drawable/ic_id_card" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_below="@id/db_op1"
+                android:layout_weight="0.25"
+                android:gravity="center"
+                android:text="ID CARD"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/dp_18" />
+        </LinearLayout>
+
+       <!-- <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginRight="@dimen/dp_2"
@@ -242,7 +288,7 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/dp_18" />
 
-        </LinearLayout>
+        </LinearLayout>-->
 
         <LinearLayout
             android:layout_width="0dp"
@@ -276,7 +322,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.1"
+        android:layout_weight="0.07"
         android:background="@color/colorPrimaryDark">
 
         <TextView

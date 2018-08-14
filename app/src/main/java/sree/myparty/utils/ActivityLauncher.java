@@ -34,6 +34,7 @@ import sree.myparty.survey.SurveyList;
 import sree.myparty.volunteer.CasteWiseVoters;
 import sree.myparty.volunteer.InfluencePerson;
 import sree.myparty.volunteer.Local_Issues;
+import sree.myparty.volunteer.NewsAcceptList;
 import sree.myparty.volunteer.VolunteerDashboard;
 import sree.myparty.volunteer.VolunteerLogin;
 import sree.myparty.volunteer.VolunteerRegis;
@@ -71,6 +72,10 @@ public class ActivityLauncher {
 
     public static void postNews(Context ctx) {
         ctx.startActivity(new Intent(ctx, PostNews.class));
+    }
+
+    public static void newsAcceptList(Context ctx) {
+        ctx.startActivity(new Intent(ctx, NewsAcceptList.class));
     }
 
     public static void newsList(Context ctx) {
