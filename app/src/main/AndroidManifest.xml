@@ -272,7 +272,10 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".admin.BoothCommitteeMap" />
         <activity android:name=".volunteer.NewsAcceptList" />
-        <activity android:name=".DashBoard.VideoActivity" android:screenOrientation="landscape"></activity>
+        <activity
+            android:name=".DashBoard.VideoActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".volunteer.VolunteerNewsList"></activity>
     </application>
 
 </manifest>

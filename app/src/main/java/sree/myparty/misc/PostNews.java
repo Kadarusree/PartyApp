@@ -406,7 +406,7 @@ public class PostNews extends AppCompatActivity {
                 DatabaseReference mRef = MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/News");
                 String key = mRef.push().getKey();
 
-                NewsPojo mNews = new NewsPojo(mTitle.getText().toString(), mDescription.getText().toString(), downloadUrl.toString(), System.currentTimeMillis() + "", mSessionManager.getName(), false);
+                NewsPojo mNews = new NewsPojo(mTitle.getText().toString(), mDescription.getText().toString(), downloadUrl.toString(), System.currentTimeMillis() + "", mSessionManager.getName(), false,key);
                 postNews(mNews, mRef, key);
             }
         });

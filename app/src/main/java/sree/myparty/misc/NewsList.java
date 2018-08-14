@@ -27,7 +27,6 @@ import sree.myparty.utils.Constants;
 import sree.myparty.utils.MyDividerItemDecoration;
 
 public class NewsList extends AppCompatActivity {
-    private ShimmerFrameLayout mShimmerViewContainer;
 
     private RecyclerView recyclerView;
     private List<NewsPojo> newsList;
@@ -38,7 +37,6 @@ public class NewsList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_list);
-        mShimmerViewContainer = findViewById(R.id.shimmer_view_container);
 
         recyclerView = findViewById(R.id.recycler_view);
         newsList = new ArrayList<>();
@@ -56,14 +54,17 @@ public class NewsList extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot indi : dataSnapshot.getChildren()) {
                     NewsPojo mNewsItem = indi.getValue(NewsPojo.class);
-                    newsList.add(mNewsItem);
+
+                    if (mNewsItem.isAccepted()){
+                        newsList.add(mNewsItem);
+                    }
+
                 }
                 // refreshing recycler view
                 mAdapter.notifyDataSetChanged();
 
                 // stop animating Shimmer and hide the layout
-                mShimmerViewContainer.stopShimmerAnimation();
-                mShimmerViewContainer.setVisibility(View.GONE);
+
             }
 
             @Override
@@ -76,12 +77,10 @@ public class NewsList extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        mShimmerViewContainer.startShimmerAnimation();
     }
 
     @Override
     public void onPause() {
-        mShimmerViewContainer.stopShimmerAnimation();
         super.onPause();
     }
 

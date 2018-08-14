@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <item
+        android:id="@+id/approve"
+        android:orderInCategory="100"
+        android:title="@string/approve" />
+    <item
+        android:id="@+id/edit"
+        android:orderInCategory="101"
+        android:title="@string/Edit" />
+    <item
+        android:id="@+id/delete"
+        android:orderInCategory="101"
+        android:title="@string/delete" />
+
+</menu>

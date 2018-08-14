@@ -14,6 +14,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import sree.myparty.Adapters.NewsVolunteerAdapter;
 import sree.myparty.MyApplication;
 import sree.myparty.R;
 import sree.myparty.beans.NewsPojo;
@@ -24,7 +25,7 @@ import sree.myparty.utils.MyDividerItemDecoration;
 public class NewsAcceptList extends AppCompatActivity {
     private RecyclerView recyclerView;
     private List<NewsPojo> newsList;
-    private NewsListAdapter mAdapter;
+    private NewsVolunteerAdapter mAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +33,7 @@ public class NewsAcceptList extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recycler_view);
         newsList = new ArrayList<>();
-        mAdapter = new NewsListAdapter(this, newsList);
+        mAdapter = new NewsVolunteerAdapter(this, newsList);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -44,6 +45,7 @@ public class NewsAcceptList extends AppCompatActivity {
         MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/News").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                newsList.clear();
                 for (DataSnapshot indi : dataSnapshot.getChildren()) {
                     NewsPojo mNewsItem = indi.getValue(NewsPojo.class);
                     newsList.add(mNewsItem);

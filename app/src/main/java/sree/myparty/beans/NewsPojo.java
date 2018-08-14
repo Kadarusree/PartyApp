@@ -6,7 +6,21 @@ package sree.myparty.beans;
 
 public class NewsPojo {
 
-    String title, description, imageUrl, timestamp, postedby;
+    String title;
+    String description;
+    String imageUrl;
+    String timestamp;
+    String postedby;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    String id;
 
     public boolean isAccepted() {
         return isAccepted;
@@ -21,13 +35,14 @@ public class NewsPojo {
     public NewsPojo() {
     }
 
-    public NewsPojo(String title, String description, String imageUrl, String timestamp, String postedby, boolean isAccepted) {
+    public NewsPojo(String title, String description, String imageUrl, String timestamp, String postedby, boolean isAccepted, String id) {
         this.title = title;
         this.description = description;
         this.imageUrl = imageUrl;
         this.timestamp = timestamp;
         this.postedby = postedby;
         this.isAccepted = isAccepted;
+        this.id = id;
     }
 
     public String getTitle() {
