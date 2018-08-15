@@ -40,7 +40,7 @@ public class AdminLogin extends AppCompatActivity {
 
       /*  Constants.isAdmin = true;
         ActivityLauncher.launchAdminDB(AdminLogin.this);*/
-        if (edt_username.getText().toString().equalsIgnoreCase("Mahesh")&&edt_password.getText().toString().equals("2011")){
+        if (edt_username.getText().toString().trim().equalsIgnoreCase("Mahesh")&&edt_password.getText().toString().trim().equals("2011")){
             Constants.isAdmin = true;
             ActivityLauncher.launchAdminDB(AdminLogin.this);
         }
