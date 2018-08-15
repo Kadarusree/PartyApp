@@ -18,7 +18,6 @@ public class GiftFragmentDilaog extends DialogFragment {
 
     String url;
     int code;
-    SessionManager sessionManager;
     public GiftFragmentDilaog(String s,int code) {
 
         url=s;
@@ -34,7 +33,6 @@ public class GiftFragmentDilaog extends DialogFragment {
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setStyle(DialogFragment.STYLE_NO_TITLE, 0);
-            sessionManager=new SessionManager(getActivity());
 
         }
 

@@ -47,6 +47,7 @@ public class Dashboard extends BaseActvity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        checkWish();
         auth = FirebaseAuth.getInstance();
         sessionManager = new SessionManager(this);
         reference = MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/Users/" + auth.getUid());

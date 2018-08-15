@@ -43,6 +43,13 @@
             android:icon="@drawable/right_arrow_vol"
             android:title="Visits" />
 
+
+        <item
+            android:id="@+id/nav_adm_boothwiseList"
+            android:icon="@drawable/right_arrow_vol"
+            android:title="CommitteWise List" />
+
+
         <item
             android:id="@+id/nav_adm_analysis"
             android:icon="@drawable/right_arrow_vol"

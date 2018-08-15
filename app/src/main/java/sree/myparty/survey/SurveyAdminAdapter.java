@@ -287,7 +287,7 @@ public class SurveyAdminAdapter extends RecyclerView.Adapter<SurveyAdminAdapter.
                 .getReference(Constants.DB_PATH+"/Surveys")
                 .child(mSurveyList.get(selected_position)
                         .getSurveyID())
-                .child("active").setValue(false)
+                .child("isActive").setValue(false)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

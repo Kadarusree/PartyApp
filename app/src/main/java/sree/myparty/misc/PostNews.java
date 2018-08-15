@@ -1,5 +1,6 @@
 package sree.myparty.misc;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -190,12 +191,14 @@ public class PostNews extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == SELECT_FILE)
+            if (requestCode == SELECT_FILE) {
                 onSelectFromGalleryResult(data);
-        } else if (requestCode == REQUEST_CAMERA) {
+
+            } else if (requestCode == REQUEST_CAMERA) {
 
 
-            onCaptureImageResult(data, null, true);
+                onCaptureImageResult(data, null, true);
+            }
         }
 
     }
@@ -237,7 +240,7 @@ public class PostNews extends AppCompatActivity {
     public boolean checkPermission() {
         int currentAPIVersion = Build.VERSION.SDK_INT;
         if (currentAPIVersion >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(PostNews.this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if ((ContextCompat.checkSelfPermission(PostNews.this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) || (ContextCompat.checkSelfPermission(PostNews.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)) {
                 if (ActivityCompat.shouldShowRequestPermissionRationale(PostNews.this, android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
                     AlertDialog.Builder alertBuilder = new AlertDialog.Builder(PostNews.this);
                     alertBuilder.setCancelable(true);
@@ -246,7 +249,7 @@ public class PostNews extends AppCompatActivity {
                     alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         @android.support.annotation.RequiresApi(api = Build.VERSION_CODES.M)
                         public void onClick(DialogInterface dialog, int which) {
-                            requestPermissions(new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+                            requestPermissions(new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
                             // ActivityCompat.requestPermissions((Activity) context, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
                         }
                     });
@@ -254,7 +257,7 @@ public class PostNews extends AppCompatActivity {
                     alert.show();
 
                 } else {
-                    requestPermissions(new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+                    requestPermissions(new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
                 }
                 return false;
             } else {
@@ -276,7 +279,6 @@ public class PostNews extends AppCompatActivity {
                 thumbnail = BitmapFactory.decodeFile(imageFilePath);
                 img_thumbnail.setImageBitmap(bitmap);
 
-
                 thumbnail = rotateImageIfRequired(thumbnail, Uri.parse(imageFilePath));
 
             } catch (Exception e) {
@@ -285,6 +287,7 @@ public class PostNews extends AppCompatActivity {
 
         } else {
             thumbnail = bitmap;
+            img_thumbnail.setImageBitmap(bitmap);
 
         }
 
@@ -318,7 +321,7 @@ public class PostNews extends AppCompatActivity {
 
 
             }
-            // ivImage.setImageBitmap(thumbnail);
+            img_thumbnail.setImageBitmap(thumbnail);
         } else {
             Toast.makeText(this, "Image uploading Error", Toast.LENGTH_SHORT).show();
         }
@@ -406,7 +409,7 @@ public class PostNews extends AppCompatActivity {
                 DatabaseReference mRef = MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/News");
                 String key = mRef.push().getKey();
 
-                NewsPojo mNews = new NewsPojo(mTitle.getText().toString(), mDescription.getText().toString(), downloadUrl.toString(), System.currentTimeMillis() + "", mSessionManager.getName(), false,key);
+                NewsPojo mNews = new NewsPojo(mTitle.getText().toString(), mDescription.getText().toString(), downloadUrl.toString(), System.currentTimeMillis() + "", mSessionManager.getName(), false, key);
                 postNews(mNews, mRef, key);
             }
         });
@@ -428,7 +431,7 @@ public class PostNews extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 mProgressDialog.dismiss();
                 if (task.isSuccessful()) {
-                 //   sendNotifications(news);
+                    //   sendNotifications(news);
                     Constants.showToast("News Posted", PostNews.this);
                 } else {
                     Constants.showToast("Failed", PostNews.this);
@@ -442,60 +445,5 @@ public class PostNews extends AppCompatActivity {
 
     JSONObject mObject;
 
-    public void sendNotifications(NewsPojo news) {
-        mObject = new JSONObject();
-        try {
 
-            JSONObject jsonObjec2 = new JSONObject();
-            jsonObjec2.put("news", news.getTitle());
-            jsonObjec2.put("username", new SessionManager(PostNews.this).getName());
-            jsonObjec2.put("purpose", "News");
-            // mObject.put("data", new JSONObject().put("news", news.getTitle()));
-            mObject.put("data", jsonObjec2);
-            mObject.put("registration_ids", new JSONArray(Constants.fcm_ids));
-            System.out.print(mObject.toString());
-
-            NotificationsTask mEnd = new NotificationsTask(new OkHttpClient());
-            mEnd.execute();
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    class NotificationsTask extends AsyncTask<Void, Void, String> {
-
-        final String API_URL = Constants.FIREBASE_PUSH_API;
-        final OkHttpClient mClient;
-
-        public NotificationsTask(OkHttpClient client) {
-            mClient = client;
-        }
-
-        @Override
-        protected String doInBackground(Void... params) {
-            try {
-                MediaType JSON
-                        = MediaType.parse("application/json; charset=utf-8");
-                RequestBody mBody = RequestBody.create(JSON, mObject.toString());
-                Request request = new Request.Builder()
-                        .url(API_URL)
-                        .post(mBody)
-                        .header("Authorization", Constants.FCM_SERVER_KEY)
-                        .header("Content-Type", "application/json")
-                        .build();
-
-
-                okhttp3.Response response = mClient.newCall(request).execute();
-
-                Log.d("DeleteBulkFromBackEnd", "Code: " + response.code());
-                Log.d("DeleteBulkFromBackEnd", "Body: " + response.body().string());
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-    }
 }

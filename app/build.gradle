@@ -4,6 +4,10 @@ apply plugin: 'kotlin-android-extensions'
 
 
 android {
+    signingConfigs {
+        config {
+        }
+    }
     compileSdkVersion 27
     flavorDimensions "versionCode"
     defaultConfig {

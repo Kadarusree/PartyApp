@@ -102,12 +102,9 @@ public class BoothCommitteeMap extends AppCompatActivity implements OnMapReadyCa
             public boolean onMarkerClick(Marker marker) {
                 Booth mBooth = (Booth) marker.getTag();
                 if (mBooth != null) {
-                   /* Toast.makeText(getApplicationContext(), mBooth.getBoothNumber(), Toast.LENGTH_LONG).show();
-                    Constants.selected_booth_id = marker.getTitle();
-                    Constants.selected_booth_name = mBooth.getName();
-
-                    ActivityLauncher.launchBoothWiseVotesAnalysyis(BoothCommitteeMap.this);
-         */       } else {
+                    Constants.selected_booth_id = mBooth.getBoothNumber();
+                    ActivityLauncher.launchParticularBooth(BoothCommitteeMap.this);
+              } else {
                     Toast.makeText(getApplicationContext(), "Booth Not Available", Toast.LENGTH_LONG).show();
 
                 }

@@ -42,7 +42,9 @@ public class NewsList extends AppCompatActivity {
         newsList = new ArrayList<>();
         mAdapter = new NewsListAdapter(this, newsList);
 
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new MyDividerItemDecoration(this, LinearLayoutManager.VERTICAL, 16));
@@ -52,9 +54,10 @@ public class NewsList extends AppCompatActivity {
         MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/News").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                newsList.clear();
                 for (DataSnapshot indi : dataSnapshot.getChildren()) {
 
-                    newsList.clear();
+
                     NewsPojo mNewsItem = indi.getValue(NewsPojo.class);
 
                     if (mNewsItem.isAccepted()){

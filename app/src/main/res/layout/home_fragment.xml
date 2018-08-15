@@ -313,7 +313,7 @@
                 android:layout_below="@id/db_op1"
                 android:layout_weight="0.25"
                 android:gravity="center"
-                android:text="ADMIN LOGIN"
+                android:text="ADMIN"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/dp_18" />
         </LinearLayout>

@@ -1,15 +1,21 @@
 package sree.myparty.admin;
 
+import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.PointF;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -45,6 +51,7 @@ import sree.myparty.MyApplication;
 import sree.myparty.R;
 import sree.myparty.graph.DayAxisValueFormatter;
 import sree.myparty.graph.MyAxisValueFormatter;
+import sree.myparty.misc.PostNews;
 import sree.myparty.pojos.UserDetailPojo;
 import sree.myparty.utils.Constants;
 
@@ -58,6 +65,7 @@ public class MeetingAttendence extends AppCompatActivity implements QRCodeReader
 
     private QRCodeReaderView qrCodeReaderView;
     ProgressDialog pDialog;
+    public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
 
 
     ArrayList<Integer> count_array;
@@ -82,7 +90,7 @@ public class MeetingAttendence extends AppCompatActivity implements QRCodeReader
         keys_array = new ArrayList<>();
         count_array = new ArrayList<>();
 
-
+        checkPermission();
 
         pDialog = Constants.showDialog(this);
 
@@ -106,6 +114,18 @@ public class MeetingAttendence extends AppCompatActivity implements QRCodeReader
             @Override
             public void onClick(View v) {
                 qrCodeReaderView.startCamera();
+
+                // Use this function to enable/disable decoding
+                qrCodeReaderView.setQRDecodingEnabled(true);
+
+                // Use this function to change the autofocus interval (default is 5 secs)
+                qrCodeReaderView.setAutofocusInterval(2000L);
+
+                // Use this function to enable/disable Torch
+                qrCodeReaderView.setTorchEnabled(true);
+
+                // Use this function to set back camera preview
+                qrCodeReaderView.setBackCamera();
             }
         });
         qrCodeReaderView = (QRCodeReaderView) findViewById(R.id.qrdecoderview);
@@ -179,10 +199,11 @@ public class MeetingAttendence extends AppCompatActivity implements QRCodeReader
 
     @Override
     public void onQRCodeRead(String text, PointF[] points) {
-        qrCodeReaderView.stopCamera();
+
+
         Vibrator mVibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        mVibrator.vibrate(500);
-        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+        mVibrator.vibrate(200);
+     //   Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
         submitAttendence(text);
     }
 
@@ -307,6 +328,39 @@ public class MeetingAttendence extends AppCompatActivity implements QRCodeReader
             mChart.clear();
             mChart.setData(data);
             mChart.invalidate();
+        }
+    }
+
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    public boolean checkPermission() {
+        int currentAPIVersion = Build.VERSION.SDK_INT;
+        if (currentAPIVersion >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(MeetingAttendence.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(MeetingAttendence.this, Manifest.permission.CAMERA)) {
+                    android.support.v7.app.AlertDialog.Builder alertBuilder = new android.support.v7.app.AlertDialog.Builder(MeetingAttendence.this);
+                    alertBuilder.setCancelable(true);
+                    alertBuilder.setTitle(getResources().getString(R.string.permission));
+                    alertBuilder.setMessage(getString(R.string.externalstorage));
+                    alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        @android.support.annotation.RequiresApi(api = Build.VERSION_CODES.M)
+                        public void onClick(DialogInterface dialog, int which) {
+                            requestPermissions(new String[]{android.Manifest.permission.CAMERA}, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+                            // ActivityCompat.requestPermissions((Activity) context, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+                        }
+                    });
+                    android.support.v7.app.AlertDialog alert = alertBuilder.create();
+                    alert.show();
+
+                } else {
+                    requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+                }
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return true;
         }
     }
 }

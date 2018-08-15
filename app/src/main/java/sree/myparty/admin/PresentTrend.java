@@ -141,7 +141,7 @@ public class PresentTrend extends AppCompatActivity implements OnMapReadyCallbac
         } else {
             getLocation();
         }
-
+        mProgressDialog.show();
 
         MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/Booths/mBooths").addValueEventListener(new ValueEventListener() {
             @Override
@@ -157,6 +157,7 @@ public class PresentTrend extends AppCompatActivity implements OnMapReadyCallbac
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                mProgressDialog.dismiss();
 
             }
         });
@@ -166,7 +167,6 @@ public class PresentTrend extends AppCompatActivity implements OnMapReadyCallbac
             public boolean onMarkerClick(Marker marker) {
                 Booth mBooth = (Booth) marker.getTag();
                 if (mBooth != null) {
-                    Toast.makeText(getApplicationContext(), mBooth.getBoothNumber(), Toast.LENGTH_LONG).show();
                     Constants.selected_booth_id = marker.getTitle();
                     Constants.selected_booth_name = mBooth.getName();
 
@@ -211,9 +211,13 @@ public class PresentTrend extends AppCompatActivity implements OnMapReadyCallbac
 
 
     public void loadAllVoters() {
+        mProgressDialog.show();
+
         MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/Voters").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                mProgressDialog.dismiss();
+
                 mVotersList = new ArrayList<>();
 
                 for (DataSnapshot indi : dataSnapshot.getChildren()) {
@@ -229,6 +233,7 @@ public class PresentTrend extends AppCompatActivity implements OnMapReadyCallbac
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                mProgressDialog.dismiss();
 
             }
         });

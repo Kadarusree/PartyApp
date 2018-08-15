@@ -28,6 +28,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".chat.ParticularChat"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
@@ -46,15 +47,17 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".OTP_Activity"
-            android:screenOrientation="portrait"
-            android:noHistory="true"/>
+            android:noHistory="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".DashBoard.BaseActvity"
             android:label="@string/title_activity_base_actvity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".DashBoard.Dashboard"
             android:label="@string/title_activity_base_actvity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".chat.UserListActicity"
@@ -90,15 +93,19 @@
 
         <activity
             android:name=".volunteer.VolunteerLogin"
-            android:parentActivityName=".DashBoard.Dashboard" />
+            android:parentActivityName=".DashBoard.Dashboard"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".volunteer.VolunteerRegis"
-            android:parentActivityName=".DashBoard.Dashboard" />
+            android:parentActivityName=".DashBoard.Dashboard"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".misc.NewsList"
             android:label="News"
             android:parentActivityName=".DashBoard.Dashboard" />
-        <activity android:name=".admin.AdminLogin" />
+        <activity
+            android:name=".admin.AdminLogin"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".volunteer.VolunteerDashboard"
             android:screenOrientation="portrait"
@@ -122,7 +129,8 @@
         <activity
             android:name=".misc.PostNews"
             android:label="Post News"
-            android:parentActivityName=".volunteer.VolunteerDashboard" />
+            android:parentActivityName=".volunteer.VolunteerDashboard"
+            android:screenOrientation="portrait" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -141,7 +149,8 @@
         <activity
             android:name=".DashBoard.ProfileScreen"
             android:label="ID CARD"
-            android:parentActivityName=".DashBoard.Dashboard" />
+            android:parentActivityName=".DashBoard.Dashboard"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".admin.AdminMap"
             android:label="@string/title_activity_admin_map"
@@ -266,17 +275,32 @@
         <activity
             android:name=".admin.AdminBaseActivity"
             android:label="@string/title_activity_admin_base"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".volunteer.VolunteerBaseActivity"
             android:label="@string/title_activity_volunteer_base"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".admin.BoothCommitteeMap" />
-        <activity android:name=".volunteer.NewsAcceptList" />
+        <activity
+            android:name=".admin.BoothCommitteeMap"
+            android:parentActivityName=".DashBoard.BaseActvity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".volunteer.NewsAcceptList"
+            android:parentActivityName=".volunteer.VolunteerDashboard"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".DashBoard.VideoActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".volunteer.VolunteerNewsList"></activity>
+        <activity
+            android:name=".volunteer.VolunteerNewsList"
+            android:parentActivityName=".volunteer.VolunteerDashboard"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".admin.BoothwiseList"
+            android:parentActivityName=".admin.AdminDashboard"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

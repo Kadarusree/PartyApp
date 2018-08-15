@@ -34,7 +34,7 @@
     <string name="db_option3">CHATS</string>
     <string name="db_option4">VIDEO\n CALLING</string>
     <string name="db_option5">VOLUNTEER\n LOGIN</string>
-    <string name="db_option6">ADMIN\n LOGIN</string>
+    <string name="db_option6">ADMIN</string>
 
     <string name="vol_db_option1">ADD\nVOTERS</string>
     <string name="vol_db_option2">INFLUENCE\nPERSON</string>

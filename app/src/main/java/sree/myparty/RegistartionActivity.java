@@ -102,7 +102,7 @@ public class RegistartionActivity extends AppCompatActivity {
         progressDialog = Constants.showDialog(RegistartionActivity.this);
         mSessionManager = new SessionManager(this);
         String fb_key = mSessionManager.getFirebaseKey();
-        Constants.showToast(fb_key, this);
+       // Constants.showToast(fb_key, this);
         FirebaseInstanceId.getInstance().getToken();
 
 

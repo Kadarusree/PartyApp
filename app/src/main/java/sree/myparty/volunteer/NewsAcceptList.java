@@ -57,6 +57,10 @@ public class NewsAcceptList extends AppCompatActivity {
                 // refreshing recycler view
                 mAdapter.notifyDataSetChanged();
 
+                if (newsList.size()==0){
+                    Constants.showToast("No Pending Approvals",NewsAcceptList.this);
+                }
+
 
             }
 

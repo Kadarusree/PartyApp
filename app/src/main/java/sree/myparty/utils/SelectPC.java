@@ -79,7 +79,8 @@ public class SelectPC extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.select_pc, container, false);
         ButterKnife.bind(this, view);
-
+        getDialog().setCanceledOnTouchOutside(false);
+        getDialog().setCancelable(false);
         mFirebaseDatabase = MyApplication.getFirebaseDatabase();
         mDatabaseReference = mFirebaseDatabase.getReference();
 
@@ -320,4 +321,6 @@ public class SelectPC extends DialogFragment {
                     }
                 });
     }
+
+
 }

@@ -109,7 +109,7 @@ public abstract class BaseActvity extends AppCompatActivity
         replaceFragement(new HomeFragment());
 
         getAllFirebaseIDs();
-        checkWish();
+
         hideAdminOptions();
         hideVolOptions();
     }
@@ -215,7 +215,7 @@ public abstract class BaseActvity extends AppCompatActivity
                 if (pojo != null && pojo.isShow() == true) {
 
                     try {
-                        if (sessionManager.getWishCode() != pojo.getCode()) {
+                        if (pojo.getCode()!=0) {
                             GiftFragmentDilaog dFragment = new GiftFragmentDilaog(pojo.getPath(), pojo.getCode());
                             dFragment.setCancelable(false); //don't close when touch outside
                             dFragment.show(getSupportFragmentManager(), "Dialog Fragment");

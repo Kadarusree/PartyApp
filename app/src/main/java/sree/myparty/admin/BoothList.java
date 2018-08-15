@@ -7,6 +7,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,6 +35,8 @@ public class BoothList extends AppCompatActivity {
     SessionManager mSessionManager;
     ProgressDialog mProgressDialog;
 
+    Button btn_createMeeting;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +44,8 @@ public class BoothList extends AppCompatActivity {
 
         mSessionManager = new SessionManager(this);
         mProgressDialog = Constants.showDialog(this);
-
+        btn_createMeeting = findViewById(R.id.btn_createMeeting);
+        btn_createMeeting.setVisibility(View.GONE);
         recyclerView = findViewById(R.id.boothList);
         mBoothsList = new ArrayList<>();
         mAdapter = new BoothsAdapter(this, mBoothsList);

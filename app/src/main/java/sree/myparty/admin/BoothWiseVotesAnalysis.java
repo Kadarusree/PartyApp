@@ -61,6 +61,8 @@ public class BoothWiseVotesAnalysis extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_analysis);
+
+        getSupportActionBar().setTitle("Present Trend in Booth : "+Constants.selected_booth_id);
         db = new DatabaseHelper(this);
         pDialog = Constants.showDialog(this);
         pDialog.show();

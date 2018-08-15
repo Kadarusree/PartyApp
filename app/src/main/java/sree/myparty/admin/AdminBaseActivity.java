@@ -134,10 +134,17 @@ public class AdminBaseActivity extends AppCompatActivity
         } else if (id == R.id.nav_adm_visits) {
             ActivityLauncher.launchVisitListActivity(getApplicationContext());
 
-        } else if (id == R.id.nav_adm_analysis) {
+        } else if (id == R.id.nav_adm_boothwiseList) {
+            ActivityLauncher.launchBoothwiseList(getApplicationContext());
+
+        }
+
+        else if (id == R.id.nav_adm_analysis) {
             ActivityLauncher.launchAnalysisActivity(getApplicationContext());
 
-        } else if (id == R.id.nav_ad_log) {
+        }
+
+        else if (id == R.id.nav_ad_log) {
             finish();
 
         }

@@ -3,8 +3,10 @@ package sree.myparty.Adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,13 +22,24 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 import sree.myparty.MyApplication;
 import sree.myparty.R;
 import sree.myparty.beans.NewsPojo;
+import sree.myparty.misc.PostNews;
+import sree.myparty.session.SessionManager;
 import sree.myparty.utils.ActivityLauncher;
 import sree.myparty.utils.Constants;
 
@@ -159,7 +172,7 @@ public class NewsVolunteerAdapter extends RecyclerView.Adapter<NewsVolunteerAdap
         }
     }
 
-    public void approve(NewsPojo mNews) {
+    public void approve(final NewsPojo mNews) {
         MyApplication.getFirebaseDatabase()
                 .getReference(Constants.DB_PATH + "/News")
                 .child(mNews.getId()).child("accepted").setValue(true).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -167,6 +180,7 @@ public class NewsVolunteerAdapter extends RecyclerView.Adapter<NewsVolunteerAdap
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(context, "Approved", Toast.LENGTH_LONG).show();
+                    sendNotifications(mNews);
                 } else {
                     Toast.makeText(context, "Failed", Toast.LENGTH_LONG).show();
 
@@ -189,5 +203,63 @@ public class NewsVolunteerAdapter extends RecyclerView.Adapter<NewsVolunteerAdap
                 }
             }
         });
+    }
+
+    JSONObject mObject;
+    public void sendNotifications(NewsPojo news) {
+        mObject = new JSONObject();
+        try {
+
+            JSONObject jsonObjec2 = new JSONObject();
+            jsonObjec2.put("news", news.getTitle());
+            jsonObjec2.put("username", new SessionManager(context).getName());
+            jsonObjec2.put("purpose", "News");
+            // mObject.put("data", new JSONObject().put("news", news.getTitle()));
+            mObject.put("data", jsonObjec2);
+            mObject.put("registration_ids", new JSONArray(Constants.fcm_ids));
+            System.out.print(mObject.toString());
+
+            NotificationsTask mEnd = new NotificationsTask(new OkHttpClient());
+            mEnd.execute();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    class NotificationsTask extends AsyncTask<Void, Void, String> {
+
+        final String API_URL = Constants.FIREBASE_PUSH_API;
+        final OkHttpClient mClient;
+
+        public NotificationsTask(OkHttpClient client) {
+            mClient = client;
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            try {
+                MediaType JSON
+                        = MediaType.parse("application/json; charset=utf-8");
+                RequestBody mBody = RequestBody.create(JSON, mObject.toString());
+                Request request = new Request.Builder()
+                        .url(API_URL)
+                        .post(mBody)
+                        .header("Authorization", Constants.FCM_SERVER_KEY)
+                        .header("Content-Type", "application/json")
+                        .build();
+
+
+                okhttp3.Response response = mClient.newCall(request).execute();
+
+                Log.d("DeleteBulkFromBackEnd", "Code: " + response.code());
+                Log.d("DeleteBulkFromBackEnd", "Body: " + response.body().string());
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
     }
 }
