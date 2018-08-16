@@ -52,5 +52,13 @@
         android:layout_margin="10dp"
         android:id="@+id/attendence_cahrt"></com.github.mikephil.charting.charts.BarChart>
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.45"
+        android:visibility="gone"
+        android:layout_margin="25dp"
+        android:id="@+id/img_qr"></ImageView>
+
 
 </LinearLayout>

@@ -36,7 +36,7 @@ public class VolunteerRegis extends AppCompatActivity {
     TextView mLandigText;
 
     @BindView(R.id.vol_reg_booth_num)
-    Spinner mBoothNumber;
+    EditText mBoothNumber;
 
     @BindView(R.id.vol_reg_id)
     TextView mRegID;
@@ -76,7 +76,7 @@ public class VolunteerRegis extends AppCompatActivity {
     }
 
     private void loadBooths() {
-        mProgressDialog.setMessage("Loading Booths");
+        mProgressDialog.setMessage("Loading Booth Details");
         mProgressDialog.show();
         MyApplication.getFirebaseDatabase()
                 .getReference(Constants.DB_PATH + "/Booths/mBooths")
@@ -88,12 +88,17 @@ public class VolunteerRegis extends AppCompatActivity {
                         boothNames.clear();
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             Booth mBooth = snapshot.getValue(Booth.class);
-                            mBoothsList.add(mBooth);
-                            boothNames.add(mBooth.getBoothNumber() + "-" + mBooth.getName());
+
+                            if (mBooth.getBoothNumber().equalsIgnoreCase(mSessionManager.getBoothNumber())){
+                                mBoothNumber.setText(mBooth.getBoothNumber()+"-"+mBooth.getName());
+                                mBoothNumber.setEnabled(false);
+                            }
+                          /*  mBoothsList.add(mBooth);
+                            boothNames.add(mBooth.getBoothNumber() + "-" + mBooth.getName());*/
                         }
-                        adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_dropdown_item_1line, boothNames);
+                     /*   adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_dropdown_item_1line, boothNames);
                         mBoothNumber.setAdapter(adapter);
-                        adapter.notifyDataSetChanged();
+                        adapter.notifyDataSetChanged();*/
                     }
 
                     @Override
@@ -108,7 +113,7 @@ public class VolunteerRegis extends AppCompatActivity {
         if (validations()) {
 
             VolunteerPojo mVolunteer = new VolunteerPojo(mSessionManager.getName(),
-                    mBoothsList.get(mBoothNumber.getSelectedItemPosition()).getBoothNumber(),
+                    mSessionManager.getBoothNumber(),
                     mSessionManager.getRegID(),
                     mPassword.getText().toString(),
                     mSessionManager.getFirebaseKey(),

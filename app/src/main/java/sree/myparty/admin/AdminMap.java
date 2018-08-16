@@ -181,7 +181,7 @@ public class AdminMap extends AppCompatActivity implements OnMapReadyCallback {
                         if (location != null) {
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new com.google.android.gms.maps.model.LatLng(location.getLatitude(), location.getLongitude()), 12));
                             mMap.animateCamera(CameraUpdateFactory.zoomIn());// Zoom out to zoom level 10, animating with a duration of 2 seconds.
-                            mMap.animateCamera(CameraUpdateFactory.zoomTo(12), 2000, null);
+                            mMap.animateCamera(CameraUpdateFactory.zoomTo(16), 2000, null);
                         }
                     }
                 });

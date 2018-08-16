@@ -1,6 +1,5 @@
 package sree.myparty.admin;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.res.Resources;
 import android.graphics.Rect;
@@ -8,19 +7,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.Spinner;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -29,30 +24,14 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import sree.myparty.Adapters.InfluencePersonAdapter;
-import sree.myparty.Adapters.VolunteersListAdapter;
 import sree.myparty.MyApplication;
 import sree.myparty.R;
 import sree.myparty.constuecies.Booth;
-import sree.myparty.pojos.Album;
 import sree.myparty.pojos.InfluPerson;
-import sree.myparty.pojos.VolunteerPojo;
-import sree.myparty.pojos.VoterPojo;
 import sree.myparty.utils.Constants;
-import sree.myparty.utils.MyDividerItemDecoration;
+import sree.myparty.volunteer.InfluencePerson;
 
-public class VolunteerList extends AppCompatActivity {
-
-    DatabaseReference mDbref;
-
-    AlertDialog mDialog;
-
-    private RecyclerView recyclerView;
-    private List<VolunteerPojo> volunteerList;
-    private VolunteersListAdapter mAdapter;
-
-    private List<Album> albumList;
-
-
+public class InfluencePersonAdminView extends AppCompatActivity {
     ProgressDialog mProgressDialog;
 
 
@@ -63,29 +42,27 @@ public class VolunteerList extends AppCompatActivity {
     @BindView(R.id.vol_reg_booth_num)
     Spinner mBoothNumber;
 
+    private RecyclerView recyclerView;
+    private List<InfluPerson> newsList;
+    private InfluencePersonAdapter mAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_volunteer_list);
+        setContentView(R.layout.activity_influence_person_admin_view);
+
         ButterKnife.bind(this);
-        volunteerList = new ArrayList<>();
-
-        mDialog = Constants.showDialog(this);
-
         mProgressDialog = Constants.showDialog(this);
         boothNames = new ArrayList<>();
+        recyclerView = findViewById(R.id.list_influencePersons);
+        newsList = new ArrayList<>();
+        mAdapter = new InfluencePersonAdapter(this, newsList);
 
-        recyclerView = (RecyclerView) findViewById(R.id.list_volunteers);
-
-        albumList = new ArrayList<>();
-        mAdapter = new VolunteersListAdapter(this, volunteerList);
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
-
 
         loadBooths();
 
@@ -94,7 +71,7 @@ public class VolunteerList extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 if (mBoothsList.size()>0){
-                    getVolunteers(mBoothsList.get(position).getBoothNumber());
+                   getPersons(mBoothsList.get(position).getBoothNumber());
 
                 }
 
@@ -107,30 +84,60 @@ public class VolunteerList extends AppCompatActivity {
         });
     }
 
-    private void getVolunteers(String boothID) {
+    private void getPersons(String boothNumber) {
         MyApplication.getFirebaseDatabase()
-                .getReference(Constants.DB_PATH + "/Volunteers")
-                .orderByChild("boothnumber").equalTo(boothID)
+                .getReference(Constants.DB_PATH + "/InfluencePersons")
+                .orderByChild("boothNumber").equalTo(Integer.parseInt(boothNumber))
                 .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                volunteerList.clear();
+                mProgressDialog.dismiss();
+                newsList.clear();
                 for (DataSnapshot indi : dataSnapshot.getChildren()) {
-                    VolunteerPojo volItem = indi.getValue(VolunteerPojo.class);
-                    volunteerList.add(volItem);
+                    InfluPerson mNewsItem = indi.getValue(InfluPerson.class);
+                    newsList.add(mNewsItem);
                 }
-
-                if (volunteerList.size()==0){
-                    Constants.showToast("No Volunteers Found",VolunteerList.this);
-                }
+                // refreshing recycler view
                 mAdapter.notifyDataSetChanged();
+
+                // stop animating Shimmer and hide the layout
+
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                mProgressDialog.dismiss();
             }
         });
+    }
+
+
+    private void loadBooths() {
+        mProgressDialog.setMessage("Loading Booths");
+        mProgressDialog.show();
+        MyApplication.getFirebaseDatabase()
+                .getReference(Constants.DB_PATH + "/Booths/mBooths")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        mProgressDialog.dismiss();
+                        mBoothsList = new ArrayList<>();
+                        boothNames.clear();
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            Booth mBooth = snapshot.getValue(Booth.class);
+                            mBoothsList.add(mBooth);
+                            boothNames.add(mBooth.getBoothNumber() + "-" + mBooth.getName());
+                        }
+                        adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_dropdown_item_1line, boothNames);
+                        mBoothNumber.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        mProgressDialog.dismiss();
+                    }
+                });
     }
 
 
@@ -176,36 +183,4 @@ public class VolunteerList extends AppCompatActivity {
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
-
-
-    private void loadBooths() {
-        mProgressDialog.setMessage("Loading Booths");
-        mProgressDialog.show();
-        MyApplication.getFirebaseDatabase()
-                .getReference(Constants.DB_PATH + "/Booths/mBooths")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        mProgressDialog.dismiss();
-                        mBoothsList = new ArrayList<>();
-                        boothNames.clear();
-                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            Booth mBooth = snapshot.getValue(Booth.class);
-                            mBoothsList.add(mBooth);
-                            boothNames.add(mBooth.getBoothNumber() + "-" + mBooth.getName());
-                        }
-                        adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_dropdown_item_1line, boothNames);
-                        mBoothNumber.setAdapter(adapter);
-                        adapter.notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        mProgressDialog.dismiss();
-                    }
-                });
-    }
-
-
-
 }

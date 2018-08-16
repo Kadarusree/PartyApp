@@ -113,7 +113,13 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsAdapter.MyView
         PopupMenu popup = new PopupMenu(mContext, view);
         MenuInflater inflater = popup.getMenuInflater();
 
+
+        if (Constants.isAdmin){
             inflater.inflate(R.menu.meeting_options, popup.getMenu());
+        }
+        else {
+            inflater.inflate(R.menu.meeting_user_options, popup.getMenu());
+        }
 
 
         popup.setOnMenuItemClickListener(new MeetingsAdapter.MyMenuItemClickListener());

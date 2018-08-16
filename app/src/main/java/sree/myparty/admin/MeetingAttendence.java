@@ -21,9 +21,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
@@ -53,6 +56,7 @@ import sree.myparty.graph.DayAxisValueFormatter;
 import sree.myparty.graph.MyAxisValueFormatter;
 import sree.myparty.misc.PostNews;
 import sree.myparty.pojos.UserDetailPojo;
+import sree.myparty.session.SessionManager;
 import sree.myparty.utils.Constants;
 
 public class MeetingAttendence extends AppCompatActivity implements QRCodeReaderView.OnQRCodeReadListener {
@@ -74,6 +78,8 @@ public class MeetingAttendence extends AppCompatActivity implements QRCodeReader
     TextView lbl_meetingTitle;
     BarChart mChart;
 
+    ImageView imgQR;
+
 
     String meetingForReference;
 
@@ -90,10 +96,13 @@ public class MeetingAttendence extends AppCompatActivity implements QRCodeReader
         keys_array = new ArrayList<>();
         count_array = new ArrayList<>();
 
+    //    count_array.add(0);
+   //     count_array.add(0);
+
         checkPermission();
 
         pDialog = Constants.showDialog(this);
-
+        imgQR = (ImageView)findViewById(R.id.img_qr);
 
         if (Constants.selected_meeting.getIsForAll()){
             meetingForReference = Constants.DB_PATH + "/Users";
@@ -122,7 +131,7 @@ public class MeetingAttendence extends AppCompatActivity implements QRCodeReader
                 qrCodeReaderView.setAutofocusInterval(2000L);
 
                 // Use this function to enable/disable Torch
-                qrCodeReaderView.setTorchEnabled(true);
+         //       qrCodeReaderView.setTorchEnabled(true);
 
                 // Use this function to set back camera preview
                 qrCodeReaderView.setBackCamera();
@@ -147,7 +156,13 @@ public class MeetingAttendence extends AppCompatActivity implements QRCodeReader
         mChart = findViewById(R.id.attendence_cahrt);
 
         if (!Constants.isAdmin){
-            mChart.setVisibility(View.INVISIBLE);
+            mChart.setVisibility(View.GONE);
+            imgQR.setVisibility(View.VISIBLE);
+            loadQR();
+        }
+        else {
+            mChart.setVisibility(View.VISIBLE);
+            imgQR.setVisibility(View.GONE);
         }
 
 
@@ -194,6 +209,17 @@ public class MeetingAttendence extends AppCompatActivity implements QRCodeReader
 
         mChart.notifyDataSetChanged();
 
+    }
+
+    private void loadQR() {
+        Glide.with(this) //passing context
+                .load(new SessionManager(this).getQR()) //passing your url to load image.
+                .placeholder(R.drawable.avatar) //this would be your default image (like default profile or logo etc). it would be loaded at initial time and it will replace with your loaded image once glide successfully load image using url.
+                .error(R.drawable.ic_warning)//in case of any glide exception or not able to download then this image will be appear . if you won't mention this error() then nothing to worry placeHolder image would be remain as it is.
+                .diskCacheStrategy(DiskCacheStrategy.ALL) //using to load into cache then second time it will load fast.
+                .animate(R.anim.fade_in) // when image (url) will be loaded by glide then this face in animation help to replace url image in the place of placeHolder (default) image.
+                .fitCenter()//this method help to fit image into center of your ImageView
+                .into(imgQR);
     }
 
 
@@ -277,7 +303,7 @@ public class MeetingAttendence extends AppCompatActivity implements QRCodeReader
     }
 
     public void getUsersCount() {
-        count_array.clear();
+      //  count_array.clear();
         pDialog.show();
         MyApplication.getFirebaseDatabase()
                 .getReference(meetingForReference)

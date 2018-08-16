@@ -16,6 +16,8 @@ import sree.myparty.admin.BoothList;
 import sree.myparty.admin.BoothWiseVoterAnalysis;
 import sree.myparty.admin.BoothWiseVotesAnalysis;
 import sree.myparty.admin.BoothwiseList;
+import sree.myparty.admin.InfluencePersonAdminView;
+import sree.myparty.admin.LocalIssuesAdminView;
 import sree.myparty.admin.MeetingAttendence;
 import sree.myparty.admin.MeetingsActivity;
 import sree.myparty.admin.MeetingsListActivity;
@@ -63,12 +65,21 @@ public class ActivityLauncher {
         ctx.startActivity(new Intent(ctx, InfluencePerson.class));
     }
 
+    public static void influencePersonsAdminView(Context ctx) {
+        ctx.startActivity(new Intent(ctx, InfluencePersonAdminView.class));
+    }
+
+
     public static void castewiseVoters(Context ctx) {
         ctx.startActivity(new Intent(ctx, CasteWiseVoters.class));
     }
 
     public static void localIssues(Context ctx) {
         ctx.startActivity(new Intent(ctx, Local_Issues.class));
+    }
+
+    public static void localIssuesAdminView(Context ctx) {
+        ctx.startActivity(new Intent(ctx, LocalIssuesAdminView.class));
     }
 
     public static void postNews(Context ctx) {

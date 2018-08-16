@@ -21,6 +21,9 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,6 +42,7 @@ import sree.myparty.MyApplication;
 import sree.myparty.R;
 import sree.myparty.beans.NewsPojo;
 import sree.myparty.misc.PostNews;
+import sree.myparty.pojos.UserDetailPojo;
 import sree.myparty.session.SessionManager;
 import sree.myparty.utils.ActivityLauncher;
 import sree.myparty.utils.Constants;
@@ -181,12 +185,39 @@ public class NewsVolunteerAdapter extends RecyclerView.Adapter<NewsVolunteerAdap
                 if (task.isSuccessful()) {
                     Toast.makeText(context, "Approved", Toast.LENGTH_LONG).show();
                     sendNotifications(mNews);
+                    insertPoints(mNews);
                 } else {
                     Toast.makeText(context, "Failed", Toast.LENGTH_LONG).show();
 
                 }
             }
         });
+    }
+
+    private void insertPoints(NewsPojo mNews) {
+        MyApplication.getFirebaseDatabase()
+                .getReference(Constants.DB_PATH + "/Users").child(mNews.getUserID()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot != null) {
+
+                            UserDetailPojo mUSer = dataSnapshot.getValue(UserDetailPojo.class);
+                            int points = mUSer.getPoints();
+                            increasePoints(mUSer, points + 1);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void increasePoints(UserDetailPojo mUSer, int i) {
+        MyApplication.getFirebaseDatabase()
+                .getReference(Constants.DB_PATH + "/Users").child(mUSer.getReg_id()).child("points").setValue(i);
     }
 
     public void deleteNews(NewsPojo mNews) {
@@ -206,6 +237,7 @@ public class NewsVolunteerAdapter extends RecyclerView.Adapter<NewsVolunteerAdap
     }
 
     JSONObject mObject;
+
     public void sendNotifications(NewsPojo news) {
         mObject = new JSONObject();
         try {

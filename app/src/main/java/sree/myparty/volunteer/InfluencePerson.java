@@ -139,6 +139,8 @@ public class InfluencePerson extends AppCompatActivity {
 
     LinearLayout maddlayout;
 
+    SessionManager mSessionManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -149,7 +151,9 @@ public class InfluencePerson extends AppCompatActivity {
         if (Constants.isAdmin){
             maddlayout.setVisibility(View.GONE);
         }
-
+        mSessionManager = new SessionManager(this);
+        booth_num.setText(mSessionManager.getBoothNumber());
+        booth_num.setEnabled(false);
         mProgressDialog = Constants.showDialog(this);
         recyclerView = findViewById(R.id.list_influencePersons);
         newsList = new ArrayList<>();
@@ -163,7 +167,10 @@ public class InfluencePerson extends AppCompatActivity {
         recyclerView.setAdapter(mAdapter);
 
         mProgressDialog.show();
-        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/InfluencePersons").addValueEventListener(new ValueEventListener() {
+        MyApplication.getFirebaseDatabase()
+                .getReference(Constants.DB_PATH + "/InfluencePersons")
+                .orderByChild("boothNumber").equalTo(Integer.parseInt(mSessionManager.getBoothNumber()))
+                .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 mProgressDialog.dismiss();

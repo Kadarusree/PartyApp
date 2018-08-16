@@ -305,7 +305,7 @@
                 android:layout_height="0dp"
                 android:layout_margin="1dp"
                 android:layout_weight="0.75"
-                android:src="@drawable/ic_maintenance" />
+                android:src="@drawable/ic_logo" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -313,9 +313,9 @@
                 android:layout_below="@id/db_op1"
                 android:layout_weight="0.25"
                 android:gravity="center"
-                android:text="ADMIN"
+                android:text="BECOME VOLUNTEER"
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/dp_18" />
+                android:textSize="@dimen/dp_12" />
         </LinearLayout>
     </LinearLayout>
 

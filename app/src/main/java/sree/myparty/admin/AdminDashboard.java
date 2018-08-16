@@ -16,6 +16,8 @@ public class AdminDashboard extends AdminBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        getSupportActionBar().setTitle("Voter 360° - ADMIN");
+
         replaceFragement(new AdminHomeFragment());
 
     }

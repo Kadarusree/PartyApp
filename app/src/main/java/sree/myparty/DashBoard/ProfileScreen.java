@@ -67,11 +67,11 @@ import sree.myparty.R;
 import sree.myparty.beans.NewsPojo;
 import sree.myparty.misc.PostNews;
 import sree.myparty.pojos.UserDetailPojo;
+import sree.myparty.pojos.VolunteerPojo;
 import sree.myparty.session.SessionManager;
 import sree.myparty.utils.Constants;
 
 public class ProfileScreen extends AppCompatActivity {
-
 
 
     @BindView(R.id.id_profile_pic)
@@ -81,9 +81,9 @@ public class ProfileScreen extends AppCompatActivity {
     ImageView mQRcode;
 
 
-   /* @BindView(R.id.id_tv_app_profilepic)
-    TextView btnUpdateProfilePic;
-*/
+    /* @BindView(R.id.id_tv_app_profilepic)
+     TextView btnUpdateProfilePic;
+ */
     @BindView(R.id.id_tv_points)
     TextView mPoints;
 
@@ -108,6 +108,9 @@ public class ProfileScreen extends AppCompatActivity {
     @BindView(R.id.profile_tv_ac)
     TextView ac;
 
+    @BindView(R.id.profile_tv_position)
+    TextView position;
+
     @BindView(R.id.profile_tv_boothNumber)
     TextView boothNumber;
 
@@ -117,7 +120,7 @@ public class ProfileScreen extends AppCompatActivity {
 
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
-    public static final int MY_PERMISSIONS_REQUEST_CAMERA=143;
+    public static final int MY_PERMISSIONS_REQUEST_CAMERA = 143;
     private String userChoosenTask;
     File GlobalImagePath = null;
     ByteArrayOutputStream GLOBALbytes = null;
@@ -136,53 +139,79 @@ public class ProfileScreen extends AppCompatActivity {
 
         mSession = new SessionManager(this);
 
-       // Glide.with(this).load(mSession.getProfilePic()).into(mProfilePic);
+        // Glide.with(this).load(mSession.getProfilePic()).into(mProfilePic);
         Glide.with(this).load(mSession.getQR()).into(mQRcode);
 
-        loadImage(this,mProfilePic,mSession.getProfilePic());
+        loadImage(this, mProfilePic, mSession.getProfilePic());
 
-        mPoints.setText("Points : "+mSession.getPoints()+"");
+        mPoints.setText("Points : " + mSession.getPoints() + "");
         checkBadge(mSession.getPoints());
-        mRefNumber.setText( mSession.getRegID());
+        mRefNumber.setText(mSession.getRegID());
 
         mProgressDialog = Constants.showDialog(this);
         mFirebaseStorage = FirebaseStorage.getInstance();
         mStorageReference = mFirebaseStorage.getReference();
 
 
-        name.setText("Name : " +mSession.getName());
-        voetrID.setText("Voter ID : " +mSession.getVoterID());
-        mobileNumber.setText("Mobile : " +mSession.getMobileNumber());
-        ac.setText("Assembly Constituency : " +mSession.getAC_NAME());
-        pc.setText("Parliament Constituency : " +mSession.getPC_NAME());
-        boothNumber.setText("Booth Number : "+mSession.getBoothNumber());
+        name.setText("Name : " + mSession.getName());
+        voetrID.setText("Voter ID : " + mSession.getVoterID());
+        mobileNumber.setText("Mobile : " + mSession.getMobileNumber());
+        ac.setText("Assembly Constituency : " + mSession.getAC_NAME());
+        pc.setText("Parliament Constituency : " + mSession.getPC_NAME());
+        boothNumber.setText("Booth Number : " + mSession.getBoothNumber());
 
 
         getLatestData();
+        getPosition();
 
+    }
+
+    private void getPosition() {
+        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/Volunteers/" + mSession.getRegID()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot != null) {
+
+                    VolunteerPojo pojo = dataSnapshot.getValue(VolunteerPojo.class);
+
+                    if (pojo != null) {
+
+                        position.setText("Position: " + pojo.getCommitte() + " " + pojo.getPosition());
+                        checkBadge(mSession.getPoints());
+                    }
+
+                }
+                else {
+                    position.setText("Position: Not a registered volunteer" );
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @OnClick(R.id.id_profile_pic)
-    public void uploadPhoto(View v){
+    public void uploadPhoto(View v) {
         selectImage();
     }
 
-    public void checkBadge(int points)
-    {
-        if(points<=50)
-        {
-        img_badge.setBackgroundResource(R.drawable.platinum_badge);
-        }else if(points<=100)
-        {
+    public void checkBadge(int points) {
+        if (points <= 50) {
+            img_badge.setBackgroundResource(R.drawable.platinum_badge);
+        } else if (points <= 100) {
             img_badge.setBackgroundResource(R.drawable.silver_badge);
-        }
-        else if(points<=150)
-        {
+        } else if (points <= 150) {
             img_badge.setBackgroundResource(R.drawable.gold_badge);
-        }else {
+        } else {
             img_badge.setBackgroundResource(R.drawable.diamond_badge);
         }
     }
+
     private void selectImage() {
         final CharSequence[] items = {getResources().getString(R.string.takephoto), getResources().getString(R.string.choosefromlib), getResources().getString(R.string.cancel)};
 
@@ -286,7 +315,7 @@ public class ProfileScreen extends AppCompatActivity {
 
                 }
 
-            break;
+                break;
             case MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE:
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
@@ -405,6 +434,7 @@ public class ProfileScreen extends AppCompatActivity {
             return true;
         }
     }
+
     private void onCaptureImageResult(Intent data, Bitmap bitmap, boolean fromCamera) {
         Bitmap thumbnail = null;
 
@@ -528,7 +558,7 @@ public class ProfileScreen extends AppCompatActivity {
     public void uploadImageTask(byte[] data) {
         mProgressDialog.setMessage("Uploading Profile Picture");
         mProgressDialog.show();
-        mStorageReference = mStorageReference.child(Constants.DB_PATH+"/ProfilePictures/" + mSession.getRegID() + ".jpg");
+        mStorageReference = mStorageReference.child(Constants.DB_PATH + "/ProfilePictures/" + mSession.getRegID() + ".jpg");
         UploadTask uploadTask = mStorageReference.putBytes(data);
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
@@ -541,9 +571,9 @@ public class ProfileScreen extends AppCompatActivity {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                 final Uri downloadUrl = taskSnapshot.getDownloadUrl();
 
-                reference=  MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH +"/Users/"+mSession.getRegID());
+                reference = MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/Users/" + mSession.getRegID());
 
-                Map<String,Object> taskMap = new HashMap<String,Object>();
+                Map<String, Object> taskMap = new HashMap<String, Object>();
                 taskMap.put("profile_url", downloadUrl.toString());
                 reference.updateChildren(taskMap);
 
@@ -551,20 +581,18 @@ public class ProfileScreen extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        if(dataSnapshot!=null)
-                        {
+                        if (dataSnapshot != null) {
 
-                            Log.d("shri",dataSnapshot.getChildrenCount()+"");
-                            UserDetailPojo pojo=dataSnapshot.getValue(UserDetailPojo.class);
+                            Log.d("shri", dataSnapshot.getChildrenCount() + "");
+                            UserDetailPojo pojo = dataSnapshot.getValue(UserDetailPojo.class);
 
-                            if(pojo!=null)
-                            {
-                                Constants.showToast("Profile Pic Uploaded",ProfileScreen.this);
+                            if (pojo != null) {
+                                Constants.showToast("Profile Pic Uploaded", ProfileScreen.this);
                                 mProgressDialog.dismiss();
                                 SessionManager mSessionManager = new SessionManager(ProfileScreen.this);
                                 mSessionManager.createUserSession(pojo);
 
-                                loadImage(ProfileScreen.this,mProfilePic,downloadUrl.toString());
+                                loadImage(ProfileScreen.this, mProfilePic, downloadUrl.toString());
                             }
 
                         }
@@ -599,33 +627,32 @@ public class ProfileScreen extends AppCompatActivity {
     }
 
 
-    public void getLatestData()
-    {
+    public void getLatestData() {
         MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/Users/" + mSession.getRegID()).addValueEventListener(new ValueEventListener() {
-        @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
-            if (dataSnapshot != null) {
+                if (dataSnapshot != null) {
 
-                 UserDetailPojo pojo = dataSnapshot.getValue(UserDetailPojo.class);
+                    UserDetailPojo pojo = dataSnapshot.getValue(UserDetailPojo.class);
 
-                if (pojo != null) {
-                    SessionManager mSessionManager = new SessionManager(ProfileScreen.this);
-                    mSessionManager.createUserSession(pojo);
-                    mPoints.setText("Points : "+mSession.getPoints()+"");
-                    checkBadge(mSession.getPoints());
+                    if (pojo != null) {
+                        SessionManager mSessionManager = new SessionManager(ProfileScreen.this);
+                        mSessionManager.createUserSession(pojo);
+                        mPoints.setText("Points : " + mSession.getPoints() + "");
+                        checkBadge(mSession.getPoints());
+
+                    }
 
                 }
 
             }
 
-        }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-
-        }
-    });
+            }
+        });
     }
 
 }

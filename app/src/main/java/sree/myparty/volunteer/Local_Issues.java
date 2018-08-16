@@ -29,6 +29,7 @@ import sree.myparty.R;
 import sree.myparty.Adapters.IssuesAdapter;
 import sree.myparty.pojos.CasteWiseVoterBean;
 import sree.myparty.pojos.IssueBean;
+import sree.myparty.session.SessionManager;
 import sree.myparty.utils.Constants;
 import sree.myparty.utils.MyDividerItemDecoration;
 import sree.myparty.utils.VolunteerSessionManager;
@@ -50,6 +51,8 @@ public class Local_Issues extends AppCompatActivity {
     private List<IssueBean> newsList;
     private IssuesAdapter mAdapter;
 
+    SessionManager mSessionManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +60,9 @@ public class Local_Issues extends AppCompatActivity {
         ButterKnife.bind(this);
         mReference = MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/LocalIssues");
         mDialog = Constants.showDialog(this);
-
+        mSessionManager = new SessionManager(this);
+        edt_BoothNum.setText(mSessionManager.getBoothNumber());
+        edt_BoothNum.setEnabled(false);
         mDialog = Constants.showDialog(this);
 
         recyclerView = findViewById(R.id.issue_list);
@@ -70,7 +75,9 @@ public class Local_Issues extends AppCompatActivity {
         recyclerView.addItemDecoration(new MyDividerItemDecoration(this, LinearLayoutManager.VERTICAL, 16));
         recyclerView.setAdapter(mAdapter);
         mDialog.show();
-        mReference.addValueEventListener(new ValueEventListener() {
+        mReference.orderByChild("boothnumber")
+                .equalTo(Integer.parseInt(mSessionManager.getBoothNumber()))
+                .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 mDialog.dismiss();

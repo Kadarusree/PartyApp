@@ -43,7 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
 
-        android:layout_weight="0.3"
+        android:layout_weight="0.38"
         android:background="#FCE4EC"
         android:orientation="horizontal">
 
@@ -88,7 +88,15 @@
                 android:textStyle="bold"
 
                 />
+            <TextView
+                android:id="@+id/profile_tv_boothNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
 
+                android:gravity="left|center"
+
+                android:textColor="@color/profile_text"
+                android:textStyle="bold" />
             <TextView
                 android:id="@+id/profile_tv_ac"
                 android:layout_width="match_parent"
@@ -108,8 +116,10 @@
 
                 android:textColor="@color/profile_text"
                 android:textStyle="bold" />
+
+
             <TextView
-                android:id="@+id/profile_tv_boothNumber"
+                android:id="@+id/profile_tv_position"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
@@ -117,14 +127,12 @@
 
                 android:textColor="@color/profile_text"
                 android:textStyle="bold" />
-
-
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.3"
+            android:layout_weight="0.4"
             android:orientation="vertical"
             android:paddingRight="2dp">
 
@@ -145,7 +153,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="2dp"
-        android:layout_weight="0.1">
+        android:layout_weight="0.08">
 
         <TextView
             android:id="@+id/id_tv_refnumber"
@@ -171,7 +179,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="horizontal"
-        android:layout_weight="0.4">
+        android:layout_weight="0.32">
 
         <LinearLayout
             android:layout_width="0dp"

@@ -58,6 +58,7 @@ import sree.myparty.pojos.CasteWiseVoterBean;
 import sree.myparty.pojos.InfluPerson;
 import sree.myparty.pojos.LatLng;
 import sree.myparty.pojos.VoterPojo;
+import sree.myparty.session.SessionManager;
 import sree.myparty.utils.Constants;
 import sree.myparty.utils.MyDividerItemDecoration;
 import sree.myparty.utils.VolunteerSessionManager;
@@ -90,7 +91,7 @@ public class CasteWiseVoters extends AppCompatActivity {
     EditText edt_casteName;
 
     @BindView(R.id.cwv_boothnum)
-    Spinner edt_BoothNum;
+    EditText edt_BoothNum;
 
     @BindView(R.id.cwv_location)
     EditText edt_location;
@@ -135,6 +136,7 @@ public class CasteWiseVoters extends AppCompatActivity {
     LatLng addedLocation;
 
     VolunteerSessionManager mVolunteerSessionManager;
+    SessionManager mSessionManager;
 
 
     String[] parties;
@@ -149,9 +151,9 @@ public class CasteWiseVoters extends AppCompatActivity {
         boothNames = new ArrayList<>();
         parties = getResources().getStringArray(R.array.parties);
         mVolunteerSessionManager = new VolunteerSessionManager(this);
-
+        mSessionManager = new SessionManager(this);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        loadBooths();
+       loadBooths();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkLocationPermission()) {
@@ -160,6 +162,8 @@ public class CasteWiseVoters extends AppCompatActivity {
         } else {
             getLocation();
         }
+
+        edt_BoothNum.setText(mSessionManager.getBoothNumber());
 
         /*recyclerView = findViewById(R.id.list_castewiseVoters);
         newsList = new ArrayList<>();
@@ -242,7 +246,7 @@ public class CasteWiseVoters extends AppCompatActivity {
         name = edt_name.getText().toString();
         fatherName = edt_fatherName.getText().toString();
         catageory = getResources().getStringArray(R.array.catageories)[spn_catageory.getSelectedItemPosition()];
-        boothNumber = mBoothsList.get(edt_BoothNum.getSelectedItemPosition()).getBoothNumber();
+        boothNumber = mSessionManager.getBoothNumber();
         caste = edt_casteName.getText().toString().trim();
         age = edt_age.getText().toString().trim();
         address = edt_address.getText().toString().trim();
@@ -436,7 +440,7 @@ public class CasteWiseVoters extends AppCompatActivity {
     }
 
 
-    private void loadBooths() {
+   private void loadBooths() {
         mDialog.setMessage("Loading Booths");
         mDialog.show();
         MyApplication.getFirebaseDatabase()
@@ -445,16 +449,12 @@ public class CasteWiseVoters extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         mDialog.dismiss();
-                        mBoothsList = new ArrayList<>();
-                        boothNames.clear();
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             Booth mBooth = snapshot.getValue(Booth.class);
-                            mBoothsList.add(mBooth);
-                            boothNames.add(mBooth.getBoothNumber() + "-" + mBooth.getName());
+                          if (mBooth.getBoothNumber().equalsIgnoreCase(mSessionManager.getBoothNumber())){
+                              edt_BoothNum.setText(mSessionManager.getBoothNumber()+"-"+mBooth.getName());
+                          }
                         }
-                        adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_dropdown_item_1line, boothNames);
-                        edt_BoothNum.setAdapter(adapter);
-                        adapter.notifyDataSetChanged();
                     }
 
                     @Override

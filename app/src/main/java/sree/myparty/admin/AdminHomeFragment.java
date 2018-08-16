@@ -58,14 +58,12 @@ public class AdminHomeFragment extends Fragment implements View.OnClickListener 
                 break;
             case R.id.admin_db_opt2:
                 ActivityLauncher.launchMapActivity(getActivity());
-
                 break;
             case R.id.admin_db_opt3:
-                ActivityLauncher.influencePersons(getActivity());
-
+                ActivityLauncher.influencePersonsAdminView(getActivity());
                 break;
             case R.id.admin_db_opt4:
-                ActivityLauncher.localIssues(getActivity());
+                ActivityLauncher.localIssuesAdminView(getActivity());
 
                 break;
             case R.id.admin_db_opt5:

@@ -185,7 +185,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 }
                 break;*/
             case R.id.db_op6:
-                ActivityLauncher.adminLogin(getActivity());
+                ActivityLauncher.volunteerRegistartionScreen(getActivity());
                 break;
             case R.id.db_op7:
                 ActivityLauncher.newsList(getActivity());
@@ -194,7 +194,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.db_op8:
                 ActivityLauncher.launchSurveyList(getActivity());
-
 
                 break;
         }

@@ -10,6 +10,16 @@ public class NewsPojo {
     String description;
     String imageUrl;
     String timestamp;
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    String userID;
     String postedby;
 
     public String getId() {
@@ -35,7 +45,7 @@ public class NewsPojo {
     public NewsPojo() {
     }
 
-    public NewsPojo(String title, String description, String imageUrl, String timestamp, String postedby, boolean isAccepted, String id) {
+    public NewsPojo(String title, String description, String imageUrl, String timestamp, String postedby, boolean isAccepted, String id, String userID) {
         this.title = title;
         this.description = description;
         this.imageUrl = imageUrl;
@@ -43,6 +53,7 @@ public class NewsPojo {
         this.postedby = postedby;
         this.isAccepted = isAccepted;
         this.id = id;
+        this.userID = userID;
     }
 
     public String getTitle() {

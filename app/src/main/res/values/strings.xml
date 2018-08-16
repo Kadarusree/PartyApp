@@ -91,6 +91,8 @@
     <string name="directions">Venue on map</string>
     <string name="delete">Delete</string>
 
+    <string name="give_attendence">Give Attendence</string>
+
 
     <string name="address">Address</string>
     <string name="call">Make a call</string>
