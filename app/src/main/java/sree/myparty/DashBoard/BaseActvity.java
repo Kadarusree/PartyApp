@@ -37,6 +37,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -44,6 +45,8 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import sree.myparty.MyApplication;
@@ -183,7 +186,13 @@ public abstract class BaseActvity extends AppCompatActivity
         } else if (id == R.id.nav_manage) {
             FirebaseAuth auth = FirebaseAuth.getInstance();
             auth.signOut();
-
+          DatabaseReference referenced =  MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/Users/" + auth.getUid());
+            if(FirebaseInstanceId.getInstance().getToken()!=null) {
+                sessionManager.storeFirebaseKey(FirebaseInstanceId.getInstance().getToken());
+                Map<String, Object> taskMap = new HashMap<String, Object>();
+                taskMap.put("fcm_id", "");
+                referenced.updateChildren(taskMap);
+            }
 
             SessionManager mSessionManager = new SessionManager(this);
             mSessionManager.logout();
