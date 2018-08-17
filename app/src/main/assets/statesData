@@ -1,58 +1,99 @@
 ﻿{
-	"STATES": {
-		"STATE": [
-			{
-				"STATENAME": "Telangana",
-				"PC": [
-					{
-						"PCNAME": "Adilabad",
-						"DISTRICT": "ADILABAD",
-						"ACS": {
-							"ACNAME": [
-								"Sirpur",
-								"Asifabad",
-								"Boath",
-								"Khanapur",
-								"Nirmal",
-								"Mudhole"
-							]
-						}
-					},
-					{
-						"PCNAME": "8-SECUNDRABAD",
-						"DISTRICT": "HYDERABAD",
-						"ACS": {
-							"ACNAME": [
-								"Amberpet",
-								"Khairatabad",
-								"Jubilee Hills",
-								"Sanath Nagar",
-								"Nampalli",
-								"Secundrabad"
-							]
-						}
-					}
-				]
-			},
-			{
-				"STATENAME": "UP",
-				"PC": [
-					{
-						"PCNAME": "SAHARANPUR",
-						"DISTRICT": "SAHARANPUR",
-						"ACS": {
-							"ACNAME": [
-								"BEHAT",
-								"SAHARANPUR_NAGAR",
-								"SAHARANPUR",
-								"DEOBAND",
-								"SAHARANPUR_NAGAR",
-								"RAMPUR_MANIHARAN"
-							]
-						}
-					}
-				]
-			}
-		]
-	}
+  "STATES": {
+    "STATE": [
+      {
+        "STATENAME": "Telangana",
+        "PC": [
+          {
+            "PCNAME": "Adilabad",
+            "DISTRICT": "ADILABAD",
+            "ACS": {
+              "ACNAME": [
+                "Sirpur",
+                "Asifabad",
+                "Boath",
+                "Khanapur",
+                "Nirmal",
+                "Mudhole"
+              ]
+            }
+          },
+          {
+            "PCNAME": "8-SECUNDRABAD",
+            "DISTRICT": "HYDERABAD",
+            "ACS": {
+              "ACNAME": [
+                "Amberpet",
+                "Khairatabad",
+                "Jubilee Hills",
+                "Sanath Nagar",
+                "Nampalli",
+                "Secundrabad"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "STATENAME": "DELHI",
+        "PC": [
+          {
+            "PCNAME": "4-NEW Delhi",
+            "DISTRICT": "DELHI",
+            "ACS": {
+              "ACNAME": [
+                "Karol Bagh(SC)",
+                "Patel Nagar(SC)",
+                "Delhi Cantt",
+                "New Delhi",
+                "Kasthurba Nagar",
+                "Malviya Nagar",
+                "R.K Puram",
+                "Greater Kailash"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "STATENAME": "UTTAR PRADESH",
+        "PC": [
+          {
+            "PCNAME": "38-AMETHI",
+            "DISTRICT": "AMETHI",
+            "ACS": {
+              "ACNAME": [
+                "JAGDISHPUR(SC)",
+                "GUARIGANJ",
+                "AMETHI",
+                "ISAULI",
+                "SULTANPUR"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "STATENAME": "RAJASTHAN",
+        "PC": [
+          {
+            "PCNAME": "38-JODHPUR",
+            "DISTRICT": "JODHPUR",
+            "ACS": {
+              "ACNAME": [
+                "PHALODI",
+                "LOHAWAT",
+                "SHERGARH",
+                "SARDARPURA",
+                "JODHPUR",
+                "SOORSAGAR",
+                "LUNI",
+                "POKARAN"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
 }
