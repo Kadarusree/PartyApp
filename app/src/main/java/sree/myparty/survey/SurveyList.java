@@ -29,6 +29,7 @@ import sree.myparty.Adapters.MeetingsAdapter;
 import sree.myparty.MyApplication;
 import sree.myparty.R;
 import sree.myparty.admin.MeetingsListActivity;
+import sree.myparty.database.DatabaseHelper;
 import sree.myparty.pojos.MeetingPojo;
 import sree.myparty.session.SessionManager;
 import sree.myparty.utils.Constants;
@@ -42,12 +43,15 @@ public class SurveyList extends AppCompatActivity {
 
     SessionManager mSession;
 
+    DatabaseHelper mSurveyDB;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_survey_list);
         mSurveyList = new ArrayList<>();
+        mSurveyDB = new DatabaseHelper(this);
 
         mDialog = Constants.showDialog(this);
         mSession = new SessionManager(this);
@@ -61,9 +65,9 @@ public class SurveyList extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
-        getVolunteers();
+        //   getVolunteers();
 
-
+        getAnswers();
     }
 
 
@@ -122,20 +126,25 @@ public class SurveyList extends AppCompatActivity {
                         if (volItem.isActive()) {
 
                             if (volItem.isCons()) {
-                                mSurveyList.add(volItem);
+
+                                if (!mSurveyDB.isAnswered(volItem.surveyID, mSession.getRegID())) {
+                                    mSurveyList.add(volItem);
+                                }
 
                             } else if (volItem.getBoothNumber().equalsIgnoreCase(mSession.getBoothNumber())) {
-                                mSurveyList.add(volItem);
-
+                                if (!mSurveyDB.isAnswered(volItem.surveyID, mSession.getRegID())) {
+                                    mSurveyList.add(volItem);
+                                }
                             }
 
 
                         }
                     }
-                    if (mSurveyList.size() < 1) {
+                    if (mSurveyList.size() == 0) {
+                        Toast.makeText(getApplicationContext(), "No Active Survey Found", Toast.LENGTH_SHORT).show();
                     } else {
+                        mAdapter = new SurveyAdapter(SurveyList.this, mSurveyList);
                         recyclerView.setAdapter(mAdapter);
-                        mAdapter.notifyDataSetChanged();
                     }
 
 
@@ -153,4 +162,38 @@ public class SurveyList extends AppCompatActivity {
     }
 
 
+    public void getAnswers() {
+        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/SurveyAnswers").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot.getChildrenCount() > 0) {
+                    for (DataSnapshot parent : dataSnapshot.getChildren()) {
+                        String surveyID = parent.getKey();
+                        for (DataSnapshot child : parent.getChildren()) {
+                            String userID = child.getKey();
+                            mSurveyDB.insertSurveyAnswres(surveyID, userID);
+                        }
+                    }
+
+                    getVolunteers();
+                } else {
+                    getVolunteers();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mSurveyDB.delete();
+    }
 }

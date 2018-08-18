@@ -7,6 +7,7 @@ public class Note {
     public static final String TABLE_LAST_VOTES = "lastVotes";
     public static final String TABLE_FUTURE_VOTES = "futureVotes";
     public static final String TABLE_VOLUNTEERS = "volunteers";
+    public static final String TABLE_SURVEY_ANSWERS = "surveyAnswers";
 
 
 
@@ -29,9 +30,13 @@ public class Note {
     public static final String BOOTH_NUMBER = "booth_number";
 
 
+    public static final String USER_ID = "user_id";
 
- 
- 
+
+
+
+
+
     // Create table SQL query
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + "("
@@ -71,7 +76,14 @@ public class Note {
                     + BOOTH_NUMBER + " TEXT,"
                     + PARTY + " TEXT"
                     + ")";
- 
+
+
+    public static final String CREATE_TABLE_SURVEY_ANSWERS =
+            "CREATE TABLE " + TABLE_SURVEY_ANSWERS + "("
+                    + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + SURVEY_ID + " TEXT,"
+                    + USER_ID + " TEXT"
+                    + ")";
     public Note() {
     }
  

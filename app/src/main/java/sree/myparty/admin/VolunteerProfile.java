@@ -27,6 +27,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import sree.myparty.MyApplication;
 import sree.myparty.R;
 import sree.myparty.beans.VisitPojo;
+import sree.myparty.beans.VolunteerLocationPojo;
 import sree.myparty.pojos.LatLng;
 import sree.myparty.pojos.VolunteerPojo;
 import sree.myparty.session.SessionManager;
@@ -65,6 +66,8 @@ public class VolunteerProfile extends AppCompatActivity implements OnMapReadyCal
 
     private GoogleMap mMap;
 
+    ArrayList<VolunteerLocationPojo> mLocationPojos;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,16 +99,8 @@ public class VolunteerProfile extends AppCompatActivity implements OnMapReadyCal
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        LatLng location = getLocation();
-        if (location != null) {
-            com.google.android.gms.maps.model.LatLng lastLocation = new com.google.android.gms.maps.model.LatLng(location.getLatitude(), location.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(lastLocation).title("Last Login Location"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(lastLocation));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lastLocation, 15));
-            mMap.animateCamera(CameraUpdateFactory.zoomIn());// Zoom out to zoom level 10, animating with a duration of 2 seconds.
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
-            mMap.getUiSettings().setMapToolbarEnabled(true);
-        }
+        getLocation();
+
 
 
     }
@@ -133,8 +128,8 @@ public class VolunteerProfile extends AppCompatActivity implements OnMapReadyCal
                 .into(imageView); //pass imageView reference to appear the image.
     }
 
-    public sree.myparty.pojos.LatLng getLocation() {
-        final sree.myparty.pojos.LatLng[] mLatlng = new sree.myparty.pojos.LatLng[1];
+    public void getLocation() {
+        mLocationPojos = new ArrayList<>();
         MyApplication.getFirebaseDatabase()
                 .getReference(Constants.DB_PATH + "/VolunteerLocations")
                 .child(mGetVolunteer().getRegID())
@@ -143,18 +138,15 @@ public class VolunteerProfile extends AppCompatActivity implements OnMapReadyCal
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.getChildrenCount() > 0) {
 
-                            mLatlng[0] = dataSnapshot.getValue(sree.myparty.pojos.LatLng.class);
-                            com.google.android.gms.maps.model.LatLng lastLocation = new com.google.android.gms.maps.model.LatLng(mLatlng[0].getLatitude(), mLatlng[0].getLongitude());
+                            for (DataSnapshot dpst : dataSnapshot.getChildren()) {
+                                mLocationPojos.add(dpst.getValue(VolunteerLocationPojo.class));
+                            }
 
-                            mMap.addMarker(new MarkerOptions().position(lastLocation).title("Last Login Location"));
-                            mMap.moveCamera(CameraUpdateFactory.newLatLng(lastLocation));
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lastLocation, 16));
-                            mMap.animateCamera(CameraUpdateFactory.zoomIn());// Zoom out to zoom level 10, animating with a duration of 2 seconds.
-                            mMap.animateCamera(CameraUpdateFactory.zoomTo(16), 4000, null);
-                            mMap.getUiSettings().setMapToolbarEnabled(true);
+                            if (mLocationPojos.size()>0){
+                                placeMarker(mLocationPojos);
+                            }
 
                         } else {
-                            mLatlng[0] = null;
                             Constants.showToast("Last login location not available", VolunteerProfile.this);
                         }
 
@@ -166,7 +158,18 @@ public class VolunteerProfile extends AppCompatActivity implements OnMapReadyCal
                     }
                 });
 
-        return mLatlng[0];
+    }
+
+    private void placeMarker(ArrayList<VolunteerLocationPojo> mLocationPojos) {
+        int lenghth = mLocationPojos.size();
+        LatLng location = mLocationPojos.get(lenghth-1).getLocation();
+        com.google.android.gms.maps.model.LatLng mLatLng = new com.google.android.gms.maps.model.LatLng(location.getLatitude(),location.getLongitude());
+        mMap.addMarker(new MarkerOptions().position(mLatLng).title("Last Login Location"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(mLatLng));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mLatLng, 16));
+        mMap.animateCamera(CameraUpdateFactory.zoomIn());// Zoom out to zoom level 10, animating with a duration of 2 seconds.
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(16), 4000, null);
+        mMap.getUiSettings().setMapToolbarEnabled(true);
     }
 
     public void getCount() {

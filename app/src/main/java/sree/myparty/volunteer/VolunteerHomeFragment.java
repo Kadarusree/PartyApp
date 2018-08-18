@@ -292,8 +292,8 @@ public class VolunteerHomeFragment extends Fragment implements View.OnClickListe
             addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
             StringBuilder str = new StringBuilder();
             if (geocoder.isPresent()) {
-                Toast.makeText(getActivity(),
-                        "geocoder present", Toast.LENGTH_SHORT).show();
+             /*   Toast.makeText(getActivity(),
+                        "geocoder present", Toast.LENGTH_SHORT).show();*/
                 Address returnAddress = addresses.get(0);
 
                 String localityString = returnAddress.getLocality();

@@ -84,7 +84,6 @@ public class AdminBaseActivity extends AppCompatActivity
     }
 
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -137,14 +136,10 @@ public class AdminBaseActivity extends AppCompatActivity
         } else if (id == R.id.nav_adm_boothwiseList) {
             ActivityLauncher.launchBoothwiseList(getApplicationContext());
 
-        }
-
-        else if (id == R.id.nav_adm_analysis) {
+        } else if (id == R.id.nav_adm_analysis) {
             ActivityLauncher.launchAnalysisActivity(getApplicationContext());
 
-        }
-
-        else if (id == R.id.nav_ad_log) {
+        } else if (id == R.id.nav_ad_log) {
             finish();
 
         }
@@ -158,5 +153,11 @@ public class AdminBaseActivity extends AppCompatActivity
     protected void onDestroy() {
         super.onDestroy();
         Constants.isAdmin = false;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Constants.isAdmin = true;
     }
 }

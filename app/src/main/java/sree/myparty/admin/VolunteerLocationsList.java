@@ -55,7 +55,9 @@ public class VolunteerLocationsList extends AppCompatActivity {
         getSupportActionBar().setTitle("History : " + Constants.volunteer.getName());
 
 
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
         locationsList.setLayoutManager(mLayoutManager);
         locationsList.addItemDecoration(new GridSpacingItemDecoration(1, dpToPx(2), true));
         locationsList.setItemAnimator(new DefaultItemAnimator());
