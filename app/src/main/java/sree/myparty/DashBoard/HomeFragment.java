@@ -2,6 +2,7 @@ package sree.myparty.DashBoard;
 
 import android.app.Dialog;
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -64,6 +65,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private TextView[] dots;
     int page_position = 0;
      Handler handler;
+
+     ProgressDialog pDialog;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -72,7 +75,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         tv = (TextView) v.findViewById(R.id.mywidget);
         tv.setSelected(true);
-
+        pDialog = Constants.showDialog(getActivity());
 
         init( v);
 
@@ -273,20 +276,25 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         handler.removeMessages(0);
     }
     boolean yesVoluteer ;
-    public boolean isVolunteeer(){
+    public void isVolunteeer(){
+        pDialog.show();
         MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/Volunteers").child(mSessionManager.getRegID()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot!=null){
+                pDialog.dismiss();
+                if (dataSnapshot.getValue()!=null){
                     VolunteerPojo mVolunteer = dataSnapshot.getValue(VolunteerPojo.class);
-                    yesVoluteer = true;
-                    if (mVolunteer.isAccepted()){
-                        Constants.showToast("You are already a Volunteer,Please login",getActivity());
-                        ActivityLauncher.volunteerLoginScreen(getActivity());
+                    if (mVolunteer!=null){
+                        yesVoluteer = true;
+                        if (mVolunteer.isAccepted()){
+                            Constants.showToast("You are already a Volunteer,Please login",getActivity());
+                            ActivityLauncher.volunteerLoginScreen(getActivity());
+                        }
+                        else {
+                            Constants.showToast("Your application is pending for approval",getActivity());
+                        }
                     }
-                    else {
-                        Constants.showToast("Your application is pending for approval",getActivity());
-                    }
+
                 }
                 else {
                    ActivityLauncher.volunteerRegistartionScreen(getActivity());
@@ -295,9 +303,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                pDialog.dismiss();
             }
         });
-       return yesVoluteer;
     }
 }

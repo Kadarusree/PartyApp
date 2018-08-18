@@ -85,7 +85,7 @@
                 android:layout_width="@dimen/ic_album_overflow_width"
                 android:layout_height="@dimen/ic_album_overflow_height"
                 android:layout_alignParentRight="true"
-                android:layout_below="@id/thumbnail"
+                android:layout_below="@id/da_title"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_dot_menu" />
 

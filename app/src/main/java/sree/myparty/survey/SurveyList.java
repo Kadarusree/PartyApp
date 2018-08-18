@@ -1,8 +1,11 @@
 package sree.myparty.survey;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.res.Resources;
 import android.graphics.Rect;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -13,6 +16,8 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -55,7 +60,7 @@ public class SurveyList extends AppCompatActivity {
         recyclerView.addItemDecoration(new SurveyList.GridSpacingItemDecoration(1, dpToPx(10), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
-
+        mAdapter.notifyDataSetChanged();
         getVolunteers();
 
 
@@ -106,32 +111,37 @@ public class SurveyList extends AppCompatActivity {
     }
 
     private void getVolunteers() {
-        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/Surveys").addValueEventListener(new ValueEventListener() {
+        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/Surveys").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                mSurveyList.clear();
+             mSurveyList.clear();
 
                 if (dataSnapshot.getChildrenCount() > 0) {
                     for (DataSnapshot indi : dataSnapshot.getChildren()) {
                         SurveyPojo volItem = indi.getValue(SurveyPojo.class);
                         if (volItem.isActive()) {
-                            if (!getAnswers(volItem.getSurveyID())){
-                                if (volItem.isCons()){
-                                    mSurveyList.add(volItem);
-                                }
-                                else if (volItem.getBoothNumber().equalsIgnoreCase(mSession.getBoothNumber())){
-                                    mSurveyList.add(volItem);
-                                }
+
+                            if (volItem.isCons()) {
+                              // mSurveyList.add(volItem);
+
+                               saveAnswer(volItem);
+                            } else if (volItem.getBoothNumber().equalsIgnoreCase(mSession.getBoothNumber())) {
+                              //  mSurveyList.add(volItem);
+                                saveAnswer(volItem);
+
                             }
 
 
                         }
                     }
-
-                    if (mSurveyList.size()<1){
-                        Toast.makeText(getApplicationContext(), "No Active Survey Found", Toast.LENGTH_SHORT).show();
+                    if (mSurveyList.size() < 1) {
                     }
-                    mAdapter.notifyDataSetChanged();
+                    else {
+                        recyclerView.setAdapter(mAdapter);
+                        mAdapter.notifyDataSetChanged();
+                    }
+
+
                 } else {
                     Toast.makeText(getApplicationContext(), "No Active Survey Found", Toast.LENGTH_SHORT).show();
                 }
@@ -144,28 +154,27 @@ public class SurveyList extends AppCompatActivity {
             }
         });
     }
+
     boolean found = false;
-    private boolean getAnswers(String suveyID) {
-        found = false;
-        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/SurveyAnswers/"+suveyID).addListenerForSingleValueEvent(new ValueEventListener() {
+
+    public void saveAnswer(final SurveyPojo volItem) {
+
+        mDialog.show();
+
+        MyApplication.getFirebaseDatabase()
+                .getReference(Constants.DB_PATH+"/SurveyAnswers")
+                .child(volItem.getSurveyID()).child(mSession.getRegID()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                mDialog.dismiss();
 
-
-                if (dataSnapshot.getChildrenCount() > 0) {
-                    /*Log.d("Parent-1", dataSnapshot.getChildrenCount() + "");
-                    for (DataSnapshot indi : dataSnapshot.getChildren()) {
-
-                        if )
-
-                    }*/
-                    if (dataSnapshot.hasChild(mSession.getRegID())){
-                        found = true;
-                    }
-                    else {
-
-                    }
-                } else {
+                if (dataSnapshot.getValue()==null){
+                  mSurveyList.add(volItem);
+                    recyclerView.setAdapter(mAdapter);
+                    mAdapter.notifyDataSetChanged();
+                }
+                else {
+                 //   Constants.showToast("You Already Answered This Survey", (Activity) mContext);
                 }
 
             }
@@ -176,6 +185,6 @@ public class SurveyList extends AppCompatActivity {
             }
         });
 
-        return found;
+
     }
 }

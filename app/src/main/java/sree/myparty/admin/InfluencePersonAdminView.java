@@ -98,6 +98,13 @@ public class InfluencePersonAdminView extends AppCompatActivity {
                     newsList.add(mNewsItem);
                 }
                 // refreshing recycler view
+                if (newsList.size()==0){
+                    Constants.showToast("No Data Found",InfluencePersonAdminView.this);
+                }
+                else {
+                    Constants.showToast(newsList.size()+" Persons Found",InfluencePersonAdminView.this);
+
+                }
                 mAdapter.notifyDataSetChanged();
 
                 // stop animating Shimmer and hide the layout

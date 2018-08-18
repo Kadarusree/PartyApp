@@ -82,7 +82,7 @@ TextView description, timestamp, createdby;*/
         Typeface tf = Typeface.createFromAsset(context.getAssets(), fontPath);
         holder.name.setTypeface(tf);
         holder.name.setText(person.getName());
-        holder.booth_num.setText("Booth Number :" + person.getBoothNumber() + "");
+        holder.booth_num.setText("Ph Num :" + person.getMobileNumber() + "");
        /* holder.description.setText("Mobile Number :" + person.getMobileNumber());
         holder.createdby.setText("Added By: " + person.getAddedBy());
         holder.timestamp.setText("Added At : "+getDate(Long.parseLong(person.getTimestamp()),"dd/MM/yyyy HH:mm aa")+"");

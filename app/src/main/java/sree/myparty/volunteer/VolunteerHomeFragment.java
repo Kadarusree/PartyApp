@@ -156,10 +156,12 @@ public class VolunteerHomeFragment extends Fragment implements View.OnClickListe
             @Override
             public void onSuccess(Location location) {
                 if (location!=null){
+
                     loginLocation = new LatLng(location.getLatitude(),location.getLongitude());
+                    String key = System.currentTimeMillis()+"";
                     MyApplication.getFirebaseDatabase()
                             .getReference(Constants.DB_PATH+"/VolunteerLocations")
-                            .child(new SessionManager(getActivity()).getRegID())
+                            .child(new SessionManager(getActivity()).getRegID()).child(key)
                             .setValue(loginLocation);
                 }
 
