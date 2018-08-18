@@ -17,6 +17,11 @@
         android:title="@string/approve" />
 
     <item
+        android:id="@+id/track_locations"
+        android:orderInCategory="101"
+        android:title="Location Histroy"/>
+
+    <item
         android:id="@+id/delete"
         android:orderInCategory="101"
         android:title="@string/delete" />

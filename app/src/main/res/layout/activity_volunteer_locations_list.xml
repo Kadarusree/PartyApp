@@ -6,4 +6,10 @@
     android:layout_height="match_parent"
     tools:context="sree.myparty.admin.VolunteerLocationsList">
 
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/locationsList"></android.support.v7.widget.RecyclerView>
+
 </LinearLayout>

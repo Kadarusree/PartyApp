@@ -301,9 +301,18 @@
             android:name=".admin.BoothwiseList"
             android:parentActivityName=".admin.AdminDashboard"
             android:screenOrientation="portrait" />
-        <activity android:name=".admin.InfluencePersonAdminView" />
-        <activity android:name=".admin.LocalIssuesAdminView" />
-        <activity android:name=".admin.VolunteerLocationsList"></activity>
+        <activity
+            android:name=".admin.InfluencePersonAdminView"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".admin.AdminDashboard"/>
+        <activity
+            android:name=".admin.LocalIssuesAdminView"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".admin.AdminDashboard"/>
+        <activity
+            android:name=".admin.VolunteerLocationsList"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".admin.VolunteerList"></activity>
     </application>
 
 </manifest>

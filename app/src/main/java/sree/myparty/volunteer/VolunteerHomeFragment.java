@@ -7,6 +7,8 @@ import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,18 +26,23 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import sree.myparty.DashBoard.SliderPagerAdapter;
 import sree.myparty.MyApplication;
 import sree.myparty.R;
+import sree.myparty.beans.VolunteerLocationPojo;
 import sree.myparty.pojos.LatLng;
 import sree.myparty.session.SessionManager;
 import sree.myparty.utils.ActivityLauncher;
@@ -51,7 +59,6 @@ public class VolunteerHomeFragment extends Fragment implements View.OnClickListe
     LatLng loginLocation = null;
 
 
-
     private ViewPager vp_slider;
     private LinearLayout ll_dots;
     SliderPagerAdapter sliderPagerAdapter;
@@ -60,7 +67,8 @@ public class VolunteerHomeFragment extends Fragment implements View.OnClickListe
     int page_position = 0;
     Handler handler;
 
-
+    Geocoder geocoder;
+    List<Address> addresses;
 
     @Nullable
     @Override
@@ -68,7 +76,7 @@ public class VolunteerHomeFragment extends Fragment implements View.OnClickListe
         View v = inflater.inflate(R.layout.volunteer_home_fragment, null, false);
 
 
-        init( v);
+        init(v);
 
 
         addBottomDots(0);
@@ -97,14 +105,14 @@ public class VolunteerHomeFragment extends Fragment implements View.OnClickListe
         db_op1 = (LinearLayout) v.findViewById(R.id.vol_db_op1);
         db_op2 = (LinearLayout) v.findViewById(R.id.vol_db_op2);
         db_op3 = (LinearLayout) v.findViewById(R.id.vol_db_op3);
-     //   db_op4 = (LinearLayout) v.findViewById(R.id.vol_db_op4);
+        //   db_op4 = (LinearLayout) v.findViewById(R.id.vol_db_op4);
         db_op5 = (LinearLayout) v.findViewById(R.id.vol_db_op5);
         //  db_op6 = (ImageView)v.findViewById(R.id.vol_db_op6);*/
 
         db_op1.setOnClickListener(this);
         db_op2.setOnClickListener(this);
         db_op3.setOnClickListener(this);
-      //  db_op4.setOnClickListener(this);
+        //  db_op4.setOnClickListener(this);
         db_op5.setOnClickListener(this);
         //  db_op6.setOnClickListener(this);*/
 
@@ -155,14 +163,12 @@ public class VolunteerHomeFragment extends Fragment implements View.OnClickListe
         mFusedLocationClient.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
-                if (location!=null){
+                if (location != null) {
 
-                    loginLocation = new LatLng(location.getLatitude(),location.getLongitude());
-                    String key = System.currentTimeMillis()+"";
-                    MyApplication.getFirebaseDatabase()
-                            .getReference(Constants.DB_PATH+"/VolunteerLocations")
-                            .child(new SessionManager(getActivity()).getRegID()).child(key)
-                            .setValue(loginLocation);
+                    loginLocation = new LatLng(location.getLatitude(), location.getLongitude());
+
+                    getLocationName(loginLocation);
+
                 }
 
             }
@@ -262,15 +268,14 @@ public class VolunteerHomeFragment extends Fragment implements View.OnClickListe
                 dots[i].setTextSize(35);
                 dots[i].setTextColor(Color.parseColor("#FFFFFF"));
                 ll_dots.addView(dots[i]);
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
         }
 
         if (dots.length > 0)
-            if (dots[currentPage]!=null){
+            if (dots[currentPage] != null) {
                 dots[currentPage].setTextColor(Color.parseColor("#2ECC71"));
             }
     }
@@ -279,5 +284,51 @@ public class VolunteerHomeFragment extends Fragment implements View.OnClickListe
     public void onStop() {
         super.onStop();
         handler.removeMessages(0);
+    }
+
+    public void getLocationName(LatLng location) {
+        try {
+            geocoder = new Geocoder(getActivity(), Locale.ENGLISH);
+            addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+            StringBuilder str = new StringBuilder();
+            if (geocoder.isPresent()) {
+                Toast.makeText(getActivity(),
+                        "geocoder present", Toast.LENGTH_SHORT).show();
+                Address returnAddress = addresses.get(0);
+
+                String localityString = returnAddress.getLocality();
+                String city = returnAddress.getCountryName();
+                String region_code = returnAddress.getCountryCode();
+                String zipcode = returnAddress.getPostalCode();
+
+                str.append(localityString + ", ");
+                str.append(city + ", " + region_code + ", ");
+                str.append(zipcode + "");
+
+                Toast.makeText(getActivity(), str,
+                        Toast.LENGTH_SHORT).show();
+
+
+                VolunteerLocationPojo mLocation = new VolunteerLocationPojo(location,str.toString());
+                String key = System.currentTimeMillis() + "";
+                MyApplication.getFirebaseDatabase()
+                        .getReference(Constants.DB_PATH + "/VolunteerLocations")
+                        .child(new SessionManager(getActivity()).getRegID()).child(key)
+                        .setValue(mLocation);
+
+            } else {
+                Toast.makeText(getActivity(),
+                        "geocoder not present", Toast.LENGTH_SHORT).show();
+            }
+
+// } else {
+// Toast.makeText(getApplicationContext(),
+// "address not available", Toast.LENGTH_SHORT).show();
+// }
+        } catch (IOException e) {
+// TODO Auto-generated catch block
+
+            Log.e("tag", e.getMessage());
+        }
     }
 }

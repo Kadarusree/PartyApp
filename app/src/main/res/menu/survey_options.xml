@@ -5,7 +5,10 @@
         android:id="@+id/end_survey"
         android:orderInCategory="100"
         android:title="@string/end_survey" />
-
+    <item
+        android:id="@+id/delete_survey"
+        android:orderInCategory="100"
+        android:title="@string/delete" />
 
 
 </menu>

@@ -8,23 +8,23 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import sree.myparty.R;
-import sree.myparty.pojos.CasteWiseVoterBean;
+import sree.myparty.beans.VolunteerLocationPojo;
 import sree.myparty.pojos.IssueBean;
+import sree.myparty.pojos.LatLng;
 
-public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.MyViewHolder> {
+public class LocationsAdapter extends RecyclerView.Adapter<LocationsAdapter.MyViewHolder> {
     private Context context;
-    private List<IssueBean> personList;
+    private ArrayList<String> times;
+    private ArrayList<VolunteerLocationPojo> locations;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView  description, timestamp, createdby, booth_num;
-
+        public TextView description, timestamp, createdby, booth_num;
         ImageView overflow;
 
         public MyViewHolder(View view) {
@@ -34,41 +34,46 @@ public class IssuesAdapter extends RecyclerView.Adapter<IssuesAdapter.MyViewHold
             description = view.findViewById(R.id.da_description);
             createdby = view.findViewById(R.id.da_created_by);
             timestamp = view.findViewById(R.id.da_timestamp);
-            overflow= view.findViewById(R.id.overflow);
+            overflow = view.findViewById(R.id.overflow);
+
         }
     }
 
 
-    public IssuesAdapter(Context context, List<IssueBean> personList) {
+    public LocationsAdapter(Context context, ArrayList<String> times, ArrayList<VolunteerLocationPojo> locations) {
         this.context = context;
-        this.personList = personList;
+        this.times = times;
+        this.locations = locations;
     }
 
     @Override
-    public IssuesAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public LocationsAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.issue_adapter, parent, false);
 
-        return new IssuesAdapter.MyViewHolder(itemView);
+        return new LocationsAdapter.MyViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(IssuesAdapter.MyViewHolder holder, final int position) {
-        final IssueBean person = personList.get(position);
-        holder.booth_num.setText("Booth Number :" + person.getBoothnumber()+"");
-       holder.description.setText("Description :" + person.getDescription());
-        holder.createdby.setText("Created By: " + person.getCreatedBy());
-        holder.timestamp.setText("Posted At : "+getDate(person.getTimestamp(),"dd/MM/yyyy HH:mm aa"));
+    public void onBindViewHolder(LocationsAdapter.MyViewHolder holder, final int position) {
+        final long time = Long.parseLong(times.get(position));
+       /* holder.booth_num.setText("Booth Number :" + person.getBoothnumber()+"");
+        holder.description.setText("Description :" + person.getDescription());
+        holder.createdby.setText("Created By: " + person.getCreatedBy());*/
+        holder.description.setText("Location :" + locations.get(position).getLocationName());
+        holder.createdby.setText("Coordinates :" + locations.get(position).getLocation().getLatitude() + ", "
+                + locations.get(position).getLocation().getLongitude());
+        holder.timestamp.setText("Updated At : " + getDate(time, "dd/MM/yyyy HH:mm aa"));
         holder.overflow.setVisibility(View.GONE);
     }
+
     // recipe
     @Override
     public int getItemCount() {
-        return personList.size();
+        return times.size();
     }
 
-    public static String getDate(long milliSeconds, String dateFormat)
-    {
+    public static String getDate(long milliSeconds, String dateFormat) {
         // Create a DateFormatter object for displaying date in specified format.
         SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
 

@@ -30,6 +30,7 @@ import java.util.List;
 
 import sree.myparty.MyApplication;
 import sree.myparty.R;
+import sree.myparty.admin.VolunteerLocationsList;
 import sree.myparty.admin.VolunteerProfile;
 import sree.myparty.pojos.Album;
 import sree.myparty.pojos.VolunteerPojo;
@@ -143,6 +144,10 @@ public class VolunteersListAdapter extends RecyclerView.Adapter<VolunteersListAd
                 case R.id.delete:
                     VolunteerPojo mVol4 = volunteerList.get(selected_position);
                     delete(mVol4);
+                case R.id.track_locations:
+                    VolunteerPojo mVol5 = volunteerList.get(selected_position);
+                    Constants.volunteer = mVol5;
+                    mContext.startActivity(new Intent(mContext, VolunteerLocationsList.class));
                     return true;
                 default:
             }

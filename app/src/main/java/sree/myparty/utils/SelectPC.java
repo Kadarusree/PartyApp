@@ -74,6 +74,12 @@ public class SelectPC extends DialogFragment {
     String mState_name, mPc_name, mAc_name;
 
 
+    ProgressDialog mProgressDialog;
+    ArrayList<Booth> mBoothsList;
+    ArrayList<String> boothNames;
+
+    ArrayAdapter<String> adapter;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -90,6 +96,9 @@ public class SelectPC extends DialogFragment {
         list_ac = new ArrayList<>();
         states = new ArrayList<>();
         list_pc = new ArrayList<>();
+        boothNames = new ArrayList<>();
+        mBoothsList = new ArrayList<>();
+
         states.clear();
         for (int i = 0; i < mCountry.getStates().size(); i++) {
             states.add(mCountry.getStates().get(i).getName());
@@ -255,14 +264,11 @@ public class SelectPC extends DialogFragment {
     }
 
 
-    ProgressDialog mProgressDialog;
-    ArrayList<Booth> mBoothsList;
-    ArrayList<String> boothNames;
-
     public void getBooths(final String ac) {
         mProgressDialog = Constants.showDialog(getActivity());
         mProgressDialog.show();
-        boothNames = new ArrayList<>();
+        boothNames.clear();
+        mBoothsList.clear();
           /*Booths Booths = mParser.getBooths("Khairatabad");
         DatabaseReference reference = MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH).child("Booths");
 
@@ -276,14 +282,12 @@ public class SelectPC extends DialogFragment {
                         mProgressDialog.dismiss();
                         if (dataSnapshot.getChildrenCount() > 0) {
 
-                            mBoothsList = new ArrayList<>();
-                            boothNames.clear();
                             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                 Booth mBooth = snapshot.getValue(Booth.class);
                                 mBoothsList.add(mBooth);
                                 boothNames.add(mBooth.getBoothNumber() + "-" + mBooth.getName());
                             }
-                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, boothNames);
+                            adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, boothNames);
                             spn_booth.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
 
@@ -309,6 +313,9 @@ public class SelectPC extends DialogFragment {
                                 reference.setValue(Booths);
                             } else {
                                 Constants.showToast("Booths Not Available", getActivity());
+                                adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, boothNames);
+                                spn_booth.setAdapter(adapter);
+                                adapter.notifyDataSetChanged();
                             }
 
                         }

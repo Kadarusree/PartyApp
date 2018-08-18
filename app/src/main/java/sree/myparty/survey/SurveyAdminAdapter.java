@@ -256,6 +256,9 @@ public class SurveyAdminAdapter extends RecyclerView.Adapter<SurveyAdminAdapter.
                 case R.id.end_survey:
                     endSurvey();
                     return true;
+                case R.id.delete_survey:
+                    deleteSurvey();
+                    return true;
 
                 default:
             }
@@ -281,7 +284,17 @@ public class SurveyAdminAdapter extends RecyclerView.Adapter<SurveyAdminAdapter.
             }
         });
     }
+public void deleteSurvey(){
+    MyApplication.getFirebaseDatabase()
+            .getReference(Constants.DB_PATH+"/Surveys")
+            .child(mSurveyList.get(selected_position)
+                    .getSurveyID()).removeValue();
+    MyApplication.getFirebaseDatabase()
+            .getReference(Constants.DB_PATH+"/SurveyAnswers")
+            .child(mSurveyList.get(selected_position)
+                    .getSurveyID()).removeValue();
 
+}
     public void endSurvey(){
         MyApplication.getFirebaseDatabase()
                 .getReference(Constants.DB_PATH+"/Surveys")

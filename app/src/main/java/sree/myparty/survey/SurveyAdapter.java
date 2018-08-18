@@ -64,7 +64,6 @@ public class SurveyAdapter extends RecyclerView.Adapter<SurveyAdapter.MyViewHold
     SessionManager mSessionManager;
 
 
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView question;
         RadioButton option1, option2, option3;
@@ -177,8 +176,8 @@ public class SurveyAdapter extends RecyclerView.Adapter<SurveyAdapter.MyViewHold
                 }
 
                 // uncomment for production
-               saveAnswer(mSurveyList.get(position).getSurveyID(),mSessionManager.getRegID(),answer);
-             //   saveAnswer(mSurveyList.get(position).getSurveyID(), getNumber() + "", answer);
+                saveAnswer(mSurveyList.get(position).getSurveyID(), mSessionManager.getRegID(), answer);
+                //   saveAnswer(mSurveyList.get(position).getSurveyID(), getNumber() + "", answer);
 
             }
         });
@@ -192,51 +191,21 @@ public class SurveyAdapter extends RecyclerView.Adapter<SurveyAdapter.MyViewHold
     }
 
 
-    private void showPopupMenu(View view) {
-        // inflate menu
-        PopupMenu popup = new PopupMenu(mContext, view);
-        MenuInflater inflater = popup.getMenuInflater();
-        inflater.inflate(R.menu.meeting_options, popup.getMenu());
-        popup.setOnMenuItemClickListener(new SurveyAdapter.MyMenuItemClickListener());
-        popup.show();
-    }
 
-    /**
-     * Click listener for popup menu items
-     */
-    class MyMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
-
-        public MyMenuItemClickListener() {
-        }
-
-        @Override
-        public boolean onMenuItemClick(MenuItem menuItem) {
-            switch (menuItem.getItemId()) {
-                case R.id.attendence:
-                    return true;
-                case R.id.map:
-                    return true;
-                case R.id.delete:
-                    return true;
-                default:
-            }
-            return false;
-        }
-    }
 
 
     public void saveAnswer(final String QuestionID, final String userID, String answer) {
-        final SurveyAnswerPojo mSurveyPojo =  new SurveyAnswerPojo(QuestionID,answer);
+        final SurveyAnswerPojo mSurveyPojo = new SurveyAnswerPojo(QuestionID, answer);
         final ProgressDialog pDialog = Constants.showDialog((Activity) mContext);
         pDialog.show();
 
-        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/SurveyAnswers").child(QuestionID).child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/SurveyAnswers").child(QuestionID).child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 pDialog.dismiss();
 
-                if (dataSnapshot.getValue()==null){
-                    MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/SurveyAnswers").child(QuestionID).child(userID).setValue(mSurveyPojo).addOnCompleteListener(new OnCompleteListener<Void>() {
+                if (dataSnapshot.getValue() == null) {
+                    MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/SurveyAnswers").child(QuestionID).child(userID).setValue(mSurveyPojo).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             pDialog.dismiss();
@@ -250,8 +219,7 @@ public class SurveyAdapter extends RecyclerView.Adapter<SurveyAdapter.MyViewHold
                         }
                     });
 
-                }
-                else {
+                } else {
                     Constants.showToast("You Already Answered This Survey", (Activity) mContext);
                 }
 
@@ -265,43 +233,42 @@ public class SurveyAdapter extends RecyclerView.Adapter<SurveyAdapter.MyViewHold
 
 
     }
-    
+
     public int getNumber() {
         Random random = new Random();
         return random.nextInt(9999);
     }
 
-   public void increasePoints(final String regID){
+    public void increasePoints(final String regID) {
 
 
-       MyApplication.getFirebaseDatabase()
-               .getReference(Constants.DB_PATH+"/Users")
-               .child(regID).addListenerForSingleValueEvent(new ValueEventListener() {
-           @Override
-           public void onDataChange(DataSnapshot dataSnapshot) {
-               UserDetailPojo mUser = null;
-               if (dataSnapshot.getChildrenCount()>0){
+        MyApplication.getFirebaseDatabase()
+                .getReference(Constants.DB_PATH + "/Users")
+                .child(regID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                UserDetailPojo mUser = null;
+                if (dataSnapshot.getChildrenCount() > 0) {
 
-                       mUser = dataSnapshot.getValue(UserDetailPojo.class);
+                    mUser = dataSnapshot.getValue(UserDetailPojo.class);
 
-               }
+                }
 
-               int currentPoints = mUser.getPoints();
-               int newpoints = currentPoints+5;
+                int currentPoints = mUser.getPoints();
+                int newpoints = currentPoints + 5;
 
-               MyApplication.getFirebaseDatabase()
-                       .getReference(Constants.DB_PATH+"/Users")
-                       .child(regID).child("points").setValue(newpoints);
-           }
+                MyApplication.getFirebaseDatabase()
+                        .getReference(Constants.DB_PATH + "/Users")
+                        .child(regID).child("points").setValue(newpoints);
+            }
 
-           @Override
-           public void onCancelled(DatabaseError databaseError) {
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-           }
-       });
+            }
+        });
 
 
-
-   }
+    }
 
 }

@@ -111,10 +111,10 @@ public class SurveyList extends AppCompatActivity {
     }
 
     private void getVolunteers() {
-        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/Surveys").addValueEventListener(new ValueEventListener() {
+        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/Surveys").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-             mSurveyList.clear();
+                mSurveyList.clear();
 
                 if (dataSnapshot.getChildrenCount() > 0) {
                     for (DataSnapshot indi : dataSnapshot.getChildren()) {
@@ -122,12 +122,10 @@ public class SurveyList extends AppCompatActivity {
                         if (volItem.isActive()) {
 
                             if (volItem.isCons()) {
-                              // mSurveyList.add(volItem);
+                                mSurveyList.add(volItem);
 
-                               saveAnswer(volItem);
                             } else if (volItem.getBoothNumber().equalsIgnoreCase(mSession.getBoothNumber())) {
-                              //  mSurveyList.add(volItem);
-                                saveAnswer(volItem);
+                                mSurveyList.add(volItem);
 
                             }
 
@@ -135,8 +133,7 @@ public class SurveyList extends AppCompatActivity {
                         }
                     }
                     if (mSurveyList.size() < 1) {
-                    }
-                    else {
+                    } else {
                         recyclerView.setAdapter(mAdapter);
                         mAdapter.notifyDataSetChanged();
                     }
@@ -155,36 +152,5 @@ public class SurveyList extends AppCompatActivity {
         });
     }
 
-    boolean found = false;
 
-    public void saveAnswer(final SurveyPojo volItem) {
-
-        mDialog.show();
-
-        MyApplication.getFirebaseDatabase()
-                .getReference(Constants.DB_PATH+"/SurveyAnswers")
-                .child(volItem.getSurveyID()).child(mSession.getRegID()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                mDialog.dismiss();
-
-                if (dataSnapshot.getValue()==null){
-                  mSurveyList.add(volItem);
-                    recyclerView.setAdapter(mAdapter);
-                    mAdapter.notifyDataSetChanged();
-                }
-                else {
-                 //   Constants.showToast("You Already Answered This Survey", (Activity) mContext);
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-
-    }
 }
