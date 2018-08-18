@@ -70,9 +70,9 @@
             android:layout_height="match_parent"
             android:layout_weight="0.4"
             android:gravity="left|center"
-            android:text="Booth Number" />
+            android:text="Booth " />
 
-        <EditText
+        <Spinner
             android:id="@+id/wd_booth_num"
             android:layout_width="0dp"
             android:layout_height="match_parent"

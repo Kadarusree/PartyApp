@@ -103,4 +103,18 @@
         android:text="A"
         />
 
+    <TextView
+        android:id="@+id/cilckTomakeCall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/color_green"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addedby"
+        android:textStyle="bold"
+        android:text=" Tap to make a Call"
+        android:drawableLeft="@drawable/ic_call_black_24dp"
+        />
+
 </android.support.constraint.ConstraintLayout>

@@ -2,6 +2,7 @@ package sree.myparty.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
@@ -83,6 +84,18 @@ public class BoothsAdapter extends RecyclerView.Adapter<BoothsAdapter.MyViewHold
         holder.name.setText("Booth Name : " + mBooth.getName());
         holder.id.setText("Booth Number : " + mBooth.getBoothNumber());
         holder.location.setText("Booth Address : " + mBooth.getLocation());
+        if (mBooth.getMapLocation()!=null){
+            holder.name.setTextColor(Color.parseColor("#0f9e33"));
+            holder.id.setTextColor(Color.parseColor("#0f9e33"));
+            holder.location.setTextColor(Color.parseColor("#0f9e33"));
+        }
+        else {
+            holder.name.setTextColor(Color.parseColor("#28b5f4"));
+            holder.id.setTextColor(Color.parseColor("#28b5f4"));
+            holder.location.setTextColor(Color.parseColor("#28b5f4"));
+        }
+
+
 
     }
 

@@ -1,12 +1,16 @@
 package sree.myparty.admin;
 
+import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,6 +26,7 @@ import sree.myparty.Adapters.WorkDoneAdapter;
 import sree.myparty.MyApplication;
 import sree.myparty.R;
 import sree.myparty.beans.NewsPojo;
+import sree.myparty.constuecies.Booth;
 import sree.myparty.misc.NewsListAdapter;
 import sree.myparty.pojos.WorkDonePojo;
 import sree.myparty.utils.ActivityLauncher;
@@ -37,6 +42,16 @@ public class WorksListActivity extends AppCompatActivity {
 
     @BindView(R.id.btn_add_workdone)
     Button btn_add_workdone;
+
+    ProgressDialog mProgressDialog;
+
+
+    ArrayList<Booth> mBoothsList;
+    ArrayList<String> boothNames;
+
+    ArrayAdapter<String> adapter;
+    @BindView(R.id.vol_reg_booth_num)
+    Spinner mBoothNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,21 +72,22 @@ public class WorksListActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new MyDividerItemDecoration(this, LinearLayoutManager.VERTICAL, 16));
         recyclerView.setAdapter(mAdapter);
-
-        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/WorkDone").addValueEventListener(new ValueEventListener() {
+        mProgressDialog = Constants.showDialog(this);
+        boothNames = new ArrayList<>();
+        loadBooths();
+        mBoothNumber.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot indi : dataSnapshot.getChildren()){
-                    WorkDonePojo workItem = indi.getValue(WorkDonePojo.class);
-                    mWorkList.add(workItem);
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if (mBoothsList.size()>0){
+                    getWorks(mBoothsList.get(position).getBoothNumber());
+
                 }
-                // refreshing recycler view
-                mAdapter.notifyDataSetChanged();
 
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
@@ -81,5 +97,61 @@ public class WorksListActivity extends AppCompatActivity {
     @OnClick(R.id.btn_add_workdone)
     public void launchWorkDone(View view) {
         ActivityLauncher.launchWorkDoneActivity(this);
+    }
+
+    private void loadBooths() {
+        mProgressDialog.setMessage("Loading Booths");
+        mProgressDialog.show();
+        MyApplication.getFirebaseDatabase()
+                .getReference(Constants.DB_PATH + "/Booths/mBooths")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        mProgressDialog.dismiss();
+                        mBoothsList = new ArrayList<>();
+                        boothNames.clear();
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            Booth mBooth = snapshot.getValue(Booth.class);
+                            mBoothsList.add(mBooth);
+                            boothNames.add(mBooth.getBoothNumber() + "-" + mBooth.getName());
+                        }
+                        adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_dropdown_item_1line, boothNames);
+                        mBoothNumber.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        mProgressDialog.dismiss();
+                    }
+                });
+    }
+
+    public void getWorks(String boothID){
+        mProgressDialog.show();
+        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/WorkDone").orderByChild("boothNumber").equalTo(boothID)
+                .addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mWorkList.clear();
+                mProgressDialog.dismiss();
+                for (DataSnapshot indi : dataSnapshot.getChildren()){
+                    WorkDonePojo workItem = indi.getValue(WorkDonePojo.class);
+                    mWorkList.add(workItem);
+                }
+                // refreshing recycler view
+                mAdapter.notifyDataSetChanged();
+
+                if (mWorkList.size()==0){
+                    Constants.showToast("Data Not Found",WorksListActivity.this);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                mProgressDialog.dismiss();
+            }
+        });
     }
 }

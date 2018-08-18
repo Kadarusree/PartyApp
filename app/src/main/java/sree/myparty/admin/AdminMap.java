@@ -5,11 +5,13 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
 import android.support.v4.app.ActivityCompat;
@@ -19,10 +21,13 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -49,6 +54,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import sree.myparty.MyApplication;
 import sree.myparty.R;
+import sree.myparty.constuecies.Booth;
 import sree.myparty.pojos.VoterPojo;
 import sree.myparty.utils.Constants;
 
@@ -73,7 +79,7 @@ public class AdminMap extends AppCompatActivity implements OnMapReadyCallback {
     LinearLayout boothLayout;
 
     @BindView(R.id.edt_booth)
-    EditText boothNumber;
+    Spinner boothNumber;
 
     ProgressDialog mDialog;
 /*
@@ -83,6 +89,15 @@ public class AdminMap extends AppCompatActivity implements OnMapReadyCallback {
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     private FusedLocationProviderClient mFusedLocationClient;
+
+
+    ProgressDialog mProgressDialog;
+
+
+    ArrayList<Booth> mBoothsList;
+    ArrayList<String> boothNames;
+
+    ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,13 +130,50 @@ public class AdminMap extends AppCompatActivity implements OnMapReadyCallback {
                 if (b) {
                     constitution.setChecked(false);
                     boothLayout.setVisibility(View.VISIBLE);
+                    boothNames = new ArrayList<>();
+                    loadBooths();
+
+                    boothNumber.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            mMap.clear();
+
+                            if (mBoothsList.size() > 0) {
+                                Booth mBooth = mBoothsList.get(position);
+                                searchByBooth(mBoothsList.get(position).getBoothNumber());
+
+                                if (mBooth.getMapLocation() != null) {
+                                    MarkerOptions mMarker = new MarkerOptions();
+                                    mMarker.position(new LatLng(mBooth.getMapLocation().getLatitude(), mBooth.getMapLocation().getLongitude()));
+                                    mMarker.title("Booth Number : " + mBooth.getBoothNumber());
+                                    mMarker.icon(BitmapDescriptorFactory.defaultMarker());
+                                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new com.google.android.gms.maps.model.LatLng(mBooth.getMapLocation().getLatitude(), mBooth.getMapLocation().getLongitude()), 16));
+                                    mMap.animateCamera(CameraUpdateFactory.zoomIn());// Zoom out to zoom level 10, animating with a duration of 2 seconds.
+                                    mMap.animateCamera(CameraUpdateFactory.zoomTo(16), 2000, null);
+                                 //   mMap.addMarker(mMarker);
+                                }
+
+                            }
+
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
                 }
             }
         });
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
+
+        mProgressDialog = Constants.showDialog(this);
+
+
     }
+
     public boolean checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
@@ -186,14 +238,14 @@ public class AdminMap extends AppCompatActivity implements OnMapReadyCallback {
                     }
                 });
     }
-    @OnClick(R.id.btn_search)
+   /* @OnClick(R.id.btn_search)
     public void search(View v) {
         if (boothNumber.getText().toString().trim().length() == 0) {
             boothNumber.setError("Enter Booth Number");
         } else {
             searchByBooth(boothNumber.getText().toString().trim());
         }
-    }
+    }*/
 
     private void searchByBooth(String boothNumber) {
         mDialog.show();
@@ -208,7 +260,13 @@ public class AdminMap extends AppCompatActivity implements OnMapReadyCallback {
                     mVotersList.add(mPojo);
                 }
 
-                mMap.clear();
+                if (mVotersList.size() == 0) {
+                    Constants.showToast("No Data Found", AdminMap.this);
+                }
+                else {
+                    Constants.showToast(mVotersList.size()+" Voters Found", AdminMap.this);
+
+                }
                 placeMarkers(mMap, mVotersList);
 
             }
@@ -253,7 +311,7 @@ public class AdminMap extends AppCompatActivity implements OnMapReadyCallback {
             public boolean onMarkerClick(Marker marker) {
                 VoterPojo mPojo = (VoterPojo) marker.getTag();
                 if (mPojo != null) {
-                    Toast.makeText(getApplicationContext(), mPojo.getVoterName(), Toast.LENGTH_LONG).show();
+              //      Toast.makeText(getApplicationContext(), mPojo.getVoterName(), Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(getApplicationContext(), marker.getTitle(), Toast.LENGTH_LONG).show();
 
@@ -305,8 +363,22 @@ public class AdminMap extends AppCompatActivity implements OnMapReadyCallback {
             CustomInfoWindowGoogleMap customInfoWindow = new CustomInfoWindowGoogleMap(this);
             mMap.setInfoWindowAdapter(customInfoWindow);
             mMap.addMarker(mMarker).setTag(mVotersList.get(i));
+
+            mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                @Override
+                public void onInfoWindowClick(Marker marker) {
+                    final VoterPojo infoWindowData = (VoterPojo) marker.getTag();
+
+                    dialContactPhone(infoWindowData.getMobileNumber());
+
+                }
+            });
         }
 
+    }
+
+    private void dialContactPhone(final String phoneNumber) {
+        startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null)));
     }
 
     private BitmapDescriptor bitmapDescriptorFromVector(Context context, @DrawableRes int vectorDrawableResourceId) {
@@ -319,5 +391,33 @@ public class AdminMap extends AppCompatActivity implements OnMapReadyCallback {
         background.draw(canvas);
         vectorDrawable.draw(canvas);
         return BitmapDescriptorFactory.fromBitmap(bitmap);
+    }
+
+    private void loadBooths() {
+        mProgressDialog.setMessage("Loading Booths");
+        mProgressDialog.show();
+        MyApplication.getFirebaseDatabase()
+                .getReference(Constants.DB_PATH + "/Booths/mBooths")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        mProgressDialog.dismiss();
+                        mBoothsList = new ArrayList<>();
+                        boothNames.clear();
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            Booth mBooth = snapshot.getValue(Booth.class);
+                            mBoothsList.add(mBooth);
+                            boothNames.add(mBooth.getBoothNumber() + "-" + mBooth.getName());
+                        }
+                        adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_dropdown_item_1line, boothNames);
+                        boothNumber.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        mProgressDialog.dismiss();
+                    }
+                });
     }
 }

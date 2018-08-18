@@ -140,10 +140,40 @@ public class VolunteersListAdapter extends RecyclerView.Adapter<VolunteersListAd
                     VolunteerPojo mVol2 = volunteerList.get(selected_position);
                     approve(mVol2);
                     return true;
+                case R.id.delete:
+                    VolunteerPojo mVol4 = volunteerList.get(selected_position);
+                    delete(mVol4);
+                    return true;
                 default:
             }
             return false;
         }
+    }
+
+    private void delete(VolunteerPojo volunteer) {
+        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/Volunteers").child(volunteer.getRegID()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(mContext, "Deleted", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(mContext, "Failed To Delete", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+
+        MyApplication.getFirebaseStorage().getReference(Constants.DB_PATH + "/Volunteers").child(volunteer.getRegID()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                  //  Toast.makeText(mContext, "Deleted", Toast.LENGTH_SHORT).show();
+                }else {
+                //   Toast.makeText(mContext, "Failed To Delete", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
     }
 
     @Override

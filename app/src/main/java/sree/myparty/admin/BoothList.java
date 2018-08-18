@@ -74,7 +74,7 @@ public class BoothList extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 mProgressDialog.dismiss();
-
+                mBoothsList.clear();
                 for (DataSnapshot indi : dataSnapshot.getChildren()) {
                     Booth mBooth = indi.getValue(Booth.class);
                     mBoothsList.add(mBooth);

@@ -38,6 +38,7 @@ import sree.myparty.beans.NewsPojo;
 import sree.myparty.chat.UserListActicity;
 import sree.myparty.chat.VideoCallActivity;
 import sree.myparty.pojos.UserDetailPojo;
+import sree.myparty.pojos.VolunteerPojo;
 import sree.myparty.session.SessionManager;
 import sree.myparty.survey.SurveyList;
 import sree.myparty.utils.ActivityLauncher;
@@ -185,7 +186,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 }
                 break;*/
             case R.id.db_op6:
-                ActivityLauncher.volunteerRegistartionScreen(getActivity());
+               isVolunteeer();
                 break;
             case R.id.db_op7:
                 ActivityLauncher.newsList(getActivity());
@@ -270,5 +271,33 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onStop() {
         super.onStop();
         handler.removeMessages(0);
+    }
+    boolean yesVoluteer ;
+    public boolean isVolunteeer(){
+        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/Volunteers").child(mSessionManager.getRegID()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot!=null){
+                    VolunteerPojo mVolunteer = dataSnapshot.getValue(VolunteerPojo.class);
+                    yesVoluteer = true;
+                    if (mVolunteer.isAccepted()){
+                        Constants.showToast("You are already a Volunteer,Please login",getActivity());
+                        ActivityLauncher.volunteerLoginScreen(getActivity());
+                    }
+                    else {
+                        Constants.showToast("Your application is pending for approval",getActivity());
+                    }
+                }
+                else {
+                   ActivityLauncher.volunteerRegistartionScreen(getActivity());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+       return yesVoluteer;
     }
 }

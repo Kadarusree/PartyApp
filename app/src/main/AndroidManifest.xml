@@ -302,7 +302,8 @@
             android:parentActivityName=".admin.AdminDashboard"
             android:screenOrientation="portrait" />
         <activity android:name=".admin.InfluencePersonAdminView" />
-        <activity android:name=".admin.LocalIssuesAdminView"></activity>
+        <activity android:name=".admin.LocalIssuesAdminView" />
+        <activity android:name=".admin.VolunteerLocationsList"></activity>
     </application>
 
 </manifest>

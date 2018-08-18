@@ -15,4 +15,9 @@
         android:id="@+id/approve"
         android:orderInCategory="101"
         android:title="@string/approve" />
+
+    <item
+        android:id="@+id/delete"
+        android:orderInCategory="101"
+        android:title="@string/delete" />
 </menu>

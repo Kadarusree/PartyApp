@@ -58,7 +58,7 @@ public class SurveyList extends AppCompatActivity {
 
         getVolunteers();
 
-        getAnswers();
+
     }
 
 
@@ -115,12 +115,15 @@ public class SurveyList extends AppCompatActivity {
                     for (DataSnapshot indi : dataSnapshot.getChildren()) {
                         SurveyPojo volItem = indi.getValue(SurveyPojo.class);
                         if (volItem.isActive()) {
-                            if (volItem.isCons()){
-                                mSurveyList.add(volItem);
+                            if (!getAnswers(volItem.getSurveyID())){
+                                if (volItem.isCons()){
+                                    mSurveyList.add(volItem);
+                                }
+                                else if (volItem.getBoothNumber().equalsIgnoreCase(mSession.getBoothNumber())){
+                                    mSurveyList.add(volItem);
+                                }
                             }
-                            else if (volItem.getBoothNumber().equalsIgnoreCase(mSession.getBoothNumber())){
-                                mSurveyList.add(volItem);
-                            }
+
 
                         }
                     }
@@ -141,20 +144,28 @@ public class SurveyList extends AppCompatActivity {
             }
         });
     }
-
-    private void getAnswers() {
-        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/SurveyAnswers").addValueEventListener(new ValueEventListener() {
+    boolean found = false;
+    private boolean getAnswers(String suveyID) {
+        found = false;
+        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/SurveyAnswers/"+suveyID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
 
                 if (dataSnapshot.getChildrenCount() > 0) {
-                    Log.d("Parent-1", dataSnapshot.getChildrenCount() + "");
+                    /*Log.d("Parent-1", dataSnapshot.getChildrenCount() + "");
                     for (DataSnapshot indi : dataSnapshot.getChildren()) {
+
+                        if )
+
+                    }*/
+                    if (dataSnapshot.hasChild(mSession.getRegID())){
+                        found = true;
+                    }
+                    else {
 
                     }
                 } else {
-                    Toast.makeText(getApplicationContext(), "No Survey Found", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -164,5 +175,7 @@ public class SurveyList extends AppCompatActivity {
 
             }
         });
+
+        return found;
     }
 }

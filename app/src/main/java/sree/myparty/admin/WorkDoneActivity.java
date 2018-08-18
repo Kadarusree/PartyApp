@@ -30,9 +30,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -42,7 +44,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayInputStream;
@@ -50,6 +55,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -59,6 +65,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import sree.myparty.MyApplication;
 import sree.myparty.R;
+import sree.myparty.constuecies.Booth;
 import sree.myparty.pojos.InfluPerson;
 import sree.myparty.pojos.LatLng;
 import sree.myparty.pojos.MeetingPojo;
@@ -75,7 +82,7 @@ public class WorkDoneActivity extends AppCompatActivity {
     EditText edt_areaName;
 
     @BindView(R.id.wd_booth_num)
-    EditText edt_boothNumber;
+    Spinner edt_boothNumber;
 
     @BindView(R.id.wd_startDate)
     EditText edt_startDate;
@@ -118,6 +125,14 @@ public class WorkDoneActivity extends AppCompatActivity {
     ProgressDialog mProgressDialog;
 
 
+    ArrayList<Booth> mBoothsList;
+    ArrayList<String> boothNames;
+
+    ArrayAdapter<String> adapter;
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -154,6 +169,10 @@ public class WorkDoneActivity extends AppCompatActivity {
                 }
             }
         });
+
+        mProgressDialog = Constants.showDialog(this);
+        boothNames = new ArrayList<>();
+        loadBooths();
     }
 
 
@@ -513,7 +532,7 @@ public class WorkDoneActivity extends AppCompatActivity {
 
         name = edt_workDoneName.getText().toString();
         areaName = edt_areaName.getText().toString();
-        boothNumber = edt_boothNumber.getText().toString();
+        boothNumber = mBoothsList.get(edt_boothNumber.getSelectedItemPosition()).getBoothNumber();
         startDate = edt_startDate.getText().toString();
         endDate = edt_endDate.getText().toString();
         contracterName = edt_supervisor.getText().toString();
@@ -625,7 +644,7 @@ public class WorkDoneActivity extends AppCompatActivity {
         } else if (edt_endDate.length() < 3) {
             edt_endDate.setError("Select End Date");
         } else if (boothNumber.length() == 0) {
-            edt_boothNumber.setError("Select Start Date");
+         //   edt_boothNumber.setError("Select Start Date");
         } else if (contracterName.length() < 3) {
             edt_supervisor.setError("Select End Date");
         } else if (photo_uri.length() < 3) {
@@ -651,4 +670,33 @@ public class WorkDoneActivity extends AppCompatActivity {
     public void pickEndDate(View view) {
         showDateTimePicker(edt_endDate);
     }
+
+    private void loadBooths() {
+        mProgressDialog.setMessage("Loading Booths");
+        mProgressDialog.show();
+        MyApplication.getFirebaseDatabase()
+                .getReference(Constants.DB_PATH + "/Booths/mBooths")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        mProgressDialog.dismiss();
+                        mBoothsList = new ArrayList<>();
+                        boothNames.clear();
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            Booth mBooth = snapshot.getValue(Booth.class);
+                            mBoothsList.add(mBooth);
+                            boothNames.add(mBooth.getBoothNumber() + "-" + mBooth.getName());
+                        }
+                        adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_dropdown_item_1line, boothNames);
+                        edt_boothNumber.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        mProgressDialog.dismiss();
+                    }
+                });
+    }
+
 }

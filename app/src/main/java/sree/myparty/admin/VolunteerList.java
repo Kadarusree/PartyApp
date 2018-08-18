@@ -95,7 +95,6 @@ public class VolunteerList extends AppCompatActivity {
 
                 if (mBoothsList.size()>0){
                     getVolunteers(mBoothsList.get(position).getBoothNumber());
-
                 }
 
             }

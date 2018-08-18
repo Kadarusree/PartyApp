@@ -38,14 +38,14 @@ public class AdminLogin extends AppCompatActivity {
     @OnClick(R.id.btn_admin_login)
     public void Login(View v){
 
-      /*  Constants.isAdmin = true;
-        ActivityLauncher.launchAdminDB(AdminLogin.this);*/
-        if (edt_username.getText().toString().trim().equalsIgnoreCase("Mahesh")&&edt_password.getText().toString().trim().equals("2011")){
+       Constants.isAdmin = true;
+        ActivityLauncher.launchAdminDB(AdminLogin.this);
+       /* if (edt_username.getText().toString().trim().equalsIgnoreCase("Mahesh")&&edt_password.getText().toString().trim().equals("2011")){
             Constants.isAdmin = true;
             ActivityLauncher.launchAdminDB(AdminLogin.this);
         }
         else{
             Constants.showToast("Invalid Credentials",this);
-        }
+        }*/
     }
 }
