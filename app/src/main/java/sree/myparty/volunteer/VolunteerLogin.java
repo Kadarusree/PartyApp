@@ -64,7 +64,7 @@ public class VolunteerLogin extends AppCompatActivity {
                         {
                               VolunteerPojo mVol =dataSnapshot.getValue(VolunteerPojo.class);
                             if (mVol.isAccepted()) {
-                                if (edt_password.getText().toString().equalsIgnoreCase(mVol.getPassword())){
+                                if (edt_password.getText().toString().trim().equalsIgnoreCase(mVol.getPassword().trim())){
                                     Vol_mSessionManager.createUserSession(mVol);
                                     ActivityLauncher.volunteerDashboard(VolunteerLogin.this);
                                 }
