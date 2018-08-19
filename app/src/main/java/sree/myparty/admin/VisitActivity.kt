@@ -62,12 +62,12 @@ class VisitActivity : AppCompatActivity() {
                         edt_visitdate.setText("")
                         infl_booth_num.setText("")
                         edt_purposeVisit.setText("")
-                        DailogUtill.showDialog("Vister Added",supportFragmentManager,this@VisitActivity)
+                        DailogUtill.showDialog("Visit Added",supportFragmentManager,this@VisitActivity)
 
                     } else {
                         //Registration error
 
-                        DailogUtill.showDialog("Vister Not Added",supportFragmentManager,this@VisitActivity)
+                        DailogUtill.showDialog("Visit Not Added",supportFragmentManager,this@VisitActivity)
 
                     }
                 }

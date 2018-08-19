@@ -113,7 +113,6 @@ public class CasteWiseVoters extends AppCompatActivity {
     AlertDialog mDialog;
 
 
-
     ArrayList<Booth> mBoothsList;
     ArrayList<String> boothNames;
 
@@ -139,7 +138,8 @@ public class CasteWiseVoters extends AppCompatActivity {
     SessionManager mSessionManager;
 
 
-    String[] parties;
+    ArrayList<String> parties;
+    ArrayAdapter<String> adp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,11 +149,21 @@ public class CasteWiseVoters extends AppCompatActivity {
         mReference = MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/Voters");
         mDialog = Constants.showDialog(this);
         boothNames = new ArrayList<>();
-        parties = getResources().getStringArray(R.array.parties);
+        parties = new ArrayList<>();
+
+
+        adp = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, parties);
+        spin_lastVoted.setAdapter(adp);
+        spin_nextVote.setAdapter(adp);
+        adp.notifyDataSetChanged();
+
+
         mVolunteerSessionManager = new VolunteerSessionManager(this);
         mSessionManager = new SessionManager(this);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-       loadBooths();
+
+        loadBooths();
+        loadParties();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkLocationPermission()) {
@@ -251,8 +261,8 @@ public class CasteWiseVoters extends AppCompatActivity {
         age = edt_age.getText().toString().trim();
         address = edt_address.getText().toString().trim();
         mobileNumber = edt_mobile_number.getText().toString();
-        lastVoted = parties[spin_lastVoted.getSelectedItemPosition()];
-        nextVote = parties[spin_nextVote.getSelectedItemPosition()];
+        lastVoted = parties.get(spin_lastVoted.getSelectedItemPosition());
+        nextVote = parties.get(spin_nextVote.getSelectedItemPosition());
 
 
         if (validations()) {
@@ -295,7 +305,7 @@ public class CasteWiseVoters extends AppCompatActivity {
                     edt_age.clearComposingText();
                     edt_address.clearComposingText();
                     edt_casteName.clearComposingText();
-                //    edt_BoothNum.clearComposingText();
+                    //    edt_BoothNum.clearComposingText();
                     edt_location.clearComposingText();
                     rb_female.setChecked(false);
                     rb_male.setChecked(false);
@@ -440,7 +450,7 @@ public class CasteWiseVoters extends AppCompatActivity {
     }
 
 
-   private void loadBooths() {
+    private void loadBooths() {
         mDialog.setMessage("Loading Booths");
         mDialog.show();
         MyApplication.getFirebaseDatabase()
@@ -451,10 +461,42 @@ public class CasteWiseVoters extends AppCompatActivity {
                         mDialog.dismiss();
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             Booth mBooth = snapshot.getValue(Booth.class);
-                          if (mBooth.getBoothNumber().equalsIgnoreCase(mSessionManager.getBoothNumber())){
-                              edt_BoothNum.setText(mSessionManager.getBoothNumber()+"-"+mBooth.getName());
-                          }
+                            if (mBooth.getBoothNumber().equalsIgnoreCase(mSessionManager.getBoothNumber())) {
+                                edt_BoothNum.setText(mSessionManager.getBoothNumber() + "-" + mBooth.getName());
+                            }
                         }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        mDialog.dismiss();
+                    }
+                });
+    }
+
+
+    private void loadParties() {
+        mDialog.setMessage("Loading Parties");
+        mDialog.show();
+        MyApplication.getFirebaseDatabase()
+                .getReference(Constants.DB_PATH + "/Parties")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        mDialog.dismiss();
+                        parties.clear();
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            parties.add(snapshot.getValue(String.class));
+                            /*Booth mBooth = snapshot.getValue(Booth.class);
+                            if (mBooth.getBoothNumber().equalsIgnoreCase(mSessionManager.getBoothNumber())){
+                                edt_BoothNum.setText(mSessionManager.getBoothNumber()+"-"+mBooth.getName());
+                            }*/
+                        }
+
+                        adp = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, parties);
+                        spin_lastVoted.setAdapter(adp);
+                        spin_nextVote.setAdapter(adp);
+                        adp.notifyDataSetChanged();
                     }
 
                     @Override

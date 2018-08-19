@@ -249,7 +249,7 @@ public class AdminMap extends AppCompatActivity implements OnMapReadyCallback {
 
     private void searchByBooth(String boothNumber) {
         mDialog.show();
-        mReference.orderByChild("boothNumber").equalTo(boothNumber).addValueEventListener(new ValueEventListener() {
+        mReference.orderByChild("boothNumber").equalTo(boothNumber).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 mVotersList = new ArrayList<>();

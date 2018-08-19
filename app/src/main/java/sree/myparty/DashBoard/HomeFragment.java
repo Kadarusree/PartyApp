@@ -128,7 +128,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 news = "";
                 for (DataSnapshot indi : dataSnapshot.getChildren()) {
                     NewsPojo mNewsItem = indi.getValue(NewsPojo.class);
-                    news = news+"    "+mNewsItem.getTitle()+":"+mNewsItem.getDescription();
+                    if (mNewsItem.isAccepted()){
+                        news = news+"    "+mNewsItem.getTitle()+":"+mNewsItem.getDescription();
+
+                    }
                 }
                 tv.setText(news);
                 tv.setSelected(true);

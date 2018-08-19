@@ -141,7 +141,7 @@ public class SurveyList extends AppCompatActivity {
                         }
                     }
                     if (mSurveyList.size() == 0) {
-                        Toast.makeText(getApplicationContext(), "No Active Survey Found", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "You Answered all Surveys", Toast.LENGTH_SHORT).show();
                     } else {
                         mAdapter = new SurveyAdapter(SurveyList.this, mSurveyList);
                         recyclerView.setAdapter(mAdapter);

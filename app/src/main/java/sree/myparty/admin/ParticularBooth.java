@@ -204,7 +204,7 @@ public class ParticularBooth extends AppCompatActivity implements OnMapReadyCall
                             googleMap.animateCamera(CameraUpdateFactory.zoomIn());// Zoom out to zoom level 10, animating with a duration of 2 seconds.
                             googleMap.animateCamera(CameraUpdateFactory.zoomTo(12), 2000, null);
                         } else {
-                            Constants.showToast("Location Not Avaialble", ParticularBooth.this);
+                            Constants.showToast("Location Not Available", ParticularBooth.this);
                         }
                     }
 

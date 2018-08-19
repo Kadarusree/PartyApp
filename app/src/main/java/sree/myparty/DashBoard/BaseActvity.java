@@ -196,6 +196,8 @@ public abstract class BaseActvity extends AppCompatActivity
 
             SessionManager mSessionManager = new SessionManager(this);
             mSessionManager.logout();
+            VolunteerSessionManager mVSession = new VolunteerSessionManager(this);
+            mVSession.logout();
 
             this.finish();
 

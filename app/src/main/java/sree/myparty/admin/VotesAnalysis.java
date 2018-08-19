@@ -220,8 +220,26 @@ public class VotesAnalysis extends AppCompatActivity {
 
             } else if (keys.get(i).equalsIgnoreCase("BJP")) {
                 colors.add(Color.parseColor("#FF671E"));
-            } else {
+            } else if (keys.get(i).equalsIgnoreCase("Congress")) {
                 colors.add(Color.parseColor("#008924"));
+            }
+            else if (keys.get(i).equalsIgnoreCase("BSP")) {
+                colors.add(Color.parseColor("#2D55AC"));
+            }
+            else if (keys.get(i).equalsIgnoreCase("SP")) {
+                colors.add(Color.parseColor("#dc1627"));
+            }
+            else if (keys.get(i).equalsIgnoreCase("AAP")) {
+                colors.add(Color.parseColor("#2D55AC"));
+            }
+            else if (keys.get(i).equalsIgnoreCase("Others")) {
+                colors.add(Color.parseColor("#BDBDBD"));
+            }
+            else if (keys.get(i).equalsIgnoreCase("RLD")) {
+                colors.add(Color.parseColor("#AFDF3D"));
+            }
+            else  {
+                colors.add(Color.parseColor("#BDBDBD"));
             }
         }
         BarDataSet set1;
@@ -384,7 +402,6 @@ public class VotesAnalysis extends AppCompatActivity {
         for (int i = 0; i < dataList.size(); i++) {
 
             yVals1.add(new BarEntry(i, dataList.get(i), getResources().getDrawable(R.drawable.ic_girl)));
-
             if (keys.get(i).equalsIgnoreCase("TDP")) {
                 colors.add(Color.parseColor("#FFFF00"));
 
@@ -393,8 +410,26 @@ public class VotesAnalysis extends AppCompatActivity {
 
             } else if (keys.get(i).equalsIgnoreCase("BJP")) {
                 colors.add(Color.parseColor("#FF671E"));
-            } else {
+            } else if (keys.get(i).equalsIgnoreCase("Congress")) {
                 colors.add(Color.parseColor("#008924"));
+            }
+            else if (keys.get(i).equalsIgnoreCase("BSP")) {
+                colors.add(Color.parseColor("#2D55AC"));
+            }
+            else if (keys.get(i).equalsIgnoreCase("SP")) {
+                colors.add(Color.parseColor("#dc1627"));
+            }
+            else if (keys.get(i).equalsIgnoreCase("AAP")) {
+                colors.add(Color.parseColor("#2D55AC"));
+            }
+            else if (keys.get(i).equalsIgnoreCase("Others")) {
+                colors.add(Color.parseColor("#BDBDBD"));
+            }
+            else if (keys.get(i).equalsIgnoreCase("RLD")) {
+                colors.add(Color.parseColor("#AFDF3D"));
+            }
+            else  {
+                colors.add(Color.parseColor("#BDBDBD"));
             }
         }
         BarDataSet set1;
