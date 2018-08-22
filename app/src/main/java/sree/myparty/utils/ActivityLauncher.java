@@ -16,6 +16,7 @@ import sree.myparty.admin.BoothList;
 import sree.myparty.admin.BoothWiseVoterAnalysis;
 import sree.myparty.admin.BoothWiseVotesAnalysis;
 import sree.myparty.admin.BoothwiseList;
+import sree.myparty.admin.BoothwiseVoterList;
 import sree.myparty.admin.InfluencePersonAdminView;
 import sree.myparty.admin.LocalIssuesAdminView;
 import sree.myparty.admin.MeetingAttendence;
@@ -26,6 +27,7 @@ import sree.myparty.admin.PresentTrend;
 import sree.myparty.admin.VisitActivity;
 import sree.myparty.admin.VisitsListActivity;
 import sree.myparty.admin.VolunteerList;
+import sree.myparty.admin.VoterEditForm;
 import sree.myparty.admin.VotesAnalysis;
 import sree.myparty.admin.WorkDoneActivity;
 import sree.myparty.admin.WorksListActivity;
@@ -199,6 +201,16 @@ public class ActivityLauncher {
 
     public static void launchBoothwiseList(Context applicationContext) {
         applicationContext.startActivity(new Intent(applicationContext, BoothwiseList.class));
+
+    }
+
+    public static void launcBoothWiseVotersList(Context applicationContext) {
+        applicationContext.startActivity(new Intent(applicationContext, BoothwiseVoterList.class));
+
+    }
+
+    public static void launchVoterEdit(Context mContext) {
+        mContext.startActivity(new Intent(mContext, VoterEditForm.class));
 
     }
 }

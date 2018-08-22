@@ -303,16 +303,22 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".admin.InfluencePersonAdminView"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".admin.AdminDashboard"/>
+            android:parentActivityName=".admin.AdminDashboard"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".admin.LocalIssuesAdminView"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".admin.AdminDashboard"/>
+            android:parentActivityName=".admin.AdminDashboard"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".admin.VolunteerLocationsList"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".admin.VolunteerList"></activity>
+            android:parentActivityName=".admin.VolunteerList"
+            android:screenOrientation="portrait" />
+        <activity android:name=".admin.BoothwiseVoterList"
+            android:parentActivityName=".admin.AdminDashboard"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".admin.VoterEditForm"
+            android:parentActivityName=".admin.BoothwiseVoterList"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

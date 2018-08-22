@@ -139,6 +139,10 @@ public class AdminBaseActivity extends AppCompatActivity
         } else if (id == R.id.nav_adm_analysis) {
             ActivityLauncher.launchAnalysisActivity(getApplicationContext());
 
+        }
+        else if (id == R.id.nav_adm_boothwisevotersList) {
+            ActivityLauncher.launcBoothWiseVotersList(getApplicationContext());
+
         } else if (id == R.id.nav_ad_log) {
             finish();
 

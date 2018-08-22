@@ -51,7 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="User Name"
-                android:maxLength="10"
+                android:maxLength="50"
                 android:drawableLeft="@drawable/ic_id"
                 android:textColor="@color/colorWhite"
                 />

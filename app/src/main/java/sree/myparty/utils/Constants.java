@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import sree.myparty.R;
 import sree.myparty.pojos.MeetingPojo;
 import sree.myparty.pojos.VolunteerPojo;
+import sree.myparty.pojos.VoterPojo;
 import sree.myparty.volunteer.CasteWiseVoters;
 
 /**
@@ -64,6 +65,8 @@ public class Constants {
     public static String BOOTH_NUMBER;
     public static boolean isAdmin;
     public static VolunteerPojo volunteer;
+    public static VoterPojo voter;
+    public static String voter_key;
 
     public static void showToast(String text, Activity mActivty){
         Toast.makeText(mActivty,text,Toast.LENGTH_SHORT).show();

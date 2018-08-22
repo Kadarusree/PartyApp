@@ -55,10 +55,16 @@ public class UserListActicity extends AppCompatActivity {
                 for(DataSnapshot dataSnapshot1:dataSnapshot.getChildren())
                 {
 
-                    UserDetailPojo userDetailPojo=dataSnapshot1.getValue(UserDetailPojo.class);
-                    if(!sessionManager.getRegID().equalsIgnoreCase(userDetailPojo.getReg_id())) {
-                        dataList.add(userDetailPojo);
+
+                    if (!dataSnapshot1.getKey().equalsIgnoreCase("null")){
+                        UserDetailPojo userDetailPojo=dataSnapshot1.getValue(UserDetailPojo.class);
+
+
+                        if(!sessionManager.getRegID().equalsIgnoreCase(userDetailPojo.getReg_id())) {
+                            dataList.add(userDetailPojo);
+                        }
                     }
+
 
 
 

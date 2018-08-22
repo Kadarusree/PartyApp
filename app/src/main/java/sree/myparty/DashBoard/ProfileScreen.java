@@ -181,9 +181,8 @@ public class ProfileScreen extends AppCompatActivity {
                         checkBadge(mSession.getPoints());
                     }
 
-                }
-                else {
-                    position.setText("Position: Not a registered volunteer" );
+                } else {
+                    position.setText("Position: Not a registered volunteer");
                 }
 
             }
@@ -197,7 +196,11 @@ public class ProfileScreen extends AppCompatActivity {
 
     @OnClick(R.id.id_profile_pic)
     public void uploadPhoto(View v) {
-        selectImage();
+        if (mSession.getProfilePic().equalsIgnoreCase("")) {
+            selectImage();
+
+        }
+
     }
 
     public void checkBadge(int points) {

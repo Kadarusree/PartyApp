@@ -14,6 +14,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -31,6 +32,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -184,22 +187,29 @@ public abstract class BaseActvity extends AppCompatActivity
             ActivityLauncher.adminLogin(getApplicationContext());
 
         } else if (id == R.id.nav_manage) {
-            FirebaseAuth auth = FirebaseAuth.getInstance();
-            auth.signOut();
-          DatabaseReference referenced =  MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/Users/" + auth.getUid());
-            if(FirebaseInstanceId.getInstance().getToken()!=null) {
+            final FirebaseAuth auth = FirebaseAuth.getInstance();
+
+            DatabaseReference referenced = MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/Users/" + auth.getUid());
+            if (FirebaseInstanceId.getInstance().getToken() != null) {
                 sessionManager.storeFirebaseKey(FirebaseInstanceId.getInstance().getToken());
                 Map<String, Object> taskMap = new HashMap<String, Object>();
                 taskMap.put("fcm_id", "");
-                referenced.updateChildren(taskMap);
+                referenced.updateChildren(taskMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            auth.signOut();
+                            SessionManager mSessionManager = new SessionManager(BaseActvity.this);
+                            mSessionManager.logout();
+                            VolunteerSessionManager mVSession = new VolunteerSessionManager(BaseActvity.this);
+                            mVSession.logout();
+
+                            BaseActvity.this.finish();
+                        }
+                    }
+                });
             }
 
-            SessionManager mSessionManager = new SessionManager(this);
-            mSessionManager.logout();
-            VolunteerSessionManager mVSession = new VolunteerSessionManager(this);
-            mVSession.logout();
-
-            this.finish();
 
         } else if (id == R.id.nav_share) {
             shareApp(new SessionManager(this).getName() + ": Refered you to join My Party app..");
@@ -226,7 +236,7 @@ public abstract class BaseActvity extends AppCompatActivity
                 if (pojo != null && pojo.isShow() == true) {
 
                     try {
-                        if (pojo.getCode()!=0) {
+                        if (pojo.getCode() != 0) {
                             GiftFragmentDilaog dFragment = new GiftFragmentDilaog(pojo.getPath(), pojo.getCode());
                             dFragment.setCancelable(false); //don't close when touch outside
                             dFragment.show(getSupportFragmentManager(), "Dialog Fragment");
