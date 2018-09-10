@@ -299,16 +299,17 @@ public class CasteWiseVoters extends AppCompatActivity {
                 mDialog.dismiss();
                 if (task.isSuccessful()) {
                     Constants.showToast("Added SucessFully", CasteWiseVoters.this);
-                    edt_name.clearComposingText();
-                    edt_voterID.clearComposingText();
-                    edt_fatherName.clearComposingText();
-                    edt_age.clearComposingText();
-                    edt_address.clearComposingText();
-                    edt_casteName.clearComposingText();
+                    edt_name.setText("");
+                    edt_voterID.setText("");
+                    edt_fatherName.setText("");
+                    edt_age.setText("");
+                    edt_address.setText("");
+                    edt_casteName.setText("");
                     //    edt_BoothNum.clearComposingText();
-                    edt_location.clearComposingText();
+                    edt_location.setText("");
                     rb_female.setChecked(false);
-                    rb_male.setChecked(false);
+                    rb_male.setChecked(true);
+                    location = null;
                 } else {
                     Constants.showToast("Failed To add", CasteWiseVoters.this);
                 }

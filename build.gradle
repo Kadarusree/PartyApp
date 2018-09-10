@@ -9,6 +9,7 @@ buildscript {
         maven { url 'https://jitpack.io' }
         maven { url 'https://maven.google.com' }
         maven { url 'https://tokbox.bintray.com/maven' }
+        maven { url 'https://maven.fabric.io/public'}
 
     }
     dependencies {
@@ -19,6 +20,8 @@ buildscript {
         // in the individual module build.gradle files
         classpath 'com.google.gms:google-services:3.1.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        // Add dependency
+        classpath 'io.fabric.tools:gradle:1.25.4'
     }
 
 

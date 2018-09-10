@@ -131,6 +131,8 @@ public class VoterEditForm extends AppCompatActivity {
     ArrayList<String> parties;
     ArrayAdapter<String> adp;
 
+    VoterPojo mVoter = Constants.voter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,24 +145,26 @@ public class VoterEditForm extends AppCompatActivity {
 
 
         ////////////////////////
-        VoterPojo mVoter = Constants.voter;
+        mVoter = Constants.voter;
 
         edt_voterID.setText(mVoter.getVoterID());
-        edt_name.setText(mVoter.getVoterID());
-        edt_age.setText(mVoter.getAge());
+        edt_name.setText(mVoter.getVoterName());
+        edt_age.setText(mVoter.getAge() + "");
         edt_fatherName.setText(mVoter.getVoterFatherName());
         edt_mobile_number.setText(mVoter.getMobileNumber());
-        edt_address.setText(mVoter.getVoterID());
+        edt_address.setText(mVoter.getAddress());
         edt_BoothNum.setText(mVoter.getBoothNumber());
-
+        edt_casteName.setText(mVoter.getCaste());
         spn_catageory.setText(mVoter.getCatageory());
         spin_lastVoted.setText(mVoter.getLastVoted());
         spin_nextVote.setText(mVoter.getNextVote());
 
 
         if (mVoter.getSex().equalsIgnoreCase("male")) {
+            sex = rb_female.getText().toString();
             rb_male.setChecked(true);
         } else {
+            sex = rb_female.getText().toString();
             rb_female.setChecked(true);
         }
 
@@ -245,10 +249,11 @@ public class VoterEditForm extends AppCompatActivity {
 
 
         if (validations()) {
-            VoterPojo mVoter = new VoterPojo(voterID, name, fatherName, sex
-                    , Integer.parseInt(age), mobileNumber, address, catageory, caste, boothNumber, location, mVolunteerSessionManager.getVolName(), addedLocation, lastVoted, nextVote);
+            VoterPojo mVoter2;
+            mVoter2 = new VoterPojo(voterID, name, fatherName, sex
+                    , Integer.parseInt(age), mobileNumber, address, catageory, caste, boothNumber, location, mVoter.getAdded_by(), addedLocation, lastVoted, nextVote);
 
-            save(mVoter);
+            save(mVoter2);
 //            Snackbar.make(null,"Validations are good",Snackbar.LENGTH_SHORT).show();
         }
         /*CasteWiseVoterBean mVoter = new CasteWiseVoterBean(name, voterID, caste, System.currentTimeMillis() + "", Constants.VOLUNTEER, boothNum);
@@ -278,16 +283,6 @@ public class VoterEditForm extends AppCompatActivity {
                 mDialog.dismiss();
                 if (task.isSuccessful()) {
                     Constants.showToast("Modified SucessFully", VoterEditForm.this);
-                    edt_name.clearComposingText();
-                    edt_voterID.clearComposingText();
-                    edt_fatherName.clearComposingText();
-                    edt_age.clearComposingText();
-                    edt_address.clearComposingText();
-                    edt_casteName.clearComposingText();
-                    //    edt_BoothNum.clearComposingText();
-                    edt_location.clearComposingText();
-                    rb_female.setChecked(false);
-                    rb_male.setChecked(false);
                 } else {
                     Constants.showToast("Failed To Edit", VoterEditForm.this);
                 }

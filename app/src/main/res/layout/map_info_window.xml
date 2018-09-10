@@ -102,7 +102,17 @@
         app:layout_constraintTop_toBottomOf="@+id/transport"
         android:text="A"
         />
-
+    <TextView
+        android:id="@+id/nextVote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/cast_intro_overlay_background_color"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addedby"
+        android:text="A"
+        />
     <TextView
         android:id="@+id/cilckTomakeCall"
         android:layout_width="wrap_content"
@@ -111,7 +121,7 @@
         android:textColor="@color/color_green"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addedby"
+        app:layout_constraintTop_toBottomOf="@+id/nextVote"
         android:textStyle="bold"
         android:text=" Tap to make a Call"
         android:drawableLeft="@drawable/ic_call_black_24dp"

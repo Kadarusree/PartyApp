@@ -3,6 +3,7 @@ package sree.myparty.admin;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.view.View;
 import android.widget.ImageView;
@@ -42,6 +43,7 @@ public class CustomInfoWindowGoogleMap implements GoogleMap.InfoWindowAdapter {
         TextView caste = view.findViewById(R.id.caste);
         TextView addedby = view.findViewById(R.id.addedby);
         TextView call = view.findViewById(R.id.cilckTomakeCall);
+        TextView nextVote = view.findViewById(R.id.nextVote);
 
 
 
@@ -58,6 +60,13 @@ public class CustomInfoWindowGoogleMap implements GoogleMap.InfoWindowAdapter {
             food_tv.setText("BOOTH NUMBER : " + infoWindowData.getBoothNumber());
             transport_tv.setText("PHONE  NO : " + infoWindowData.getMobileNumber());
             addedby.setText("ADDED BY : " + infoWindowData.getAdded_by());
+            nextVote.setText("Vote : "+infoWindowData.getNextVote());
+            if (infoWindowData.getNextVote().equalsIgnoreCase("Congress")){
+                transport_tv.setTextColor(Color.GREEN);
+            }
+            else {
+                transport_tv.setTextColor(Color.RED);
+            }
         }
 
         return view;
