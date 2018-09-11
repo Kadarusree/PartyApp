@@ -48,15 +48,15 @@ public class ActivityLauncher {
 
 
     public static void volunteerLoginScreen(Context ctx) {
-        ctx.startActivity(new Intent(ctx, VolunteerLogin.class));
+        ctx.startActivity(new Intent(ctx, VolunteerLogin.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 
     public static void volunteerRegistartionScreen(Context ctx) {
-        ctx.startActivity(new Intent(ctx, VolunteerRegis.class));
+        ctx.startActivity(new Intent(ctx, VolunteerRegis.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 
     public static void adminLogin(Context ctx) {
-        ctx.startActivity(new Intent(ctx, AdminLogin.class));
+        ctx.startActivity(new Intent(ctx, AdminLogin.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 
     public static void volunteerDashboard(Context ctx) {
