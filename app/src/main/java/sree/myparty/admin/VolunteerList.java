@@ -14,7 +14,10 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 
 import com.bumptech.glide.Glide;
@@ -63,6 +66,17 @@ public class VolunteerList extends AppCompatActivity {
     @BindView(R.id.vol_reg_booth_num)
     Spinner mBoothNumber;
 
+
+    @BindView(R.id.rb_all)
+    RadioButton rb_all;
+
+    @BindView(R.id.rb_p_booth)
+    RadioButton rb_p_booth;
+
+
+    @BindView(R.id.layout_booth)
+    LinearLayout boothslayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,14 +100,41 @@ public class VolunteerList extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
 
+        rb_all.setChecked(true);
+        getAllVolunteers();
+        boothslayout.setVisibility(View.GONE);
+        rb_all.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    rb_p_booth.setChecked(false);
+                    volunteerList.clear();
+                    getAllVolunteers();
+                    boothslayout.setVisibility(View.GONE);
 
-        loadBooths();
+                }
+            }
+        });
+
+        rb_p_booth.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    rb_all.setChecked(false);
+                    volunteerList.clear();
+                    loadBooths();
+                    boothslayout.setVisibility(View.VISIBLE);
+
+                }
+            }
+        });
+
 
         mBoothNumber.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                if (mBoothsList.size()>0){
+                if (mBoothsList.size() > 0) {
                     getVolunteers(mBoothsList.get(position).getBoothNumber());
                 }
 
@@ -111,25 +152,51 @@ public class VolunteerList extends AppCompatActivity {
                 .getReference(Constants.DB_PATH + "/Volunteers")
                 .orderByChild("boothnumber").equalTo(boothID)
                 .addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                volunteerList.clear();
-                for (DataSnapshot indi : dataSnapshot.getChildren()) {
-                    VolunteerPojo volItem = indi.getValue(VolunteerPojo.class);
-                    volunteerList.add(volItem);
-                }
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        volunteerList.clear();
+                        for (DataSnapshot indi : dataSnapshot.getChildren()) {
+                            VolunteerPojo volItem = indi.getValue(VolunteerPojo.class);
+                            volunteerList.add(volItem);
+                        }
 
-                if (volunteerList.size()==0){
-                    Constants.showToast("No Volunteers Found",VolunteerList.this);
-                }
-                mAdapter.notifyDataSetChanged();
-            }
+                        if (volunteerList.size() == 0) {
+                            Constants.showToast("No Volunteers Found", VolunteerList.this);
+                        }
+                        mAdapter.notifyDataSetChanged();
+                    }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
+                    }
+                });
+    }
+
+
+    private void getAllVolunteers() {
+        MyApplication.getFirebaseDatabase()
+                .getReference(Constants.DB_PATH + "/Volunteers")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        volunteerList.clear();
+                        for (DataSnapshot indi : dataSnapshot.getChildren()) {
+                            VolunteerPojo volItem = indi.getValue(VolunteerPojo.class);
+                            volunteerList.add(volItem);
+                        }
+
+                        if (volunteerList.size() == 0) {
+                            Constants.showToast("No Volunteers Found", VolunteerList.this);
+                        }
+                        mAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
     }
 
 
@@ -204,7 +271,6 @@ public class VolunteerList extends AppCompatActivity {
                     }
                 });
     }
-
 
 
 }

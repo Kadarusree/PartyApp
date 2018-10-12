@@ -161,7 +161,7 @@ public class VoterEditForm extends AppCompatActivity {
 
 
         if (mVoter.getSex().equalsIgnoreCase("male")) {
-            sex = rb_female.getText().toString();
+            sex = rb_male.getText().toString();
             rb_male.setChecked(true);
         } else {
             sex = rb_female.getText().toString();

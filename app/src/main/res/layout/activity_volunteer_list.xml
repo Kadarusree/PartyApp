@@ -8,12 +8,34 @@
     android:padding="@dimen/dp_5"
     tools:context="sree.myparty.admin.VolunteerList">
 
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="0.05">
+    <RadioButton
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.35"
+        android:text="All Volunteers"
+        android:id="@+id/rb_all"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"/>
+    <RadioButton
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.35"
+        android:text="Filter By Booth"
+        android:id="@+id/rb_p_booth"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"/>
+</LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
+        android:id="@+id/layout_booth"
         android:layout_weight="0.15">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
