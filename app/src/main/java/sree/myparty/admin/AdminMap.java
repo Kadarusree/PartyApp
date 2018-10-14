@@ -297,6 +297,8 @@ public class AdminMap extends AppCompatActivity implements OnMapReadyCallback {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkLocationPermission()) {
                 getLocation();
+                mMap.setMyLocationEnabled(true);
+
             }
         } else {
             getLocation();
