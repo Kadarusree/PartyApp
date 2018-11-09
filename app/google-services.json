@@ -1,43 +1,27 @@
 {
   "project_info": {
-    "project_number": "974598966497",
-    "firebase_url": "https://mypartyapp-3ad72.firebaseio.com",
-    "project_id": "mypartyapp-3ad72",
-    "storage_bucket": "mypartyapp-3ad72.appspot.com"
+    "project_number": "909305094272",
+    "firebase_url": "https://uttham-shakthi.firebaseio.com",
+    "project_id": "uttham-shakthi",
+    "storage_bucket": "uttham-shakthi.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:974598966497:android:0da70b2aabb627cb",
+        "mobilesdk_app_id": "1:909305094272:android:12d613c5e59f22bc",
         "android_client_info": {
-          "package_name": "sree.myparty"
+          "package_name": "utthamkumar.myparty"
         }
       },
       "oauth_client": [
         {
-          "client_id": "974598966497-e3aramer2pg7iss5vqf2p3t0ipejh8su.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "sree.myparty",
-            "certificate_hash": "760f23b9bf5e5db167455f3406d37eded97f1b91"
-          }
-        },
-        {
-          "client_id": "974598966497-c01q6u6qtprs633lakio54mchk9hdaq4.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "sree.myparty",
-            "certificate_hash": "eb5423a729ccb262ace9a489c7ec31707bc7eea6"
-          }
-        },
-        {
-          "client_id": "974598966497-91tl716sksv7q1sucl9o61ur8iapcdv5.apps.googleusercontent.com",
+          "client_id": "909305094272-t55s798ecl851vdtfan3lea7l5gdrn93.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDyqjrjUYhbgwrHgjUvoeYeiWeRPvu2bTg"
+          "current_key": "AIzaSyBMlFTtPTMmB7nkaRcEp3nRoiPelMe0yYo"
         }
       ],
       "services": {
@@ -45,65 +29,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "974598966497-91tl716sksv7q1sucl9o61ur8iapcdv5.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:974598966497:android:017da2ce0e3d20c7",
-        "android_client_info": {
-          "package_name": "sree.myparty.dev"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "974598966497-ej99bini50rgtim6476obttp9465ahm4.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "sree.myparty.dev",
-            "certificate_hash": "760f23b9bf5e5db167455f3406d37eded97f1b91"
-          }
-        },
-        {
-          "client_id": "974598966497-4mtvapi3q1s6ss6j9e07n2c8jl5rhq75.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "sree.myparty.dev",
-            "certificate_hash": "eb5423a729ccb262ace9a489c7ec31707bc7eea6"
-          }
-        },
-        {
-          "client_id": "974598966497-91tl716sksv7q1sucl9o61ur8iapcdv5.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDyqjrjUYhbgwrHgjUvoeYeiWeRPvu2bTg"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "974598966497-91tl716sksv7q1sucl9o61ur8iapcdv5.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2

@@ -11,11 +11,11 @@ android {
     compileSdkVersion 27
     flavorDimensions "versionCode"
     defaultConfig {
-        applicationId "sree.myparty"
+        applicationId "utthamkumar.myparty"
         minSdkVersion 17
         targetSdkVersion 27
-        versionCode 7
-        versionName "1.6"
+        versionCode 1
+        versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -23,20 +23,6 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-    productFlavors {
-        development {
-            minSdkVersion 17
-            applicationId 'sree.myparty.dev'
-            resValue "string", "app_name", "Voter 360°-Dev"
-            buildConfigField 'String', 'HOST', '"https://dev.ilp.org.in"'
-        }
-        production {
-            minSdkVersion 17
-            applicationId 'sree.myparty'
-            resValue "string", "app_name", "Voter 360°"
-            buildConfigField 'String', 'HOST', '"https://dev.ilp.org.in"'
         }
     }
 }

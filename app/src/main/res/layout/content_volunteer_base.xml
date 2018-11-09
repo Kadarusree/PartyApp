@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="sree.myparty.volunteer.VolunteerBaseActivity"
+    tools:context="utthamkumar.myparty.volunteer.VolunteerBaseActivity"
     tools:showIn="@layout/app_bar_volunteer_base">
     <FrameLayout
         android:layout_width="match_parent"

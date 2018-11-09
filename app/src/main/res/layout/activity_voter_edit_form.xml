@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingLeft="@dimen/dp_4"
-    tools:context="sree.myparty.volunteer.CasteWiseVoters">
+    tools:context="utthamkumar.myparty.volunteer.CasteWiseVoters">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="sree.myparty.DashBoard.ProfileScreen"
+    tools:context="utthamkumar.myparty.DashBoard.ProfileScreen"
     android:padding="@dimen/dp_10"
     android:orientation="vertical">
 
@@ -163,6 +163,6 @@
            android:name="com.google.android.gms.maps.SupportMapFragment"
            android:layout_width="match_parent"
            android:layout_height="match_parent"
-           tools:context="sree.myparty.admin.VolunteerProfile"></fragment>
+           tools:context="utthamkumar.myparty.admin.VolunteerProfile"></fragment>
     </LinearLayout>
 </LinearLayout>

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:orientation="vertical"
-    tools:context="sree.myparty.RegistartionActivity">
+    tools:context="utthamkumar.myparty.RegistartionActivity">
 
 
     <LinearLayout

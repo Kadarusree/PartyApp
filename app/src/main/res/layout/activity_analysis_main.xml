@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="sree.myparty.admin.AnalysisMainActivity">
+    tools:context="utthamkumar.myparty.admin.AnalysisMainActivity">
 
     <android.support.v7.widget.CardView
         android:id="@+id/cv1"

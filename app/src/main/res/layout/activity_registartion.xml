@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context="sree.myparty.RegistartionActivity"
+    tools:context="utthamkumar.myparty.RegistartionActivity"
     android:orientation="vertical">
 
 

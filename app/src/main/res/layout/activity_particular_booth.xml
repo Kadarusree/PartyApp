@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="sree.myparty.admin.ParticularBooth">
+    tools:context="utthamkumar.myparty.admin.ParticularBooth">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
                 android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context="sree.myparty.admin.ParticularBooth" />
+                tools:context="utthamkumar.myparty.admin.ParticularBooth" />
 
             <TextView
                 android:id="@+id/booth_number_name"

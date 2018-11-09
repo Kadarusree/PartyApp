@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="sree.myparty.misc.PostNews"
+    tools:context="utthamkumar.myparty.misc.PostNews"
     android:padding="@dimen/dp_5"
     android:orientation="vertical">
 
