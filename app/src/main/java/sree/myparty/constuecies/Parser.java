@@ -114,7 +114,7 @@ public class Parser {
             for (int i = 0; i < boothsArray.length(); i++) {
                 mBooth = new Booth();
                 JSONObject boothObject = boothsArray.getJSONObject(i);
-                mBooth.setBoothNumber(boothObject.getString("polling Station No"));
+                mBooth.setBoothNumber(boothObject.getString("Polling Station No"));
                 mBooth.setName(boothObject.getString("Polling Station Name"));
                 mBooth.setLocation(boothObject.getString("Polling Station Location"));
                 mBooth.setMapLocation(null);

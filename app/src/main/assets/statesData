@@ -19,6 +19,16 @@
             }
           },
           {
+            "PCNAME": "Nalgonda",
+            "DISTRICT": "Nalgonda",
+            "ACS": {
+              "ACNAME": [
+                "Huzurabad",
+                "Kodad"
+              ]
+            }
+          },
+          {
             "PCNAME": "8-SECUNDRABAD",
             "DISTRICT": "HYDERABAD",
             "ACS": {
