@@ -120,6 +120,8 @@
                     android:layout_height="wrap_content"
                     android:hint="Password"
                     android:maxLength="10"
+                    android:singleLine="true"
+                    android:imeOptions="actionDone"
                     android:textColor="@color/colorWhite"
                     android:textColorHint="#FFFFFF" />
 

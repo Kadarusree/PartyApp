@@ -9729,5 +9729,1381 @@
       "Polling Station Name": "Yasantapuram",
       "Polling Station Location": "Mandal Parishad Primary School"
     }
-  ]
+  ],
+
+    "Huzurnagar": [
+        {
+            "Polling Station No": "1",
+            "Polling Station Name": "Dacharam 1",
+            "Polling Station Location": "M P P S,Dacharam"
+        },
+        {
+            "Polling Station No": "2",
+            "Polling Station Name": "Dacharam 2",
+            "Polling Station Location": "ZPHS Dacharam Room No 1,DACHARAM"
+        },
+        {
+            "Polling Station No": "3",
+            "Polling Station Name": "Yallaram",
+            "Polling Station Location": "Mandala Parishad Pradhamika Pata Shala,Yallaram"
+        },
+        {
+            "Polling Station No": "4",
+            "Polling Station Name": "Somaram 1",
+            "Polling Station Location": "Jilla Parishad Unnata Pata Shala (E.W),Somaram"
+        },
+        {
+            "Polling Station No": "5",
+            "Polling Station Name": "Somaram",
+            "Polling Station Location": "Jilla Parishad Unnata Pata Shala (W.W),Somaram"
+        },
+        {
+            "Polling Station No": "6",
+            "Polling Station Name": "Burugu tanda majira somaram",
+            "Polling Station Location": "Mandala Parishad Pradhamika Pata Shala,Burugu Tanda Majira Somaram"
+        },
+        {
+            "Polling Station No": "7",
+            "Polling Station Name": "Bodala dinna",
+            "Polling Station Location": "M P P S,BODALADINNA"
+        },
+        {
+            "Polling Station No": "8",
+            "Polling Station Name": "Chintakunta majira Chillepalli",
+            "Polling Station Location": "Zilla Parishad Unnata Patha Shala,CHINTHAKUNTLA H/O. CHILLEPALLY"
+        },
+        {
+            "Polling Station No": "9",
+            "Polling Station Name": "Kalluru1",
+            "Polling Station Location": "M P P S,Kallur"
+        },
+        {
+            "Polling Station No": "10",
+            "Polling Station Name": "Kalluru2",
+            "Polling Station Location": "M P P S,Kalluru"
+        },
+        {
+            "Polling Station No": "11",
+            "Polling Station Name": "Mukundha puram majira kallur",
+            "Polling Station Location": "Mandala Parishad Pradhamika Pata Shala,Mukundhapuram Majira Kalluru"
+        },
+        {
+            "Polling Station No": "12",
+            "Polling Station Name": "Penchikaldinna1",
+            "Polling Station Location": "Jilla Parishad Unnata Pata Shala (E.W),Penchikaldinne"
+        },
+        {
+            "Polling Station No": "13",
+            "Polling Station Name": "Penchikaldinna2",
+            "Polling Station Location": "Jilla Parishad Unnata PataShala (W.W),Penchikaldinne"
+        },
+        {
+            "Polling Station No": "14",
+            "Polling Station Name": "Telagaramayya gudem majira Penchikaldinna",
+            "Polling Station Location": "Mandala Parishad Pradhamika Patashala,TelagaRamaiah Gudem Majira Penchikaldinne"
+        },
+        {
+            "Polling Station No": "15",
+            "Polling Station Name": "Janaldinna",
+            "Polling Station Location": "Mandala Parishad Pradhamika Patha Shala,Janaldinne"
+        },
+        {
+            "Polling Station No": "16",
+            "Polling Station Name": "Phate puram",
+            "Polling Station Location": "Mandala Parishad Pradhamika Patha Shala,Patthepuram"
+        },
+        {
+            "Polling Station No": "17",
+            "Polling Station Name": "Vaikuntaa puram majira Phate puram",
+            "Polling Station Location": "Mandala Parishad Pradhamika Patha Shala,WaiKunta Puram Majira FatehPuram"
+        },
+        {
+            "Polling Station No": "18",
+            "Polling Station Name": "Medaram1",
+            "Polling Station Location": "M P P S,Medaram"
+        },
+        {
+            "Polling Station No": "19",
+            "Polling Station Name": "Medaram2",
+            "Polling Station Location": "MPPS Medaram Room No 2,MEDARAM"
+        },
+        {
+            "Polling Station No": "20",
+            "Polling Station Name": "Bakkayya gudem",
+            "Polling Station Location": "Mandala Parishad Pradhamika Pata Shala,Bakkaiah Gudem"
+        },
+        {
+            "Polling Station No": "21",
+            "Polling Station Name": "Nereducherla1",
+            "Polling Station Location": "Mandal Parishad Pradamika Patshala,NEREDCHARLA"
+        },
+        {
+            "Polling Station No": "22",
+            "Polling Station Name": "Nereducherla2",
+            "Polling Station Location": "Dy. EE, N.S.P. (O and M) Office,,Neredu cherla"
+        },
+        {
+            "Polling Station No": "23",
+            "Polling Station Name": "Nereducherla3",
+            "Polling Station Location": "JILLA PARISHAD HIGH SCHOOL,,Neredu cherla"
+        },
+        {
+            "Polling Station No": "24",
+            "Polling Station Name": "NEREDUCHERLA4",
+            "Polling Station Location": "Z P H S 10 th class A Section T.M.,NEREDUCHARLA"
+        },
+        {
+            "Polling Station No": "25",
+            "Polling Station Name": "Nereducherla5",
+            "Polling Station Location": "Z.P.H.S,NEREDCHARLA"
+        },
+        {
+            "Polling Station No": "26",
+            "Polling Station Name": "Nereducherla6",
+            "Polling Station Location": "Z.P.H.S., SOUTH WING,,NEDUCHERLA"
+        },
+        {
+            "Polling Station No": "27",
+            "Polling Station Name": "NEREDUCHERLA7",
+            "Polling Station Location": "Z.P.H.S., 7TH CLASS ROOM,NEREDUCHERLA"
+        },
+        {
+            "Polling Station No": "28",
+            "Polling Station Name": "Nereducherla8",
+            "Polling Station Location": "Grampanchayati Office (N.W),Nereducherla"
+        },
+        {
+            "Polling Station No": "29",
+            "Polling Station Name": "Nereducherla9",
+            "Polling Station Location": "M P P S, North wing,Chinthabanda"
+        },
+        {
+            "Polling Station No": "30",
+            "Polling Station Name": "Nereducherla10",
+            "Polling Station Location": "Grampanchayati Office ( SW),Nereducherla"
+        },
+        {
+            "Polling Station No": "31",
+            "Polling Station Name": "Nereducherla11",
+            "Polling Station Location": "M P P S (SW),Chinthabanda"
+        },
+        {
+            "Polling Station No": "32",
+            "Polling Station Name": "Ramapuram majira Nereducherla",
+            "Polling Station Location": "Mandala Parishad Pradhamika Patha Shala,Ramapuram Majira Nereducherla"
+        },
+        {
+            "Polling Station No": "33",
+            "Polling Station Name": "Dirshenacherla1",
+            "Polling Station Location": "Jilla Parishad Unnata Patha Shala (E.W),Dirshancharla"
+        },
+        {
+            "Polling Station No": "34",
+            "Polling Station Name": "Dirshancherla2",
+            "Polling Station Location": "Jilla Parishad Unnata Patha Shala(W.W),Dirshancharla"
+        },
+        {
+            "Polling Station No": "35",
+            "Polling Station Name": "Dirshancherla3",
+            "Polling Station Location": "M.P.P.S., DHIRISEN CHARLA,DIRSHIMCHARLA"
+        },
+        {
+            "Polling Station No": "36",
+            "Polling Station Name": "Kandulavari gudem majira dirshan cherla",
+            "Polling Station Location": "Mandala Parishad Pradhamika Patha Shala D,Kandulavariguda Majira Dirshimcharla"
+        },
+        {
+            "Polling Station No": "37",
+            "Polling Station Name": "Narsayya gudem majira Dirshan cherla",
+            "Polling Station Location": "M P P S,Narsaiahguda Majira Dirshimcharla"
+        },
+        {
+            "Polling Station No": "38",
+            "Polling Station Name": "Kotayya gudem majira dirshan cherla",
+            "Polling Station Location": "M P P S,ROLLA VARI GUDEM"
+        },
+        {
+            "Polling Station No": "39",
+            "Polling Station Name": "PULGAMBAND THAND H/O DIRSINCHERLA",
+            "Polling Station Location": "M.P.P.S.,,PULAGAMBANDA THANDA"
+        },
+        {
+            "Polling Station No": "40",
+            "Polling Station Name": "Guduguntla palem1",
+            "Polling Station Location": "Mandala Parishad Pradhamika Patashala,Guduguntlapalem"
+        },
+        {
+            "Polling Station No": "41",
+            "Polling Station Name": "Guduguntla palem2",
+            "Polling Station Location": "M.P.P.S (Old Building),Guduguntla Palem"
+        },
+        {
+            "Polling Station No": "42",
+            "Polling Station Name": "Musivaddu shingaram",
+            "Polling Station Location": "Mandala Parishad Pradhamika Pathashala,Musivoddu Singaram"
+        },
+        {
+            "Polling Station No": "43",
+            "Polling Station Name": "Yallapuram",
+            "Polling Station Location": "Mandala Parishad Pradhamika Patha Shala,Yallapuram"
+        },
+        {
+            "Polling Station No": "44",
+            "Polling Station Name": "Komatikunta",
+            "Polling Station Location": "M P U P S,Komati Kunta"
+        },
+        {
+            "Polling Station No": "45",
+            "Polling Station Name": "Janapahad1",
+            "Polling Station Location": "Jilla Parishad Unnata Pathashala 9th Class Room,Jan Pahad"
+        },
+        {
+            "Polling Station No": "46",
+            "Polling Station Name": "Janpahad2",
+            "Polling Station Location": "Jilla Parishad Unnata Pathashala 10th Class Room,Jan Pahad"
+        },
+        {
+            "Polling Station No": "47",
+            "Polling Station Name": "JANPAHAD3",
+            "Polling Station Location": "Jilla Parishad Unnata Pathashala 10th Class Room,Jan Pahad"
+        },
+        {
+            "Polling Station No": "48",
+            "Polling Station Name": "SUNYAM PAHAD1",
+            "Polling Station Location": "Mandala Parishad Pradhamika Patha Shala,SUNYAMPAHAD"
+        },
+        {
+            "Polling Station No": "49",
+            "Polling Station Name": "Sunyampahad2",
+            "Polling Station Location": "MPPS Sunyampahad Room No 2,SUNYAMPAHAD"
+        },
+        {
+            "Polling Station No": "50",
+            "Polling Station Name": "Ravipahad",
+            "Polling Station Location": "Mandala Parishad Pradhamika Patha Shala (N.W),RAVIPAHAD"
+        },
+        {
+            "Polling Station No": "51",
+            "Polling Station Name": "MAHANKAALI GUDEM",
+            "Polling Station Location": "Mandala Parishad Pradhamika Patha Shala(SW),MAHANKALI GUDEM"
+        },
+        {
+            "Polling Station No": "52",
+            "Polling Station Name": "Palakeedu",
+            "Polling Station Location": "M P P S,Palakeedu"
+        },
+        {
+            "Polling Station No": "53",
+            "Polling Station Name": "Nagireddi gudem majira palakeedu",
+            "Polling Station Location": "Mandala Parishad Pradhamika Patha Shala,Nagireddy Gudem Majira Palakaveed"
+        },
+        {
+            "Polling Station No": "54",
+            "Polling Station Name": "Nagireddy gudem",
+            "Polling Station Location": "MPPS, Hanumaiah gudem Room No 1,Hanumaiah gudem"
+        },
+        {
+            "Polling Station No": "55",
+            "Polling Station Name": "Sajja puram",
+            "Polling Station Location": "Mandala Parishad Pradhamika Patha Shala,Sajjapuram"
+        },
+        {
+            "Polling Station No": "56",
+            "Polling Station Name": "Sajjapuram tanda majira Sajjapuram",
+            "Polling Station Location": "Mandala Parishad Pradhamika Patha Shala,Sajja Puram Tanda Sajja Puram"
+        },
+        {
+            "Polling Station No": "57",
+            "Polling Station Name": "Sajjapuram thanda",
+            "Polling Station Location": "Anganwadi building, Sajjapuram thanda,Sajjapuram thanda"
+        },
+        {
+            "Polling Station No": "58",
+            "Polling Station Name": "BOTTHALAPALEM1",
+            "Polling Station Location": "M P P S (E.W),Botala Palem"
+        },
+        {
+            "Polling Station No": "59",
+            "Polling Station Name": "BOTTHALAPALEM2",
+            "Polling Station Location": "M P P S (W.W),Bottalapalem"
+        },
+        {
+            "Polling Station No": "60",
+            "Polling Station Name": "Alangapuram",
+            "Polling Station Location": "Mandala Parishad Pradhamika Patha Shala,Alangapuram"
+        },
+        {
+            "Polling Station No": "61",
+            "Polling Station Name": "Raghavapuram majira Gundlapahad",
+            "Polling Station Location": "Mandala Parishad Pradhamika Patha Shala,Raghavapuram Majira Gundlapahad"
+        },
+        {
+            "Polling Station No": "62",
+            "Polling Station Name": "Raghavapuram",
+            "Polling Station Location": "MPPS,Room no.1,Migadampadu thanda,Migadampadu thanda"
+        },
+        {
+            "Polling Station No": "63",
+            "Polling Station Name": "Gundlapahad",
+            "Polling Station Location": "Mandala Parishad Pradhamika Patha Shala,Gundlapahad"
+        },
+        {
+            "Polling Station No": "64",
+            "Polling Station Name": "Gundeboina gudem",
+            "Polling Station Location": "Mandala Parishad Pradhamika Patha Shala,Gundeboina Gudem"
+        },
+        {
+            "Polling Station No": "65",
+            "Polling Station Name": "Bakkamanthulagudem1",
+            "Polling Station Location": "MANDALA PARISHAD UPPER PRIMARY SCHOOL,,BAKKAMANTHULA GUDEM"
+        },
+        {
+            "Polling Station No": "66",
+            "Polling Station Name": "Bakkamanthulagudem2",
+            "Polling Station Location": "MANDAL PARISHAD UPPER PRIMARY SCHOOL,,BAKKAMANTHULA GUDEM"
+        },
+        {
+            "Polling Station No": "67",
+            "Polling Station Name": "Choutapalli1",
+            "Polling Station Location": "MANDAL PARISHAD PRIMARY SCHOOL (SOUTH WING),CHOUTAPALLI"
+        },
+        {
+            "Polling Station No": "68",
+            "Polling Station Name": "Choutapally2",
+            "Polling Station Location": "ZPHS Choutapally Room No 2,Choutapally"
+        },
+        {
+            "Polling Station No": "69",
+            "Polling Station Name": "Choutapalli3",
+            "Polling Station Location": "MANDAL PARISHAD PRIMARY SCHOOL, (WEST WING),CHOUTAPALLI"
+        },
+        {
+            "Polling Station No": "70",
+            "Polling Station Name": "Mattampally1",
+            "Polling Station Location": "st.Aans Pradhamikonnata PataShala MattamPalli (N.W,Mattam Palli"
+        },
+        {
+            "Polling Station No": "71",
+            "Polling Station Name": "Mattampally2",
+            "Polling Station Location": "St. Ans U.P.S MattamPalli (W.W),Mattam Palli"
+        },
+        {
+            "Polling Station No": "72",
+            "Polling Station Name": "Mattampally3",
+            "Polling Station Location": "Mandala Parishat Pradhamika Patashala (S.W),Mattam Palli"
+        },
+        {
+            "Polling Station No": "73",
+            "Polling Station Name": "Mattampally4",
+            "Polling Station Location": "Mandala Parishat Pradhamika Patashala (WEST WING),Mattam Palli"
+        },
+        {
+            "Polling Station No": "74",
+            "Polling Station Name": "Mattampally5",
+            "Polling Station Location": "V V H S MattamPalli (E.W),Mattam Palli"
+        },
+        {
+            "Polling Station No": "75",
+            "Polling Station Name": "Mattampally6",
+            "Polling Station Location": "V V H S MattamPalli (N.W),Mattam Palli"
+        },
+        {
+            "Polling Station No": "76",
+            "Polling Station Name": "Raghunadhapalem1",
+            "Polling Station Location": "Jilla Parishad Unnata Patashala Raghunadha Palem,Raghunadha palem"
+        },
+        {
+            "Polling Station No": "77",
+            "Polling Station Name": "Raghunadhapalem2",
+            "Polling Station Location": "Mandala Parishad Pradhamika Patashala,Raghunadha palem"
+        },
+        {
+            "Polling Station No": "78",
+            "Polling Station Name": "Raghunadhapalem3",
+            "Polling Station Location": "Jilla Parishad Unnata Patashala Pashchiva Bhagmu,Raghunadhapalem"
+        },
+        {
+            "Polling Station No": "79",
+            "Polling Station Name": "Raghunadhapalem4",
+            "Polling Station Location": "Mandala Parishad Pradhamika Patashala,Raghunadhapalem"
+        },
+        {
+            "Polling Station No": "80",
+            "Polling Station Name": "Venkatayapalem Majira raghunadhapalem",
+            "Polling Station Location": "Mandala Parishad Pradhamika Patashala N.W),Repala"
+        },
+        {
+            "Polling Station No": "81",
+            "Polling Station Name": "Gundlapalli",
+            "Polling Station Location": "M P U P S,Gundlapally"
+        },
+        {
+            "Polling Station No": "82",
+            "Polling Station Name": "Allipuram",
+            "Polling Station Location": "M P P S , KALVALAPALLY, H/O ALLIPURAM,Alli Puram"
+        },
+        {
+            "Polling Station No": "83",
+            "Polling Station Name": "KALVAPALLY TANDA H/O ALLIPURAM",
+            "Polling Station Location": "M P P S , KALVALAPALLY, H/O ALLIPURAM,Alli Puram"
+        },
+        {
+            "Polling Station No": "84",
+            "Polling Station Name": "Donabanda tanda",
+            "Polling Station Location": "MPPS Averikunta thanda,AVERIKUNTA THANDA"
+        },
+        {
+            "Polling Station No": "85",
+            "Polling Station Name": "LALI TANDA H/O DONABANDA TANDA",
+            "Polling Station Location": "MPPS Averikunta thanda,AVERIKUNTA THANDA"
+        },
+        {
+            "Polling Station No": "86",
+            "Polling Station Name": "Peddaveedu1",
+            "Polling Station Location": "Mandala Parishad Pradhamika Patha Shala 5 th Class,Peddavidu"
+        },
+        {
+            "Polling Station No": "87",
+            "Polling Station Name": "Peddavidu2",
+            "Polling Station Location": "Jilla Parishad Unnata Patha Shala (S.W),Peddavidu"
+        },
+        {
+            "Polling Station No": "88",
+            "Polling Station Name": "Pedaveedu3",
+            "Polling Station Location": "ZPHS Pedaveedu Room No 2,Pedaveedu"
+        },
+        {
+            "Polling Station No": "89",
+            "Polling Station Name": "AVIRENIKUNTA TANDA H/O PEDAVEEDU",
+            "Polling Station Location": "MPPS Averikunta thanda,AVERIKUNTA THANDA"
+        },
+        {
+            "Polling Station No": "90",
+            "Polling Station Name": "Peddavidu",
+            "Polling Station Location": "Jilla Parishad Unnata Patha Shala (W.W),Peddavidu"
+        },
+        {
+            "Polling Station No": "91",
+            "Polling Station Name": "Gurrambodu tanda",
+            "Polling Station Location": "Prabhutva Ashram Pata Shala Gurrambodu Tanda,Gurrambodu Tanda"
+        },
+        {
+            "Polling Station No": "92",
+            "Polling Station Name": "Ramachandra puram1",
+            "Polling Station Location": "CM P U P S Ramachandra Puram H/O. Mattapalli,Matta Palli"
+        },
+        {
+            "Polling Station No": "93",
+            "Polling Station Name": "Ramachandrapuram2",
+            "Polling Station Location": "MPPS, Room no.1, Bheemla Thanda,Bheemla Thanda"
+        },
+        {
+            "Polling Station No": "94",
+            "Polling Station Name": "Mattapally",
+            "Polling Station Location": "Mandala Parishad Pradhamika Pata Shala MattaPalli,Matta Palli"
+        },
+        {
+            "Polling Station No": "95",
+            "Polling Station Name": "Yatavakilla1",
+            "Polling Station Location": "M.P.P.S., Yatavakilla (N.W),Yatavakilla"
+        },
+        {
+            "Polling Station No": "96",
+            "Polling Station Name": "Yatavakilla2",
+            "Polling Station Location": "M P P S ,Yatvkilla (west wing),Yatavakilla"
+        },
+        {
+            "Polling Station No": "97",
+            "Polling Station Name": "Hanumanthula gudem majira Yatavaakilla",
+            "Polling Station Location": "M.P.U.P.S Hanumantula Gudem,Hanumantula Gudem Majira Yatvkilla"
+        },
+        {
+            "Polling Station No": "98",
+            "Polling Station Name": "BHEELYA NAIK THANDA1",
+            "Polling Station Location": "M P P S Bilya Naik Tanda,Bilya naik tanda"
+        },
+        {
+            "Polling Station No": "99",
+            "Polling Station Name": "BEELYANAIK THANDA2",
+            "Polling Station Location": "D P E PBuilding Bilya naik tanda,Bilyanaik tanda"
+        },
+        {
+            "Polling Station No": "100",
+            "Polling Station Name": "BILYANAYAK THANDA3",
+            "Polling Station Location": "D P E PBuilding Bilya naik tanda,Bilyanaik tanda"
+        },
+        {
+            "Polling Station No": "101",
+            "Polling Station Name": "Vardhapuram",
+            "Polling Station Location": "M P P S, Varadhapuram, Thummalathanda,Varda Puram, Thummala thanda"
+        },
+        {
+            "Polling Station No": "102",
+            "Polling Station Name": "TUMM LA THANDA H/O VARDAPURAM",
+            "Polling Station Location": "M P P S, Varadhapuram, Thummalathanda,Varda Puram, Thummala thanda"
+        },
+        {
+            "Polling Station No": "103",
+            "Polling Station Name": "Chennayi palem",
+            "Polling Station Location": "Mandala Parishad PradhamikaPata Shalachennayipalem,Chennayi Palem"
+        },
+        {
+            "Polling Station No": "104",
+            "Polling Station Name": "Manchyatanda",
+            "Polling Station Location": "Mandala Parishad Pradhamika Patha Shala (W.W),Manchya Tanda"
+        },
+        {
+            "Polling Station No": "105",
+            "Polling Station Name": "Kandibanda1",
+            "Polling Station Location": "Zilla Parishad Unnata Patashala,Kandi banda"
+        },
+        {
+            "Polling Station No": "106",
+            "Polling Station Name": "Kandibanda2",
+            "Polling Station Location": "Zilla Parishad Unnata Patha Shala,CHINTHAKUNTLA H/O. CHILLEPALLY"
+        },
+        {
+            "Polling Station No": "107",
+            "Polling Station Name": "Kandibanda3",
+            "Polling Station Location": "M P P S,BODALADINNA"
+        },
+        {
+            "Polling Station No": "108",
+            "Polling Station Name": "Kandibanda4",
+            "Polling Station Location": "Mandal Parishad Pradamika Patshala,NEREDCHARLA"
+        },
+        {
+            "Polling Station No": "109",
+            "Polling Station Name": "Nallabandagudem",
+            "Polling Station Location": "M.P.P.S,Nallabanda Gudem"
+        },
+        {
+            "Polling Station No": "110",
+            "Polling Station Name": "Mangalikunta thanda",
+            "Polling Station Location": "M.P.P.S,,MANGALIKUNTA THANDA"
+        },
+        {
+            "Polling Station No": "111",
+            "Polling Station Name": "Ramapuram majira Revuru1",
+            "Polling Station Location": "Z.P.H.S.,,RAMAPURAM"
+        },
+        {
+            "Polling Station No": "112",
+            "Polling Station Name": "Ramapuram majira Revuru2",
+            "Polling Station Location": "Z.P.H.S,RAMAPURAM"
+        },
+        {
+            "Polling Station No": "113",
+            "Polling Station Name": "RAMAPURAM3",
+            "Polling Station Location": "Z.P.H.S,RAMAPURAM"
+        },
+        {
+            "Polling Station No": "114",
+            "Polling Station Name": "Ramapuram majira Revuru4",
+            "Polling Station Location": "M.P.P.S,RAMAPURAM"
+        },
+        {
+            "Polling Station No": "115",
+            "Polling Station Name": "Ramapuram majira Revuru5",
+            "Polling Station Location": "M.P.P.S,,RAMAPURAM"
+        },
+        {
+            "Polling Station No": "116",
+            "Polling Station Name": "Ramapuram majira Revuru6",
+            "Polling Station Location": "GRAMA PANCHAYATHI,RAMAPURAM"
+        },
+        {
+            "Polling Station No": "117",
+            "Polling Station Name": "Yathirajapuram",
+            "Polling Station Location": "M.P.P.S,YATHIRAJAPURAM THANDA"
+        },
+        {
+            "Polling Station No": "118",
+            "Polling Station Name": "Yathirajapuram Thanda",
+            "Polling Station Location": "M.P.P.S,Yathirajapuram Thanda Room NO 2,Yathirajapuram Thanda"
+        },
+        {
+            "Polling Station No": "119",
+            "Polling Station Name": "Hemlathanda majira mellacheruvu1",
+            "Polling Station Location": "GRAMAPANCHAYATHI.,Hemla Tanda ."
+        },
+        {
+            "Polling Station No": "120",
+            "Polling Station Name": "Hemlathanda majira mellacheruvu2",
+            "Polling Station Location": "MANDAL PARISHAD PRADAMIKA PATASHALA,mellacheruvu"
+        },
+        {
+            "Polling Station No": "121",
+            "Polling Station Name": "Hemlathanda majira mellacheruvu3",
+            "Polling Station Location": "Mandala Parishad Pradhamikonnata Pata Shala,Hemla Tanda Majira Mellachervu"
+        },
+        {
+            "Polling Station No": "122",
+            "Polling Station Name": "Kappalakunta Thanda",
+            "Polling Station Location": "M.P.U.P.S.,,KAPPALA KUNTA THANDA"
+        },
+        {
+            "Polling Station No": "123",
+            "Polling Station Name": "MELLACHERUVU1",
+            "Polling Station Location": "GRAMAPANCHAYATHI.,Mellacheruvu"
+        },
+        {
+            "Polling Station No": "124",
+            "Polling Station Name": "MELLACHERUVU2",
+            "Polling Station Location": "GRAMAPANCHAYATHI.,Mellacheruvu"
+        },
+        {
+            "Polling Station No": "125",
+            "Polling Station Name": "MELLACHERUVU3",
+            "Polling Station Location": "P.A.C.S,MELLACHERUVU"
+        },
+        {
+            "Polling Station No": "126",
+            "Polling Station Name": "MELLACHERVU4",
+            "Polling Station Location": "P.A.C.S,MELLACHERVU"
+        },
+        {
+            "Polling Station No": "127",
+            "Polling Station Name": "MELLA CHERUVU5",
+            "Polling Station Location": "M.R.C, BUILDING,MELLA CHERUVU"
+        },
+        {
+            "Polling Station No": "128",
+            "Polling Station Name": "MELLACHERVU6",
+            "Polling Station Location": "Z.P.H.S.,MELLACHERUVU"
+        },
+        {
+            "Polling Station No": "129",
+            "Polling Station Name": "MELLACHERUVU7",
+            "Polling Station Location": "Zilla Parishad Unnata Pata Shala,MELLACHERUV U"
+        },
+        {
+            "Polling Station No": "130",
+            "Polling Station Name": "MELLACHERUVU8",
+            "Polling Station Location": "M.P.P.S.,Mellacheruvu"
+        },
+        {
+            "Polling Station No": "131",
+            "Polling Station Name": "Mellacheruvu9",
+            "Polling Station Location": "M.P.P.S.,Mellacheruvu"
+        },
+        {
+            "Polling Station No": "132",
+            "Polling Station Name": "Venkatrampuram majira mellacheruvu",
+            "Polling Station Location": "Mandala Parishad Pradhamika Pata Shala,Venkatrampuram Majira Mellacheruvu"
+        },
+        {
+            "Polling Station No": "133",
+            "Polling Station Name": "VEPALA MADHAVARAM1",
+            "Polling Station Location": "Mandala Parishad Pradhamikonnata Patashala,Vepalamadaram "
+        },
+        {
+            "Polling Station No": "134",
+            "Polling Station Name": "VEPALA MADHAVARAM2",
+            "Polling Station Location": "M.P.U.P.S.,Vepalamadaram"
+        },
+        {
+            "Polling Station No": "135",
+            "Polling Station Name": "REVURU 1",
+            "Polling Station Location": "REVURU ZPHS"
+        },
+        {
+            "Polling Station No": "136",
+            "Polling Station Name": "revuru2",
+            "Polling Station Location": "Z.P.H.S,,"
+        },
+        {
+            "Polling Station No": "137",
+            "Polling Station Name": "revuru3",
+            "Polling Station Location": "Z.P.H.S,NEREDCHARLA"
+        },
+        {
+            "Polling Station No": "138",
+            "Polling Station Name": "RAGHAVAPURAM H/O. MELLACHERUVU1",
+            "Polling Station Location": "MPPS HEMLATHANDA,RAGHAVAPURAM H/O.MELLACHERUVU"
+        },
+        {
+            "Polling Station No": "139",
+            "Polling Station Name": "RAGHAVAPURAM H/O. MELLACHERUVU2",
+            "Polling Station Location": "MPPS HEMLATHANDA,RAGHAVAPURAM H/O.MELLACHERUVU"
+        },
+        {
+            "Polling Station No": "140",
+            "Polling Station Name": "Dondapadu1",
+            "Polling Station Location": "MPPS, Gandhinagar Thanda Room No 1,Gandhinagar Thanda, H/o Dondapadu"
+        },
+        {
+            "Polling Station No": "141",
+            "Polling Station Name": "Dondapadu2",
+            "Polling Station Location": "MPPS, Gandhinagara Thanda Room No 1,Gandhinagara Thanda"
+        },
+        {
+            "Polling Station No": "142",
+            "Polling Station Name": "Dondapadu3",
+            "Polling Station Location": "Zilla Parishad Unnata Pata Shala,Dondapadu"
+        },
+        {
+            "Polling Station No": "143",
+            "Polling Station Name": "Dondapadu4",
+            "Polling Station Location": "Grampanchayati Office,Dondapadu"
+        },
+        {
+            "Polling Station No": "144",
+            "Polling Station Name": "Dondapadu5",
+            "Polling Station Location": "Mandala Parishad Pradhamika Patashala, S.B.Colony,Dondapadu"
+        },
+        {
+            "Polling Station No": "145",
+            "Polling Station Name": "Dondapadu6",
+            "Polling Station Location": "Mandal Parishad Pradamika Parashala, H.W.,Dondapadu"
+        },
+        {
+            "Polling Station No": "146",
+            "Polling Station Name": "Buggamadharam",
+            "Polling Station Location": "M.P.P.S,BUGGAMADHARAM"
+        },
+        {
+            "Polling Station No": "147",
+            "Polling Station Name": "Dondapadu7",
+            "Polling Station Location": "Mandala Parishad Pradhamika Pata Shala,Dondapadu"
+        },
+        {
+            "Polling Station No": "148",
+            "Polling Station Name": "Dondapadu8",
+            "Polling Station Location": "M.P.P.S,DONDAPADU"
+        },
+        {
+            "Polling Station No": "149",
+            "Polling Station Name": "Chinthalapalem1",
+            "Polling Station Location": "Mandala Parishad Pradhamika Patashala,Chintalapalem"
+        },
+        {
+            "Polling Station No": "150",
+            "Polling Station Name": "Chinthalapalem2",
+            "Polling Station Location": "ZPHS Chinthalapalem Room No 3,Chinthalapalem"
+        },
+        {
+            "Polling Station No": "151",
+            "Polling Station Name": "Chinthalapalem3",
+            "Polling Station Location": "Mandala Parishad Pradhamika Patashala,Chintalapalem"
+        },
+        {
+            "Polling Station No": "152",
+            "Polling Station Name": "Chinthalapalem4",
+            "Polling Station Location": "ZPHS Chinthalapalem Room No 4,Chinthalapalem"
+        },
+        {
+            "Polling Station No": "153",
+            "Polling Station Name": "Chinthalapalem5",
+            "Polling Station Location": "Zilla Parishad Unnata Patashala,Chintalapalem"
+        },
+        {
+            "Polling Station No": "154",
+            "Polling Station Name": "Chinthalapalem6",
+            "Polling Station Location": "Gramapanchayathi Office, Chinthalapalem, Chinthalapalem"
+        },
+        {
+            "Polling Station No": "155",
+            "Polling Station Name": "Chinthalapalem7",
+            "Polling Station Location": "MPPS, Yarrakunta Thanda, Room no.2,Kothagudem Thanda,H/o Chinthalapalem"
+        },
+        {
+            "Polling Station No": "156",
+            "Polling Station Name": "Chinthalapalem8",
+            "Polling Station Location": "MPPS Yerrakunta Thanda Room No 2,Yerrakunta Thanda"
+        },
+        {
+            "Polling Station No": "157",
+            "Polling Station Name": "Gudimalkapuram1",
+            "Polling Station Location": "Mandala Parishad Pradhamika Patashala,Gudimalkapuram"
+        },
+        {
+            "Polling Station No": "158",
+            "Polling Station Name": "Gudimalkapuram2",
+            "Polling Station Location": "Mandala Parishad Pradhamika Patashala,Gudimalkapuram"
+        },
+        {
+            "Polling Station No": "159",
+            "Polling Station Name": "Gudimalkapuram3",
+            "Polling Station Location": "MPUPS Gudimalkapuram Room No 3,Gudimalkapuram"
+        },
+        {
+            "Polling Station No": "160",
+            "Polling Station Name": "Vajinepalli1",
+            "Polling Station Location": "Mandala Parishad Pradhamika Unnata Patashala,Vajinepalli"
+        },
+        {
+            "Polling Station No": "161",
+            "Polling Station Name": "VAJENEPALLY2",
+            "Polling Station Location": "Mandala Parishad Pradhamika school,vajenepally"
+        },
+        {
+            "Polling Station No": "162",
+            "Polling Station Name": "Shobanadhrigudem1",
+            "Polling Station Location": "Mandala Parishad Pradhamika Patashala,Sobhanadri Gudem Majira Adluru"
+        },
+        {
+            "Polling Station No": "163",
+            "Polling Station Name": "Shobanadhrigudem2",
+            "Polling Station Location": "MPUPS, Shobanadhrigudem Room No 1,Shobanadhrigudem"
+        },
+        {
+            "Polling Station No": "164",
+            "Polling Station Name": "Thammaram1",
+            "Polling Station Location": "Zilla Parishad Unnata Pata Shala,Tammaram"
+        },
+        {
+            "Polling Station No": "165",
+            "Polling Station Name": "Thammaram2",
+            "Polling Station Location": "ZPHS Thammaram Room No 2,Thammaram"
+        },
+        {
+            "Polling Station No": "166",
+            "Polling Station Name": "PEEKLANAIK THANDA MAJIRA THAMMAVARAM",
+            "Polling Station Location": "MANDALA PARISHAD PATASHALA,PEEKLA NAYAK TANDA"
+        },
+        {
+            "Polling Station No": "167",
+            "Polling Station Name": "Thammaram3",
+            "Polling Station Location": "Zilla Parishad Unnata Pata Shala,Tammaram"
+        },
+        {
+            "Polling Station No": "168",
+            "Polling Station Name": "Reballe",
+            "Polling Station Location": "Mandala Parishad Pradhamika Pata Shala,Reballe"
+        },
+        {
+            "Polling Station No": "169",
+            "Polling Station Name": "Kistapuram majira Chinthriyala",
+            "Polling Station Location": "Mandala Parishad Pradhamika Patashala,Kishta Puram Majira Chinthriyala"
+        },
+        {
+            "Polling Station No": "170",
+            "Polling Station Name": "Kishtapuram",
+            "Polling Station Location": "MPUPS Kishtapuram Room No 2,Kishtapuram"
+        },
+        {
+            "Polling Station No": "171",
+            "Polling Station Name": "Nakkagudem majira Chinthriyala",
+            "Polling Station Location": "Mandala Parishad Pradhamika Patashala,Nakka Gudem Majira Chinthriala"
+        },
+        {
+            "Polling Station No": "172",
+            "Polling Station Name": "NAKKAGUDEM",
+            "Polling Station Location": "Mandala Parishad Pradhamika Patashala,Nakka Gudem Majira Chinthriala"
+        },
+        {
+            "Polling Station No": "173",
+            "Polling Station Name": "Chinthriyala1",
+            "Polling Station Location": "Mandala Parishad Pradhamikonnata patashala,Chinthriyala"
+        },
+        {
+            "Polling Station No": "174",
+            "Polling Station Name": "Chinthriyal2",
+            "Polling Station Location": "MPUPS Chinthriyala Room No 2,Chinthriyala"
+        },
+        {
+            "Polling Station No": "175",
+            "Polling Station Name": "KARAKKAYALA GUDEM1",
+            "Polling Station Location": "Z.P.H.S Karakkayala Gudem,Karakkayala Gudem"
+        },
+        {
+            "Polling Station No": "176",
+            "Polling Station Name": "Karkayalagudem2",
+            "Polling Station Location": "ZPHS Karkayalagudem Room No 2,Karkayalagudem"
+        },
+        {
+            "Polling Station No": "177",
+            "Polling Station Name": "MACHAVARAM",
+            "Polling Station Location": "M P P S New Building,Macharam"
+        },
+        {
+            "Polling Station No": "178",
+            "Polling Station Name": "Buru gadda1",
+            "Polling Station Location": "M P P S West Wing Burugu Gadda,BuruguGadda"
+        },
+        {
+            "Polling Station No": "179",
+            "Polling Station Name": "Buru gadda2",
+            "Polling Station Location": "M P P S (West wing) Burugu gadda,Burugu Gadda"
+        },
+        {
+            "Polling Station No": "180",
+            "Polling Station Name": "Gopala puram majira Buru gaddha",
+            "Polling Station Location": "M P P S Gopalapuram,GopalapuraM"
+        },
+        {
+            "Polling Station No": "181",
+            "Polling Station Name": "Gopalapuram",
+            "Polling Station Location": "MPPS Gopalapuram Room No 2,Gopalapuram"
+        },
+        {
+            "Polling Station No": "182",
+            "Polling Station Name": "MARRIGUDEM MAJIRA BURUGADDA",
+            "Polling Station Location": "M P P S Marriguda Majira Burugu Gadda,Marriguda Majira Burugu Gadda"
+        },
+        {
+            "Polling Station No": "183",
+            "Polling Station Name": "NEAR GOVERNMENT HOSPITAL, HUZURNAGAR",
+            "Polling Station Location": "MPPS-2 REDDY BAZAR, HUZURNAGAR,HUZURNAGAR"
+        },
+        {
+            "Polling Station No": "184",
+            "Polling Station Name": "SRINAGAR COLONY, HUZURNAGAR",
+            "Polling Station Location": "MPPS NSP CAMP HUZURNAGAR,HUZURNAGAR"
+        },
+        {
+            "Polling Station No": "185",
+            "Polling Station Name": "NEAR GOVERNMENT HOSPITAL, HUZURNAGAR",
+            "Polling Station Location": "GOVT HIGH SCHOOL 10TH CLASS HUZURNAGAR"
+        },
+        {
+            "Polling Station No": "186",
+            "Polling Station Name": "MAIN ROAD, HUZUR NAGAR1",
+            "Polling Station Location": "PRIYADARSHINI DEGREE COLLEGE, HUZURNAGAR,HUZUR NAGAR"
+        },
+        {
+            "Polling Station No": "187",
+            "Polling Station Name": "MAIN ROAD, HUZUR NAGAR2",
+            "Polling Station Location": "SRI CHAITANYA TM SCHOOL, HUZURNAGAR,HUZURNAGAR"
+        },
+        {
+            "Polling Station No": "188",
+            "Polling Station Name": "N.S.P. CAMP, NEAR TELEPHONE EXCHANGE, HUZURNAGAR1",
+            "Polling Station Location": "MPPS ROOM NO 1 MALLANNA NAGAR, HUZURNAGAR,HUZURNAGAR"
+        },
+        {
+            "Polling Station No": "189",
+            "Polling Station Name": "N.S.P. CAMP, NEAR TELEPHONE EXCHANGE, HUZURNAGAR2",
+            "Polling Station Location": "Z.P.H.S (N.S. Camp)9th class Huzurnagar,Huzoor Nagar"
+        },
+        {
+            "Polling Station No": "190",
+            "Polling Station Name": "N.S.P. CAMP, NEAR TELEPHONE EXCHANGE, HUZURNAGAR3",
+            "Polling Station Location": "Z.P.H.S (N.S. Camp)10th class Huzurnagar,Huzoor Nagar"
+        },
+        {
+            "Polling Station No": "191",
+            "Polling Station Name": "MIRYALAGUDA ROAD, HUZURNAGAR1",
+            "Polling Station Location": "M.P.D.O Office Huzur nagar,Huzur Nagar"
+        },
+        {
+            "Polling Station No": "192",
+            "Polling Station Name": "MIRYALAGUDA RAOD, HUZURNAGAR2",
+            "Polling Station Location": "M.P.D.O Office Huzur nagar,Huzur Nagar"
+        },
+        {
+            "Polling Station No": "193",
+            "Polling Station Name": "MIRYALAGUDA RAOD, HUZURNAGAR3",
+            "Polling Station Location": "GOVERNMENT JUNIOR COLLEGE, HUZUR NAGAR,HUZURNAGA"
+        },
+        {
+            "Polling Station No": "194",
+            "Polling Station Name": "MIRYALAGUDA RAOD, HUZURNAGAR4",
+            "Polling Station Location": "MPPS ROOM NO 2 MALLANNA NAGAR, HUZURNAGAR,HUZURNAGAR"
+        },
+        {
+            "Polling Station No": "195",
+            "Polling Station Name": "REDDY BAZAR, Huzur nagar",
+            "Polling Station Location": "M P P S -2 (W.W),Huzur Nagar,reddy bazar"
+        },
+        {
+            "Polling Station No": "196",
+            "Polling Station Name": "SRINAGAR COLONY, HUZUR NAGAR",
+            "Polling Station Location": "Z.P.H.S 10th Class Huzur nagar,Huzur Nagar"
+        },
+        {
+            "Polling Station No": "197",
+            "Polling Station Name": "NEAR GOVERNMENT HOSPITAL, HUZURNAGAR1",
+            "Polling Station Location": "V.V.M. GIRLS SCHOOL 8th CLASS Huzurnagar,Huzur Nagar"
+        },
+        {
+            "Polling Station No": "198",
+            "Polling Station Name": "NEAR GOVERNMENT HOSPITAL, HUZURNAGAR2",
+            "Polling Station Location": "MPPS SEETHARAM NAGAR, HUZURNAGAR,HUZURNAGAR"
+        },
+        {
+            "Polling Station No": "199",
+            "Polling Station Name": "GOVINDAPURAM H/O HUZURNAGAR",
+            "Polling Station Location": "M P U P S Huzurnagar,GOVINDAPURAM H/O Huzur Nagar"
+        },
+        {
+            "Polling Station No": "200",
+            "Polling Station Name": "PEERLAKOTTAM BAZAR, HUZURNAGAR1",
+            "Polling Station Location": "V.V.M. GIRLS HIGH SCHOOL 9TH CLASS Huzurnagar,HUZURNAGAR"
+        },
+        {
+            "Polling Station No": "201",
+            "Polling Station Name": "PEERLAKOTTAM BAZAR, HUZURNAGAR2",
+            "Polling Station Location": "MPPS-2 REDDY BAZAR, HUZURNAGAR,HUZURNAGAR"
+        },
+        {
+            "Polling Station No": "202",
+            "Polling Station Name": "S.C COLONY, HUZURNAGAR1",
+            "Polling Station Location": "MPPS AMBHEDHKAR COLONY, ROOM NO 1 HUZURNAGAR,HUZURNAGAR"
+        },
+        {
+            "Polling Station No": "203",
+            "Polling Station Name": "S.C COLONY, HUZURNAGAR2",
+            "Polling Station Location": "MPPS AMBHEDHKAR COLONY, ROOM NO 1 HUZURNAGAR,HUZURNAGAR"
+        },
+        {
+            "Polling Station No": "204",
+            "Polling Station Name": "S.C COLONY, HUZURNAGAR3",
+            "Polling Station Location": "M P U P S Huzurnagar,GOVINDAPURAM H/O Huzur Nagar"
+        },
+        {
+            "Polling Station No": "205",
+            "Polling Station Name": "S.C COLONY, HUZURNAGAR4",
+            "Polling Station Location": "MPPS AMBHEDHKAR COLONY, ROOM NO 1 HUZURNAGAR,HUZURNAGAR"
+        },
+        {
+            "Polling Station No": "206",
+            "Polling Station Name": "MAGDUMNAGAR MAJIRA HUZURNAGAR",
+            "Polling Station Location": "M.P.P.S,MAQDUM NAGAR"
+        },
+        {
+            "Polling Station No": "207",
+            "Polling Station Name": "MADHAVARAYINIGUDEM",
+            "Polling Station Location": "M P U P S MadireniGudem Majira Huzurnagar,MadineniGudem Majira Huzurnagar"
+        },
+        {
+            "Polling Station No": "208",
+            "Polling Station Name": "Lingagiri1",
+            "Polling Station Location": "Z.P.H.S., LINGAGIRI WEST WING,LINGAGIRI"
+        },
+        {
+            "Polling Station No": "209",
+            "Polling Station Name": "SRINIVASA PURAM1",
+            "Polling Station Location": "M.P.U.P.S,SRINIVASA PURAM"
+        },
+        {
+            "Polling Station No": "210",
+            "Polling Station Name": "SRINIVASAPURAM2",
+            "Polling Station Location": "M.P.U.P.S,SRINIVASA PURAM"
+        },
+        {
+            "Polling Station No": "211",
+            "Polling Station Name": "Lingagiri2",
+            "Polling Station Location": "Z.P.H.S, WEST WING,LINGAGIRI"
+        },
+        {
+            "Polling Station No": "212",
+            "Polling Station Name": "SEETHA RAM PURAM",
+            "Polling Station Location": "M.P.P.S SEETHARAM PURAM,SEETHARAM PURAM"
+        },
+        {
+            "Polling Station No": "213",
+            "Polling Station Name": "LAKKAVARAM1",
+            "Polling Station Location": "M.P.U.P.S,LAKKAVARAM"
+        },
+        {
+            "Polling Station No": "214",
+            "Polling Station Name": "LAKKAVARAM2",
+            "Polling Station Location": "M.P.U.P.S,LAKKAVARAM"
+        },
+        {
+            "Polling Station No": "215",
+            "Polling Station Name": "AMARAVARAM1",
+            "Polling Station Location": "Z P H S (SOUTH),AMARAVARAM"
+        },
+        {
+            "Polling Station No": "216",
+            "Polling Station Name": "AMRAVARAM2",
+            "Polling Station Location": "Z P H S (SOUTH),AMARAVARAM"
+        },
+        {
+            "Polling Station No": "217",
+            "Polling Station Name": "AMARAVARAM3",
+            "Polling Station Location": "Z.P.H.S, SOUTH WING,AMARAVARAM"
+        },
+        {
+            "Polling Station No": "218",
+            "Polling Station Name": "Vepala singaram1",
+            "Polling Station Location": "R . C. M School HIGH (N.W ),Veplasingaram"
+        },
+        {
+            "Polling Station No": "219",
+            "Polling Station Name": "Vepalasingaram2",
+            "Polling Station Location": "R.C.M. School, West Wing,VEPALA SINGARAM"
+        },
+        {
+            "Polling Station No": "220",
+            "Polling Station Name": "Vepalasingaram3",
+            "Polling Station Location": "MPPS Mittagudem Room No 1,Mittagudem"
+        },
+        {
+            "Polling Station No": "221",
+            "Polling Station Name": "Vepalasingaram4",
+            "Polling Station Location": "R.C.M. HIGH SCHOOL, VEPALASINGARAM (West wing),VEPALA SINGARAM"
+        },
+        {
+            "Polling Station No": "222",
+            "Polling Station Name": "ANJALI PURAM",
+            "Polling Station Location": "GRAMASACHIVALAYAM,Anjalipuram"
+        },
+        {
+            "Polling Station No": "223",
+            "Polling Station Name": "Garidepally1",
+            "Polling Station Location": "JILLA PARISHAD HIGH SCHOOL, EAST WING,GARIDEPALLI"
+        },
+        {
+            "Polling Station No": "224",
+            "Polling Station Name": "Garidepally2",
+            "Polling Station Location": "JILLA PARISHAD HIGH SCHOOL, WEST WING,GARIDEPALLI"
+        },
+        {
+            "Polling Station No": "225",
+            "Polling Station Name": "Garidepally3",
+            "Polling Station Location": "GRAMA PANCHAYATHI,GARIDEPALLI"
+        },
+        {
+            "Polling Station No": "226",
+            "Polling Station Name": "Garidepally4",
+            "Polling Station Location": "JILLA PARISHAD HIGH SCHOOL, WEST WING,GARIDEPALLI"
+        },
+        {
+            "Polling Station No": "227",
+            "Polling Station Name": "Garidepally5",
+            "Polling Station Location": "MANDAL PARISHAD PRIMARY SCHOOL, NORTH WING,GARIDEPALLI"
+        },
+        {
+            "Polling Station No": "228",
+            "Polling Station Name": "Garidepally6",
+            "Polling Station Location": "MPPS Garidepally Room No 2,Garidepally"
+        },
+        {
+            "Polling Station No": "229",
+            "Polling Station Name": "ABBIREDDY GUDEM MAJIRA GAREDEPALLY",
+            "Polling Station Location": "M.P.P.S,ABBIREDDY GUDEM"
+        },
+        {
+            "Polling Station No": "230",
+            "Polling Station Name": "Kodandarampuram majira Garidepally",
+            "Polling Station Location": "M.P.P.S,KODANDAPURAM"
+        },
+        {
+            "Polling Station No": "231",
+            "Polling Station Name": "Pareddigudem majira Garidepally",
+            "Polling Station Location": "M.P.P.S., NORTH WING,PAREDDY GUDEM"
+        },
+        {
+            "Polling Station No": "232",
+            "Polling Station Name": "Pareddigudem",
+            "Polling Station Location": "Anganwadi Building Pareddygudem,Pareddygudem"
+        },
+        {
+            "Polling Station No": "233",
+            "Polling Station Name": "Garakunta tanda majira Garidepally",
+            "Polling Station Location": "Mandala Parishad Pradhamika Patashala,Gudimalkapuram"
+        },
+        {
+            "Polling Station No": "234",
+            "Polling Station Name": "Ponugodu1",
+            "Polling Station Location": "M P C P S (E.W) Ponugodu,Ponugodu"
+        },
+        {
+            "Polling Station No": "235",
+            "Polling Station Name": "Ponugodu2",
+            "Polling Station Location": "Jilla Parishad Unnata Pata Shala (S,W),Ponugodu"
+        },
+        {
+            "Polling Station No": "236",
+            "Polling Station Name": "Ponugodu3",
+            "Polling Station Location": "Jilla Parishad Unnata Pata Shala (W.W),Ponugodu"
+        },
+        {
+            "Polling Station No": "237",
+            "Polling Station Name": "Ponugodu4",
+            "Polling Station Location": "Jilla parishad unnata pata shala Ponugodu Room No 2,Ponugodu"
+        },
+        {
+            "Polling Station No": "238",
+            "Polling Station Name": "Ponugodu5",
+            "Polling Station Location": "M P C P S Middle room Ponu Godu,Ponugodu"
+        },
+        {
+            "Polling Station No": "239",
+            "Polling Station Name": "Ponugodu6",
+            "Polling Station Location": "M P C P S (W.W) Ponu Godu,Ponugodu"
+        },
+        {
+            "Polling Station No": "240",
+            "Polling Station Name": "Appanna peta majira ponugodu",
+            "Polling Station Location": "Mandala Parishad Pradhamika Patha Shala Appanna Pt,Appanna Pettah Majira Ponugodu"
+        },
+        {
+            "Polling Station No": "241",
+            "Polling Station Name": "Gaddipally1",
+            "Polling Station Location": "Jilla Parishad Unnata Pata Shala (S.W),GaddiPalli "
+        },
+        {
+            "Polling Station No": "242",
+            "Polling Station Name": "Gaddipally2",
+            "Polling Station Location": "Z.P. Unnata Pata Shala (S.W),GaddiPalli"
+        },
+        {
+            "Polling Station No": "243",
+            "Polling Station Name": "RGaddipally3",
+            "Polling Station Location": "Mandala Parishad Pradhamika Patashala New bulding,GaddiPalli"
+        },
+        {
+            "Polling Station No": "244",
+            "Polling Station Name": "KUTHUBUSHAPURAM1",
+            "Polling Station Location": "Mandala Parishad Pradhamikonnata Patashala,Kutubushpuram"
+        },
+        {
+            "Polling Station No": "245",
+            "Polling Station Name": "KUTHUBUSHAPURAM2",
+            "Polling Station Location": "M P U P S K.Puram (W.Wing Room),Kutubushpuram"
+        },
+        {
+            "Polling Station No": "246",
+            "Polling Station Name": "Velidanda1",
+            "Polling Station Location": "M P U P S (N.W) Velidanda,Velidanda"
+        },
+        {
+            "Polling Station No": "247",
+            "Polling Station Name": "KONYAGUDEM MAJIRA VALIDANDA",
+            "Polling Station Location": "M P U P S (N.W) Velidanda,Velidanda"
+        },
+        {
+            "Polling Station No": "248",
+            "Polling Station Name": "Velidanda2",
+            "Polling Station Location": "M P U P S Velidanda (S.W),Velidanda"
+        },
+        {
+            "Polling Station No": "249",
+            "Polling Station Name": "Kothagudem majira velidhanda1",
+            "Polling Station Location": "M P P S Kothagudem (N.W),Kothagudem Majira Velidanda"
+        },
+        {
+            "Polling Station No": "250",
+            "Polling Station Name": "Kothagudem majira Velidhanda2",
+            "Polling Station Location": "M P P S Kothagudem (S.W),Kothagudem Majira Velidanda"
+        },
+        {
+            "Polling Station No": "251",
+            "Polling Station Name": "TALLAMALKAPURAM1",
+            "Polling Station Location": "M P U P S Tallamolka Puram,Tallamalkapuram"
+        },
+        {
+            "Polling Station No": "252",
+            "Polling Station Name": "Tallamalkapuram2",
+            "Polling Station Location": "UPS Allamalkapuram Room No 2,Allamalkapuram"
+        },
+        {
+            "Polling Station No": "253",
+            "Polling Station Name": "Regula gadda tanda majira Tallamolka puram",
+            "Polling Station Location": "M P P S Regula Gadda,Regulgadda Tanda Majira Talla Malkapuram"
+        },
+        {
+            "Polling Station No": "254",
+            "Polling Station Name": "Regulagadda thanda",
+            "Polling Station Location": "Govt. P.S. Room no.1, REGULAGADDA THANDA Majara Tallamalkapuram"
+        },
+        {
+            "Polling Station No": "255",
+            "Polling Station Name": "Rayini gudem1",
+            "Polling Station Location": "M.P.U.P.S (W.W),Rayini Gudem"
+        },
+        {
+            "Polling Station No": "256",
+            "Polling Station Name": "Rayanigudem1",
+            "Polling Station Location": "ZPHS,Room no.1,Rayanigudem,Rayanigudem"
+        },
+        {
+            "Polling Station No": "257",
+            "Polling Station Name": "KEETHAVARI GUDEM MAJIRA RAYINIGUDEM1",
+            "Polling Station Location": "Jilla Parishad Unnata Pata Shala P Chchimbagmu,Kitwari Gudem"
+        },
+        {
+            "Polling Station No": "258",
+            "Polling Station Name": "KEETHAVARI GUDEM MAJIRA RAYINIGUDEM2",
+            "Polling Station Location": "Jilla Parishad Unnata Pata Shala (S.W),Kitwari Gudem"
+        },
+        {
+            "Polling Station No": "259",
+            "Polling Station Name": "KEETHAVARI GUDEM MAJIRA RAYINIGUDEM3",
+            "Polling Station Location": "JillaParishad Unnata Pata Shala (W.W),Kitwari Gudem"
+        },
+        {
+            "Polling Station No": "260",
+            "Polling Station Name": "KATTAVARI GUDEM MAJIRA RAYINIGUDEM4",
+            "Polling Station Location": "M. P. P. Pata Shala Kattawarigudem,Kattavarigudem Majira Rayinigudem"
+        },
+        {
+            "Polling Station No": "261",
+            "Polling Station Name": "Mangapuram majira Rayinigudem",
+            "Polling Station Location": "Mandala Parishad Pradhamika Pata Shala MangaPuram,"
+        },
+        {
+            "Polling Station No": "262",
+            "Polling Station Name": "Kalwapally",
+            "Polling Station Location": "M P P S, 4 th Class Room,Nereducherla"
+        },
+        {
+            "Polling Station No": "263",
+            "Polling Station Name": "Kachavari gudem majira kalwapally",
+            "Polling Station Location": "Mandala Parishad PradhamikaPatashala Kachwarigudem,"
+        },
+        {
+            "Polling Station No": "264",
+            "Polling Station Name": "Sarvaram1",
+            "Polling Station Location": "M.P.U.P.S, WEST WING,SARVARAM"
+        },
+        {
+            "Polling Station No": "265",
+            "Polling Station Name": "Sarvaram2",
+            "Polling Station Location": "M.P.U.P.S,SARVARAM"
+        },
+        {
+            "Polling Station No": "266",
+            "Polling Station Name": "SARVARAM3",
+            "Polling Station Location": "M.P.U.P.S,,SARVARAM"
+        },
+        {
+            "Polling Station No": "267",
+            "Polling Station Name": "Ganugabanda1",
+            "Polling Station Location": "M.P.U.P.S., NORTH WING,GANUBANDA"
+        },
+        {
+            "Polling Station No": "268",
+            "Polling Station Name": "Ganugabanda2",
+            "Polling Station Location": "M.P.U.P.S, SOUTH WING,GANUGABANDA"
+        },
+        {
+            "Polling Station No": "269",
+            "Polling Station Name": "Ganugabanda3",
+            "Polling Station Location": "MPPS Ganugabanda Room No 3,Ganugabanda"
+        },
+        {
+            "Polling Station No": "270",
+            "Polling Station Name": "Kalmalachervu1",
+            "Polling Station Location": "PJilla Parishad Unnata Patha Shala Kalmalachervu"
+        },
+        {
+            "Polling Station No": "271",
+            "Polling Station Name": "Kalmalachervu2",
+            "Polling Station Location": "Jilla Parishad Unnata Patha Shala (S.W),Kalmalachervu"
+        },
+        {
+            "Polling Station No": "272",
+            "Polling Station Name": "Kalmalachervu3",
+            "Polling Station Location": "M.P.P.S (Middla ),Kalmalachervu"
+        },
+        {
+            "Polling Station No": "273",
+            "Polling Station Name": "Kalmalcheruvu4",
+            "Polling Station Location": "MPPS Kalmalcheruvu Room No 2,Kalmalcheruvu"
+
+	},
+        {
+            "Polling Station No": "27",
+            "Polling Station Name": "Seethla tanda majira Kalmalachervu",
+            "Polling Station Location": "M.P.P.S (Seetla thanda),Seetla thand Majira Kalmalachervu"
+
+	}
+    ]
+
 }

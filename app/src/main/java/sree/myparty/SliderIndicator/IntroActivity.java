@@ -1,6 +1,7 @@
 package sree.myparty.SliderIndicator;
 
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
@@ -8,7 +9,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 
 
 import com.crashlytics.android.Crashlytics;
@@ -29,22 +32,34 @@ public class IntroActivity extends FragmentActivity {
     private boolean doubleBackToExitPressedOnce = false;
 
     Fragment fragment;
-   private FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.onelayoutframe);
-      //  Crashlytics.getInstance().crash();
+        //  Crashlytics.getInstance().crash();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         }
-       mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
         replaceFragment(0);
 
+        final Dialog d= new Dialog(this);
+        d.setContentView(R.layout.select_langauge);
+        d.setCancelable(false);
+
+        Button b =d.findViewById(R.id.lang_ok);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                d.dismiss();
+            }
+        });
+        d.show();
 
     }
 
@@ -73,7 +88,7 @@ public class IntroActivity extends FragmentActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if (currentUser != null) {
- //user signed up  with required info previosly
+            //user signed up  with required info previosly
            /* startActivity(new Intent(getApplicationContext(), Dashboard.class));
             overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             finish();*/
@@ -82,6 +97,7 @@ public class IntroActivity extends FragmentActivity {
 
         // [END_EXCLUDE]
     }
+
     public void onBackPressed() {
         createDialog();
     }

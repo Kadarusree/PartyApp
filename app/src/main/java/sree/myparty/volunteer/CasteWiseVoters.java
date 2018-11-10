@@ -292,6 +292,7 @@ public class CasteWiseVoters extends AppCompatActivity {
 
     public void save(VoterPojo mVoter) {
         String key = mReference.push().getKey();
+        mDialog.setMessage("Saveing...");
         mDialog.show();
         mReference.child(key).setValue(mVoter).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -480,7 +481,7 @@ public class CasteWiseVoters extends AppCompatActivity {
         mDialog.setMessage("Loading Parties");
         mDialog.show();
         MyApplication.getFirebaseDatabase()
-                .getReference(Constants.DB_PATH + "/Parties")
+                .getReference(Constants.STATE + "/Parties")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
