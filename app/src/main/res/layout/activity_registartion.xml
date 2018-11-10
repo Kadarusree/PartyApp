@@ -54,6 +54,8 @@
                 android:maxLength="50"
                 android:drawableLeft="@drawable/ic_id"
                 android:textColor="@color/colorWhite"
+                android:imeOptions="actionNext"
+                android:singleLine="true"
                 />
 
         </android.support.design.widget.TextInputLayout>
@@ -72,6 +74,8 @@
                 android:maxLength="10"
                 android:drawableLeft="@drawable/ic_id"
                 android:textColor="@color/colorWhite"
+                android:imeOptions="actionNext"
+                android:singleLine="true"
                 />
 
         </android.support.design.widget.TextInputLayout>
