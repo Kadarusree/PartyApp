@@ -49,6 +49,7 @@ public class OTP_Activity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     PinEntryView pinEntry;
     String vfId;
+
     ProgressDialog progressDialog;
     String voterId, mobile_number, username;
     SessionManager sessionManager;
