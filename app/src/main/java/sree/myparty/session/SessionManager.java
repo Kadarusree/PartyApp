@@ -118,6 +118,7 @@ public class SessionManager {
         mEditor.putString(BOOTH_NUMBER, mPojo.getBoth_number());
 
         Constants.ASSEMBLY_CONST = mPojo.getAc_name();
+        Constants.STATE = mPojo.getState_name();
 
         mEditor.commit();
 

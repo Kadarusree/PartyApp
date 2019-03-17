@@ -60,6 +60,7 @@ import sree.myparty.constuecies.Booths;
 import sree.myparty.constuecies.Parser;
 import sree.myparty.misc.GiftFragmentDilaog;
 import sree.myparty.pojos.UserDetailPojo;
+import sree.myparty.pojos.VolunteerPojo;
 import sree.myparty.session.SessionManager;
 import sree.myparty.utils.ActivityLauncher;
 import sree.myparty.utils.Constants;
@@ -186,7 +187,11 @@ public abstract class BaseActvity extends AppCompatActivity
         } else if (id == R.id.nav_admi_login) {
             ActivityLauncher.adminLogin(getApplicationContext());
 
-        } else if (id == R.id.nav_manage) {
+        }
+        else if(id == R.id.nav_ac_admin_lregis){
+            isAdmin();
+        }
+            else if (id == R.id.nav_manage) {
             final FirebaseAuth auth = FirebaseAuth.getInstance();
 
             DatabaseReference referenced = MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH + "/Users/" + auth.getUid());
@@ -317,5 +322,34 @@ public abstract class BaseActvity extends AppCompatActivity
         });
     }
 
+    boolean yesVoluteer ;
+    public void isAdmin(){
+        MyApplication.getFirebaseDatabase().getReference(Constants.DB_PATH+"/Admins").child(sessionManager.getRegID()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue()!=null){
+                    VolunteerPojo mVolunteer = dataSnapshot.getValue(VolunteerPojo.class);
+                    if (mVolunteer!=null){
+                        yesVoluteer = true;
+                        if (mVolunteer.isAccepted()){
+                            ActivityLauncher.adminLogin(BaseActvity.this);
+                        }
+                        else {
+                            Constants.showToast("Your application is pending for approval",BaseActvity.this);
+                        }
+                    }
+
+                }
+                else {
+                    ActivityLauncher.adminRegis(BaseActvity.this);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 
 }

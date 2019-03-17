@@ -39,6 +39,12 @@
             android:id="@+id/nav_vol_lregis"
             android:icon="@drawable/sign_in"
             android:title="Volunteer Registration" />
+
+
+        <item
+            android:id="@+id/nav_ac_admin_lregis"
+            android:icon="@drawable/sign_in"
+            android:title="AC Admin Registration" />
         <item
             android:id="@+id/nav_vol_login"
             android:icon="@drawable/volunteer_icon"

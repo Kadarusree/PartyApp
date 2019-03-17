@@ -312,12 +312,15 @@
             android:name=".admin.VolunteerLocationsList"
             android:parentActivityName=".admin.VolunteerList"
             android:screenOrientation="portrait" />
-        <activity android:name=".admin.BoothwiseVoterList"
+        <activity
+            android:name=".admin.BoothwiseVoterList"
             android:parentActivityName=".admin.AdminDashboard"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".admin.VoterEditForm"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".admin.VoterEditForm"
             android:parentActivityName=".admin.BoothwiseVoterList"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".admin.AC_Admin_Application"></activity>
     </application>
 
 </manifest>

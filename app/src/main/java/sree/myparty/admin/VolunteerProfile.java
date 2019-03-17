@@ -28,6 +28,7 @@ import sree.myparty.MyApplication;
 import sree.myparty.R;
 import sree.myparty.beans.VisitPojo;
 import sree.myparty.beans.VolunteerLocationPojo;
+import sree.myparty.pojos.ACAdminPojo;
 import sree.myparty.pojos.LatLng;
 import sree.myparty.pojos.VolunteerPojo;
 import sree.myparty.session.SessionManager;
@@ -79,19 +80,40 @@ public class VolunteerProfile extends AppCompatActivity implements OnMapReadyCal
                 .findFragmentById(R.id.vol_map);
         mapFragment.getMapAsync(this);
 
-        VolunteerPojo mVol = mGetVolunteer();
-        name.setText("Name : " + mVol.getName());
-        mRefNumber.setText(mVol.getRegID());
-        mobileNumber.setText("Mobile Number : " + mVol.getMobileNumber());
-        boothNumber.setText("Booth Number : " + mVol.getBoothnumber());
-        committee.setText("Committee : " + mVol.getCommitte());
-        position.setText("Position : " + mVol.getPosition());
 
-        Glide.with(this).load(mVol.getQr_URl()).into(mQRcode);
-        loadImage(this, mProfilePic, mVol.getProfilePic());
-        getCount();
+        if(Constants.vAdmin){
+            ACAdminPojo mVol = getAdmin();
+            name.setText("Name : " + mVol.getName());
+            mRefNumber.setText(mVol.getRegID());
+            mobileNumber.setText("Mobile Number : " + mVol.getMobileNumber());
+            boothNumber.setText("Booth Number : " + mVol.getBoothnumber());
+            committee.setText("");
+            position.setText("");
 
-        getSupportActionBar().setTitle(mVol.getName());
+            Glide.with(this).load(mVol.getQr_URl()).into(mQRcode);
+            loadImage(this, mProfilePic, mVol.getProfilePic());
+          //  getCount();
+
+
+
+            getSupportActionBar().setTitle(mVol.getName());
+        }
+        else {
+            VolunteerPojo mVol = mGetVolunteer();
+            name.setText("Name : " + mVol.getName());
+            mRefNumber.setText(mVol.getRegID());
+            mobileNumber.setText("Mobile Number : " + mVol.getMobileNumber());
+            boothNumber.setText("Booth Number : " + mVol.getBoothnumber());
+            committee.setText("Committee : " + mVol.getCommitte());
+            position.setText("Position : " + mVol.getPosition());
+
+            Glide.with(this).load(mVol.getQr_URl()).into(mQRcode);
+            loadImage(this, mProfilePic, mVol.getProfilePic());
+            getCount();
+
+            getSupportActionBar().setTitle(mVol.getName());
+        }
+
 
 
     }
@@ -99,7 +121,11 @@ public class VolunteerProfile extends AppCompatActivity implements OnMapReadyCal
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        getLocation();
+
+        if(!Constants.vAdmin){
+            getLocation();
+
+        }
 
 
 
@@ -113,6 +139,12 @@ public class VolunteerProfile extends AppCompatActivity implements OnMapReadyCal
         return mVoluneer;
     }
 
+    public ACAdminPojo getAdmin() {
+        ACAdminPojo mVoluneer = null;
+        Intent i = getIntent();
+        mVoluneer = (ACAdminPojo) i.getSerializableExtra("Volunteer");
+        return mVoluneer;
+    }
     public static void loadImage(final Activity context, ImageView imageView, String url) {
         if (context == null || context.isDestroyed()) return;
 
@@ -189,9 +221,14 @@ public class VolunteerProfile extends AppCompatActivity implements OnMapReadyCal
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
                         Constants.showToast("Last login location not available", VolunteerProfile.this);
-
                     }
                 });
 
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Constants.vAdmin = false;
     }
 }

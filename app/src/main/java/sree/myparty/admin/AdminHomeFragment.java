@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import sree.myparty.R;
 import sree.myparty.utils.ActivityLauncher;
@@ -16,6 +17,8 @@ public class AdminHomeFragment extends Fragment implements View.OnClickListener 
 
 
     LinearLayout db_opt1, db_opt2, db_opt3, db_opt4, db_opt5, db_opt6, db_opt7, db_opt8, db_opt9, db_opt10;
+
+    TextView admins;
 
     @Nullable
     @Override
@@ -32,7 +35,11 @@ public class AdminHomeFragment extends Fragment implements View.OnClickListener 
         db_opt8 = (LinearLayout) v.findViewById(R.id.admin_db_opt8);
         db_opt9 = (LinearLayout) v.findViewById(R.id.admin_db_opt9);
         db_opt10 = (LinearLayout) v.findViewById(R.id.admin_db_opt10);
+        admins = v.findViewById(R.id.tv);
 
+                if(Constants.isMaster){
+            admins.setText("MANAGE ADMINS AND VOLUNTEERS");
+                }
 
         db_opt1.setOnClickListener(this);
         db_opt2.setOnClickListener(this);

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import sree.myparty.DashBoard.ProfileScreen;
+import sree.myparty.admin.AC_Admin_Application;
 import sree.myparty.admin.AdminDashboard;
 import sree.myparty.admin.AdminLogin;
 
@@ -211,6 +212,11 @@ public class ActivityLauncher {
 
     public static void launchVoterEdit(Context mContext) {
         mContext.startActivity(new Intent(mContext, VoterEditForm.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+
+    }
+
+    public static void adminRegis(Context applicationContext) {
+        applicationContext.startActivity(new Intent(applicationContext, AC_Admin_Application.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 
     }
 }

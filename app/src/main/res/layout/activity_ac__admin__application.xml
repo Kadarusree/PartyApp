@@ -25,28 +25,63 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.25"
-            android:id="@+id/tv_admin_laningText"
+            android:id="@+id/tv_vol_laningText"
             android:textColor="@color/colorWhite"
             android:layout_gravity="center"
             android:gravity="center"
-            android:textSize="18dp"
+            android:textSize="14dp"
             />
     </LinearLayout>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
-        android:padding="30dp"
-        android:layout_weight="0.35">
+        android:layout_weight="0.5">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.06"
+            android:id="@+id/ac_admin_appln_pc"
+            android:textColor="@color/colorWhite"
+            android:layout_gravity="center"
+            android:gravity="left|center"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:textSize="14dp"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.08"
+            android:id="@+id/ac_admin_appln_ac"
+            android:textColor="@color/colorWhite"
+            android:layout_gravity="center"
+            android:gravity="left|center"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:textSize="14dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.06"
+            android:id="@+id/ac_admin_appln_booth"
+            android:textColor="@color/colorWhite"
+            android:layout_gravity="center"
+            android:gravity="left|center"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:textSize="14dp"
+            />
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.1"
+            android:layout_weight="0.15"
             app:hintTextAppearance="@style/MyAppearance"
             android:layout_marginTop="4dp">
 
             <EditText
-                android:id="@+id/edt_admin_username"
+                android:id="@+id/edt_vol_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Username"
@@ -59,12 +94,12 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.1"
+            android:layout_weight="0.15"
             app:hintTextAppearance="@style/MyAppearance"
             android:layout_marginTop="4dp">
 
             <EditText
-                android:id="@+id/edt_admin_password"
+                android:id="@+id/edt_vol_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
@@ -77,48 +112,27 @@
 
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.1">
-
-        <CheckBox
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:id="@+id/rb_master"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center_horizontal"
-            android:text="Iam a Master Admin"
-            android:textColor="#ffffff"
-            android:textStyle="bold"
-            />
-    </RelativeLayout>
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.2">
+        android:layout_weight="0.15">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.15">
+            android:layout_weight="0.1">
 
             <Button
                 android:layout_width="200dp"
                 android:layout_height="50dp"
-                android:id="@+id/btn_admin_login"
+                android:id="@+id/btn_vol_register"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_centerInParent="true"
                 android:layout_gravity="center_horizontal"
-                android:text="Login"
+                android:text="Register"
                 android:textColor="#ffffff"
                 android:textStyle="bold"
-                android:onClick="Login"
                 android:background="@drawable/button_backround"
                 />
         </RelativeLayout>

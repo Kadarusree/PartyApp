@@ -31,11 +31,13 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import sree.myparty.Adapters.AdminsListAdapter;
 import sree.myparty.Adapters.InfluencePersonAdapter;
 import sree.myparty.Adapters.VolunteersListAdapter;
 import sree.myparty.MyApplication;
 import sree.myparty.R;
 import sree.myparty.constuecies.Booth;
+import sree.myparty.pojos.ACAdminPojo;
 import sree.myparty.pojos.Album;
 import sree.myparty.pojos.InfluPerson;
 import sree.myparty.pojos.VolunteerPojo;
@@ -50,8 +52,13 @@ public class VolunteerList extends AppCompatActivity {
     AlertDialog mDialog;
 
     private RecyclerView recyclerView;
+    private RecyclerView recyclerView2;
     private List<VolunteerPojo> volunteerList;
+    private List<ACAdminPojo> adminsList;
+
     private VolunteersListAdapter mAdapter;
+    private AdminsListAdapter adminAdapter;
+
 
     private List<Album> albumList;
 
@@ -77,12 +84,21 @@ public class VolunteerList extends AppCompatActivity {
     @BindView(R.id.layout_booth)
     LinearLayout boothslayout;
 
+
+    LinearLayout adminLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_volunteer_list);
         ButterKnife.bind(this);
         volunteerList = new ArrayList<>();
+        adminsList = new ArrayList<>();
+
+        adminLayout = findViewById(R.id.adminsLayout);
+
+
+
 
         mDialog = Constants.showDialog(this);
 
@@ -90,9 +106,11 @@ public class VolunteerList extends AppCompatActivity {
         boothNames = new ArrayList<>();
 
         recyclerView = (RecyclerView) findViewById(R.id.list_volunteers);
+        recyclerView2 = (RecyclerView) findViewById(R.id.list_admins);
 
         albumList = new ArrayList<>();
         mAdapter = new VolunteersListAdapter(this, volunteerList);
+        adminAdapter = new AdminsListAdapter(this, adminsList);
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(mLayoutManager);
@@ -100,8 +118,26 @@ public class VolunteerList extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
 
+        RecyclerView.LayoutManager mLayoutManager2 = new GridLayoutManager(this, 2);
+
+        recyclerView2.setLayoutManager(mLayoutManager2);
+        recyclerView2.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
+        recyclerView2.setItemAnimator(new DefaultItemAnimator());
+        recyclerView2.setAdapter(adminAdapter);
+
         rb_all.setChecked(true);
         getAllVolunteers();
+
+
+        if(Constants.isMaster){
+            adminLayout.setVisibility(View.VISIBLE);
+getAllAdmins();
+        }
+        else{
+            adminLayout.setVisibility(View.GONE);
+        }
+        getAllAdmins();
+
         boothslayout.setVisibility(View.GONE);
         rb_all.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -199,6 +235,30 @@ public class VolunteerList extends AppCompatActivity {
                 });
     }
 
+    private void getAllAdmins() {
+        MyApplication.getFirebaseDatabase()
+                .getReference(Constants.DB_PATH + "/Admins")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        adminsList.clear();
+                        for (DataSnapshot indi : dataSnapshot.getChildren()) {
+                            ACAdminPojo volItem = indi.getValue(ACAdminPojo.class);
+                            adminsList.add(volItem);
+                        }
+
+                        if (volunteerList.size() == 0) {
+                            Constants.showToast("No Admin Found", VolunteerList.this);
+                        }
+                        adminAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+    }
 
     public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
 
